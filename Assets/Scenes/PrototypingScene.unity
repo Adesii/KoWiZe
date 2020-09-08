@@ -455,7 +455,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3c3717372a118dd4f807bed02a7c152d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  childCamera: {fileID: 1531438585}
+  childCamera: {fileID: 1531438587}
   moveSpeed: 10
   defaultZoomLevel: 30
   mouseSensitivityCurve:
