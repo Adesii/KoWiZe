@@ -11,10 +11,9 @@ public class planeCamera : MonoBehaviour
     [Header("Movement Settings")]
     public float moveSpeed = 10f;
     public float defaultZoomLevel = 30f;
+    public float zoomSens = 10f;
 
     [Header("Rotation Settings")]
-    [Tooltip("X = Change in mouse position.\nY = Multiplicative factor for camera rotation.")]
-    public AnimationCurve mouseSensitivityCurve = new AnimationCurve(new Keyframe(0f, 0.5f, 0f, 5f), new Keyframe(1f, 2.5f, 0f, 0f));
     [Tooltip("Mouse Sensitivity.")]
     public float mouseSens = 1.0f;
 
@@ -27,22 +26,34 @@ public class planeCamera : MonoBehaviour
         
     }
 
+    Vector3 origin;
+    Vector3 Difference;
+    Vector3 transformOrigin;
     // Update is called once per frame
     void Update()
     {
+        Ray ray = childCamera.ScreenPointToRay(Input.mousePosition);
+        RaycastHit hit;
+        if (Physics.Raycast(ray,out hit))
+        {
+        
         if (Input.GetMouseButtonDown(0))
         {
-            //create a ray cast and set it to the mouses cursor position in game
-            Ray ray = childCamera.ScreenPointToRay(Input.mousePosition);
-            RaycastHit hit;
-            if (Physics.Raycast(ray, out hit, 9999))
-            {
-                //draw invisible ray cast/vector
-                Debug.DrawLine(ray.origin, hit.point);
-                //log hit area to the console
-                Debug.Log(hit.point);
+            origin = hit.point;
+            Debug.Log(origin);
+            transformOrigin = transform.position;
 
-            }
+        }
+        if (Input.GetMouseButton(0))
+        {
+            Difference = hit.point;
+            origin.y = 0;
+            Difference.y = 0;
+            transformOrigin.y = 0;
+            Debug.Log(origin+";;;"+Difference+";;;"+transformOrigin);
+            transform.position = transform.position+(origin - Difference);
+
+        }
         }
     }
 
