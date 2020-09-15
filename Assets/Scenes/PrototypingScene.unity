@@ -456,10 +456,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   childCamera: {fileID: 1531438587}
-  moveSpeed: 10
+  moveSpeed: 20
   defaultZoomLevel: 30
   zoomSens: 10
-  mouseSens: 1
+  RotateSens: 60
   FOV: 80
 --- !u!4 &1568331910
 Transform:
