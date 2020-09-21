@@ -26,7 +26,7 @@ public class chunkGenerator : MonoBehaviour
     public int numberOfChunks;
 
     [Header("Generation Settings")]
-    public string seed = "Toyota";
+    public string seed;
     public WorldTypes type;
     public float noiseScale;
     public float noiseAmplitut;
@@ -54,11 +54,12 @@ public class chunkGenerator : MonoBehaviour
 
     public void Generate()
     {
-        for (int x = -numberOfChunks; x < numberOfChunks; x++)
+        int randomOffset = UnityEngine.Random.Range(-100, 100);
+        for (int x = 0; x < numberOfChunks; x++)
         {
-            for (int z = -numberOfChunks; z < numberOfChunks; z++)
+            for (int z = 0; z < numberOfChunks; z++)
             {
-                chunkObject chunkGameObject = new chunkObject(new GameObject("Chunk_" + x + "_" + z), new Vector3Int(x * width, 0, z * width), transform, tempMaterial);
+                chunkObject chunkGameObject = new chunkObject(new GameObject("Chunk_" + x + "_" + z), new Vector3Int((int)(x * width), 0, (int)(z * width)), transform, tempMaterial, randomOffset);
                 chunksList.Add(chunkGameObject);
                 
                 
@@ -66,7 +67,7 @@ public class chunkGenerator : MonoBehaviour
         }
         foreach (var item in chunksList)
         {
-            GenerateMeshes(item, LODLevels.LOD2);
+            GenerateMeshes(item, LODLevels.LOD0);
         }
     }
     private void OnDrawGizmos()
@@ -90,27 +91,42 @@ public class chunkGenerator : MonoBehaviour
         switch (quality)
         {
             case LODLevels.LOD0:
-                resolution = 128f;
+                resolution = 128;
                 break;
             case LODLevels.LOD1:
-                resolution = 64f;
+                resolution = 64;
                 break;
             case LODLevels.LOD2:
-                resolution = 16f;
+                resolution = 16;
                 break;
             case LODLevels.LOD3:
-                resolution = 8f;
+                resolution = 8;
                 break;
         }
         Mesh tempMesh = new Mesh();
-        Vector3[] tempVerts = new Vector3[width * width];
-        int[] tris = new int[width * width * 6];
+        Vector3[] tempVerts = new Vector3[(int)((resolution+1) * (resolution+1))];
+        int[] tris = new int[(int)((resolution+1) * (resolution+1) * 6)];
         for (int x = 0; x < resolution+1; x++)
         {
             for (int z = 0; z < resolution+1; z++)
             {
-                float heightNoise = noiseGen.coherentNoise(((x / resolution) * width) + (chunk.position.x), 0f, ((z / resolution) * width) + (chunk.position.z), 10,100,4);
-                tempVerts[x+(int)(resolution+1f)*z]=new Vector3(((x / resolution) * width)-(width/2),heightNoise+1f, ((z / resolution) * width)-(width / 2));
+                float posx= ((x / resolution) * width) +(chunk.position.x);
+                float posz = ((z / resolution) * width) + (chunk.position.z);
+                float heightNoise = noiseGen.coherentNoise(posx*0.25f, 0f, posz*0.25f, 2,50,1);
+                float multiplyNoise = noiseGen.coherentNoise(posx*0.5f, 0f, posz * 0.5f,2,100,4);
+                if (multiplyNoise * 10 > heightNoise) {
+
+                    heightNoise = Mathf.Lerp(heightNoise, (multiplyNoise * 10f), Mathf.Clamp01(multiplyNoise));
+                    if (Mathf.Clamp01(heightNoise) > 0.05f)
+                    {
+                        multiplyNoise = noiseGen.coherentNoise(posx*0.125f, 0f, posz*0.125f, 3, 10, 4);
+                        heightNoise += Mathf.Lerp(heightNoise, multiplyNoise, Mathf.Clamp01(heightNoise));
+                    }
+                }
+                //Debug.Log(tempVerts.Length+"/"+(x + (resolution + 1) * z));
+                tempVerts[x+(int)(resolution+1f)*z]=
+                    new Vector3(((x / resolution) * width)-(width/2f),heightNoise,
+                    ((z / resolution) * width)-(width / 2));
             }
         }
         int trisIndex = 0;
@@ -147,16 +163,19 @@ public class chunkGenerator : MonoBehaviour
         public Vector3Int position;
         public MeshFilter meshFil;
         public MeshRenderer meshRen;
+        public MeshCollider meshCol;
         public Mesh mesh;
         public Vector3[] verts; 
 
 
-        public chunkObject(GameObject chunk,Vector3Int position,Transform parent,Material tempMaterial)
+        public chunkObject(GameObject chunk,Vector3Int position,Transform parent,Material tempMaterial,int randomOffset)
         {
             chunkGameObject = chunk;
-            this.position = position;
+            Vector3Int newPos = new Vector3Int(position.x + randomOffset, 0, position.z + randomOffset);
+            this.position = newPos;
             meshFil=chunkGameObject.AddComponent<MeshFilter>();
             meshRen = chunkGameObject.AddComponent<MeshRenderer>();
+            meshCol = chunkGameObject.AddComponent<MeshCollider>();
             chunkGameObject.transform.parent = parent;
             chunkGameObject.transform.position = position;
             meshRen.material = tempMaterial;
@@ -164,11 +183,12 @@ public class chunkGenerator : MonoBehaviour
         public void setMesh(Mesh newMesh)
         {
             newMesh.RecalculateNormals();
-            
+            meshCol.sharedMesh = newMesh;
             mesh = newMesh;
             meshFil.mesh = newMesh;
+
         }
     }
 
-
+    
 }

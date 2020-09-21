@@ -38,6 +38,7 @@ public class planeCamera : MonoBehaviour
     // Update is called once per frame
     void LateUpdate()
     {
+        
         moveView();
         rotateView();
         zoomCamera();
@@ -47,49 +48,57 @@ public class planeCamera : MonoBehaviour
         {
             if (hit.transform.position.x - transform.position.x < 30*zoomLevel && hit.transform.position.z - transform.position.z < 20*zoomLevel)
             {
-                Debug.Log(hit.transform.position.z - transform.position.z);
+
                 panView(hit);
             }
            
         }
-
+        heightAdjust();
     }
-
+    private void heightAdjust()
+    {
+        Ray ray = new Ray(transform.position+new Vector3(0,10000,0), -transform.up);
+        RaycastHit hit;
+        if (Physics.Raycast(ray, out hit))
+        {
+            transform.position = Vector3.Lerp(transform.position,hit.point, Time.deltaTime * 5f);
+            Debug.Log(hit.point);
+        }
+    }
     private void zoomCamera()
     {
-        if(Input.GetAxis("Mouse ScrollWheel") < 0 && childCamera.transform.position.y < 120)
-        {
-            
-            if(Input.GetAxis("Speed") != 0)
+            if (Input.GetAxis("Mouse ScrollWheel") < 0 && zoomLevel < 120)
             {
-                zoomLevel -= Input.GetAxis("Mouse ScrollWheel") * zoomSens*2;
+
+                if (Input.GetAxis("Speed") != 0)
+                {
+                    zoomLevel -= Input.GetAxis("Mouse ScrollWheel") * zoomSens * 2;
+                }
+                else
+                {
+                    zoomLevel -= Input.GetAxis("Mouse ScrollWheel") * zoomSens;
+                }
+
             }
-            else
+            else if (Input.GetAxis("Mouse ScrollWheel") > 0 && zoomLevel > 10)
             {
-                zoomLevel -= Input.GetAxis("Mouse ScrollWheel") * zoomSens;
+                if (Input.GetAxis("Speed") != 0)
+                {
+                    zoomLevel -= Input.GetAxis("Mouse ScrollWheel") * zoomSens * 2;
+                }
+                else
+                {
+                    zoomLevel -= Input.GetAxis("Mouse ScrollWheel") * zoomSens;
+                }
+
             }
 
-        }
-        else if(Input.GetAxis("Mouse ScrollWheel") > 0 && childCamera.transform.position.y > 10)
-        {
-            if (Input.GetAxis("Speed") != 0)
-            {
-                zoomLevel -= Input.GetAxis("Mouse ScrollWheel") * zoomSens * 2;
-            }
-            else
-            {
-                zoomLevel -= Input.GetAxis("Mouse ScrollWheel") * zoomSens;
-            }
-            
-        }
-        if (zoomLevel < 10 || zoomLevel>120)
-        {
-            zoomLevel = childCamera.transform.position.y;
-        }
-        Vector3 height = childCamera.transform.position;
-        height.y = zoomLevel;
-        childCamera.transform.position = height;
-        childCamera.transform.LookAt(transform);
+            Vector3 height = childCamera.transform.position;
+            height.y = zoomLevel + transform.position.y + transform.position.y;
+            childCamera.transform.position = height;
+            childCamera.transform.LookAt(transform);
+        
+        
     }
     private void rotateView()
     {
