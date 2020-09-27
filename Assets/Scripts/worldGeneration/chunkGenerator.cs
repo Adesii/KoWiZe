@@ -27,7 +27,7 @@ public class chunkGenerator : MonoBehaviour
 
     [Header("Generation Settings")]
     public string seed;
-    public WorldTypes type;
+    public WorldTypes worldType;
     public float noiseScale;
     public float noiseAmplitut;
 
