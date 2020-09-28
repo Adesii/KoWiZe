@@ -13,54 +13,36 @@ MonoBehaviour:
   m_Name: something
   m_EditorClassIdentifier: 
   seed: Toyota
-  sizeX: 8
-  sizeZ: 8
+  sizeX: 3
+  sizeZ: 3
   noiseLayers:
-  - offset: {x: 0, y: 0, z: 0}
+  - offset: {x: 100, y: -23.82, z: 0}
     seed: 
     noiseMapResolution: 256
-    octaves: 3
-    multiplier: 31
-    amplitute: 0.5
-    lacunarity: 2
+    octaves: 10
+    multiplier: 1674
+    amplitute: 3.28
+    lacunarity: -0.05
     persistance: 0.9
-    sizeScale: {x: 1, y: 1}
-    blendMode: 0
-    min: 0
-    max: 1
-  - offset: {x: 0, y: 0, z: 0}
+    sizeScalex: 1
+    sizeScalez: 1
+    blendMode: 4
+    min: -11.55
+    max: 58.4
+    MultiplicationOfFinal: 66.8
+    subtraction: 31.5
+  - offset: {x: 0, y: -23.82, z: 0}
     seed: 
     noiseMapResolution: 256
     octaves: 1
-    multiplier: 73
-    amplitute: 0.78
-    lacunarity: 2.78
-    persistance: 1.63
-    sizeScale: {x: 3.53, y: 1}
-    blendMode: 1
-    min: 0
-    max: 1
-  - offset: {x: 0, y: 0, z: 0}
-    seed: 
-    noiseMapResolution: 256
-    octaves: 1
-    multiplier: 75
-    amplitute: 1.4
-    lacunarity: 0.83
-    persistance: 0.91
-    sizeScale: {x: 1, y: 1}
-    blendMode: 1
-    min: 0
-    max: 1
-  - offset: {x: 0, y: 0, z: 0}
-    seed: 
-    noiseMapResolution: 256
-    octaves: 2
-    multiplier: 10
-    amplitute: 0.28
-    lacunarity: 10.1
-    persistance: 0.72
-    sizeScale: {x: 3.53, y: 1}
+    multiplier: 55
+    amplitute: 2.18
+    lacunarity: 1.66
+    persistance: 0.9
+    sizeScalex: 1
+    sizeScalez: 1
     blendMode: 2
-    min: 0
-    max: 1
+    min: -10.5
+    max: 77.98
+    MultiplicationOfFinal: 52.8
+    subtraction: 27.4

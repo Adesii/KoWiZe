@@ -10,9 +10,13 @@ public class chunkGenerator : MonoBehaviour
     //ChunkSettings
     public static int height = 32;
     public static int width = 32;
+    public bool LiveEdit = false;
 
 
     public Material tempMaterial;
+
+    public WorldTypes noiseMapGenerator;
+    float[,] noiseMap;
 
     public enum LODLevels
     {
@@ -23,16 +27,8 @@ public class chunkGenerator : MonoBehaviour
     }
 
     //world Settings
-    public int numberOfChunks;
-
-    [Header("Generation Settings")]
-    public string seed;
-    public WorldTypes worldType;
-    public float noiseScale;
-    public float noiseAmplitut;
 
     //generic Variables
-    SimplexNoiseGenerator noiseGen;
     List<chunkObject> chunksList = new List<chunkObject>();
     List<chunkObject> activeChunks;
 
@@ -42,24 +38,41 @@ public class chunkGenerator : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        noiseGen = new SimplexNoiseGenerator(seed);
-        Generate();
+        StartCoroutine(Generate());
     }
 
     // Update is called once per frame
     void Update()
     {
+        if (LiveEdit)
+        {
+
         
+        foreach (var item in chunksList)
+        {
+            if (item != null)
+                GenerateMeshes(item, LODLevels.LOD2);
+        }
+        }
+    }
+    public void RegenerateALL()
+    {
+        StopAllCoroutines();
+        chunksList = new List<chunkObject>();
+        for (int i = 0; i < transform.childCount; i++)
+        {
+            Destroy(transform.GetChild(i).gameObject);
+        }
+        StartCoroutine(Generate());
     }
 
-    public void Generate()
+    public IEnumerator Generate()
     {
-        int randomOffset = UnityEngine.Random.Range(-100, 100);
-        for (int x = 0; x < numberOfChunks; x++)
+        for (int x = 0; x < noiseMapGenerator.sizeX; x++)
         {
-            for (int z = 0; z < numberOfChunks; z++)
+            for (int z = 0; z < noiseMapGenerator.sizeZ; z++)
             {
-                chunkObject chunkGameObject = new chunkObject(new GameObject("Chunk_" + x + "_" + z), new Vector3Int((int)(x * width), 0, (int)(z * width)), transform, tempMaterial, randomOffset);
+                chunkObject chunkGameObject = new chunkObject(new GameObject("Chunk_" + x + "_" + z), new Vector3Int((int)(x * width), 0, (int)(z * width)), transform, tempMaterial);
                 chunksList.Add(chunkGameObject);
                 
                 
@@ -67,7 +80,8 @@ public class chunkGenerator : MonoBehaviour
         }
         foreach (var item in chunksList)
         {
-            GenerateMeshes(item, LODLevels.LOD0);
+            GenerateMeshes(item, LODLevels.LOD2);
+            yield return new WaitForSeconds(0.05f);
         }
     }
     private void OnDrawGizmos()
@@ -78,10 +92,6 @@ public class chunkGenerator : MonoBehaviour
             {
                 Gizmos.DrawSphere(debugDrawChunk.verts[i]+debugDrawChunk.position, 0.1f);
             }
-            for (int i = 0; i < chunksList.Count; i++)
-            {
-                Gizmos.DrawWireCube(chunksList[i].position, new Vector3(width, height, width));
-            }
         }
         
     }
@@ -91,58 +101,97 @@ public class chunkGenerator : MonoBehaviour
         switch (quality)
         {
             case LODLevels.LOD0:
-                resolution = 128;
+                resolution = 129;
                 break;
             case LODLevels.LOD1:
-                resolution = 64;
+                resolution = 65;
                 break;
             case LODLevels.LOD2:
-                resolution = 16;
+                resolution = 17;
                 break;
             case LODLevels.LOD3:
-                resolution = 8;
+                resolution = 9;
                 break;
         }
         Mesh tempMesh = new Mesh();
-        Vector3[] tempVerts = new Vector3[(int)((resolution+1) * (resolution+1))];
-        int[] tris = new int[(int)((resolution+1) * (resolution+1) * 6)];
+        List<Vector3> tempVerts = new List<Vector3>();
+        List<int> tris = new List<int>();
+
+
+        float[,] lastPixel = new float[noiseMapGenerator.noiseLayers[0].noiseMapResolution, noiseMapGenerator.noiseLayers[0].noiseMapResolution];
+        float[,] noiseMap = new float[(int)resolution + 1, (int)resolution + 1];
+        for (int i = 0; i < noiseMapGenerator.noiseLayers.Count; i++)
+        {
+            LayerGen noiseGen = noiseMapGenerator.noiseLayers[i];
+            for (int x = 0; x < resolution+1; x++)
+            {
+                for (int z = 0; z < resolution+1; z++)
+                {
+                    float posx = ((x / resolution) * width) + (chunk.position.x);
+                    float posz = ((z / resolution) * width) + (chunk.position.z);
+                    float noiseFloat = noiseGen.getNoiseMap(posx, posz);
+                    
+                        switch (noiseGen.blendMode)
+                        {
+                            case LayerGen.BlendModes.Multiply:
+                                noiseFloat = noiseFloat * lastPixel[x, z];
+
+                                break;
+                            case LayerGen.BlendModes.Subtract:
+                                noiseFloat =  lastPixel[x, z] - noiseFloat;
+
+                                break;
+                            case LayerGen.BlendModes.Add:
+                                noiseFloat = noiseFloat + lastPixel[x, z];
+
+                                break;
+                            case LayerGen.BlendModes.Divide:
+                                noiseFloat =  lastPixel[x, z]/noiseFloat;
+                                break;
+                            case LayerGen.BlendModes.Mask:
+                                if (noiseFloat < lastPixel[x, z] + noiseGen.min)
+                                {
+                                    noiseFloat = lastPixel[x, z];
+                                }
+                                if(noiseFloat > lastPixel[x, z] + noiseGen.max)
+                                {
+                                    noiseFloat = lastPixel[x, z];
+                                }
+                                break;
+                            default:
+                                break;
+                        }
+                    noiseMap[x, z] = noiseFloat;
+                    lastPixel[x, z] = noiseFloat;
+                   
+                    
+                }
+            }
+
+            
+            
+        }
         for (int x = 0; x < resolution+1; x++)
         {
             for (int z = 0; z < resolution+1; z++)
             {
-                float posx= ((x / resolution) * width) +(chunk.position.x);
-                float posz = ((z / resolution) * width) + (chunk.position.z);
-                float heightNoise = noiseGen.coherentNoise(posx*0.25f, 0f, posz*0.25f, 2,50,1);
-                float multiplyNoise = noiseGen.coherentNoise(posx*0.5f, 0f, posz * 0.5f,2,100,4);
-                if (multiplyNoise * 10 > heightNoise) {
 
-                    heightNoise = Mathf.Lerp(heightNoise, (multiplyNoise * 10f), Mathf.Clamp01(multiplyNoise));
-                    if (Mathf.Clamp01(heightNoise) > 0.05f)
-                    {
-                        multiplyNoise = noiseGen.coherentNoise(posx*0.125f, 0f, posz*0.125f, 3, 10, 4);
-                        heightNoise += Mathf.Lerp(heightNoise, multiplyNoise, Mathf.Clamp01(heightNoise));
-                    }
-                }
-                //Debug.Log(tempVerts.Length+"/"+(x + (resolution + 1) * z));
-                tempVerts[x+(int)(resolution+1f)*z]=
-                    new Vector3(((x / resolution) * width)-(width/2f),heightNoise,
-                    ((z / resolution) * width)-(width / 2));
+                tempVerts.Add(new Vector3(((x / resolution) * width) - (width / 2f), noiseMap[x, z],((z / resolution) * width) - (width / 2)));
             }
         }
+       
         int trisIndex = 0;
         int vert = 0;
         for (int z = 0; z < resolution; z++)
         {
             for (int i = 0; i < resolution; i++)
             {
-
-                tris[trisIndex + 2] = vert;
-                tris[trisIndex + 1] = (int)(vert + resolution + 1 + 1);
-                tris[trisIndex + 0] = (int)(vert + resolution + 1);
-                tris[trisIndex + 5] = vert;
-                tris[trisIndex + 4] = (vert + 1);
-                tris[trisIndex + 3] = (int)(vert + resolution + 1 + 1);
-
+                tris.Add(vert);
+                tris.Add((vert + 1));
+                tris.Add((int)(vert + resolution + 1 + 1));
+                tris.Add(vert);
+                tris.Add((int)(vert + resolution + 1 + 1));
+                tris.Add((int)(vert + resolution + 1));
                 vert++;
                 trisIndex += 6;
             }
@@ -150,11 +199,12 @@ public class chunkGenerator : MonoBehaviour
         }
         
         tempMesh.bounds = new Bounds(chunk.position, new Vector3(width, height, width));
-        tempMesh.vertices = tempVerts;
-        tempMesh.triangles = tris;
+        tempMesh.vertices = tempVerts.ToArray();
+        tempMesh.triangles = tris.ToArray();
         chunk.setMesh(tempMesh);
-        chunk.verts = tempVerts;
+        chunk.verts = tempVerts.ToArray();
         debugDrawChunk = chunk;
+        
     }
 
     public class chunkObject
@@ -168,10 +218,10 @@ public class chunkGenerator : MonoBehaviour
         public Vector3[] verts; 
 
 
-        public chunkObject(GameObject chunk,Vector3Int position,Transform parent,Material tempMaterial,int randomOffset)
+        public chunkObject(GameObject chunk,Vector3Int position,Transform parent,Material tempMaterial)
         {
             chunkGameObject = chunk;
-            Vector3Int newPos = new Vector3Int(position.x + randomOffset, 0, position.z + randomOffset);
+            Vector3Int newPos = new Vector3Int(position.x, 0, position.z);
             this.position = newPos;
             meshFil=chunkGameObject.AddComponent<MeshFilter>();
             meshRen = chunkGameObject.AddComponent<MeshRenderer>();

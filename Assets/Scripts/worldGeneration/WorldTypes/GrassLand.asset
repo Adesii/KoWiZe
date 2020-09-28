@@ -20,23 +20,23 @@ MonoBehaviour:
     seed: 
     noiseMapResolution: 256
     octaves: 5
-    multiplier: 25
+    multiplier: 10
     amplitute: 13.75
     lacunarity: 2
     persistance: 0.9
-    sizeScale: {x: 2.59, y: 1}
-    blendMode: 0
+    sizeScale: {x: 1, y: 1}
+    blendMode: 2
     min: 0
     max: 1
   - offset: {x: 0, y: 0, z: 0}
     seed: 
     noiseMapResolution: 256
     octaves: 2
-    multiplier: 63
-    amplitute: 66.08
+    multiplier: 99
+    amplitute: 1
     lacunarity: 2.75
     persistance: 0.9
     sizeScale: {x: 1, y: 1}
-    blendMode: 0
+    blendMode: 2
     min: 0
     max: 1
