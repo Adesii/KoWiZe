@@ -14,6 +14,7 @@ public class WorldTypes : ScriptableObject
     public string seed = "Toyota";
     public int sizeX = 8;
     public int sizeZ = 8;
+   
     
     [Reorderable]
     public List<LayerGen> noiseLayers = new List<LayerGen>(1);
@@ -33,6 +34,7 @@ public class LayerGen
     public float amplitute = 0.5f;
     public float lacunarity = 2f;
     public float persistance = 0.9f;
+    public AnimationCurve heightCurve = new AnimationCurve(new Keyframe(0, 0), new Keyframe(1, 1));
     [Header("SizeScale")]
     public float sizeScalex =1f;
     public float sizeScalez = 1f;
@@ -44,6 +46,7 @@ public class LayerGen
     public float max = 1f;
     public float MultiplicationOfFinal = 1f;
     public float subtraction = 0f;
+
     public enum BlendModes
     {
         Multiply,
@@ -61,7 +64,9 @@ public class LayerGen
         //Debug.Log(noiseMap[x, z]);
         
         noiseFloat = (noiseFloat + 1) / 2;
+        noiseFloat = heightCurve.Evaluate(noiseFloat);
         noiseFloat *= MultiplicationOfFinal;
+        
         return noiseFloat -subtraction;
     }
 }

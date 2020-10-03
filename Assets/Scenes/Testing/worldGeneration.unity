@@ -304,9 +304,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cdd78e4ce0e9a0742879d9fcc0e7267b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  LiveEdit: 1
+  LiveEdit: 0
   tempMaterial: {fileID: 2100000, guid: c8980c2bb7b1ce242b0b4c568f5bb8c2, type: 2}
-  noiseMapGenerator: {fileID: 11400000, guid: 26e5d0d622d12594e83fe04980910e14, type: 2}
+  noiseMapGenerator: {fileID: 11400000, guid: acb71680d7aeae845abaace571d0b950, type: 2}
 --- !u!4 &975222025
 Transform:
   m_ObjectHideFlags: 0

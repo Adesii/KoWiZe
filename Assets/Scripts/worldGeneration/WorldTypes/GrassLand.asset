@@ -13,30 +13,210 @@ MonoBehaviour:
   m_Name: GrassLand
   m_EditorClassIdentifier: 
   seed: Toyota
-  sizeX: 8
-  sizeZ: 8
+  sizeX: 20
+  sizeZ: 20
   noiseLayers:
   - offset: {x: 0, y: 0, z: 0}
     seed: 
     noiseMapResolution: 256
-    octaves: 5
-    multiplier: 10
-    amplitute: 13.75
-    lacunarity: 2
+    octaves: 1
+    multiplier: 296
+    amplitute: 21.68
+    lacunarity: -6.1
     persistance: 0.9
-    sizeScale: {x: 1, y: 1}
+    heightCurve:
+      serializedVersion: 2
+      m_Curve:
+      - serializedVersion: 3
+        time: 0
+        value: 0
+        inSlope: 0
+        outSlope: 0
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: 0
+        outWeight: 0.3460657
+      - serializedVersion: 3
+        time: 0.6779984
+        value: 0.5966981
+        inSlope: 1.7344201
+        outSlope: 1.7344201
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: 0.05014081
+        outWeight: 0.09854853
+      - serializedVersion: 3
+        time: 1
+        value: 1
+        inSlope: 1.2524842
+        outSlope: 1.2524842
+        tangentMode: 34
+        weightedMode: 0
+        inWeight: 0.33333334
+        outWeight: 0
+      m_PreInfinity: 2
+      m_PostInfinity: 2
+      m_RotationOrder: 4
+    sizeScalex: 1
+    sizeScalez: 1
     blendMode: 2
-    min: 0
-    max: 1
-  - offset: {x: 0, y: 0, z: 0}
+    min: -0.57
+    max: 51.55
+    MultiplicationOfFinal: 20
+    subtraction: 0
+  - offset: {x: 103.93, y: -152.62, z: -51.56}
     seed: 
     noiseMapResolution: 256
-    octaves: 2
-    multiplier: 99
-    amplitute: 1
-    lacunarity: 2.75
+    octaves: 1
+    multiplier: 147
+    amplitute: 2.31
+    lacunarity: 2
     persistance: 0.9
-    sizeScale: {x: 1, y: 1}
+    heightCurve:
+      serializedVersion: 2
+      m_Curve:
+      - serializedVersion: 3
+        time: 0
+        value: 0
+        inSlope: 1
+        outSlope: 1
+        tangentMode: 34
+        weightedMode: 0
+        inWeight: 0
+        outWeight: 0
+      - serializedVersion: 3
+        time: 1
+        value: 1
+        inSlope: 1
+        outSlope: 1
+        tangentMode: 34
+        weightedMode: 0
+        inWeight: 0
+        outWeight: 0
+      m_PreInfinity: 2
+      m_PostInfinity: 2
+      m_RotationOrder: 4
+    sizeScalex: 0.85
+    sizeScalez: 0.75
+    blendMode: 2
+    min: -0.57
+    max: 41.7
+    MultiplicationOfFinal: 9.07
+    subtraction: 0.93
+  - offset: {x: 103.93, y: -152.62, z: -51.56}
+    seed: 
+    noiseMapResolution: 256
+    octaves: 1
+    multiplier: 10000
+    amplitute: 180.91
+    lacunarity: 2
+    persistance: 0.9
+    heightCurve:
+      serializedVersion: 2
+      m_Curve:
+      - serializedVersion: 3
+        time: 0
+        value: 0
+        inSlope: 0
+        outSlope: 0
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: 0
+        outWeight: 0
+      - serializedVersion: 3
+        time: 1
+        value: 1
+        inSlope: 2
+        outSlope: 2
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: 0
+        outWeight: 0
+      m_PreInfinity: 2
+      m_PostInfinity: 2
+      m_RotationOrder: 4
+    sizeScalex: 1
+    sizeScalez: 1
     blendMode: 2
     min: 0
-    max: 1
+    max: 6.33
+    MultiplicationOfFinal: 139.3
+    subtraction: 0
+  - offset: {x: 50, y: 100, z: 20}
+    seed: 
+    noiseMapResolution: 256
+    octaves: 1
+    multiplier: 500
+    amplitute: 20
+    lacunarity: 2
+    persistance: 0.9
+    heightCurve:
+      serializedVersion: 2
+      m_Curve:
+      - serializedVersion: 3
+        time: 0
+        value: 0
+        inSlope: 0
+        outSlope: 0
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: 0
+        outWeight: 0
+      - serializedVersion: 3
+        time: 1
+        value: 1
+        inSlope: 2
+        outSlope: 2
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: 0
+        outWeight: 0
+      m_PreInfinity: 2
+      m_PostInfinity: 2
+      m_RotationOrder: 4
+    sizeScalex: 1
+    sizeScalez: 1
+    blendMode: 4
+    min: 0
+    max: 33.76
+    MultiplicationOfFinal: 100
+    subtraction: 5
+  - offset: {x: 50, y: 100, z: 20}
+    seed: 
+    noiseMapResolution: 256
+    octaves: 1
+    multiplier: 400
+    amplitute: 3.29
+    lacunarity: 1000
+    persistance: 0.26
+    heightCurve:
+      serializedVersion: 2
+      m_Curve:
+      - serializedVersion: 3
+        time: 0
+        value: 0.0023498535
+        inSlope: 0.62464
+        outSlope: 0.62464
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: 0
+        outWeight: 0.08632544
+      - serializedVersion: 3
+        time: 0.545166
+        value: 0.5570564
+        inSlope: 0.5581826
+        outSlope: 0.5581826
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: 0.048892304
+        outWeight: 0
+      m_PreInfinity: 2
+      m_PostInfinity: 2
+      m_RotationOrder: 4
+    sizeScalex: 1
+    sizeScalez: 1
+    blendMode: 2
+    min: 0
+    max: 33.76
+    MultiplicationOfFinal: 1
+    subtraction: 0

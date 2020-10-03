@@ -81,7 +81,7 @@ public class chunkGenerator : MonoBehaviour
         foreach (var item in chunksList)
         {
             GenerateMeshes(item, LODLevels.LOD2);
-            yield return new WaitForSeconds(0.05f);
+            yield return new WaitForSeconds(0.005f);
         }
     }
     private void OnDrawGizmos()
@@ -149,13 +149,9 @@ public class chunkGenerator : MonoBehaviour
                                 noiseFloat =  lastPixel[x, z]/noiseFloat;
                                 break;
                             case LayerGen.BlendModes.Mask:
-                                if (noiseFloat < lastPixel[x, z] + noiseGen.min)
+                                if (noiseFloat > lastPixel[x, z])
                                 {
-                                    noiseFloat = lastPixel[x, z];
-                                }
-                                if(noiseFloat > lastPixel[x, z] + noiseGen.max)
-                                {
-                                    noiseFloat = lastPixel[x, z];
+                                    noiseFloat = noiseMap[x, z];
                                 }
                                 break;
                             default:
@@ -171,6 +167,8 @@ public class chunkGenerator : MonoBehaviour
             
             
         }
+
+        //smoothIteration(noiseMap);
         for (int x = 0; x < resolution+1; x++)
         {
             for (int z = 0; z < resolution+1; z++)
@@ -206,7 +204,18 @@ public class chunkGenerator : MonoBehaviour
         debugDrawChunk = chunk;
         
     }
-
+    /*
+    private void smoothIteration(float[,] noiseMap)
+    {
+        for (int x = 0; x < width; x++)
+        {
+            for (int z = 0; z < height; z++)
+            {
+                noiseMap[x,z]
+            }
+        }
+    }
+    */
     public class chunkObject
     {
         public GameObject chunkGameObject;
