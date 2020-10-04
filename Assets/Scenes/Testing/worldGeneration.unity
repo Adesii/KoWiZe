@@ -128,6 +128,11 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 571037038934147474, guid: 4b3f9b96fde2c8c47911cea54e5020cd, type: 3}
   m_PrefabInstance: {fileID: 1465311159}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &392146847 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 571037038934147472, guid: 4b3f9b96fde2c8c47911cea54e5020cd, type: 3}
+  m_PrefabInstance: {fileID: 1465311159}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &450790867
 GameObject:
   m_ObjectHideFlags: 0
@@ -305,8 +310,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   LiveEdit: 0
+  LODRadius: 3
+  noiseResolution: 256
+  player: {fileID: 392146847}
   tempMaterial: {fileID: 2100000, guid: c8980c2bb7b1ce242b0b4c568f5bb8c2, type: 2}
   noiseMapGenerator: {fileID: 11400000, guid: acb71680d7aeae845abaace571d0b950, type: 2}
+  defaultLOD: 3
 --- !u!4 &975222025
 Transform:
   m_ObjectHideFlags: 0

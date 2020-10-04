@@ -4,6 +4,9 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.UIElements;
+using UnityEngine.Jobs;
+using Unity.Jobs;
+using Unity.Collections;
 
 public class chunkGenerator : MonoBehaviour
 {
@@ -11,12 +14,17 @@ public class chunkGenerator : MonoBehaviour
     public static int height = 32;
     public static int width = 32;
     public bool LiveEdit = false;
+    public int LODRadius = 3;
+
+    public GameObject player;
 
 
     public Material tempMaterial;
 
     public WorldTypes noiseMapGenerator;
     float[,] noiseMap;
+
+    public LODLevels defaultLOD;
 
     public enum LODLevels
     {
@@ -29,8 +37,8 @@ public class chunkGenerator : MonoBehaviour
     //world Settings
 
     //generic Variables
-    List<chunkObject> chunksList = new List<chunkObject>();
-    List<chunkObject> activeChunks;
+    chunkObject[,] chunksList;
+    List<chunkObject> activeChunks = new List<chunkObject>();
 
 
     chunkObject debugDrawChunk;
@@ -38,6 +46,7 @@ public class chunkGenerator : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        chunksList = new chunkObject[noiseMapGenerator.sizeX,noiseMapGenerator.sizeZ];
         StartCoroutine(Generate());
     }
 
@@ -46,19 +55,62 @@ public class chunkGenerator : MonoBehaviour
     {
         if (LiveEdit)
         {
-
-        
         foreach (var item in chunksList)
         {
             if (item != null)
-                GenerateMeshes(item, LODLevels.LOD2);
+                GenerateMeshes(item, defaultLOD);
         }
         }
+        updateLOD();
+    }
+
+    public void updateLOD()
+    {
+        for (int x = -LODRadius; x < LODRadius; x++)
+        {
+            for (int z = -LODRadius; z < LODRadius; z++)
+            {
+                chunkObject chunk=getchunkFromPosition(new Vector3(player.transform.position.x+(x*width),0,player.transform.position.z+(z*height)));
+                if (!chunk.updateLOD((LODLevels)(Mathf.Clamp(Math.Abs(x), 0, 4))))
+                {
+                    updateChunk(chunk, (LODLevels)(Mathf.Clamp(Math.Abs(x), 0, 4)));
+                }
+                if(!activeChunks.Contains(chunk)) activeChunks.Add(chunk);
+                
+            }
+        }
+        //Debug.Log(activeChunks.Count);
+        foreach (chunkObject item in activeChunks)
+        {
+            if(item.currentLOD == LODLevels.LOD3)
+            {
+                activeChunks.Remove(item);
+            }
+        }
+    }
+
+    public void updateChunk(chunkObject chunk, LODLevels lod)
+    {
+        GenerateMeshes(chunk, lod);
+    }
+    public chunkObject getchunkFromPosition(Vector3 position)
+    {
+        //Debug.Log(position);
+        //Debug.Log(chunksList.Length);
+        float posX = position.x + ((noiseMapGenerator.sizeX * width) / 2);
+        float posZ = position.z + ((noiseMapGenerator.sizeZ * height) / 2);
+
+        //Debug.DrawLine(new Vector3(posX, -100, posZ), new Vector3(posX, 100, posZ));
+        //Debug.Log(posX);
+        //Debug.Log(Mathf.FloorToInt(posX/ width));
+        //Debug.Log(Mathf.FloorToInt(posZ/height));
+        
+        return chunksList[Mathf.FloorToInt(posX / width), Mathf.FloorToInt(posZ / height)];
     }
     public void RegenerateALL()
     {
         StopAllCoroutines();
-        chunksList = new List<chunkObject>();
+        chunksList = new chunkObject[noiseMapGenerator.sizeX, noiseMapGenerator.sizeZ];
         for (int i = 0; i < transform.childCount; i++)
         {
             Destroy(transform.GetChild(i).gameObject);
@@ -72,17 +124,23 @@ public class chunkGenerator : MonoBehaviour
         {
             for (int z = 0; z < noiseMapGenerator.sizeZ; z++)
             {
-                chunkObject chunkGameObject = new chunkObject(new GameObject("Chunk_" + x + "_" + z), new Vector3Int((int)(x * width), 0, (int)(z * width)), transform, tempMaterial);
-                chunksList.Add(chunkGameObject);
+                chunkObject chunkGameObject = new chunkObject(new GameObject("Chunk_" + x + "_" + z), new Vector3Int((int)(x * width), 0, (int)(z * width)), transform, tempMaterial,new Vector2(noiseMapGenerator.sizeX,noiseMapGenerator.sizeZ));
+                chunksList[x,z] = chunkGameObject;
                 
                 
             }
         }
         foreach (var item in chunksList)
         {
-            GenerateMeshes(item, LODLevels.LOD2);
-            yield return new WaitForSeconds(0.005f);
+            for (int i = 0; i < 4; i++)
+            {
+                Debug.Log(i);
+                GenerateMeshes(item, (LODLevels)i);
+            }
+            
+            
         }
+        yield return new WaitForEndOfFrame();
     }
     private void OnDrawGizmos()
     {
@@ -101,16 +159,16 @@ public class chunkGenerator : MonoBehaviour
         switch (quality)
         {
             case LODLevels.LOD0:
-                resolution = 129;
-                break;
-            case LODLevels.LOD1:
                 resolution = 65;
                 break;
+            case LODLevels.LOD1:
+                resolution = 33;
+                break;
             case LODLevels.LOD2:
-                resolution = 17;
+                resolution = 9;
                 break;
             case LODLevels.LOD3:
-                resolution = 9;
+                resolution = 3;
                 break;
         }
         Mesh tempMesh = new Mesh();
@@ -118,7 +176,7 @@ public class chunkGenerator : MonoBehaviour
         List<int> tris = new List<int>();
 
 
-        float[,] lastPixel = new float[noiseMapGenerator.noiseLayers[0].noiseMapResolution, noiseMapGenerator.noiseLayers[0].noiseMapResolution];
+        float[,] lastPixel = new float[(int)resolution + 1, (int)resolution + 1];
         float[,] noiseMap = new float[(int)resolution + 1, (int)resolution + 1];
         for (int i = 0; i < noiseMapGenerator.noiseLayers.Count; i++)
         {
@@ -199,7 +257,7 @@ public class chunkGenerator : MonoBehaviour
         tempMesh.bounds = new Bounds(chunk.position, new Vector3(width, height, width));
         tempMesh.vertices = tempVerts.ToArray();
         tempMesh.triangles = tris.ToArray();
-        chunk.setMesh(tempMesh);
+        chunk.setMesh(tempMesh,quality);
         chunk.verts = tempVerts.ToArray();
         debugDrawChunk = chunk;
         
@@ -226,8 +284,12 @@ public class chunkGenerator : MonoBehaviour
         public Mesh mesh;
         public Vector3[] verts; 
 
+        public LODLevels currentLOD;
+        public Dictionary<LODLevels,Mesh> savedMeshes = new Dictionary<LODLevels, Mesh>();
 
-        public chunkObject(GameObject chunk,Vector3Int position,Transform parent,Material tempMaterial)
+
+
+        public chunkObject(GameObject chunk,Vector3Int position,Transform parent,Material tempMaterial,Vector2 Mapsize)
         {
             chunkGameObject = chunk;
             Vector3Int newPos = new Vector3Int(position.x, 0, position.z);
@@ -236,18 +298,45 @@ public class chunkGenerator : MonoBehaviour
             meshRen = chunkGameObject.AddComponent<MeshRenderer>();
             meshCol = chunkGameObject.AddComponent<MeshCollider>();
             chunkGameObject.transform.parent = parent;
-            chunkGameObject.transform.position = position;
+            chunkGameObject.transform.position = new Vector3(position.x-((Mapsize.x*width)/2),position.y,position.z-((Mapsize.y*height)/2));
             meshRen.material = tempMaterial;
         }
-        public void setMesh(Mesh newMesh)
+        public void setMesh(Mesh newMesh,LODLevels meshLOD)
         {
-            newMesh.RecalculateNormals();
-            meshCol.sharedMesh = newMesh;
-            mesh = newMesh;
-            meshFil.mesh = newMesh;
+            if(!savedMeshes.ContainsKey(meshLOD))
+            {
+                savedMeshes.Add(meshLOD, newMesh);
 
+                newMesh.RecalculateNormals();
+                if (meshCol.sharedMesh != null)
+                {
+                    meshCol.sharedMesh = newMesh;
+                }
+                mesh = newMesh;
+                meshFil.mesh = newMesh;
+            }
+            else
+            {
+                mesh = savedMeshes[meshLOD];
+                meshFil.mesh = savedMeshes[meshLOD];
+            }
+
+        }
+        public bool updateLOD(LODLevels lod)
+        {
+            if (savedMeshes.ContainsKey(lod))
+            {
+                mesh = savedMeshes[lod];
+                meshFil.mesh = savedMeshes[lod];
+                return true;
+            }
+            else
+            {
+                return false;
+            }
         }
     }
 
-    
+
+
 }

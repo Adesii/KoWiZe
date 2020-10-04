@@ -26,7 +26,6 @@ public class LayerGen
     public Vector3 offset;
     public SimplexNoiseGenerator noise;
     public string seed;
-    public int noiseMapResolution = 256;
     [Header("noiseGen Settings")]
     [Range(1, 10)]
     public int octaves = 1;

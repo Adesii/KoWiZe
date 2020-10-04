@@ -62,7 +62,7 @@ public class planeCamera : MonoBehaviour
         if (Physics.Raycast(ray, out hit))
         {
             transform.position = Vector3.Lerp(transform.position,hit.point, Time.deltaTime * 5f);
-            Debug.Log(hit.point);
+            //Debug.Log(hit.point);
         }
     }
     private void zoomCamera()

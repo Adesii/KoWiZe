@@ -8,6 +8,7 @@ public class NoiseMapDebugger : MonoBehaviour
 {
 
     public WorldTypes noiseMapGenerator;
+    public int noiseMapResolution = 256;
     float[,] noiseMap;
     Texture2D noise;
     public MeshRenderer mr;
@@ -15,7 +16,7 @@ public class NoiseMapDebugger : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        noise = new Texture2D(noiseMapGenerator.noiseLayers[0].noiseMapResolution, noiseMapGenerator.noiseLayers[0].noiseMapResolution);
+        noise = new Texture2D(noiseMapResolution, noiseMapResolution);
         
 
     }
@@ -26,14 +27,14 @@ public class NoiseMapDebugger : MonoBehaviour
     }
     public void updateTexture()
     {
-        float[,] lastPixel = new float[noiseMapGenerator.noiseLayers[0].noiseMapResolution, noiseMapGenerator.noiseLayers[0].noiseMapResolution];
+        float[,] lastPixel = new float[noiseMapResolution, noiseMapResolution];
         for (int i = 0; i < noiseMapGenerator.noiseLayers.Count; i++)
         {
             LayerGen noiseGen = noiseMapGenerator.noiseLayers[i];
-            noiseMap = new float[noiseMapGenerator.noiseLayers[0].noiseMapResolution, noiseMapGenerator.noiseLayers[0].noiseMapResolution];
-            for (int x = 0; x < noiseMapGenerator.noiseLayers[0].noiseMapResolution; x++)
+            noiseMap = new float[noiseMapResolution, noiseMapResolution];
+            for (int x = 0; x < noiseMapResolution; x++)
             {
-                for (int z = 0; z < noiseMapGenerator.noiseLayers[0].noiseMapResolution; z++)
+                for (int z = 0; z < noiseMapResolution; z++)
                 {
                     noiseMap[x, z] = noiseGen.getNoiseMap(x, z);
                     if (i > 0)
