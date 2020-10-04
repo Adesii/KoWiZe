@@ -132,13 +132,7 @@ public class chunkGenerator : MonoBehaviour
         }
         foreach (var item in chunksList)
         {
-            for (int i = 0; i < 4; i++)
-            {
-                Debug.Log(i);
-                GenerateMeshes(item, (LODLevels)i);
-            }
-            
-            
+                GenerateMeshes(item, defaultLOD);
         }
         yield return new WaitForEndOfFrame();
     }
@@ -336,6 +330,7 @@ public class chunkGenerator : MonoBehaviour
             }
         }
     }
+
 
 
 

@@ -20,6 +20,8 @@ public class WorldTypes : ScriptableObject
     public List<LayerGen> noiseLayers = new List<LayerGen>(1);
     
 }
+
+
 [Serializable]
 public class LayerGen
 {
