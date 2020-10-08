@@ -290,7 +290,6 @@ GameObject:
   m_Component:
   - component: {fileID: 975222025}
   - component: {fileID: 975222024}
-  - component: {fileID: 975222026}
   - component: {fileID: 975222027}
   m_Layer: 0
   m_Name: World
@@ -331,21 +330,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &975222026
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 975222023}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 772818b3ead459441a35095282330489, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_verts: []
-  res: 128
-  chunkAm: 8
 --- !u!114 &975222027
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -358,9 +342,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6fc51097a21d07749a06cb02d6276c45, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Player: {fileID: 0}
-  viewDistance: 5
-  terrianMaterial: {fileID: 0}
+  LODRadius: 4
+  Player: {fileID: 392146847}
+  liveEditb: 0
+  updateRate: 0.5
+  terrianMaterial: {fileID: 2100000, guid: c8980c2bb7b1ce242b0b4c568f5bb8c2, type: 2}
+  typeOfWorld: {fileID: 11400000, guid: 538b781d61583aa4980fa78994a53863, type: 2}
+  defaultLOD: 3
+  currPlayerChunk: {x: 0, y: 0}
+  lodPow: 0.9
 --- !u!1 &1004152107
 GameObject:
   m_ObjectHideFlags: 0
@@ -774,9 +764,9 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 975222024}
-        m_TargetAssemblyTypeName: chunkGenerator, Assembly-CSharp
-        m_MethodName: RegenerateALL
+      - m_Target: {fileID: 975222027}
+        m_TargetAssemblyTypeName: World, Assembly-CSharp
+        m_MethodName: regenerate
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}

@@ -94,7 +94,7 @@ public class planeCamera : MonoBehaviour
             }
 
             Vector3 height = childCamera.transform.position;
-            height.y = zoomLevel + transform.position.y + transform.position.y;
+            height.y = zoomLevel + transform.position.y;
             childCamera.transform.position = height;
             childCamera.transform.LookAt(transform);
         

@@ -3,6 +3,13 @@ using System.Collections;
 using System.Collections.Generic;
 
 using UnityEngine;
+using WorldGenJobs;
+using Unity.Jobs;
+using Unity.Collections;
+using Unity.Mathematics;
+using System.Runtime.ConstrainedExecution;
+using static LayerGen;
+using System.Runtime.CompilerServices;
 
 public class World : MonoBehaviour
 {
@@ -12,21 +19,35 @@ public class World : MonoBehaviour
         get { return _main; }
     }
 
-    public static int chunkSize = 32;
+    public int LODRadius = 1;
+
+    public static int chunkSize = 128;
     public static GameObject world;
     public GameObject Player;
 
-    public int viewDistance = 5;
+    public bool liveEditb = true;
+    public float updateRate = 2f;
     public Material terrianMaterial;
+    public WorldTypes typeOfWorld;
+    public LODLEVELS defaultLOD;
 
-    private Dictionary<ChunkPoint, Chunk> _chunks = new Dictionary<ChunkPoint, Chunk>();
-    private Dictionary<ChunkPoint, GameObject> _goCache = new Dictionary<ChunkPoint, GameObject>();
+    private jobGenerationManager jobManager;
+    public static Dictionary<ChunkPoint, Chunk> _chunks = new Dictionary<ChunkPoint, Chunk>();
+    public static List<Chunk> _activeChunks = new List<Chunk>();
+    public Vector2 currPlayerChunk;
+    public float lodPow= 2;
+
 
 
     public void Awake()
     {
         if (_main == null)
             _main = this;
+        jobManager = gameObject.AddComponent<jobGenerationManager>();
+        jobManager.defaultMaterial = terrianMaterial;
+        jobManager.initalizeManager(typeOfWorld);
+
+
     }
     public enum LODLEVELS
     {
@@ -60,6 +81,10 @@ public class World : MonoBehaviour
         public ChunkPoint Move(Vector2 offset)
         {
             return new ChunkPoint(_x + (int)offset.x, _z + (int)offset.y);
+        }
+        public void displayChunk()
+        {
+            Debug.DrawLine(new Vector3(_x * chunkSize, 0, _z * chunkSize), new Vector3(_x * chunkSize, 10, _z * chunkSize), Color.yellow, 1000f);
         }
 
         public static Vector2 operator -(ChunkPoint a, ChunkPoint b)
@@ -103,10 +128,109 @@ public class World : MonoBehaviour
         {
             return "(" + _x + ", " + _z + ")";
         }
+        public Vector2 toVector2()
+        {
+            return new Vector2(_x, _z);
+        }
     }
 
     private void Start()
     {
-        
+        GenerateChunks();
+        StartCoroutine(liveEdit());
+        StartCoroutine(updateLOD());
     }
+
+    public IEnumerator updateLOD()
+    {
+        while (true)
+        {
+            for (int x = -LODRadius; x < LODRadius; x++)
+            {
+                for (int z = -LODRadius; z < LODRadius; z++)
+                {
+
+                    ChunkPoint chunk = new ChunkPoint((int)((Player.transform.position.x / chunkSize) + (x) + ((typeOfWorld.sizeX) / 2f)), (int)((Player.transform.position.z / chunkSize) + (z) + ((typeOfWorld.sizeZ) / 2f)));
+                    ChunkPoint playerChunk = new ChunkPoint((int)((Player.transform.position.x / chunkSize) + ((typeOfWorld.sizeX) / 2f)), (int)((Player.transform.position.z / chunkSize) + ((typeOfWorld.sizeZ) / 2f)));
+                    currPlayerChunk = new Vector2(playerChunk.X, playerChunk.Z);
+                    LODLEVELS lodLevel = (LODLEVELS)Mathf.Pow(Vector2.Distance(chunk.toVector2(), playerChunk.toVector2()),lodPow);
+                    if (_chunks.ContainsKey(chunk) && _chunks[chunk].LOD != lodLevel &&  chunk.X > 0 && chunk.Z > 0 && chunk.X <= typeOfWorld.sizeZ && chunk.Z <= typeOfWorld.sizeX )
+                    {
+                        
+
+                        if (!_chunks[chunk].hasMesh(lodLevel))
+                        {
+                        jobManager.GenerateChunkAt(chunk, lodLevel);
+                        }
+                        else
+                        {
+                            _chunks[chunk].updateMesh(lodLevel);
+                        }
+                        if(!_activeChunks.Contains(_chunks[chunk]) &&lodLevel != LODLEVELS.LOD3)
+                        {
+                            _activeChunks.Add(_chunks[chunk]);
+                        }
+                            
+                    }
+                }
+            }
+            yield return new WaitForSeconds(updateRate);
+        }
+
+    }
+
+    public void regenerate()
+    {
+        foreach (var item in _chunks)
+        {
+            item.Value.Dispose();
+            Destroy(item.Value.chunk);
+        }
+        _chunks.Clear();
+        for (int x = 0; x < typeOfWorld.sizeX; x++)
+        {
+            for (int z = 0; z < typeOfWorld.sizeX; z++)
+            {
+                ChunkPoint newCP = new ChunkPoint(x, z);
+                jobManager.GenerateChunkAt(newCP, defaultLOD);
+            }
+        }
+    }
+    public IEnumerator liveEdit()
+    {
+        while (liveEditb)
+        {
+
+
+            foreach (var item in _chunks)
+            {
+                item.Value.Dispose();
+                Destroy(item.Value.chunk);
+            }
+            _chunks.Clear();
+            for (int x = 0; x < typeOfWorld.sizeX; x++)
+            {
+                for (int z = 0; z < typeOfWorld.sizeX; z++)
+                {
+                    ChunkPoint newCP = new ChunkPoint(x, z);
+                    jobManager.GenerateChunkAt(newCP, defaultLOD);
+                }
+            }
+
+
+            yield return new WaitForSeconds(updateRate);
+        }
+    }
+    private void GenerateChunks()
+    {
+        for (int x = 0; x < typeOfWorld.sizeX; x++)
+        {
+            for (int z = 0; z < typeOfWorld.sizeX; z++)
+            {
+                ChunkPoint newCP = new ChunkPoint(x, z);
+                jobManager.GenerateChunkAt(newCP, defaultLOD);
+            }
+        }
+    }
+
 }

@@ -1,0 +1,78 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4f8210c45a6776e4081c60f5309bd70e, type: 3}
+  m_Name: testing
+  m_EditorClassIdentifier: 
+  seed: Toyota
+  sizeX: 100
+  sizeZ: 100
+  noiseLayers:
+  - offset: {x: 13.91, y: 5.89, z: 0}
+    seed: 
+    octaves: 1
+    multiplier: 1292
+    amplitute: 2.51
+    lacunarity: 2
+    persistance: 0.9
+    heightCurve:
+      serializedVersion: 2
+      m_Curve: []
+      m_PreInfinity: 0
+      m_PostInfinity: 0
+      m_RotationOrder: 0
+    sizeScalex: 3.76
+    sizeScalez: 1
+    blendMode: 2
+    min: 0
+    max: 1
+    MultiplicationOfFinal: 1
+    subtraction: 0
+  - offset: {x: 50.21, y: 0, z: 0}
+    seed: 
+    octaves: 1
+    multiplier: 140
+    amplitute: 1
+    lacunarity: 29.8
+    persistance: 3.84
+    heightCurve:
+      serializedVersion: 2
+      m_Curve: []
+      m_PreInfinity: 0
+      m_PostInfinity: 0
+      m_RotationOrder: 0
+    sizeScalex: 3.76
+    sizeScalez: 1
+    blendMode: 0
+    min: 0
+    max: 14.8
+    MultiplicationOfFinal: 1
+    subtraction: 0
+  - offset: {x: 50.21, y: 0, z: 0}
+    seed: 
+    octaves: 1
+    multiplier: 181
+    amplitute: 39.9
+    lacunarity: 2
+    persistance: 0.9
+    heightCurve:
+      serializedVersion: 2
+      m_Curve: []
+      m_PreInfinity: 0
+      m_PostInfinity: 0
+      m_RotationOrder: 0
+    sizeScalex: 3.76
+    sizeScalez: 1
+    blendMode: 4
+    min: 0
+    max: 14.8
+    MultiplicationOfFinal: -2
+    subtraction: 10.9

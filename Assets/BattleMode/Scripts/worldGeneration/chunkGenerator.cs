@@ -302,7 +302,7 @@ public class chunkGenerator : MonoBehaviour
                 savedMeshes.Add(meshLOD, newMesh);
 
                 newMesh.RecalculateNormals();
-                if (meshCol.sharedMesh != null)
+                if (meshCol.sharedMesh == null)
                 {
                     meshCol.sharedMesh = newMesh;
                 }
