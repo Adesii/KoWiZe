@@ -13,8 +13,8 @@ MonoBehaviour:
   m_Name: testing
   m_EditorClassIdentifier: 
   seed: Toyota
-  sizeX: 10
-  sizeZ: 10
+  sizeX: 20
+  sizeZ: 20
   noiseLayers:
   - offset: {x: 13.91, y: 5.89, z: 0}
     seed: 

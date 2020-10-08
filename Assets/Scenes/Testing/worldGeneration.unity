@@ -16,18 +16,18 @@ RenderSettings:
   serializedVersion: 9
   m_Fog: 0
   m_FogColor: {r: 0.5, g: 0.5, b: 0.5, a: 1}
-  m_FogMode: 3
+  m_FogMode: 1
   m_FogDensity: 0.01
-  m_LinearFogStart: 0
+  m_LinearFogStart: 100
   m_LinearFogEnd: 300
-  m_AmbientSkyColor: {r: 0.5874866, g: 0.64951944, b: 0.7735849, a: 1}
+  m_AmbientSkyColor: {r: 0.4510502, g: 0.47734866, b: 0.5283019, a: 1}
   m_AmbientEquatorColor: {r: 0.114, g: 0.125, b: 0.133, a: 1}
   m_AmbientGroundColor: {r: 0.047, g: 0.043, b: 0.035, a: 1}
   m_AmbientIntensity: 1
-  m_AmbientMode: 3
-  m_SubtractiveShadowColor: {r: 0.42, g: 0.478, b: 0.627, a: 1}
-  m_SkyboxMaterial: {fileID: 10304, guid: 0000000000000000f000000000000000, type: 0}
-  m_HaloStrength: 0.5
+  m_AmbientMode: 1
+  m_SubtractiveShadowColor: {r: 0.22561412, g: 0.24186073, b: 0.2830189, a: 1}
+  m_SkyboxMaterial: {fileID: 2100000, guid: 63e538c356376084c8d0c88876b87366, type: 2}
+  m_HaloStrength: 0.741
   m_FlareStrength: 1
   m_FlareFadeSpeed: 3
   m_HaloTexture: {fileID: 0}
@@ -344,11 +344,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   LODRadius: 10
   Player: {fileID: 392146847}
-  liveEditb: 1
+  liveEditb: 0
   updateRate: 2
   terrianMaterial: {fileID: 2100000, guid: c8980c2bb7b1ce242b0b4c568f5bb8c2, type: 2}
   typeOfWorld: {fileID: 11400000, guid: 538b781d61583aa4980fa78994a53863, type: 2}
-  defaultLOD: 0
+  defaultLOD: 3
   currPlayerChunk: {x: 0, y: 0}
   lodPow: 0.9
 --- !u!1 &1004152107
@@ -824,6 +824,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2027323795}
   - component: {fileID: 2027323794}
+  - component: {fileID: 2027323796}
   m_Layer: 0
   m_Name: Directional Light
   m_TagString: Untagged
@@ -849,12 +850,12 @@ Light:
   m_InnerSpotAngle: 21.80208
   m_CookieSize: 10
   m_Shadows:
-    m_Type: 1
+    m_Type: 2
     m_Resolution: -1
     m_CustomResolution: -1
     m_Strength: 1
-    m_Bias: 0.05
-    m_NormalBias: 0.4
+    m_Bias: 10
+    m_NormalBias: 1
     m_NearPlane: 0.2
     m_CullingMatrixOverride:
       e00: 1
@@ -906,3 +907,16 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 31.594, y: -30, z: 0}
+--- !u!114 &2027323796
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2027323793}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 474bcb49853aa07438625e644c072ee6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_UsePipelineSettings: 1

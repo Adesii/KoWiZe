@@ -55,7 +55,8 @@ public class World : MonoBehaviour
         LOD0,
         LOD1,
         LOD2,
-        LOD3
+        LOD3,
+        LOD4
     }
     [Serializable]
     public struct ChunkPoint
@@ -155,10 +156,9 @@ public class World : MonoBehaviour
                     ChunkPoint playerChunk = new ChunkPoint((int)((Player.transform.position.x / chunkSize) + ((typeOfWorld.sizeX) / 2f)), (int)((Player.transform.position.z / chunkSize) + ((typeOfWorld.sizeZ) / 2f)));
                     currPlayerChunk = new Vector2(playerChunk.X, playerChunk.Z);
                     LODLEVELS lodLevel = (LODLEVELS)Mathf.Pow(Vector2.Distance(chunk.toVector2(), playerChunk.toVector2()),lodPow);
+                    
                     if (_chunks.ContainsKey(chunk) && _chunks[chunk].LOD != lodLevel &&  chunk.X > 0 && chunk.Z > 0 && chunk.X <= typeOfWorld.sizeZ && chunk.Z <= typeOfWorld.sizeX )
                     {
-                        
-
                         if (!_chunks[chunk].hasMesh(lodLevel))
                         {
                         jobManager.GenerateChunkAt(chunk, lodLevel);
@@ -167,11 +167,13 @@ public class World : MonoBehaviour
                         {
                             _chunks[chunk].updateMesh(lodLevel);
                         }
-                        if(!_activeChunks.Contains(_chunks[chunk]) &&lodLevel != LODLEVELS.LOD3)
-                        {
-                            _activeChunks.Add(_chunks[chunk]);
-                        }
-                            
+                            /*if(!_activeChunks.Contains(_chunks[chunk]) &&lodLevel != LODLEVELS.LOD3)
+                            {
+                                _activeChunks.Add(_chunks[chunk]);
+                            }
+                            */
+                        
+
                     }
                 }
             }
@@ -229,6 +231,7 @@ public class World : MonoBehaviour
             for (int z = 0; z < typeOfWorld.sizeX; z++)
             {
                 ChunkPoint newCP = new ChunkPoint(x, z);
+
                 jobManager.GenerateChunkAt(newCP, defaultLOD);
             }
         }

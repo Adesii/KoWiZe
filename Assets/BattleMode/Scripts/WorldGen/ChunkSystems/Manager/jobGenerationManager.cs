@@ -79,7 +79,7 @@ public class jobGenerationManager : MonoBehaviour
                 if (jobMeshList.ContainsKey(item))
                     jobMeshList.Remove(item);
             }
-            yield return new WaitForEndOfFrame();
+            yield return new WaitForSeconds(1f);
         }
     }
 
@@ -123,6 +123,9 @@ public class jobGenerationManager : MonoBehaviour
                 break;
             case LODLEVELS.LOD3:
                 chunkRes = 3;
+                break;
+            case LODLEVELS.LOD4:
+                chunkRes = 1;
                 break;
             default: 
                 chunkRes = 2;
