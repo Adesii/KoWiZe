@@ -99,7 +99,8 @@ public class jobGenerationManager : MonoBehaviour
             tris = tris,
             resolution = resolution,
             normals = normals,
-            lod = lod
+            lod = lod,
+            chunkSize = chunkSize
         };
         JobHandle jh = job.Schedule();
         jobMeshList.Add(jh, job);
@@ -112,13 +113,13 @@ public class jobGenerationManager : MonoBehaviour
         switch (lod)
         {
             case LODLEVELS.LOD0:
-                chunkRes = 200;
-                break;
-            case LODLEVELS.LOD1:
                 chunkRes = 128;
                 break;
-            case LODLEVELS.LOD2:
+            case LODLEVELS.LOD1:
                 chunkRes = 64;
+                break;
+            case LODLEVELS.LOD2:
+                chunkRes = 48;
                 break;
             case LODLEVELS.LOD3:
                 chunkRes = 3;
@@ -139,7 +140,8 @@ public class jobGenerationManager : MonoBehaviour
             layerSettings = naArray,
             numberOfLayers = typeOfWorld.noiseLayers.Count,
             chunkRes = chunkRes,
-            LOD = lod
+            LOD = lod,
+            chunkSize = chunkSize
         };
         JobHandle jh = job.Schedule();
         jobFillList.Add(jh, job);

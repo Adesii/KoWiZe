@@ -342,13 +342,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6fc51097a21d07749a06cb02d6276c45, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  LODRadius: 4
+  LODRadius: 10
   Player: {fileID: 392146847}
-  liveEditb: 0
-  updateRate: 0.5
+  liveEditb: 1
+  updateRate: 2
   terrianMaterial: {fileID: 2100000, guid: c8980c2bb7b1ce242b0b4c568f5bb8c2, type: 2}
   typeOfWorld: {fileID: 11400000, guid: 538b781d61583aa4980fa78994a53863, type: 2}
-  defaultLOD: 3
+  defaultLOD: 0
   currPlayerChunk: {x: 0, y: 0}
   lodPow: 0.9
 --- !u!1 &1004152107

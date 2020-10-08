@@ -1,11 +1,11 @@
 ﻿using System.Collections;
+using Unity.Burst;
 using System.Collections.Generic;
 using Unity.Collections;
 using Unity.Jobs;
 using Unity.Mathematics;
 using UnityEngine;
 using static LayerGen;
-using static World;
 namespace WorldGenJobs
 {
 
@@ -14,6 +14,8 @@ namespace WorldGenJobs
     public class generationJob : MonoBehaviour
     {
 
+
+        [BurstCompile(CompileSynchronously = true)]
         public struct fillNoiseMap : IJob
         {
             public NativeArray<float> noiseLayeredMap;
@@ -23,7 +25,10 @@ namespace WorldGenJobs
             public int numberOfLayers;
             public NativeArray<float> layerSettings;
             public int chunkRes;
-            public LODLEVELS LOD;
+            [ReadOnly]
+            public World.LODLEVELS LOD;
+            [ReadOnly]
+            public int chunkSize;
 
             private int layerIndex;
 
@@ -85,14 +90,14 @@ namespace WorldGenJobs
                         for (int z = 0; z <= chunkRes; z++)
                         {
                             //float xCord = ((((float)x) / (float)chunkRes) * (float)chunkSize) + _pos.X;
-                            float xCord = (((float)x / (float)chunkRes) * (float)chunkSize) + ((float)_pos.X*chunkSize);
+                            float xCord = (((float)x / (float)chunkRes) * (float)chunkSize) + ((float)_pos.X * chunkSize);
                             //float yCord = ((((float)z) / (float)chunkRes) * (float)chunkSize) + _pos.Z;
-                            float yCord = (((float)z / (float)chunkRes) * (float)chunkSize) + ((float)_pos.Z*chunkSize);
-                            float noiseFloat = coherentNoise(xCord+offsetX, offsetY, yCord+offsetZ, octaves, multiplier, amplitute, lacunarity, persistance);
+                            float yCord = (((float)z / (float)chunkRes) * (float)chunkSize) + ((float)_pos.Z * chunkSize);
+                            float noiseFloat = coherentNoise(xCord + offsetX, offsetY, yCord + offsetZ, octaves, multiplier, amplitute, lacunarity, persistance);
                             noiseFloat = (noiseFloat + 1) / 2;
                             noiseFloat *= MultiplicationOfFinal;
                             noiseFloat -= subtraction;
-                            
+
                             switch (blendMode)
                             {
                                 case LayerGen.BlendModes.Multiply:
@@ -111,15 +116,20 @@ namespace WorldGenJobs
                                     noiseFloat = lastnoiseLayeredMap[i] / noiseFloat;
                                     break;
                                 case LayerGen.BlendModes.Mask:
-                                    if (noiseFloat > lastnoiseLayeredMap[i])
+                                    if (noiseFloat < lastnoiseLayeredMap[i])
                                     {
                                         noiseFloat = noiseLayeredMap[i];
+
+                                    }
+                                    else if(noiseFloat < lastnoiseLayeredMap[i])
+                                    {
+                                        noiseFloat += noiseLayeredMap[i];
                                     }
                                     break;
                                 default:
                                     break;
                             }
-                            
+
                             noiseLayeredMap[i] = noiseFloat;
                             lastnoiseLayeredMap[i] = noiseFloat;
                             //noiseLayeredMap[i] = coherentNoise(xCord, 0, yCord, octaves, multiplier, amplitute, lacunarity, persistance) * MultiplicationOfFinal;
@@ -130,7 +140,7 @@ namespace WorldGenJobs
                 }
 
 
-                
+
             }
             public void Dispose()
             {
@@ -153,6 +163,7 @@ namespace WorldGenJobs
 
 
         }
+        [BurstCompile(CompileSynchronously = true)]
         public struct ChunkGenerate : IJob
         {
             public NativeArray<Vector3> verts;
@@ -161,8 +172,11 @@ namespace WorldGenJobs
             public NativeArray<float> noiseLayeredMap;
             public World.ChunkPoint cp;
             public int resolution;
-            public LODLEVELS lod;
-            
+            [ReadOnly]
+            public World.LODLEVELS lod;
+            [ReadOnly]
+            public int chunkSize;
+
             public void Execute()
             {
                 int i = 0;
@@ -171,7 +185,7 @@ namespace WorldGenJobs
                     for (int z = 0; z <= resolution; z++)
                     {
                         verts[i] = new Vector3(((float)x / (float)resolution) * (float)chunkSize, noiseLayeredMap[i], ((float)z / (float)resolution) * (float)chunkSize);
-                        normals[i] = new Vector3(0, 1,0);
+                        normals[i] = new Vector3(0, 1, 0);
                         i++;
                     }
                 }

@@ -21,6 +21,7 @@ public class World : MonoBehaviour
 
     public int LODRadius = 1;
 
+    [ReadOnly]
     public static int chunkSize = 128;
     public static GameObject world;
     public GameObject Player;
