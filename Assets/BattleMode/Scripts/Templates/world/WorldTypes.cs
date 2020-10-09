@@ -35,7 +35,7 @@ public class LayerGen
     public float amplitute = 0.5f;
     public float lacunarity = 2f;
     public float persistance = 0.9f;
-    public AnimationCurve heightCurve = new AnimationCurve(new Keyframe(0, 0), new Keyframe(1, 1));
+    public AnimationCurve heightCurve = new AnimationCurve();
     [Header("SizeScale")]
     public float sizeScalex =1f;
     public float sizeScalez = 1f;
@@ -55,19 +55,5 @@ public class LayerGen
         Add,
         Divide,
         Mask,
-    }
-
-    public float getNoiseMap(float ChunkX,float ChunkZ)
-    {
-        noise = new SimplexNoiseGenerator(seed);
-        float noiseFloat = noise.coherentNoise((offset.x+ ChunkX) * sizeScalex, 0 + offset.y, (offset.z+ ChunkZ) * sizeScalez, octaves, multiplier, amplitute, lacunarity, persistance);
-        //Debug.Log(noiseFloat);
-        //Debug.Log(noiseMap[x, z]);
-        
-        noiseFloat = (noiseFloat + 1) / 2;
-        noiseFloat = heightCurve.Evaluate(noiseFloat);
-        noiseFloat *= MultiplicationOfFinal;
-        
-        return noiseFloat -subtraction;
     }
 }

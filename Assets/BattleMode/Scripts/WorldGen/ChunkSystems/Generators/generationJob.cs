@@ -14,21 +14,27 @@ namespace WorldGenJobs
     public class generationJob : MonoBehaviour
     {
 
-
-        [BurstCompile(CompileSynchronously = true)]
+        [BurstCompile]
         public struct fillNoiseMap : IJob
         {
+
+
             public NativeArray<float> noiseLayeredMap;
             public NativeArray<float> lastnoiseLayeredMap;
+
 
             public World.ChunkPoint _pos;
             public int numberOfLayers;
             public NativeArray<float> layerSettings;
+
             public int chunkRes;
+
             [ReadOnly]
             public World.LODLEVELS LOD;
             [ReadOnly]
             public int chunkSize;
+            [ReadOnly]
+            public int numberOfSettings;
 
             private int layerIndex;
 
@@ -49,54 +55,81 @@ namespace WorldGenJobs
             private float offsetY;
             private float offsetZ;
 
+            private float min;
+            private float max;
+
+            public float minHeight;
+            public float maxHeight;
+
             public void Execute()
             {
-                for (int j = 0; j < layerSettings.Length / 13; j++)
+                for (int j = 0; j < layerSettings.Length / numberOfSettings; j++)
                 {
-                    octaves = (int)layerSettings[(j * 13)];
-                    multiplier = (int)layerSettings[(j * 13) + 1];
-                    amplitute = layerSettings[(j * 13) + 2];
-                    lacunarity = layerSettings[(j * 13) + 3];
-                    persistance = layerSettings[(j * 13) + 4];
-                    sizeScalex = layerSettings[(j * 13) + 5];
-                    sizeScalez = layerSettings[(j * 13) + 6];
-                    blendMode = (BlendModes)layerSettings[(j * 13) + 7];
-                    MultiplicationOfFinal = layerSettings[(j * 13) + 8];
-                    subtraction = layerSettings[(j * 13) + 9];
-                    offsetX = layerSettings[(j * 13) + 10];
-                    offsetY = layerSettings[(j * 13) + 11];
-                    offsetZ = layerSettings[(j * 13) + 12];
+                    octaves = (int)layerSettings[(j * numberOfSettings)];
+                    multiplier = (int)layerSettings[(j * numberOfSettings) + 1];
+                    amplitute = layerSettings[(j * numberOfSettings) + 2];
+                    lacunarity = layerSettings[(j * numberOfSettings) + 3];
+                    persistance = layerSettings[(j * numberOfSettings) + 4];
+                    sizeScalex = layerSettings[(j * numberOfSettings) + 5];
+                    sizeScalez = layerSettings[(j * numberOfSettings) + 6];
+                    blendMode = (BlendModes)layerSettings[(j * numberOfSettings) + 7];
+                    MultiplicationOfFinal = layerSettings[(j * numberOfSettings) + 8];
+                    subtraction = layerSettings[(j * numberOfSettings) + 9];
+                    offsetX = layerSettings[(j * numberOfSettings) + 10];
+                    offsetY = layerSettings[(j * numberOfSettings) + 11];
+                    offsetZ = layerSettings[(j * numberOfSettings) + 12];
 
+                    min = layerSettings[(j * numberOfSettings) + 13];
+                    max = layerSettings[(j * numberOfSettings) + 14];
 
-
-
-                    /*Debug.Log("Properties from Layer"+j+": " +
-                        "\n "+octaves+
-                        "\n " + multiplier +
-                        "\n " + amplitute +
-                        "\n " + lacunarity +
-                        "\n " + persistance +
-                        "\n " + sizeScalex +
-                        "\n " + sizeScalez +
-                        "\n " + blendMode +
-                        "\n " + MultiplicationOfFinal +
-                        "\n " + subtraction
+                    /*Debug.Log("Properties from Layer" + j + ": " +
+                        "\n + octaves :" + octaves +
+                        "\n + multiplier :" + multiplier +
+                        "\n + amplitute :" + amplitute +
+                        "\n + lacunarity :" + lacunarity +
+                        "\n + persistance :" + persistance +
+                        "\n + sizeScalex :" + sizeScalex +
+                        "\n + sizeScalez :" + sizeScalez +
+                        "\n + blendMode :" + blendMode +
+                        "\n + MultiplicationOfFinal :" + MultiplicationOfFinal +
+                        "\n + subtraction :" + subtraction +
+                        "\n + min :" + min +
+                        "\n + max :" + max
                         );
                     */
-
                     int i = 0;
                     for (int x = 0; x <= chunkRes; x++)
                     {
                         for (int z = 0; z <= chunkRes; z++)
                         {
+
+
+
+
+
                             //float xCord = ((((float)x) / (float)chunkRes) * (float)chunkSize) + _pos.X;
                             float xCord = (((float)x / (float)chunkRes) * (float)chunkSize) + ((float)_pos.X * chunkSize);
                             //float yCord = ((((float)z) / (float)chunkRes) * (float)chunkSize) + _pos.Z;
                             float yCord = (((float)z / (float)chunkRes) * (float)chunkSize) + ((float)_pos.Z * chunkSize);
-                            float noiseFloat = coherentNoise(xCord + offsetX, offsetY, yCord + offsetZ, octaves, multiplier, amplitute, lacunarity, persistance);
+                            float noiseFloat = coherentNoise((xCord + offsetX) * sizeScalex, offsetY, (yCord + offsetZ) * sizeScalez, octaves, multiplier, amplitute, lacunarity, persistance);
                             noiseFloat = (noiseFloat + 1) / 2;
+                            
                             noiseFloat *= MultiplicationOfFinal;
                             noiseFloat -= subtraction;
+                            
+
+                            if (noiseFloat < min && blendMode != BlendModes.Mask)
+                            {
+                                noiseFloat = min;
+                                blendMode = BlendModes.Add;
+                            }
+                            if (noiseFloat > max && blendMode != BlendModes.Mask)
+                            {
+                                noiseFloat = max;
+                                blendMode = BlendModes.Add;
+                            }
+                            
+
 
                             switch (blendMode)
                             {
@@ -116,31 +149,37 @@ namespace WorldGenJobs
                                     noiseFloat = lastnoiseLayeredMap[i] / noiseFloat;
                                     break;
                                 case LayerGen.BlendModes.Mask:
-                                    if (noiseFloat < lastnoiseLayeredMap[i])
+                                    if (lastnoiseLayeredMap[i] < max && lastnoiseLayeredMap[i] > min)
                                     {
-                                        noiseFloat = noiseLayeredMap[i];
-
+                                        noiseFloat += lastnoiseLayeredMap[i];
                                     }
-                                    else if(noiseFloat < lastnoiseLayeredMap[i])
+                                    else
                                     {
-                                        noiseFloat += noiseLayeredMap[i];
+                                        noiseFloat = lastnoiseLayeredMap[i];
                                     }
                                     break;
                                 default:
                                     break;
                             }
-
+                            blendMode = (BlendModes)layerSettings[(j * numberOfSettings) + 7];
                             noiseLayeredMap[i] = noiseFloat;
                             lastnoiseLayeredMap[i] = noiseFloat;
+
                             //noiseLayeredMap[i] = coherentNoise(xCord, 0, yCord, octaves, multiplier, amplitute, lacunarity, persistance) * MultiplicationOfFinal;
                             i++;
                         }
                     }
-
+                }
+                /*
+                foreach (var item in noiseLayeredMap)
+                {
+                    if (item < minHeight)
+                        minHeight = item;
+                    if (item > maxHeight)
+                        maxHeight = item;
                 }
 
-
-
+                */
             }
             public void Dispose()
             {
@@ -163,11 +202,14 @@ namespace WorldGenJobs
 
 
         }
-        [BurstCompile(CompileSynchronously = true)]
+        [BurstCompile]
         public struct ChunkGenerate : IJob
         {
             public NativeArray<Vector3> verts;
             public NativeArray<Vector3> normals;
+
+            public NativeArray<Vector2> uvs;
+
             public NativeArray<int> tris;
             public NativeArray<float> noiseLayeredMap;
             public World.ChunkPoint cp;
@@ -186,6 +228,7 @@ namespace WorldGenJobs
                     {
                         verts[i] = new Vector3(((float)x / (float)resolution) * (float)chunkSize, noiseLayeredMap[i], ((float)z / (float)resolution) * (float)chunkSize);
                         normals[i] = new Vector3(0, 1, 0);
+                        uvs[i] = new Vector2(x, z);
                         i++;
                     }
                 }
@@ -208,6 +251,7 @@ namespace WorldGenJobs
                 verts.Dispose();
                 tris.Dispose();
                 normals.Dispose();
+                uvs.Dispose();
             }
         }
     }

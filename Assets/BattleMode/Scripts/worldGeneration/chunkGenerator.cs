@@ -181,7 +181,7 @@ public class chunkGenerator : MonoBehaviour
                 {
                     float posx = ((x / resolution) * width) + (chunk.position.x);
                     float posz = ((z / resolution) * width) + (chunk.position.z);
-                    float noiseFloat = noiseGen.getNoiseMap(posx, posz);
+                    float noiseFloat = 0;
                     
                         switch (noiseGen.blendMode)
                         {

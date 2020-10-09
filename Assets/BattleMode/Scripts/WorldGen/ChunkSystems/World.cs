@@ -26,6 +26,7 @@ public class World : MonoBehaviour
     public static GameObject world;
     public GameObject Player;
 
+    public static bool editing = true;
     public bool liveEditb = true;
     public float updateRate = 2f;
     public Material terrianMaterial;
@@ -38,6 +39,8 @@ public class World : MonoBehaviour
     public Vector2 currPlayerChunk;
     public float lodPow= 2;
 
+
+    LODLEVELS lodLevel = LODLEVELS.LOD0;
 
 
     public void Awake()
@@ -143,6 +146,10 @@ public class World : MonoBehaviour
         StartCoroutine(updateLOD());
     }
 
+    private void OnGUI()
+    {
+        GUI.Label(new Rect(0, 100, 50, 100), new GUIContent("FillJobs" + lodLevel.ToString()));
+    }
     public IEnumerator updateLOD()
     {
         while (true)
@@ -155,28 +162,15 @@ public class World : MonoBehaviour
                     ChunkPoint chunk = new ChunkPoint((int)((Player.transform.position.x / chunkSize) + (x) + ((typeOfWorld.sizeX) / 2f)), (int)((Player.transform.position.z / chunkSize) + (z) + ((typeOfWorld.sizeZ) / 2f)));
                     ChunkPoint playerChunk = new ChunkPoint((int)((Player.transform.position.x / chunkSize) + ((typeOfWorld.sizeX) / 2f)), (int)((Player.transform.position.z / chunkSize) + ((typeOfWorld.sizeZ) / 2f)));
                     currPlayerChunk = new Vector2(playerChunk.X, playerChunk.Z);
-                    LODLEVELS lodLevel = (LODLEVELS)Mathf.Pow(Vector2.Distance(chunk.toVector2(), playerChunk.toVector2()),lodPow);
-                    
-                    if (_chunks.ContainsKey(chunk) && _chunks[chunk].LOD != lodLevel &&  chunk.X > 0 && chunk.Z > 0 && chunk.X <= typeOfWorld.sizeZ && chunk.Z <= typeOfWorld.sizeX )
-                    {
-                        if (!_chunks[chunk].hasMesh(lodLevel))
-                        {
-                        jobManager.GenerateChunkAt(chunk, lodLevel);
-                        }
-                        else
-                        {
-                            _chunks[chunk].updateMesh(lodLevel);
-                        }
-                            /*if(!_activeChunks.Contains(_chunks[chunk]) &&lodLevel != LODLEVELS.LOD3)
-                            {
-                                _activeChunks.Add(_chunks[chunk]);
-                            }
-                            */
-                        
+                    lodLevel = (LODLEVELS)Vector2.Distance(chunk.toVector2(), playerChunk.toVector2());
 
+                    if (_chunks.ContainsKey(chunk) && _chunks[chunk].LOD != lodLevel &&  chunk.X >= 0 && chunk.Z >= 0 && chunk.X <= typeOfWorld.sizeZ && chunk.Z <= typeOfWorld.sizeX )
+                    {
+                        jobManager.GenerateChunkAt(chunk, lodLevel);
                     }
                 }
             }
+            
             yield return new WaitForSeconds(updateRate);
         }
 
@@ -203,14 +197,7 @@ public class World : MonoBehaviour
     {
         while (liveEditb)
         {
-
-
-            foreach (var item in _chunks)
-            {
-                item.Value.Dispose();
-                Destroy(item.Value.chunk);
-            }
-            _chunks.Clear();
+            editing = liveEditb;
             for (int x = 0; x < typeOfWorld.sizeX; x++)
             {
                 for (int z = 0; z < typeOfWorld.sizeX; z++)

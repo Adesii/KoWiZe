@@ -13,126 +13,26 @@ MonoBehaviour:
   m_Name: testing
   m_EditorClassIdentifier: 
   seed: Toyota
-  sizeX: 20
-  sizeZ: 20
+  sizeX: 10
+  sizeZ: 10
   noiseLayers:
-  - offset: {x: 13.91, y: 5.89, z: 0}
+  - offset: {x: 100, y: 0, z: -100}
     seed: 
-    octaves: 1
-    multiplier: 1292
-    amplitute: 2.51
-    lacunarity: 2
-    persistance: 0.9
+    octaves: 10
+    multiplier: 257
+    amplitute: 7.36
+    lacunarity: 1.41
+    persistance: 0.75
     heightCurve:
       serializedVersion: 2
       m_Curve: []
-      m_PreInfinity: 0
-      m_PostInfinity: 0
-      m_RotationOrder: 0
-    sizeScalex: 3.76
-    sizeScalez: 1
-    blendMode: 2
-    min: 0
-    max: 1
-    MultiplicationOfFinal: 1
-    subtraction: 0
-  - offset: {x: 50.21, y: 0, z: 0}
-    seed: 
-    octaves: 1
-    multiplier: 140
-    amplitute: 0.1
-    lacunarity: 29.8
-    persistance: 3.84
-    heightCurve:
-      serializedVersion: 2
-      m_Curve: []
-      m_PreInfinity: 0
-      m_PostInfinity: 0
-      m_RotationOrder: 0
-    sizeScalex: 3.76
-    sizeScalez: 1
-    blendMode: 0
-    min: 0
-    max: 14.8
-    MultiplicationOfFinal: 0.75
-    subtraction: 0
-  - offset: {x: 50.21, y: 0, z: 0}
-    seed: 
-    octaves: 1
-    multiplier: 584
-    amplitute: 39.9
-    lacunarity: 2
-    persistance: 0.9
-    heightCurve:
-      serializedVersion: 2
-      m_Curve: []
-      m_PreInfinity: 0
-      m_PostInfinity: 0
-      m_RotationOrder: 0
-    sizeScalex: 3.76
-    sizeScalez: 1
-    blendMode: 4
-    min: 0
-    max: 14.8
-    MultiplicationOfFinal: -2
-    subtraction: 10.9
-  - offset: {x: 50.21, y: 0, z: 0}
-    seed: 
-    octaves: 1
-    multiplier: 181
-    amplitute: 39.9
-    lacunarity: 2
-    persistance: 0.9
-    heightCurve:
-      serializedVersion: 2
-      m_Curve: []
-      m_PreInfinity: 0
-      m_PostInfinity: 0
-      m_RotationOrder: 0
-    sizeScalex: 3.76
-    sizeScalez: 1
-    blendMode: 2
-    min: 0
-    max: 14.8
-    MultiplicationOfFinal: 0.6
-    subtraction: 10.9
-  - offset: {x: 0, y: 0, z: 0}
-    seed: 
-    octaves: 1
-    multiplier: 500
-    amplitute: 1
-    lacunarity: 2
-    persistance: 0.9
-    heightCurve:
-      serializedVersion: 2
-      m_Curve: []
-      m_PreInfinity: 0
-      m_PostInfinity: 0
-      m_RotationOrder: 0
+      m_PreInfinity: 2
+      m_PostInfinity: 2
+      m_RotationOrder: 4
     sizeScalex: 1
     sizeScalez: 1
     blendMode: 2
     min: 0
-    max: 14.8
-    MultiplicationOfFinal: 1
-    subtraction: 1
-  - offset: {x: 0, y: 0, z: 0}
-    seed: 
-    octaves: 1
-    multiplier: 100
-    amplitute: 1
-    lacunarity: 2
-    persistance: 0.9
-    heightCurve:
-      serializedVersion: 2
-      m_Curve: []
-      m_PreInfinity: 0
-      m_PostInfinity: 0
-      m_RotationOrder: 0
-    sizeScalex: 1
-    sizeScalez: 1
-    blendMode: 1
-    min: 0
-    max: 14.8
-    MultiplicationOfFinal: 10
+    max: 58.32
+    MultiplicationOfFinal: 4.76
     subtraction: 0
