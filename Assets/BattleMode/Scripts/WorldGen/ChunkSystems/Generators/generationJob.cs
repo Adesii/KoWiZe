@@ -63,6 +63,7 @@ namespace WorldGenJobs
 
             public void Execute()
             {
+
                 for (int j = 0; j < layerSettings.Length / numberOfSettings; j++)
                 {
                     octaves = (int)layerSettings[(j * numberOfSettings)];

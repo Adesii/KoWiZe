@@ -12,7 +12,7 @@ public class Chunk
 
     public World.ChunkPoint Position;
     public GameObject chunk;
-    public Dictionary<World.LODLEVELS, Mesh> savedMeshed = new Dictionary<World.LODLEVELS, Mesh>(4);
+    public Dictionary<World.LODLEVELS, Mesh> savedMeshed = new Dictionary<World.LODLEVELS, Mesh>();
 
 
     public World.LODLEVELS LOD;
@@ -42,19 +42,17 @@ public class Chunk
             uv = uv.ToArray()
         };
         mesh.name = lod.ToString();
-
+        mesh.MarkDynamic();
         mesh.RecalculateBounds();
-
-
         //mesh.normals = norm.ToArray();
         mesh.RecalculateNormals();
-
+        
         var go = new GameObject("TerrainChunk");
         var mf = go.AddComponent<MeshFilter>();
         var mr = go.AddComponent<MeshRenderer>();
         var collider = go.AddComponent<MeshCollider>();
         mr.material = material;
-        mf.mesh = mesh;
+        mf.sharedMesh = mesh;
         collider.sharedMesh = mesh;
         go.transform.position = origin;
         go.transform.parent = parent;
@@ -72,23 +70,26 @@ public class Chunk
     public void updateMesh(World.LODLEVELS lod)
     {
         MeshFilter mf = chunk.GetComponent<MeshFilter>();
-        if (savedMeshed.ContainsKey(lod) && !World.editing)
+        if (savedMeshed.ContainsKey(lod))
         {
-            mf.mesh = savedMeshed[lod];
+            mf.sharedMesh = savedMeshed[lod];
         }
         else
         {
 
-            Mesh mesh = new Mesh();
-            mesh.name = lod.ToString();
-            mesh.vertices = Verticies.ToArray();
-            mesh.triangles = Indices.ToArray();
+            Mesh mesh = new Mesh
+            {
+                name = lod.ToString(),
+                vertices = Verticies.ToArray(),
+                triangles = Indices.ToArray(),
+                uv = uv.ToArray()
+            };
             mesh.RecalculateBounds();
             //mesh.normals = norm.ToArray();
             mesh.RecalculateNormals();
-            mesh.uv = uv.ToArray();
-            mf.mesh = mesh;
-            savedMeshed[lod] =mesh;
+
+            mf.sharedMesh = mesh;
+            savedMeshed[lod] = mesh;
             LOD = lod;
         }
     }

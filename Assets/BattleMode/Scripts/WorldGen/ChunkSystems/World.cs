@@ -22,7 +22,7 @@ public class World : MonoBehaviour
     public int LODRadius = 1;
 
     [ReadOnly]
-    public static int chunkSize = 128;
+    public static int chunkSize = 256;
     public static GameObject world;
     public GameObject Player;
 
@@ -40,7 +40,7 @@ public class World : MonoBehaviour
     public float lodPow= 2;
 
 
-    LODLEVELS lodLevel = LODLEVELS.LOD0;
+    LODLEVELS lodLevel = LODLEVELS.LOD3;
 
 
     public void Awake()
@@ -162,7 +162,7 @@ public class World : MonoBehaviour
                     ChunkPoint chunk = new ChunkPoint((int)((Player.transform.position.x / chunkSize) + (x) + ((typeOfWorld.sizeX) / 2f)), (int)((Player.transform.position.z / chunkSize) + (z) + ((typeOfWorld.sizeZ) / 2f)));
                     ChunkPoint playerChunk = new ChunkPoint((int)((Player.transform.position.x / chunkSize) + ((typeOfWorld.sizeX) / 2f)), (int)((Player.transform.position.z / chunkSize) + ((typeOfWorld.sizeZ) / 2f)));
                     currPlayerChunk = new Vector2(playerChunk.X, playerChunk.Z);
-                    lodLevel = (LODLEVELS)Vector2.Distance(chunk.toVector2(), playerChunk.toVector2());
+                    lodLevel = (LODLEVELS) Mathf.Clamp((Vector2.Distance(chunk.toVector2(), playerChunk.toVector2())-(LODRadius/8)),0,4);
 
                     if (_chunks.ContainsKey(chunk) && _chunks[chunk].LOD != lodLevel &&  chunk.X >= 0 && chunk.Z >= 0 && chunk.X <= typeOfWorld.sizeZ && chunk.Z <= typeOfWorld.sizeX )
                     {

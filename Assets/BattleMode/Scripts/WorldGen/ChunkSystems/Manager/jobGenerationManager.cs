@@ -142,16 +142,16 @@ public class jobGenerationManager : MonoBehaviour
             switch (lod)
             {
                 case LODLEVELS.LOD0:
-                    chunkRes = 200;
+                    chunkRes = 100;
                     break;
                 case LODLEVELS.LOD1:
-                    chunkRes = 128;
+                    chunkRes = 64;
                     break;
                 case LODLEVELS.LOD2:
-                    chunkRes = 48;
+                    chunkRes = 32;
                     break;
                 case LODLEVELS.LOD3:
-                    chunkRes = 32;
+                    chunkRes = 16;
                     break;
                 case LODLEVELS.LOD4:
                     chunkRes = 1;
