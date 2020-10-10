@@ -9,7 +9,7 @@ using static LayerGen;
 namespace WorldGenJobs
 {
 
-
+    //ToDo:Combine Both Jobs
 
     public class generationJob : MonoBehaviour
     {
