@@ -15,6 +15,9 @@ public class planeCamera : MonoBehaviour
     public float zoomLevel = 30f;
     [Range(0.1f, 100)]
     public float zoomSens = 10f;
+
+    public float maxZoom = 120f;
+    public float minZoom = 10f;
     
 
     [Header("Rotation Settings")]
@@ -67,7 +70,7 @@ public class planeCamera : MonoBehaviour
     }
     private void zoomCamera()
     {
-            if (Input.GetAxis("Mouse ScrollWheel") < 0 && zoomLevel < 120)
+            if (Input.GetAxis("Mouse ScrollWheel") < 0 && zoomLevel < maxZoom)
             {
 
                 if (Input.GetAxis("Speed") != 0)
@@ -80,7 +83,7 @@ public class planeCamera : MonoBehaviour
                 }
 
             }
-            else if (Input.GetAxis("Mouse ScrollWheel") > 0 && zoomLevel > 10)
+            else if (Input.GetAxis("Mouse ScrollWheel") > 0 && zoomLevel > minZoom)
             {
                 if (Input.GetAxis("Speed") != 0)
                 {
