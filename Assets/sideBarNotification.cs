@@ -8,6 +8,8 @@ using UnityEngine.UIElements;
 public class sideBarNotification : MonoBehaviour
 {
     Sequence sUI;
+
+    bool hasClicked = false;
     // Start is called before the first frame update
     void Start()
     {
@@ -22,15 +24,18 @@ public class sideBarNotification : MonoBehaviour
     public void kill()
     {
         print("killing");
+        if (!hasClicked)
+        {
+            hasClicked = true;
         UIEventManagerAndNotifier.moveDown(gameObject.transform.parent.gameObject);
         TweenCallback sc = new TweenCallback(Killyoursef);
         sUI.OnPause(Killyoursef);
         sUI.PlayBackwards();
+        }
 
     }
     public void Killyoursef()
     {
-        UIEventManagerAndNotifier.gc.Remove(gameObject.transform.parent.gameObject);
         Destroy(gameObject.transform.parent.gameObject);
     }
 }

@@ -49,15 +49,15 @@ public class UIEventManagerAndNotifier : MonoBehaviour
 
     public void notify()
     {
-        print(gc.Count);
+        int count = gc.Count();
 
-        if (gc.Count > 0)
+        if (count > 0)
         {
-            gc.Add(Instantiate(side_notification_prefab, gc[gc.Count-1].transform.position+new Vector3(0, 55), gc[gc.Count-1].transform.rotation, strategyModeUI.sideBarNotificationArea.transform));
+            gc.Add(Instantiate(side_notification_prefab, gc[count - 1].transform.position + new Vector3(0, gc[count - 1].GetComponent<RectTransform>().sizeDelta.y), gc[count - 1].transform.rotation, strategyModeUI.sideBarNotificationArea.transform));
         }
         else
         {
-            gc.Add(Instantiate(side_notification_prefab, strategyModeUI.sideBarNotificationArea.position + new Vector3(0, (gc.Count * 55)-100),new Quaternion(), strategyModeUI.sideBarNotificationArea.transform));
+            gc.Add(Instantiate(side_notification_prefab, strategyModeUI.sideBarNotificationArea.position + new Vector3(0, strategyModeUI.sideBarNotificationArea.sizeDelta.y), new Quaternion(), strategyModeUI.sideBarNotificationArea.transform));
         }
     }
     public static void moveDown(GameObject index)
@@ -66,16 +66,18 @@ public class UIEventManagerAndNotifier : MonoBehaviour
         int iterator = 0;
         foreach (var item in gc.ToList())
         {
-            if(item != null && iterator>i && item != index && !DOTween.IsTweening(item))
+            if (item != null && iterator >= i && item != index)
             {
-                Vector3 cs = gc[iterator - 1].transform.position;
+                //Vector3 cs = gc[iterator - 1].transform.position;
+                //item.transform.DOMove(cs,1f);
+                item.transform.DOBlendableMoveBy(new Vector3(0, -item.GetComponent<RectTransform>().sizeDelta.y, 0), 0.75f);
                 
-                item.transform.DOMove(cs,1f);
             }
             iterator++;
 
 
         }
+        gc.Remove(index);
     }
     public enum type_Of_UI
     {
