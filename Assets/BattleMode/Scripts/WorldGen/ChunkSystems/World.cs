@@ -162,7 +162,7 @@ public class World : MonoBehaviour
                     ChunkPoint chunk = new ChunkPoint((int)((Player.transform.position.x / chunkSize) + (x) + ((typeOfWorld.sizeX) / 2f)), (int)((Player.transform.position.z / chunkSize) + (z) + ((typeOfWorld.sizeZ) / 2f)));
                     ChunkPoint playerChunk = new ChunkPoint((int)((Player.transform.position.x / chunkSize) + ((typeOfWorld.sizeX) / 2f)), (int)((Player.transform.position.z / chunkSize) + ((typeOfWorld.sizeZ) / 2f)));
                     currPlayerChunk = new Vector2(playerChunk.X, playerChunk.Z);
-                    lodLevel = (LODLEVELS) Mathf.Clamp((Vector2.Distance(chunk.toVector2(), playerChunk.toVector2())-(LODRadius/8)),0,4);
+                    lodLevel = (LODLEVELS) Mathf.Clamp((Vector2.Distance(chunk.toVector2(), playerChunk.toVector2())-(LODRadius/8)) - 0.25f, 0,4);
 
                     if (_chunks.ContainsKey(chunk) && _chunks[chunk].LOD != lodLevel &&  chunk.X >= 0 && chunk.Z >= 0 && chunk.X <= typeOfWorld.sizeZ && chunk.Z <= typeOfWorld.sizeX )
                     {
