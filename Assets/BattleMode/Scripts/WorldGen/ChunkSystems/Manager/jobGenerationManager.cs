@@ -1,19 +1,29 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
 using System.Runtime.CompilerServices;
+using System.Threading;
 using Unity.Collections;
 using Unity.Jobs;
 using UnityEngine;
 using UnityEngine.Jobs;
+using UnityEngine.Tilemaps;
 using WorldGenJobs;
 using static World;
 
 public class jobGenerationManager : MonoBehaviour
 {
-    Dictionary<JobHandle, generationJob.fillNoiseMap> jobFillList = new Dictionary<JobHandle, generationJob.fillNoiseMap>();
-    Dictionary<JobHandle, generationJob.ChunkGenerate> jobMeshList = new Dictionary<JobHandle, generationJob.ChunkGenerate>();
+
+    public struct JobHolder
+    {
+        public generationJob.fillNoiseMap Value;
+        public JobHandle Key;
+    }
+
+    List<JobHolder> jobFillList = new List<JobHolder>();
+    //Dictionary<JobHandle, generationJob.ChunkGenerate> jobMeshList = new Dictionary<JobHandle, generationJob.ChunkGenerate>();
     private WorldTypes typeOfWorld;
 
     public bool cleanJobList = true;
@@ -24,87 +34,115 @@ public class jobGenerationManager : MonoBehaviour
 
     public int jobAmount = 0;
     public int meshJobAmount = 0;
-
+    List<JobHolder> jobsToRemove = new List<JobHolder>();
     public void initalizeManager(WorldTypes type)
     {
         typeOfWorld = type;
-        StartCoroutine(checkJobList());
+        //StartCoroutine(checkJobList());
     }
 
     private void OnGUI()
     {
-        GUI.Label(new Rect(0, 0, 50, 100), new GUIContent("FillJobs" + jobAmount.ToString()+"\n MeshJobs :"+ meshJobAmount));
+        GUI.Label(new Rect(0, 0, 50, 100), new GUIContent("FillJobs" + jobAmount.ToString() + "\n MeshJobs :" + meshJobAmount));
     }
+
+    bool BreakingUP = true;
+    private void LateUpdate()
+    {
+        int iterations = 0;
+        foreach (var item in jobFillList)
+        {
+            if (item.Key.IsCompleted)
+            {
+                item.Key.Complete();
+                if (!_chunks.ContainsKey(item.Value._pos))
+                {
+                    Chunk c = new Chunk(item.Value._pos)
+                    {
+                        Verticies = item.Value.verts.ToArray(),
+                        Indices = item.Value.tris.ToArray(),
+                        norm = item.Value.normals.ToArray(),
+                        uv = item.Value.uvs.ToArray()
+                    };
+                    c.GenerateObject(defaultMaterial, new Vector3((c.Position.X * chunkSize) - ((typeOfWorld.sizeX * chunkSize) / 2f), 0, (c.Position.Z * chunkSize) - ((typeOfWorld.sizeZ * chunkSize) / 2f)), transform, item.Value.chunkRes, item.Value.LOD);
+                    _chunks.Add(item.Value._pos, c);
+                }
+                else
+                {
+                    Chunk c = _chunks[item.Value._pos];
+                    c.Verticies = item.Value.verts.ToArray();
+                    c.Indices = item.Value.tris.ToArray();
+                    c.norm = item.Value.normals.ToArray();
+                    c.uv = item.Value.uvs.ToArray();
+                    c.updateMesh(item.Value.LOD);
+                }
+
+                item.Value.Dispose();
+                jobsToRemove.Add(item);
+            }
+            iterations++;/*
+            if (iterations > jobFillList.Count/6)
+            {
+                break;
+            }
+            */
+        }
+        foreach (JobHolder item in jobsToRemove)
+        {
+            jobFillList.Remove(item);
+        }
+    }
+
+    /*
     public IEnumerator checkJobList()
     {
 
-        List<JobHandle> jobsToRemove = new List<JobHandle>();
+        List<JobHolder> jobsToRemove = new List<JobHolder>();
         while (cleanJobList)
         {
-            
-            foreach (var item in jobFillList)
+            jobsToRemove.Clear();
+
+            for (int i = 0; i < jobFillList.Count; i++)
             {
+                JobHolder item = jobFillList[i];
                 if (item.Key.IsCompleted)
                 {
                     item.Key.Complete();
-                    //item.Value._pos.displayChunk();
-                    GenerateMesh(item.Value._pos, item.Value.noiseLayeredMap, item.Value.chunkRes, item.Value.LOD);
-                    item.Value.Dispose();
-                    jobsToRemove.Add(item.Key);
-                }
-            }
-            foreach (var item in jobMeshList)
-            {
-
-                if (item.Key.IsCompleted)
-                {
-                    item.Key.Complete();
-
-                    if (!_chunks.ContainsKey(item.Value.cp))
+                    if (!_chunks.ContainsKey(item.Value._pos))
                     {
-                        Chunk c = new Chunk(item.Value.cp)
+                        Chunk c = new Chunk(item.Value._pos)
                         {
                             Verticies = item.Value.verts.ToList(),
                             Indices = item.Value.tris.ToList(),
                             norm = item.Value.normals.ToList(),
                             uv = item.Value.uvs.ToList()
                         };
-                        c.GenerateObject(defaultMaterial, new Vector3((c.Position.X * chunkSize) - ((typeOfWorld.sizeX * chunkSize) / 2f), 0, (c.Position.Z * chunkSize) - ((typeOfWorld.sizeZ * chunkSize) / 2f)), transform, item.Value.resolution, item.Value.lod);
-                        _chunks.Add(item.Value.cp, c);
+                        c.GenerateObject(defaultMaterial, new Vector3((c.Position.X * chunkSize) - ((typeOfWorld.sizeX * chunkSize) / 2f), 0, (c.Position.Z * chunkSize) - ((typeOfWorld.sizeZ * chunkSize) / 2f)), transform, item.Value.chunkRes, item.Value.LOD);
+                        _chunks.Add(item.Value._pos, c);
                     }
                     else
                     {
-                        Chunk c = _chunks[item.Value.cp];
+                        Chunk c = _chunks[item.Value._pos];
                         c.Verticies = item.Value.verts.ToList();
                         c.Indices = item.Value.tris.ToList();
                         c.norm = item.Value.normals.ToList();
                         c.uv = item.Value.uvs.ToList();
-                        c.updateMesh(item.Value.lod);
+                        c.updateMesh(item.Value.LOD);
                     }
 
                     item.Value.Dispose();
-                    jobsToRemove.Add(item.Key);
+                    jobsToRemove.Add(item);
                 }
             }
-            foreach (JobHandle item in jobsToRemove.ToArray())
+            foreach (JobHolder item in jobsToRemove)
             {
-                if (jobFillList.ContainsKey(item))
-                {
-                    jobFillList.Remove(item);
-                    jobsToRemove.Remove(item);
-                }
-
-                if (jobMeshList.ContainsKey(item))
-                {
-                    jobMeshList.Remove(item);
-                    jobsToRemove.Remove(item);
-                }
+                jobFillList.Remove(item);
             }
-
             yield return new WaitForSeconds(0.125f);
         }
     }
-
+    */
+    /*
     private void GenerateMesh(ChunkPoint cp, NativeArray<float> noiseMap, int resolution, LODLEVELS lod)
     {
 
@@ -129,57 +167,85 @@ public class jobGenerationManager : MonoBehaviour
         JobHandle jh = job.Schedule();
         jobMeshList.Add(jh, job);
     }
-
+    */
     public void GenerateChunkAt(ChunkPoint cp, LODLEVELS lod)
     {
         jobAmount = jobFillList.Count;
-        meshJobAmount = jobMeshList.Count;
+        //meshJobAmount = jobMeshList.Count;
+
+
+
         if (_chunks.ContainsKey(cp) && _chunks[cp].hasMesh(lod))
             _chunks[cp].updateMesh(lod);
         else
         {
-            int chunkRes;
-            switch (lod)
+            if (lod < LODLEVELS.LOD1 || lod > LODLEVELS.LOD2)
             {
-                case LODLEVELS.LOD0:
-                    chunkRes = 100;
-                    break;
-                case LODLEVELS.LOD1:
-                    chunkRes = 64;
-                    break;
-                case LODLEVELS.LOD2:
-                    chunkRes = 32;
-                    break;
-                case LODLEVELS.LOD3:
-                    chunkRes = 16;
-                    break;
-                case LODLEVELS.LOD4:
-                    chunkRes = 1;
-                    break;
-                default:
-                    chunkRes = 2;
-                    break;
+                int chunkRes;
+                switch (lod)
+                {
+                    case LODLEVELS.LOD0:
+                        chunkRes = 200;
+                        break;
+                    case LODLEVELS.LOD1:
+                        chunkRes = 128;
+                        break;
+                    case LODLEVELS.LOD2:
+                        chunkRes = 32;
+                        break;
+                    case LODLEVELS.LOD3:
+                        chunkRes = 4;
+                        break;
+                    case LODLEVELS.LOD4:
+                        chunkRes = 4;
+                        break;
+                    default:
+                        chunkRes = 2;
+                        break;
+                }
+
+                //if (jobFillList.Count < 30)
+                //{
+                NativeArray<float> naArray = prepareLayerSettings(typeOfWorld);
+                NativeArray<float> noiseMapArr = new NativeArray<float>((chunkRes + extraRows) * (chunkRes + extraRows), Allocator.TempJob);
+                NativeArray<float> lastnoiseMapArr = new NativeArray<float>((chunkRes + extraRows) * (chunkRes + extraRows), Allocator.TempJob);
+                NativeArray<Vector3> verts = new NativeArray<Vector3>((chunkRes + extraRows) * (chunkRes + extraRows), Allocator.TempJob);
+                NativeArray<int> tris = new NativeArray<int>(verts.Length * 6, Allocator.TempJob);
+                NativeArray<Vector3> normals = new NativeArray<Vector3>((chunkRes + extraRows) * (chunkRes + extraRows), Allocator.TempJob);
+                NativeArray<Vector2> uvs = new NativeArray<Vector2>((chunkRes + extraRows) * (chunkRes + extraRows), Allocator.TempJob);
+
+
+
+
+                generationJob.fillNoiseMap job = new generationJob.fillNoiseMap
+                {
+                    noiseLayeredMap = noiseMapArr,
+                    lastnoiseLayeredMap = lastnoiseMapArr,
+                    _pos = cp,
+                    layerSettings = naArray,
+                    numberOfLayers = typeOfWorld.noiseLayers.Count,
+                    chunkRes = chunkRes,
+                    LOD = lod,
+                    chunkSize = chunkSize,
+                    numberOfSettings = numberOfSettings,
+
+                    verts = verts,
+                    uvs = uvs,
+                    normals = normals,
+                    tris = tris
+
+                };
+
+
+
+                JobHandle jh = job.Schedule();
+                JobHolder jhh = new JobHolder { Key = jh, Value = job };
+                jobFillList.Add(jhh);
+                // }
+                //else
+                //{
+                //}
             }
-            NativeArray<float> naArray = prepareLayerSettings(typeOfWorld);
-
-            NativeArray<float> noiseMapArr = new NativeArray<float>((chunkRes + extraRows) * (chunkRes + extraRows), Allocator.Persistent);
-            NativeArray<float> lastnoiseMapArr = new NativeArray<float>((chunkRes + extraRows) * (chunkRes + extraRows), Allocator.Persistent);
-
-            generationJob.fillNoiseMap job = new generationJob.fillNoiseMap
-            {
-                noiseLayeredMap = noiseMapArr,
-                lastnoiseLayeredMap = lastnoiseMapArr,
-                _pos = cp,
-                layerSettings = naArray,
-                numberOfLayers = typeOfWorld.noiseLayers.Count,
-                chunkRes = chunkRes,
-                LOD = lod,
-                chunkSize = chunkSize,
-                numberOfSettings = numberOfSettings
-
-            };
-            JobHandle jh = job.Schedule();
-            jobFillList.Add(jh, job);
         }
     }
     private NativeArray<float> prepareLayerSettings(WorldTypes worldType)
@@ -208,7 +274,7 @@ public class jobGenerationManager : MonoBehaviour
 
 
         }
-        NativeArray<float> naArray = new NativeArray<float>(layerSettings.Length, Allocator.Persistent);
+        NativeArray<float> naArray = new NativeArray<float>(layerSettings.Length, Allocator.TempJob);
         naArray.CopyFrom(layerSettings);
 
         return naArray;

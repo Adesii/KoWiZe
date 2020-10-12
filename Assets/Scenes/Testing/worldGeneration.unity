@@ -958,7 +958,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1533721176715450234, guid: d78758b4f1d67094bad356a3d549b8a8, type: 3}
       propertyPath: samples
-      value: 64
+      value: 8
       objectReference: {fileID: 0}
     - target: {fileID: 1533721176715450234, guid: d78758b4f1d67094bad356a3d549b8a8, type: 3}
       propertyPath: cloudCurve.m_Curve.Array.data[0].inSlope

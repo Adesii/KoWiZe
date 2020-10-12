@@ -5,10 +5,10 @@ using UnityEngine;
 
 public class Chunk
 {
-    public List<Vector3> Verticies = new List<Vector3>();
-    public List<int> Indices = new List<int>();
-    public List<Vector3> norm = new List<Vector3>();
-    public List<Vector2> uv = new List<Vector2>();
+    public Vector3[] Verticies;
+    public int[] Indices;
+    public Vector3[] norm;
+    public Vector2[] uv;
 
     public World.ChunkPoint Position;
     public GameObject chunk;
@@ -37,9 +37,9 @@ public class Chunk
 
         var mesh = new Mesh
         {
-            vertices = Verticies.ToArray(),
-            triangles = Indices.ToArray(),
-            uv = uv.ToArray()
+            vertices = Verticies,
+            triangles = Indices,
+            uv = uv
         };
         mesh.name = lod.ToString();
         mesh.MarkDynamic();
@@ -73,6 +73,7 @@ public class Chunk
         if (savedMeshed.ContainsKey(lod))
         {
             mf.sharedMesh = savedMeshed[lod];
+            LOD = lod;
         }
         else
         {
@@ -92,11 +93,6 @@ public class Chunk
             savedMeshed[lod] = mesh;
             LOD = lod;
         }
-    }
-    public void Dispose()
-    {
-        Verticies.Clear();
-        Indices.Clear();
     }
 
 }

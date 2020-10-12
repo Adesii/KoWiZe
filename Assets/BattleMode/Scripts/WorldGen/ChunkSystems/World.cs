@@ -22,7 +22,7 @@ public class World : MonoBehaviour
     public int LODRadius = 1;
 
     [ReadOnly]
-    public static int chunkSize = 256;
+    public static int chunkSize = 512;
     public static GameObject world;
     public GameObject Player;
 
@@ -89,7 +89,7 @@ public class World : MonoBehaviour
         }
         public void displayChunk()
         {
-            Debug.DrawLine(new Vector3(_x * chunkSize, 0, _z * chunkSize), new Vector3(_x * chunkSize, 10, _z * chunkSize), Color.yellow, 1000f);
+            Debug.DrawLine(new Vector3(_x * chunkSize, 0, _z * chunkSize), new Vector3(_x * chunkSize, 10, _z * chunkSize), Color.yellow, 1f);
         }
 
         public static Vector2 operator -(ChunkPoint a, ChunkPoint b)
@@ -162,10 +162,15 @@ public class World : MonoBehaviour
                     ChunkPoint chunk = new ChunkPoint((int)((Player.transform.position.x / chunkSize) + (x) + ((typeOfWorld.sizeX) / 2f)), (int)((Player.transform.position.z / chunkSize) + (z) + ((typeOfWorld.sizeZ) / 2f)));
                     ChunkPoint playerChunk = new ChunkPoint((int)((Player.transform.position.x / chunkSize) + ((typeOfWorld.sizeX) / 2f)), (int)((Player.transform.position.z / chunkSize) + ((typeOfWorld.sizeZ) / 2f)));
                     currPlayerChunk = new Vector2(playerChunk.X, playerChunk.Z);
-                    lodLevel = (LODLEVELS) Mathf.Clamp((Vector2.Distance(chunk.toVector2(), playerChunk.toVector2())-(LODRadius/8)) - 0.25f, 0,4);
+                    lodLevel = (LODLEVELS) Mathf.Clamp(Vector2.Distance(chunk.toVector2(), playerChunk.toVector2()), 0,4);
+                    if(lodLevel == LODLEVELS.LOD1)
+                    {
+                        lodLevel = LODLEVELS.LOD0;
+                    }
 
                     if (_chunks.ContainsKey(chunk) && _chunks[chunk].LOD != lodLevel &&  chunk.X >= 0 && chunk.Z >= 0 && chunk.X <= typeOfWorld.sizeZ && chunk.Z <= typeOfWorld.sizeX )
                     {
+                        chunk.displayChunk();
                         jobManager.GenerateChunkAt(chunk, lodLevel);
                     }
                 }
@@ -180,7 +185,6 @@ public class World : MonoBehaviour
     {
         foreach (var item in _chunks)
         {
-            item.Value.Dispose();
             Destroy(item.Value.chunk);
         }
         _chunks.Clear();

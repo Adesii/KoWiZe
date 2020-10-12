@@ -22,11 +22,14 @@ namespace WorldGenJobs
             public NativeArray<float> noiseLayeredMap;
             public NativeArray<float> lastnoiseLayeredMap;
 
-
+            [ReadOnly]
             public World.ChunkPoint _pos;
+            [ReadOnly]
             public int numberOfLayers;
-            public NativeArray<float> layerSettings;
 
+            [ReadOnly]
+            public NativeArray<float> layerSettings;
+            [ReadOnly]
             public int chunkRes;
 
             [ReadOnly]
@@ -35,8 +38,6 @@ namespace WorldGenJobs
             public int chunkSize;
             [ReadOnly]
             public int numberOfSettings;
-
-            private int layerIndex;
 
             private int octaves;
             private int multiplier;
@@ -61,9 +62,18 @@ namespace WorldGenJobs
             public float minHeight;
             public float maxHeight;
 
+
+            //Mesh Creation;
+            public NativeArray<Vector3> verts;
+            public NativeArray<Vector3> normals;
+
+            public NativeArray<Vector2> uvs;
+
+            public NativeArray<int> tris;
+
+
             public void Execute()
             {
-
                 for (int j = 0; j < layerSettings.Length / numberOfSettings; j++)
                 {
                     octaves = (int)layerSettings[(j * numberOfSettings)];
@@ -181,12 +191,48 @@ namespace WorldGenJobs
                 }
 
                 */
+
+                int k = 0;
+                for (int x = 0; x <= chunkRes; x++)
+                {
+                    for (int z = 0; z <= chunkRes; z++)
+                    {
+                        verts[k] = new Vector3(((float)x / (float)chunkRes) * (float)chunkSize, noiseLayeredMap[k], ((float)z / (float)chunkRes) * (float)chunkSize);
+                        normals[k] = new Vector3(0, 1, 0);
+                        uvs[k] = new Vector2(x, z);
+                        k++;
+                    }
+                }
+                for (int ti = 0, vi = 0, y = 0; y < chunkRes; y++, vi++)
+                {
+                    for (int x = 0; x < chunkRes; x++, ti += 6, vi++)
+                    {
+                        tris[ti + 5] = vi + chunkRes + 2;
+                        tris[ti + 4] = tris[ti + 1] = vi + 1;
+                        tris[ti + 3] = tris[ti + 2] = vi + chunkRes + 1;
+                        tris[ti] = vi;
+
+                    }
+                }
+
             }
             public void Dispose()
             {
                 layerSettings.Dispose();
                 lastnoiseLayeredMap.Dispose();
+                noiseLayeredMap.Dispose();
+                verts.Dispose();
+                tris.Dispose();
+                normals.Dispose();
+                uvs.Dispose();
             }
+
+
+
+
+
+
+
 
             public float coherentNoise(float x, float y, float z, int octaves = 1, int multiplier = 25, float amplitude = 0.5f, float lacunarity = 2, float persistence = 0.9f)
             {
@@ -203,6 +249,8 @@ namespace WorldGenJobs
 
 
         }
+
+        /*
         [BurstCompile]
         public struct ChunkGenerate : IJob
         {
@@ -255,5 +303,6 @@ namespace WorldGenJobs
                 uvs.Dispose();
             }
         }
+        */
     }
 }
