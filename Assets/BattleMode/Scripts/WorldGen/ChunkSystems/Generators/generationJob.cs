@@ -17,8 +17,6 @@ namespace WorldGenJobs
         [BurstCompile]
         public struct fillNoiseMap : IJob
         {
-
-
             public NativeArray<float> noiseLayeredMap;
             public NativeArray<float> lastnoiseLayeredMap;
 
@@ -64,11 +62,13 @@ namespace WorldGenJobs
 
 
             //Mesh Creation;
+            [WriteOnly]
             public NativeArray<Vector3> verts;
+            [WriteOnly]
             public NativeArray<Vector3> normals;
-
+            [WriteOnly]
             public NativeArray<Vector2> uvs;
-
+            [WriteOnly]
             public NativeArray<int> tris;
 
 
@@ -218,9 +218,11 @@ namespace WorldGenJobs
             }
             public void Dispose()
             {
-                layerSettings.Dispose();
                 lastnoiseLayeredMap.Dispose();
                 noiseLayeredMap.Dispose();
+
+                layerSettings.Dispose();
+                
                 verts.Dispose();
                 tris.Dispose();
                 normals.Dispose();

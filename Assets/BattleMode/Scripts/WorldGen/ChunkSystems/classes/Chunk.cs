@@ -47,7 +47,7 @@ public class Chunk
         //mesh.normals = norm.ToArray();
         mesh.RecalculateNormals();
         
-        var go = new GameObject("TerrainChunk");
+        var go = new GameObject("TerrainChunk: "+Position);
         var mf = go.AddComponent<MeshFilter>();
         var mr = go.AddComponent<MeshRenderer>();
         var collider = go.AddComponent<MeshCollider>();
@@ -70,9 +70,12 @@ public class Chunk
     public void updateMesh(World.LODLEVELS lod)
     {
         MeshFilter mf = chunk.GetComponent<MeshFilter>();
+        MeshCollider collider = chunk.GetComponent<MeshCollider>();
         if (savedMeshed.ContainsKey(lod))
         {
             mf.sharedMesh = savedMeshed[lod];
+            
+            collider.sharedMesh = savedMeshed[lod];
             LOD = lod;
         }
         else
@@ -81,14 +84,14 @@ public class Chunk
             Mesh mesh = new Mesh
             {
                 name = lod.ToString(),
-                vertices = Verticies.ToArray(),
-                triangles = Indices.ToArray(),
-                uv = uv.ToArray()
+                vertices = Verticies,
+                triangles = Indices,
+                uv = uv
             };
             mesh.RecalculateBounds();
             //mesh.normals = norm.ToArray();
             mesh.RecalculateNormals();
-
+            collider.sharedMesh = mesh;
             mf.sharedMesh = mesh;
             savedMeshed[lod] = mesh;
             LOD = lod;
