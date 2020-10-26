@@ -83,6 +83,7 @@ public class UIEventManagerAndNotifier : MonoBehaviour
     }
     public static float getSizeY(RectTransform rt)
     {
+        //return rt.sizeDelta.y;
         return RectTransformUtility.PixelAdjustRect(rt, can).height;
     }
     public enum type_Of_UI
