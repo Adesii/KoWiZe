@@ -26,9 +26,11 @@ public class UIEventManagerAndNotifier : MonoBehaviour
     [HideInInspector]
     public static List<GameObject> gc = new List<GameObject>();
 
+    public static Canvas can;
     private void Start()
     {
         //StartCoroutine(ie());
+        can = gameObject.GetComponent<Canvas>();
     }
     private IEnumerator ie()
     {
@@ -53,11 +55,11 @@ public class UIEventManagerAndNotifier : MonoBehaviour
 
         if (count > 0)
         {
-            gc.Add(Instantiate(side_notification_prefab, gc[count - 1].transform.position + new Vector3(0, gc[count - 1].GetComponent<RectTransform>().sizeDelta.y), gc[count - 1].transform.rotation, strategyModeUI.sideBarNotificationArea.transform));
+            gc.Add(Instantiate(side_notification_prefab, gc[count - 1].GetComponent<RectTransform>().position + new Vector3(0, getSizeY(gc[count - 1].GetComponent<RectTransform>())), gc[count - 1].transform.rotation, strategyModeUI.sideBarNotificationArea.transform));
         }
         else
         {
-            gc.Add(Instantiate(side_notification_prefab, strategyModeUI.sideBarNotificationArea.position + new Vector3(0, strategyModeUI.sideBarNotificationArea.sizeDelta.y), new Quaternion(), strategyModeUI.sideBarNotificationArea.transform));
+            gc.Add(Instantiate(side_notification_prefab, strategyModeUI.sideBarNotificationArea.position - new Vector3(0, getSizeY(strategyModeUI.sideBarNotificationArea)), new Quaternion(), strategyModeUI.sideBarNotificationArea.transform));
         }
     }
     public static void moveDown(GameObject index)
@@ -70,7 +72,7 @@ public class UIEventManagerAndNotifier : MonoBehaviour
             {
                 //Vector3 cs = gc[iterator - 1].transform.position;
                 //item.transform.DOMove(cs,1f);
-                item.transform.DOBlendableMoveBy(new Vector3(0, -item.GetComponent<RectTransform>().sizeDelta.y, 0), 0.75f);
+                item.transform.DOBlendableMoveBy(new Vector3(0, -getSizeY(item.GetComponent<RectTransform>()), 0), 0.75f);
                 
             }
             iterator++;
@@ -78,6 +80,10 @@ public class UIEventManagerAndNotifier : MonoBehaviour
 
         }
         gc.Remove(index);
+    }
+    public static float getSizeY(RectTransform rt)
+    {
+        return RectTransformUtility.PixelAdjustRect(rt, can).height;
     }
     public enum type_Of_UI
     {
