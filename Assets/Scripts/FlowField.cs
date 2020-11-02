@@ -12,7 +12,6 @@ public class FlowField : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        
     }
 
 
@@ -24,7 +23,7 @@ public class FlowField : MonoBehaviour
         flowField = new Vector2[gridWidth][];
 		for (x = 0; x < gridWidth; x++)
 		{
-			var arr = new Vector2[gridHeight];
+			Vector2[] arr = new Vector2[gridHeight];
 			for (y = 0; y < gridHeight; y++)
 			{
 				arr[y] = Vector2.zero;
@@ -36,36 +35,37 @@ public class FlowField : MonoBehaviour
 		for (x = 0; x < gridWidth; x++)
 		{
 			for (y = 0; y < gridHeight; y++)
-			{
+            {
 
-				var pos = new Vector2(x, y);
-				var neighbours = allNeighboursOf(pos);
+                Vector2 pos = new Vector2(x, y);
+                Vector2[] neighbours = allNeighboursOf(pos);
 
-				//Go through all neighbours and find the one with the lowest distance
-				int min;
-				var minDist = 0;
-				for (var i = 0; i < neighbours.length; i++)
-				{
-					var n = neighbours[i];
-					var dist = dijkstraGrid[n.x][n.y] - dijkstraGrid[pos.x][pos.y];
+                //Go through all neighbours and find the one with the lowest distance
+                Vector2 min = new Vector2();
+                float minDist = 0;
+                for (int i = 0; i < neighbours.Length; i++)
+                {
+                    Vector2 n = neighbours[i];
+                    float dist = Vector2.Distance(flowField[(int)n.x][(int)n.y], flowField[(int)pos.x][(int)pos.y]);
 
-					if (dist < minDist)
-					{
-						min = n;
-						minDist = dist;
-					}
-				}
+                    if (dist < minDist)
+                    {
+                        min = n;
+                        minDist = dist;
+                    }
+                }
 
-				//If we found a valid neighbour, point in its direction
-				if (min != null)
-				{
-					flowField[x][y] = min.minus(pos).normalize();
-				}
-			}
-		}
+                //If we found a valid neighbour, point in its direction
+                if (min != null)
+                {
+                    pos.Normalize();
+                    flowField[x][y] = -pos;
+                }
+            }
+        }
 	}
 
-    private object allNeighboursOf(Vector2 pos)
+    private  Vector2[] allNeighboursOf(Vector2 pos)
     {
         throw new NotImplementedException();
     }

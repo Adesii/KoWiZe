@@ -129,13 +129,10 @@ public class UICLassEditor : Editor
         switch ((UIEventManagerAndNotifier.type_Of_UI)selected.enumValueIndex)
         {
             case UIEventManagerAndNotifier.type_Of_UI.battleMode:
-                EditorGUILayout.PropertyField(bmUI);
                 break;
             case UIEventManagerAndNotifier.type_Of_UI.stratMode:
-                EditorGUILayout.PropertyField(smUI);
                 break;
             case UIEventManagerAndNotifier.type_Of_UI.mainMenu:
-                EditorGUILayout.PropertyField(mmUI);
                 break;
             default:
                 break;
