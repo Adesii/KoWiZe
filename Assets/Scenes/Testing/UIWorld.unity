@@ -232,13 +232,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   side_notification_prefab: {fileID: 8064314160006752035, guid: 29eb09e70fd30fc45b452e35c77e3415, type: 3}
   selectedUI: 1
-  strategyModeUI:
-    sideBarNotificationArea: {fileID: 1728031882}
-    timedEventArea: {fileID: 1079696070}
-    alertNotificationArea: {fileID: 2011074868}
-    selectionArea: {fileID: 1812999078}
-    topUIBar: {fileID: 1985301635}
-    bottomUIBar: {fileID: 548153079}
   menuUI:
     ss: working
   battleModeUI:
