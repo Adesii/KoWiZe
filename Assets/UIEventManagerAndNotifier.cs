@@ -17,11 +17,8 @@ public class UIEventManagerAndNotifier : MonoBehaviour
     [HideInInspector]
     [Header("Type Selection")]
     public type_Of_UI selectedUI;
-    [HideInInspector]
     public stratModeUI strategyModeUI = new stratModeUI();
-    [HideInInspector]
     public menuUI menuUI = new menuUI();
-    [HideInInspector]
     public battleModeUI battleModeUI = new battleModeUI();
 
     [HideInInspector]
@@ -38,7 +35,7 @@ public class UIEventManagerAndNotifier : MonoBehaviour
         List<GameObject> gc = new List<GameObject>();
         for (int i = 0; i < 5; i++)
         {
-            gc.Add(GameObject.Instantiate(side_notification_prefab, strategyModeUI.SideBarNotificationArea.transform));
+            gc.Add(GameObject.Instantiate(side_notification_prefab, strategyModeUI.sideBarNotificationArea.transform));
             yield return new WaitForSeconds(0.2f);
         }
         yield return new WaitForSeconds(1f);
@@ -56,11 +53,11 @@ public class UIEventManagerAndNotifier : MonoBehaviour
 
         if (count > 0)
         {
-            gc.Add(Instantiate(side_notification_prefab, gc[count - 1].GetComponent<RectTransform>().position + new Vector3(0, getSizeY(gc[count - 1].GetComponent<RectTransform>())), gc[count - 1].transform.rotation, strategyModeUI.SideBarNotificationArea.transform));
+            gc.Add(Instantiate(side_notification_prefab, gc[count - 1].GetComponent<RectTransform>().position + new Vector3(0, getSizeY(gc[count - 1].GetComponent<RectTransform>())), gc[count - 1].transform.rotation, strategyModeUI.sideBarNotificationArea.transform));
         }
         else
         {
-            gc.Add(Instantiate(side_notification_prefab, strategyModeUI.SideBarNotificationArea.position - new Vector3(0, getSizeY(strategyModeUI.SideBarNotificationArea)), new Quaternion(), strategyModeUI.SideBarNotificationArea.transform));
+            gc.Add(Instantiate(side_notification_prefab, strategyModeUI.sideBarNotificationArea.position - new Vector3(0, getSizeY(strategyModeUI.sideBarNotificationArea)), new Quaternion(), strategyModeUI.sideBarNotificationArea.transform));
         }
     }
     public static void moveDown(GameObject index)
@@ -103,76 +100,16 @@ public class UIEventManagerAndNotifier : MonoBehaviour
         Countdown
     }
 }
-
-[CustomEditor(typeof(UIEventManagerAndNotifier))]
-[CanEditMultipleObjects]
-public class UICLassEditor : Editor
-{
-    SerializedProperty selected;
-    SerializedProperty smUI;
-    SerializedProperty bmUI;
-    SerializedProperty mmUI;
-
-    private void OnEnable()
-    {
-        selected = serializedObject.FindProperty("selectedUI");
-        smUI = serializedObject.FindProperty("strategyModeUI");
-        bmUI = serializedObject.FindProperty("battleModeUI");
-        mmUI = serializedObject.FindProperty("menuUI");
-    }
-    private void show(SerializedProperty objects)
-    {
-        foreach (var item in objects.GetType().GetProperties())
-        {
-            EditorGUILayout.PropertyField(item);
-        }
-    }
-    public override void OnInspectorGUI()
-    {
-        serializedObject.Update();
-
-        EditorGUILayout.PropertyField(selected);
-
-        switch ((UIEventManagerAndNotifier.type_Of_UI)selected.enumValueIndex)
-        {
-            case UIEventManagerAndNotifier.type_Of_UI.battleMode:
-                //EditorGUILayout.PropertyField(bmUI, true);
-                //CreateEditor(bmUI.objectReferenceValue).OnInspectorGUI();
-                show(bmUI);
-
-                break;
-            case UIEventManagerAndNotifier.type_Of_UI.stratMode:
-                EditorGUILayout.PropertyField(smUI, true);
-
-                break;
-            case UIEventManagerAndNotifier.type_Of_UI.mainMenu:
-                EditorGUILayout.PropertyField(mmUI, true);
-                CreateEditor(mmUI.serializedObject.targetObject).OnInspectorGUI();
-                break;
-            default:
-                break;
-        }
-        serializedObject.ApplyModifiedProperties();
-    }
-
-}
 [Serializable]
 public class stratModeUI
 {
     [Header("UI Areas")]
-    private RectTransform sideBarNotificationArea;
-    private RectTransform timedEventArea;
-    private RectTransform alertNotificationArea;
-    private RectTransform selectionArea;
-    private RectTransform topUIBar;
-    private RectTransform bottomUIBar;
-
-    public RectTransform SideBarNotificationArea { get => sideBarNotificationArea; set => sideBarNotificationArea = value; }
-    public RectTransform TimedEventArea { get => timedEventArea; set => timedEventArea = value; }
-    public RectTransform AlertNotificationArea { get => alertNotificationArea; set => alertNotificationArea = value; }
-    public RectTransform SelectionArea { get => selectionArea; set => selectionArea = value; }
-    public RectTransform TopUIBar { get => topUIBar; set => topUIBar = value; }
-    public RectTransform BottomUIBar { get => bottomUIBar; set => bottomUIBar = value; }
+    public RectTransform sideBarNotificationArea;
+    public RectTransform timedEventArea;
+    public RectTransform alertNotificationArea;
+    public RectTransform selectionArea;
+    public RectTransform topUIBar;
+    public RectTransform bottomUIBar;
 }
 [Serializable]
 

@@ -1,0 +1,42 @@
+5eb6d1b;Adesi;Mon Nov 2 14:33:28 2020 +0100;tried to get UI Working again...
+94f6db8;Adesi;Mon Nov 2 12:07:58 2020 +0100;flowfield converted
+2b44beb;Samueltz;Mon Nov 2 11:32:46 2020 +0100;FlowField
+3a5cd8e;Adesi;Mon Oct 26 12:46:37 2020 +0100;changed performance settings to work better with my Laptop
+46fab26;Adesi;Mon Oct 26 08:45:56 2020 +0100;Update manifest.json
+88b7bb7;Adesi;Mon Oct 26 07:07:34 2020 +0100;adjusted UI
+79c60f1;Adesi;Mon Oct 12 20:59:04 2020 +0200;fixed Shader Graph, and added Waves/Better Cloud System
+37cab61;Adesi;Mon Oct 12 17:01:26 2020 +0200;reduced Garbage Collection and Lag Spikes
+a8949c0;Adesi;Sun Oct 11 02:28:47 2020 +0200;adjusted shadows and LOD Settings
+1e664f4;Adesi;Sun Oct 11 01:20:22 2020 +0200;added clouds
+4b77082;Adesi;Sat Oct 10 21:32:30 2020 +0200;Revert "Revert "Update generationJob.cs""
+cd0e3ec;Adesi;Sat Oct 10 21:31:50 2020 +0200;Revert "Update generationJob.cs"
+8408633;Adesi;Sat Oct 10 21:29:47 2020 +0200;Update generationJob.cs
+ea86bd6;Adesi;Sat Oct 10 21:25:50 2020 +0200;added Networking Package
+ce711a3;Adesi;Sat Oct 10 16:58:15 2020 +0200;added to the UI Prototype
+74db04c;Adesi;Fri Oct 9 19:41:18 2020 +0200;Added DOTween and TMP library for UI Usage. (also small UI Prototype)
+c569477;Adesi;Fri Oct 9 11:49:42 2020 +0200;Adjuste LOD some more
+c5b5c70;Adesi;Fri Oct 9 05:56:49 2020 +0200;Fixed Masking on NoiseMapGeneration
+d4041b7;Adesi;Thu Oct 8 13:01:38 2020 +0200;Adjusted LOD
+7df34d2;Adesi;Thu Oct 8 10:21:59 2020 +0200;made Jobs BurstCompile to Increase Performance
+090be2c;Adesi;Thu Oct 8 03:00:41 2020 +0200;Made WorldGeneration MultiThreaded (Ist jetzt Super Schnell)
+160a2c6;Adesi;Sun Oct 4 21:21:51 2020 +0200;Reorganized Folders
+a8cebcb;Adesi;Sun Oct 4 19:28:11 2020 +0200;tried multithreading... but failed
+d5a4f27;Adesi;Sun Oct 4 02:10:55 2020 +0200;Added LOD System.
+97d57f8;Adesi;Sat Oct 3 22:53:34 2020 +0200;adjusted Noisemap generation again.
+8926677;Adesi;Mon Sep 28 13:05:24 2020 +0200;changed NoiseGen
+cbc9187;Adesi;Sun Sep 27 23:27:24 2020 +0200;Noise Preview Scene added and added World Types
+5b53ae8;Adesi;Mon Sep 21 14:37:07 2020 +0200;world generation tweaks
+116ee8c;Adesi;Sat Sep 19 20:40:56 2020 +0200;added WorldGeneration starting point
+7b6d6a7;Adesi;Thu Sep 17 09:47:01 2020 +0200;finished Camera Movement to a working state
+299ce93;Adesi;Tue Sep 15 14:27:31 2020 +0200;added movement and rotation to camera
+7e89415;Adesi;Mon Sep 14 14:20:34 2020 +0200;made drag Possible
+9b00875;Adesi;Tue Sep 8 13:37:54 2020 +0200;Delete License.md
+4fc3be7;Adesi;Tue Sep 8 13:37:35 2020 +0200;Merge pull request #1 from Adesii/add-license-1
+1af4eae;Adesi;Tue Sep 8 13:37:15 2020 +0200;Create LICENSE
+79b63e2;Adesi;Tue Sep 8 13:34:28 2020 +0200;Create License.md
+42590e6;Adesi;Tue Sep 8 12:10:10 2020 +0200;Update PrototypingScene.unity
+d5b936e;Adesi;Tue Sep 8 11:56:01 2020 +0200;Update planeCamera.cs
+7ee6279;Adesi;Tue Sep 8 09:14:14 2020 +0200;Update planeCamera.cs
+58f840f;Adesi;Tue Sep 8 08:45:11 2020 +0200;materialien gefixed und framework für Kamerasystemgelegt
+897e271;Adesi;Tue Sep 8 02:38:22 2020 +0200;Erster Commit
+d64075f;Adesi;Tue Sep 8 02:11:53 2020 +0200;Initial commit
