@@ -230,7 +230,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e7762d9db347eb84687f9ae5e5338f77, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  side_notification_prefab: {fileID: 8064314160006752035, guid: 29eb09e70fd30fc45b452e35c77e3415, type: 3}
+  prefabArray:
+  - prefabs: []
+  - prefabs:
+    - {fileID: 8064314160006752035, guid: 29eb09e70fd30fc45b452e35c77e3415, type: 3}
+  - prefabs: []
+  - prefabs: []
+  - prefabs: []
   selectedUI: 1
   strategyModeUI:
     sideBarNotificationArea: {fileID: 1728031882}
