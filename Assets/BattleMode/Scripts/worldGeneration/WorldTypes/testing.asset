@@ -16,13 +16,13 @@ MonoBehaviour:
   sizeX: 10
   sizeZ: 10
   noiseLayers:
-  - offset: {x: 100, y: 0, z: -100}
+  - offset: {x: 100, y: 19.55, z: -100}
     seed: 
     octaves: 10
-    multiplier: 257
-    amplitute: 7.36
+    multiplier: 951
+    amplitute: 8.55
     lacunarity: 1.41
-    persistance: 0.75
+    persistance: 0.86
     heightCurve:
       serializedVersion: 2
       m_Curve: []
@@ -33,6 +33,46 @@ MonoBehaviour:
     sizeScalez: 1
     blendMode: 2
     min: -7.53
-    max: 58.32
-    MultiplicationOfFinal: 4.76
+    max: 23.9
+    MultiplicationOfFinal: 2.1
+    subtraction: -1.67
+  - offset: {x: 100, y: -2.6, z: -100}
+    seed: 
+    octaves: 10
+    multiplier: 636
+    amplitute: 6.54
+    lacunarity: 0.6
+    persistance: 0.94
+    heightCurve:
+      serializedVersion: 2
+      m_Curve: []
+      m_PreInfinity: 2
+      m_PostInfinity: 2
+      m_RotationOrder: 4
+    sizeScalex: 1
+    sizeScalez: 1
+    blendMode: 2
+    min: 4.81
+    max: 130
+    MultiplicationOfFinal: 1.53
     subtraction: 0
+  - offset: {x: 100, y: 13.27, z: -100}
+    seed: 
+    octaves: 10
+    multiplier: 711
+    amplitute: 1
+    lacunarity: 1.41
+    persistance: 0.49
+    heightCurve:
+      serializedVersion: 2
+      m_Curve: []
+      m_PreInfinity: 2
+      m_PostInfinity: 2
+      m_RotationOrder: 4
+    sizeScalex: 1
+    sizeScalez: 1
+    blendMode: 2
+    min: -0.2
+    max: 100.9
+    MultiplicationOfFinal: 1.6
+    subtraction: 1.73
