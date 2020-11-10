@@ -5,7 +5,7 @@ using UnityEngine;
 
 public class FlowField : MonoBehaviour
 {
-    private Vector2[][] flowField;
+    private FlowFieldPoint[][] flowField;
     private int gridWidth;
     private int gridHeight;
 
@@ -13,20 +13,37 @@ public class FlowField : MonoBehaviour
     void Start()
     {
     }
-
+    class FlowFieldPoint
+    {
+        public Vector2 direction;
+        public int cost;
+        public Vector2 position;
+        public FlowFieldPoint(Vector2 pos)
+        {
+            position = pos;
+            
+        }
+        public FlowFieldPoint()
+        {
+        }
+        public FlowFieldPoint[] getNeighbours(ref FlowFieldPoint[][] reference)
+        {
+            return null;
+        }
+    }
 
     void generateFlowField()
     {
         int x, y;
 
         //Generate an empty grid, set all places as Vector2.zero, which will stand for no good direction
-        flowField = new Vector2[gridWidth][];
+        flowField = new FlowFieldPoint[gridWidth][];
 		for (x = 0; x < gridWidth; x++)
 		{
-			Vector2[] arr = new Vector2[gridHeight];
+			FlowFieldPoint[] arr = new FlowFieldPoint[gridHeight];
 			for (y = 0; y < gridHeight; y++)
 			{
-				arr[y] = Vector2.zero;
+				arr[y] = new FlowFieldPoint(new Vector2(x,y));
 			}
 			flowField[x] = arr;
 		}
@@ -38,15 +55,15 @@ public class FlowField : MonoBehaviour
             {
 
                 Vector2 pos = new Vector2(x, y);
-                Vector2[] neighbours = allNeighboursOf(pos);
+                FlowFieldPoint[] neighbours = flowField[x][y].getNeighbours(ref flowField);
 
                 //Go through all neighbours and find the one with the lowest distance
-                Vector2 min = new Vector2();
+                FlowFieldPoint min = new FlowFieldPoint();
                 float minDist = 0;
                 for (int i = 0; i < neighbours.Length; i++)
                 {
-                    Vector2 n = neighbours[i];
-                    float dist = Vector2.Distance(flowField[(int)n.x][(int)n.y], flowField[(int)pos.x][(int)pos.y]);
+                    FlowFieldPoint n = neighbours[i];
+                    float dist = Vector2.Distance(flowField[(int)n.position.x][(int)n.position.y].position, flowField[(int)pos.x][(int)pos.y].position);
 
                     if (dist < minDist)
                     {
@@ -59,7 +76,7 @@ public class FlowField : MonoBehaviour
                 if (min != null)
                 {
                     pos.Normalize();
-                    flowField[x][y] = -pos;
+                    flowField[x][y].direction = -pos;
                 }
             }
         }
