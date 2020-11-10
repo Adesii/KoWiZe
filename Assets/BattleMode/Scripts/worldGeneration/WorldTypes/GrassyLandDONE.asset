@@ -10,12 +10,32 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 4f8210c45a6776e4081c60f5309bd70e, type: 3}
-  m_Name: testing
+  m_Name: GrassyLandDONE
   m_EditorClassIdentifier: 
   seed: Toyota
   sizeX: 10
   sizeZ: 10
   noiseLayers:
+  - offset: {x: 128.46, y: -100, z: -100}
+    seed: 
+    octaves: 12
+    multiplier: 633
+    amplitute: 2.7
+    lacunarity: 1.41
+    persistance: 0.921
+    heightCurve:
+      serializedVersion: 2
+      m_Curve: []
+      m_PreInfinity: 2
+      m_PostInfinity: 2
+      m_RotationOrder: 4
+    sizeScalex: 1
+    sizeScalez: 1
+    blendMode: 2
+    min: 3.42
+    max: 33.37
+    MultiplicationOfFinal: 1.56
+    subtraction: 0
   - offset: {x: 100, y: 19.55, z: -100}
     seed: 
     octaves: 10
@@ -58,7 +78,7 @@ MonoBehaviour:
     subtraction: 0
   - offset: {x: 128.46, y: -100, z: -100}
     seed: 
-    octaves: 17
+    octaves: 20
     multiplier: 1000
     amplitute: 2.5
     lacunarity: 1.41
@@ -72,27 +92,7 @@ MonoBehaviour:
     sizeScalex: 1
     sizeScalez: 1
     blendMode: 2
-    min: -7.53
+    min: 5.64
     max: 9.51
     MultiplicationOfFinal: 1.74
     subtraction: -6.4
-  - offset: {x: 128.46, y: -100, z: -100}
-    seed: 
-    octaves: 13
-    multiplier: 2000
-    amplitute: 4.8
-    lacunarity: 1.41
-    persistance: 0.707
-    heightCurve:
-      serializedVersion: 2
-      m_Curve: []
-      m_PreInfinity: 2
-      m_PostInfinity: 2
-      m_RotationOrder: 4
-    sizeScalex: 1
-    sizeScalez: 1
-    blendMode: 2
-    min: -3
-    max: 90.74
-    MultiplicationOfFinal: 22.9
-    subtraction: 0

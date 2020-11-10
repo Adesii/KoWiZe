@@ -22,7 +22,7 @@ public class World : MonoBehaviour
     public int LODRadius = 1;
 
     [ReadOnly]
-    public static int chunkSize = 512;
+    public static int chunkSize = 256;
     public static GameObject world;
     public GameObject Player;
 
@@ -202,14 +202,7 @@ public class World : MonoBehaviour
         while (liveEditb)
         {
             editing = liveEditb;
-            for (int x = 0; x < typeOfWorld.sizeX; x++)
-            {
-                for (int z = 0; z < typeOfWorld.sizeX; z++)
-                {
-                    ChunkPoint newCP = new ChunkPoint(x, z);
-                    jobManager.GenerateChunkAt(newCP, defaultLOD);
-                }
-            }
+            regenerate();
 
 
             yield return new WaitForSeconds(updateRate);

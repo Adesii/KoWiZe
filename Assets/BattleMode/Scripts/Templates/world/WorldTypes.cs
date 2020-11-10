@@ -29,11 +29,12 @@ public class LayerGen
     public SimplexNoiseGenerator noise;
     public string seed;
     [Header("noiseGen Settings")]
-    [Range(1, 10)]
+    [Range(1, 20)]
     public int octaves = 1;
     public int multiplier = 25;
     public float amplitute = 0.5f;
     public float lacunarity = 2f;
+    [Range(0f,2f)]
     public float persistance = 0.9f;
     public AnimationCurve heightCurve = new AnimationCurve();
     [Header("SizeScale")]

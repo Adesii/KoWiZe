@@ -141,8 +141,8 @@ MonoBehaviour:
     subtraction: 0
   - offset: {x: 50, y: 100, z: 20}
     seed: 
-    octaves: 1
-    multiplier: 500
+    octaves: 10
+    multiplier: 53
     amplitute: 20
     lacunarity: 2
     persistance: 0.9
@@ -175,5 +175,5 @@ MonoBehaviour:
     blendMode: 4
     min: 0
     max: 33.76
-    MultiplicationOfFinal: 100
+    MultiplicationOfFinal: 34.77
     subtraction: 5

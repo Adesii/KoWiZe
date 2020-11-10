@@ -6,6 +6,8 @@ using Unity.Jobs;
 using Unity.Mathematics;
 using UnityEngine;
 using static LayerGen;
+using System;
+
 namespace WorldGenJobs
 {
 
@@ -124,10 +126,10 @@ namespace WorldGenJobs
                             float yCord = (((float)z / (float)chunkRes) * (float)chunkSize) + ((float)_pos.Z * chunkSize);
                             float noiseFloat = coherentNoise((xCord + offsetX) * sizeScalex, offsetY, (yCord + offsetZ) * sizeScalez, octaves, multiplier, amplitute, lacunarity, persistance);
                             noiseFloat = (noiseFloat + 1) / 2;
-                            
+
                             noiseFloat *= MultiplicationOfFinal;
                             noiseFloat -= subtraction;
-                            
+
 
                             if (noiseFloat < min && blendMode != BlendModes.Mask)
                             {
@@ -139,7 +141,7 @@ namespace WorldGenJobs
                                 noiseFloat = max;
                                 blendMode = BlendModes.Add;
                             }
-                            
+
 
 
                             switch (blendMode)
@@ -181,16 +183,6 @@ namespace WorldGenJobs
                         }
                     }
                 }
-                /*
-                foreach (var item in noiseLayeredMap)
-                {
-                    if (item < minHeight)
-                        minHeight = item;
-                    if (item > maxHeight)
-                        maxHeight = item;
-                }
-
-                */
 
                 int k = 0;
                 for (int x = 0; x <= chunkRes; x++)
@@ -216,13 +208,14 @@ namespace WorldGenJobs
                 }
 
             }
+
             public void Dispose()
             {
                 lastnoiseLayeredMap.Dispose();
                 noiseLayeredMap.Dispose();
 
                 layerSettings.Dispose();
-                
+
                 verts.Dispose();
                 tris.Dispose();
                 normals.Dispose();
@@ -231,7 +224,39 @@ namespace WorldGenJobs
 
 
 
+            void smooth(int smoothRadius)
+            {
+                lastnoiseLayeredMap = noiseLayeredMap;
+                for (int i = 0; i < noiseLayeredMap.Length; i++)
+                {
+                    int width =(int)( i % (chunkRes+1));
+                    int otherw = (int)(i+1 % (chunkRes + 1));
+                    int height = i / chunkRes;
 
+
+
+                    float sum = 0f;
+                    int count = 0;
+                    if(i <= chunkRes || i + chunkRes >= noiseLayeredMap.Length || height == 0 || height == chunkRes || width == 0 || otherw == 0)
+                    {
+                        continue;
+                    }
+                    for (int x = -smoothRadius; x < smoothRadius; x++)
+                    {
+                        for (int y = -smoothRadius; y < smoothRadius; y++)
+                        {
+
+                            if ((chunkRes * y) + x +( i) < noiseLayeredMap.Length && (chunkRes * y) + x + (i) > 0) {
+                            sum += noiseLayeredMap[(chunkRes * y) + x + (i)];
+                            count++;
+                            }
+                        }
+                    }
+                    lastnoiseLayeredMap[i] = sum/count;
+                }
+                noiseLayeredMap = lastnoiseLayeredMap;
+
+            }
 
 
 

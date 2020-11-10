@@ -450,8 +450,8 @@ MonoBehaviour:
   liveEditb: 0
   updateRate: 0.16
   terrianMaterial: {fileID: 2100000, guid: c8980c2bb7b1ce242b0b4c568f5bb8c2, type: 2}
-  typeOfWorld: {fileID: 11400000, guid: 538b781d61583aa4980fa78994a53863, type: 2}
-  defaultLOD: 3
+  typeOfWorld: {fileID: 11400000, guid: ab4b4faa4ca53fc4eb6e781b5c752593, type: 2}
+  defaultLOD: 0
   currPlayerChunk: {x: 0, y: 0}
   lodPow: 0.35
 --- !u!1 &1004152107
