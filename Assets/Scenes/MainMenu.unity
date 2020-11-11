@@ -585,7 +585,7 @@ MonoBehaviour:
   - prefabs: []
   - prefabs: []
   - prefabs: []
-  selectedUI: 1
+  selectedUI: 2
   strategyModeUI:
     sideBarNotificationArea: {fileID: 0}
     timedEventArea: {fileID: 0}

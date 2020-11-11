@@ -1,53 +1,156 @@
-d7dc0b9;Adesi;Tue, 10 Nov 2020 11:05:48 +0100;Merge branch 'master' of https://github.com/Adesii/KoWiZe
-10011d5;Adesi;Tue, 10 Nov 2020 11:03:31 +0100;Adjusted the world gen further
-8e15eec;Samueltz;Tue, 10 Nov 2020 11:02:01 +0100;Generated FlowFieldPoint class to allow more options pathfinding
-b0cbed4;Adesi;Tue, 10 Nov 2020 05:45:07 +0100;Added TabSystem to SettingsMenu
-05723c8;Adesi;Mon, 9 Nov 2020 11:32:07 +0100;Updated Command to Generate Logs
-dccfc70;Adesi;Mon, 9 Nov 2020 11:28:35 +0100;First Iteration of the FlowFieldAgent
-57739eb;Adesi;Thu, 5 Nov 2020 19:02:33 +0100;Worked on the Main Menu and added a Tooltip System
-281f23c;Adesi;Tue, 3 Nov 2020 10:57:47 +0100;Merge branch 'master' of https://github.com/Adesii/KoWiZe
-6608d08;Adesi;Tue, 3 Nov 2020 10:56:32 +0100;Worked on UI MainMenu
-cb53763;Samueltz;Tue, 3 Nov 2020 10:40:52 +0100;Merge branch 'master' of https://github.com/Adesii/KoWiZe
-982075e;Samueltz;Tue, 3 Nov 2020 10:40:39 +0100;initial creation of movingbehaviours
-5eb6d1b;Adesi;Mon, 2 Nov 2020 14:33:28 +0100;tried to get UI Working again...
-94f6db8;Adesi;Mon, 2 Nov 2020 12:07:58 +0100;flowfield converted
-2b44beb;Samueltz;Mon, 2 Nov 2020 11:32:46 +0100;FlowField
-3a5cd8e;Adesi;Mon, 26 Oct 2020 12:46:37 +0100;changed performance settings to work better with my Laptop
-46fab26;Adesi;Mon, 26 Oct 2020 08:45:56 +0100;Update manifest.json
-88b7bb7;Adesi;Mon, 26 Oct 2020 07:07:34 +0100;adjusted UI
-79c60f1;Adesi;Mon, 12 Oct 2020 20:59:04 +0200;fixed Shader Graph, and added Waves/Better Cloud System
-37cab61;Adesi;Mon, 12 Oct 2020 17:01:26 +0200;reduced Garbage Collection and Lag Spikes
-a8949c0;Adesi;Sun, 11 Oct 2020 02:28:47 +0200;adjusted shadows and LOD Settings
-1e664f4;Adesi;Sun, 11 Oct 2020 01:20:22 +0200;added clouds
-4b77082;Adesi;Sat, 10 Oct 2020 21:32:30 +0200;Revert "Revert "Update generationJob.cs""
-cd0e3ec;Adesi;Sat, 10 Oct 2020 21:31:50 +0200;Revert "Update generationJob.cs"
-8408633;Adesi;Sat, 10 Oct 2020 21:29:47 +0200;Update generationJob.cs
-ea86bd6;Adesi;Sat, 10 Oct 2020 21:25:50 +0200;added Networking Package
-ce711a3;Adesi;Sat, 10 Oct 2020 16:58:15 +0200;added to the UI Prototype
-74db04c;Adesi;Fri, 9 Oct 2020 19:41:18 +0200;Added DOTween and TMP library for UI Usage. (also small UI Prototype)
-c569477;Adesi;Fri, 9 Oct 2020 11:49:42 +0200;Adjuste LOD some more
-c5b5c70;Adesi;Fri, 9 Oct 2020 05:56:49 +0200;Fixed Masking on NoiseMapGeneration
-d4041b7;Adesi;Thu, 8 Oct 2020 13:01:38 +0200;Adjusted LOD
-7df34d2;Adesi;Thu, 8 Oct 2020 10:21:59 +0200;made Jobs BurstCompile to Increase Performance
-090be2c;Adesi;Thu, 8 Oct 2020 03:00:41 +0200;Made WorldGeneration MultiThreaded (Ist jetzt Super Schnell)
-160a2c6;Adesi;Sun, 4 Oct 2020 21:21:51 +0200;Reorganized Folders
-a8cebcb;Adesi;Sun, 4 Oct 2020 19:28:11 +0200;tried multithreading... but failed
-d5a4f27;Adesi;Sun, 4 Oct 2020 02:10:55 +0200;Added LOD System.
-97d57f8;Adesi;Sat, 3 Oct 2020 22:53:34 +0200;adjusted Noisemap generation again.
-8926677;Adesi;Mon, 28 Sep 2020 13:05:24 +0200;changed NoiseGen
-cbc9187;Adesi;Sun, 27 Sep 2020 23:27:24 +0200;Noise Preview Scene added and added World Types
-5b53ae8;Adesi;Mon, 21 Sep 2020 14:37:07 +0200;world generation tweaks
-116ee8c;Adesi;Sat, 19 Sep 2020 20:40:56 +0200;added WorldGeneration starting point
-7b6d6a7;Adesi;Thu, 17 Sep 2020 09:47:01 +0200;finished Camera Movement to a working state
-299ce93;Adesi;Tue, 15 Sep 2020 14:27:31 +0200;added movement and rotation to camera
-7e89415;Adesi;Mon, 14 Sep 2020 14:20:34 +0200;made drag Possible
-9b00875;Adesi;Tue, 8 Sep 2020 13:37:54 +0200;Delete License.md
-4fc3be7;Adesi;Tue, 8 Sep 2020 13:37:35 +0200;Merge pull request #1 from Adesii/add-license-1
-1af4eae;Adesi;Tue, 8 Sep 2020 13:37:15 +0200;Create LICENSE
-79b63e2;Adesi;Tue, 8 Sep 2020 13:34:28 +0200;Create License.md
-42590e6;Adesi;Tue, 8 Sep 2020 12:10:10 +0200;Update PrototypingScene.unity
-d5b936e;Adesi;Tue, 8 Sep 2020 11:56:01 +0200;Update planeCamera.cs
-7ee6279;Adesi;Tue, 8 Sep 2020 09:14:14 +0200;Update planeCamera.cs
-58f840f;Adesi;Tue, 8 Sep 2020 08:45:11 +0200;materialien gefixed und framework für Kamerasystemgelegt
-897e271;Adesi;Tue, 8 Sep 2020 02:38:22 +0200;Erster Commit
-d64075f;Adesi;Tue, 8 Sep 2020 02:11:53 +0200;Initial commit
+0e6fe88;Adesi;Wed, 11 Nov 2020 11:28:23 +0100;Reorganized folderStructure and started Working on SettingsClass;
+ 90 files changed, 150 insertions(+), 45 deletions(-)
+
+28a34d1;Adesi;Tue, 10 Nov 2020 15:41:01 +0100;adjusted some settings of the World Generation Terrain;
+ 10 files changed, 282 insertions(+), 101 deletions(-)
+
+d7dc0b9;Adesi;Tue, 10 Nov 2020 11:05:48 +0100;Merge branch 'master' of https://github.com/Adesii/KoWiZe;
+10011d5;Adesi;Tue, 10 Nov 2020 11:03:31 +0100;Adjusted the world gen further;
+ 2 files changed, 52 insertions(+), 12 deletions(-)
+
+8e15eec;Samueltz;Tue, 10 Nov 2020 11:02:01 +0100;Generated FlowFieldPoint class to allow more options pathfinding;
+ 1 file changed, 27 insertions(+), 10 deletions(-)
+
+b0cbed4;Adesi;Tue, 10 Nov 2020 05:45:07 +0100;Added TabSystem to SettingsMenu;
+ 5 files changed, 720 insertions(+), 260 deletions(-)
+
+05723c8;Adesi;Mon, 9 Nov 2020 11:32:07 +0100;Updated Command to Generate Logs;
+ 2 files changed, 49 insertions(+), 43 deletions(-)
+
+dccfc70;Adesi;Mon, 9 Nov 2020 11:28:35 +0100;First Iteration of the FlowFieldAgent;
+ 4 files changed, 716 insertions(+)
+
+57739eb;Adesi;Thu, 5 Nov 2020 19:02:33 +0100;Worked on the Main Menu and added a Tooltip System;
+ 13 files changed, 3599 insertions(+), 484 deletions(-)
+
+281f23c;Adesi;Tue, 3 Nov 2020 10:57:47 +0100;Merge branch 'master' of https://github.com/Adesii/KoWiZe;
+6608d08;Adesi;Tue, 3 Nov 2020 10:56:32 +0100;Worked on UI MainMenu;
+ 8 files changed, 3362 insertions(+), 222 deletions(-)
+
+cb53763;Samueltz;Tue, 3 Nov 2020 10:40:52 +0100;Merge branch 'master' of https://github.com/Adesii/KoWiZe;
+982075e;Samueltz;Tue, 3 Nov 2020 10:40:39 +0100;initial creation of movingbehaviours;
+ 2 files changed, 49 insertions(+)
+
+5eb6d1b;Adesi;Mon, 2 Nov 2020 14:33:28 +0100;tried to get UI Working again...;
+ 2 files changed, 33 insertions(+), 19 deletions(-)
+
+94f6db8;Adesi;Mon, 2 Nov 2020 12:07:58 +0100;flowfield converted;
+ 4 files changed, 599 insertions(+), 29 deletions(-)
+
+2b44beb;Samueltz;Mon, 2 Nov 2020 11:32:46 +0100;FlowField;
+ 4 files changed, 100 insertions(+), 1 deletion(-)
+
+3a5cd8e;Adesi;Mon, 26 Oct 2020 12:46:37 +0100;changed performance settings to work better with my Laptop;
+ 6 files changed, 32 insertions(+), 14 deletions(-)
+
+46fab26;Adesi;Mon, 26 Oct 2020 08:45:56 +0100;Update manifest.json;
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+88b7bb7;Adesi;Mon, 26 Oct 2020 07:07:34 +0100;adjusted UI;
+ 4 files changed, 14 insertions(+), 8 deletions(-)
+
+79c60f1;Adesi;Mon, 12 Oct 2020 20:59:04 +0200;fixed Shader Graph, and added Waves/Better Cloud System;
+ 20 files changed, 1330 insertions(+), 123 deletions(-)
+
+37cab61;Adesi;Mon, 12 Oct 2020 17:01:26 +0200;reduced Garbage Collection and Lag Spikes;
+ 8 files changed, 223 insertions(+), 108 deletions(-)
+
+a8949c0;Adesi;Sun, 11 Oct 2020 02:28:47 +0200;adjusted shadows and LOD Settings;
+ 8 files changed, 33 insertions(+), 15 deletions(-)
+
+1e664f4;Adesi;Sun, 11 Oct 2020 01:20:22 +0200;added clouds;
+ 21 files changed, 1453 insertions(+), 5 deletions(-)
+
+4b77082;Adesi;Sat, 10 Oct 2020 21:32:30 +0200;Revert "Revert "Update generationJob.cs"";
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+cd0e3ec;Adesi;Sat, 10 Oct 2020 21:31:50 +0200;Revert "Update generationJob.cs";
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+8408633;Adesi;Sat, 10 Oct 2020 21:29:47 +0200;Update generationJob.cs;
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+ea86bd6;Adesi;Sat, 10 Oct 2020 21:25:50 +0200;added Networking Package;
+ 823 files changed, 232614 insertions(+), 4 deletions(-)
+
+ce711a3;Adesi;Sat, 10 Oct 2020 16:58:15 +0200;added to the UI Prototype;
+ 6 files changed, 178 insertions(+), 48 deletions(-)
+
+74db04c;Adesi;Fri, 9 Oct 2020 19:41:18 +0200;Added DOTween and TMP library for UI Usage. (also small UI Prototype);
+ 134 files changed, 20851 insertions(+), 1 deletion(-)
+
+c569477;Adesi;Fri, 9 Oct 2020 11:49:42 +0200;Adjuste LOD some more;
+ 5 files changed, 29 insertions(+), 27 deletions(-)
+
+c5b5c70;Adesi;Fri, 9 Oct 2020 05:56:49 +0200;Fixed Masking on NoiseMapGeneration;
+ 28 files changed, 1031 insertions(+), 437 deletions(-)
+
+d4041b7;Adesi;Thu, 8 Oct 2020 13:01:38 +0200;Adjusted LOD;
+ 10 files changed, 228 insertions(+), 52 deletions(-)
+
+7df34d2;Adesi;Thu, 8 Oct 2020 10:21:59 +0200;made Jobs BurstCompile to Increase Performance;
+ 8 files changed, 114 insertions(+), 27 deletions(-)
+
+090be2c;Adesi;Thu, 8 Oct 2020 03:00:41 +0200;Made WorldGeneration MultiThreaded (Ist jetzt Super Schnell);
+ 16 files changed, 689 insertions(+), 54 deletions(-)
+
+160a2c6;Adesi;Sun, 4 Oct 2020 21:21:51 +0200;Reorganized Folders;
+ 64 files changed, 272 insertions(+), 1209 deletions(-)
+
+a8cebcb;Adesi;Sun, 4 Oct 2020 19:28:11 +0200;tried multithreading... but failed;
+ 7 files changed, 113 insertions(+), 8 deletions(-)
+
+d5a4f27;Adesi;Sun, 4 Oct 2020 02:10:55 +0200;Added LOD System.;
+ 6 files changed, 129 insertions(+), 70 deletions(-)
+
+97d57f8;Adesi;Sat, 3 Oct 2020 22:53:34 +0200;adjusted Noisemap generation again.;
+ 7 files changed, 219 insertions(+), 81 deletions(-)
+
+8926677;Adesi;Mon, 28 Sep 2020 13:05:24 +0200;changed NoiseGen;
+ 21 files changed, 2475 insertions(+), 136 deletions(-)
+
+cbc9187;Adesi;Sun, 27 Sep 2020 23:27:24 +0200;Noise Preview Scene added and added World Types;
+ 16 files changed, 826 insertions(+), 9 deletions(-)
+
+5b53ae8;Adesi;Mon, 21 Sep 2020 14:37:07 +0200;world generation tweaks;
+ 11 files changed, 609 insertions(+), 308 deletions(-)
+
+116ee8c;Adesi;Sat, 19 Sep 2020 20:40:56 +0200;added WorldGeneration starting point;
+ 24 files changed, 833 insertions(+)
+
+7b6d6a7;Adesi;Thu, 17 Sep 2020 09:47:01 +0200;finished Camera Movement to a working state;
+ 7 files changed, 393 insertions(+), 9 deletions(-)
+
+299ce93;Adesi;Tue, 15 Sep 2020 14:27:31 +0200;added movement and rotation to camera;
+ 4 files changed, 87 insertions(+), 15 deletions(-)
+
+7e89415;Adesi;Mon, 14 Sep 2020 14:20:34 +0200;made drag Possible;
+ 2 files changed, 31 insertions(+), 43 deletions(-)
+
+9b00875;Adesi;Tue, 8 Sep 2020 13:37:54 +0200;Delete License.md;
+ 1 file changed, 1 deletion(-)
+
+4fc3be7;Adesi;Tue, 8 Sep 2020 13:37:35 +0200;Merge pull request #1 from Adesii/add-license-1;
+1af4eae;Adesi;Tue, 8 Sep 2020 13:37:15 +0200;Create LICENSE;
+ 1 file changed, 21 insertions(+)
+
+79b63e2;Adesi;Tue, 8 Sep 2020 13:34:28 +0200;Create License.md;
+ 1 file changed, 1 insertion(+)
+
+42590e6;Adesi;Tue, 8 Sep 2020 12:10:10 +0200;Update PrototypingScene.unity;
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+d5b936e;Adesi;Tue, 8 Sep 2020 11:56:01 +0200;Update planeCamera.cs;
+ 1 file changed, 16 insertions(+), 52 deletions(-)
+
+7ee6279;Adesi;Tue, 8 Sep 2020 09:14:14 +0200;Update planeCamera.cs;
+ 1 file changed, 2 insertions(+)
+
+58f840f;Adesi;Tue, 8 Sep 2020 08:45:11 +0200;materialien gefixed und framework für Kamerasystemgelegt;
+ 219 files changed, 1157 insertions(+), 13748 deletions(-)
+
+897e271;Adesi;Tue, 8 Sep 2020 02:38:22 +0200;Erster Commit;
+ 364 files changed, 24932 insertions(+)
+
+d64075f;Adesi;Tue, 8 Sep 2020 02:11:53 +0200;Initial commit;
+ 2 files changed, 61 insertions(+)

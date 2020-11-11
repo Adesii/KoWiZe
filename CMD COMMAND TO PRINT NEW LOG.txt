@@ -1,1 +1,1 @@
-git log --pretty=format:%h;%an;%aD;%s > log.csv
+git log --pretty=format:%h;%an;%aD;%s; --shortstat> log.csv
