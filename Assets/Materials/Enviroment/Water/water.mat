@@ -20,9 +20,9 @@ Material:
     serializedVersion: 3
     m_TexEnvs: []
     m_Floats:
-    - Vector1_85D08E5F: 0.01
+    - Vector1_85D08E5F: 0.005
     - Vector1_A189E28B: 0.32
-    - Vector1_A3DFB198: 4.17
+    - Vector1_A3DFB198: 4
     - Vector1_FBD3F4B: 0.753
     - _Depth: -4.13
     - _Strenght: 0.123
