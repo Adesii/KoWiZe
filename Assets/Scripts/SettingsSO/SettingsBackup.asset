@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 3e936354a90fea24b81033d4c1f19bff, type: 3}
-  m_Name: SettingsSetting
+  m_Name: SettingsBackup
   m_EditorClassIdentifier: 
   SettingsPrefab: {fileID: 0}
   PredefinedSettings:
@@ -18,49 +18,72 @@ MonoBehaviour:
   - {fileID: 11400000, guid: d847b876476d3d6468f5dfcd34266f96, type: 2}
   - {fileID: 11400000, guid: 19ba41d7c0026c3459d37c2fe90c55a0, type: 2}
   whatSettingsToUse:
-  - SettingName: 
-    Categorie: 
+  - SettingName: supportsHDR
+    Categorie: Graphics
+    typeofSetting: 2
+    max: 0
+    min: 0
+    isChecked: 0
+    dropDownOptions: []
+  - SettingName: renderScale
+    Categorie: Graphics
+    typeofSetting: 1
+    max: 25
+    min: 140
+    isChecked: 0
+    dropDownOptions: []
+  - SettingName: msaaSampleCount
+    Categorie: Graphics
     typeofSetting: 0
     max: 0
     min: 0
     isChecked: 0
     dropDownOptions:
-    - name: 
+    - name: Disabled
       numberValue: 0
       stringValue: 
       boolValue: 0
-    - name: 
-      numberValue: 0
+    - name: 2x
+      numberValue: 1
       stringValue: 
       boolValue: 0
-    - name: 
-      numberValue: 0
+    - name: 4x
+      numberValue: 2
       stringValue: 
       boolValue: 0
-  - SettingName: 
-    Categorie: 
+    - name: 8x
+      numberValue: 3
+      stringValue: 
+      boolValue: 0
+  - SettingName: shadowDistance
+    Categorie: Graphics
+    typeofSetting: 1
+    max: 25
+    min: 1000
+    isChecked: 0
+    dropDownOptions: []
+  - SettingName: shadowCascadeOption
+    Categorie: Graphics
     typeofSetting: 0
     max: 0
     min: 0
     isChecked: 0
-    dropDownOptions: []
-  - SettingName: 
-    Categorie: 
-    typeofSetting: 0
-    max: 0
-    min: 0
-    isChecked: 0
-    dropDownOptions: []
-  - SettingName: 
-    Categorie: 
-    typeofSetting: 0
-    max: 0
-    min: 0
-    isChecked: 0
-    dropDownOptions: []
-  - SettingName: 
-    Categorie: 
-    typeofSetting: 0
+    dropDownOptions:
+    - name: No Cascade
+      numberValue: 0
+      stringValue: 
+      boolValue: 0
+    - name: Two Cascades
+      numberValue: 1
+      stringValue: 
+      boolValue: 0
+    - name: Four Cascades
+      numberValue: 2
+      stringValue: 
+      boolValue: 0
+  - SettingName: supportsSoftShadows
+    Categorie: Graphics
+    typeofSetting: 2
     max: 0
     min: 0
     isChecked: 0
