@@ -20,6 +20,8 @@ public class Chunk
 
     public WorldTypes worldType;
 
+    TreePlacement tr;
+
     public Chunk(World.ChunkPoint position)
     {
         this.Position = position;
@@ -56,6 +58,7 @@ public class Chunk
         collider.sharedMesh = mesh;
         go.transform.position = origin;
         go.transform.parent = parent;
+        tr = go.AddComponent<TreePlacement>();
         chunk = go;
 
         savedMeshed[lod] = mesh;
@@ -69,6 +72,7 @@ public class Chunk
 
     public void updateMesh(World.LODLEVELS lod)
     {
+        
         MeshFilter mf = chunk.GetComponent<MeshFilter>();
         MeshCollider collider = chunk.GetComponent<MeshCollider>();
         if (savedMeshed.ContainsKey(lod))
@@ -77,6 +81,7 @@ public class Chunk
             
             collider.sharedMesh = savedMeshed[lod];
             LOD = lod;
+
         }
         else
         {
@@ -95,6 +100,17 @@ public class Chunk
             mf.sharedMesh = mesh;
             savedMeshed[lod] = mesh;
             LOD = lod;
+            
+        }
+        if (lod < World.LODLEVELS.LOD1)
+        {
+            tr.placeTree(chunk.transform.position + savedMeshed[lod].bounds.extents, 0);
+            tr.showTrees();
+
+        }
+        else
+        {
+            tr.HideTrees();
         }
     }
 

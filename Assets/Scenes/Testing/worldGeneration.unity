@@ -632,6 +632,59 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1069842975}
   m_CullTransparentMesh: 0
+--- !u!1 &1238742542
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1238742544}
+  - component: {fileID: 1238742543}
+  m_Layer: 0
+  m_Name: SingleTon
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1238742543
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1238742542}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 01b3e78a146b1a94caa47b57d190197a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  treePrefab: {fileID: 3554480616993564897, guid: d828ee256909ae846878ea711c608397, type: 3}
+  placeableModels:
+  - {fileID: 919132149155446097, guid: 12e32f16ff1099a4b9880ab29ff02c61, type: 3}
+  - {fileID: 919132149155446097, guid: 681b2f4ec79dbea43afc68b396047cc8, type: 3}
+  - {fileID: 919132149155446097, guid: f5b1058798c1b514990026712d1cab06, type: 3}
+  - {fileID: 919132149155446097, guid: 6314e920bac2fef4db918073e13d74e9, type: 3}
+  maxPlacedTrees: 500
+  maxForestSize: 10
+  minForestSize: 3
+  successProcent: 0.601
+--- !u!4 &1238742544
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1238742542}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -41.40743, y: 38.593727, z: -49.37865}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 9
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &1465311159
 PrefabInstance:
   m_ObjectHideFlags: 0

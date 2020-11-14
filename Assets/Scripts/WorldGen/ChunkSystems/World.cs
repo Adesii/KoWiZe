@@ -41,8 +41,6 @@ public class World : MonoBehaviour
 
 
     LODLEVELS lodLevel = LODLEVELS.LOD3;
-
-
     public void Awake()
     {
         if (_main == null)
