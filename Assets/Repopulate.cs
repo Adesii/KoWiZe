@@ -8,8 +8,10 @@ public class Repopulate : MonoBehaviour
     public int id;
     private void Awake()
     {
+
         pa = GetComponentInParent<TreePlacement>();
-        pa.placeTree(transform.position, id);
+        pa.placeTree(transform.position, id+1);
+
     }
 
 }

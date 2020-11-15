@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-[ExecuteAlways]
 public class TreePlacement : MonoBehaviour
 {
 
@@ -17,6 +16,9 @@ public class TreePlacement : MonoBehaviour
 
     public bool Regenerate = false;
     public bool ClearList = false;
+    public float heightLimit = 14f;
+    public float minHeight = 1.5f;
+    Vector3 absoluteStartSpot;
 
     Coroutine co;
 
@@ -31,12 +33,14 @@ public class TreePlacement : MonoBehaviour
         maxPlacedTrees = GameController.MaxPlacedTrees;
         minForestSize = GameController.MinForestSize;
         successProcent = GameController.SuccessProcent;
+        heightLimit = GameController.HeightLimit;
+        minHeight = GameController.MinHeight;
         TreeParent = new GameObject();
         TreeParent.transform.parent = transform;
     }
 
     // Update is called once per frame
-    /*
+ 
     void Update()
     {
        
@@ -49,7 +53,6 @@ public class TreePlacement : MonoBehaviour
             Clear();
         }
     }
-    */
     public void Clear()
     {
         ClearList = false;
@@ -62,12 +65,18 @@ public class TreePlacement : MonoBehaviour
     }
     public void HideTrees()
     {
-        TreeParent.SetActive(false);
+        if (TreeParent != null)
+            TreeParent.SetActive(false);
     }
     public void showTrees()
     {
-        TreeParent.SetActive(true);
+        if (TreeParent != null)
+        {
+            TreeParent.SetActive(true);
+        }
+            
     }
+    
     public void regen()
     {
         Regenerate = false;
@@ -108,27 +117,82 @@ public class TreePlacement : MonoBehaviour
         if (trees.Count <= maxPlacedTrees)
             co = StartCoroutine(PlaceTree(StartPos, id));
     }
-
-    public IEnumerator PlaceTree(Vector3 startSpot, int id)
+    public void chunkplaceTree(Vector3 StartPos, int id)
     {
-        yield return new WaitForSeconds(0.01f);
+        if (trees.Count <= maxPlacedTrees)
+            co = StartCoroutine(chunkPlaceTree(StartPos, id));
+    }
+    public IEnumerator chunkPlaceTree(Vector3 startSpot, int id)
+    {
+        yield return new WaitForSeconds(0.25f);
         if (maxPlacedTrees <= trees.Count) yield break;
 
         if (id > maxForestSize) yield break;
-
-        Vector2 r = Random.insideUnitCircle.normalized * Random.Range(1f, 15f) * (id / 2);
+        Vector2 r = Vector2.zero;
+        if (trees.Count < 1) r = Random.insideUnitCircle.normalized * Random.Range(1f, 15f);
+        else r = ((absoluteStartSpot - trees[trees.Count - 1].transform.position).normalized + Random.insideUnitSphere) * Random.Range(1f, 15f) * id;
         Vector3 random = new Vector3(r.x, 0, r.y);
         RaycastHit hit;
         Ray ray = new Ray(startSpot + (Vector3.up * 10), new Vector3(0, -1, 0));
 
         if (Physics.Raycast(ray, out hit))
         {
-            if (!hit.collider.CompareTag("tree"))
+            if (!hit.collider.CompareTag("tree") && hit.point.y < heightLimit && hit.point.y > minHeight && !hit.collider.CompareTag("enviroment"))
             {
-                GameObject newTree = Instantiate(TreePrefab, hit.point, transform.rotation, TreeParent.transform);
+                if (id == 0) absoluteStartSpot = hit.point;
+                GameObject newTree = Instantiate(TreePrefab, hit.point, Quaternion.Euler(transform.rotation.eulerAngles + new Vector3(0, Random.Range(0f, 360f), 0)), TreeParent.transform);
                 newTree.GetComponent<Repopulate>().id = id + 1;
                 Instantiate(placeableModels[Random.Range(0, placeableModels.Count)], newTree.transform);
                 trees.Add(newTree);
+            }
+            else if (id < minForestSize)
+            {
+                if (trees.Count > 0)
+                    placeTree(trees[trees.Count - 1].transform.position + random, id - 1);
+            }
+        }
+        if (id < minForestSize)
+        {
+            placeTree(startSpot + random, id + 1);
+            yield break;
+        }
+        if (Random.value <= successProcent)
+        {
+            placeTree(startSpot + random, id + 1);
+            placeTree(startSpot + random, id + 1);
+        }
+    }
+
+
+
+
+    public IEnumerator PlaceTree(Vector3 startSpot, int id)
+    {
+        yield return new WaitForSeconds(0.125f);
+        if (maxPlacedTrees <= trees.Count) yield break;
+
+        if (id > maxForestSize) yield break;
+        Vector2 r = Vector2.zero;
+        if (trees.Count < 1) r = Random.insideUnitCircle.normalized * Random.Range(1f, 15f);
+        else r = ((absoluteStartSpot - trees[trees.Count-1].transform.position).normalized+Random.insideUnitSphere) * Random.Range(1f, 15f)*id;
+        Vector3 random = new Vector3(r.x, 0, r.y);
+        RaycastHit hit;
+        Ray ray = new Ray(startSpot + (Vector3.up * 10), new Vector3(0, -1, 0));
+
+        if (Physics.Raycast(ray, out hit))
+        {
+            if (!hit.collider.CompareTag("tree") && hit.point.y < heightLimit && hit.point.y > minHeight && !hit.collider.CompareTag("enviroment"))
+            {
+                if (id == 0) absoluteStartSpot = hit.point;
+                GameObject newTree = Instantiate(TreePrefab, hit.point, Quaternion.Euler(transform.rotation.eulerAngles+new Vector3(0,Random.Range(0f,360f),0)), TreeParent.transform);
+                newTree.GetComponent<Repopulate>().id = id + 1;
+                Instantiate(placeableModels[Random.Range(0, placeableModels.Count)], newTree.transform);
+                trees.Add(newTree);
+            }
+            else if (id < minForestSize)
+            {
+                if (trees.Count > 0)
+                    placeTree(trees[trees.Count - 1].transform.position + random, id - 1);
             }
         }
         if (id < minForestSize)

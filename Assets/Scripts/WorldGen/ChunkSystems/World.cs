@@ -1,16 +1,11 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
-
 using UnityEngine;
-using WorldGenJobs;
-using Unity.Jobs;
 using Unity.Collections;
-using Unity.Mathematics;
-using System.Runtime.ConstrainedExecution;
-using static LayerGen;
-using System.Runtime.CompilerServices;
+using Unity.Burst;
 
+[BurstCompile]
 public class World : MonoBehaviour
 {
     private static World _main;
@@ -173,7 +168,6 @@ public class World : MonoBehaviour
                     }
                 }
             }
-            
             yield return new WaitForSeconds(updateRate);
         }
 

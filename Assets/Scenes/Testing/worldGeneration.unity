@@ -451,7 +451,7 @@ MonoBehaviour:
   updateRate: 0.16
   terrianMaterial: {fileID: 2100000, guid: c8980c2bb7b1ce242b0b4c568f5bb8c2, type: 2}
   typeOfWorld: {fileID: 11400000, guid: ab4b4faa4ca53fc4eb6e781b5c752593, type: 2}
-  defaultLOD: 0
+  defaultLOD: 3
   currPlayerChunk: {x: 0, y: 0}
   lodPow: 0.35
 --- !u!1 &1004152107
@@ -670,6 +670,8 @@ MonoBehaviour:
   maxPlacedTrees: 500
   maxForestSize: 10
   minForestSize: 3
+  heightLimit: 14
+  minHeight: 1.4
   successProcent: 0.601
 --- !u!4 &1238742544
 Transform:
@@ -1320,6 +1322,10 @@ PrefabInstance:
     - target: {fileID: 919132149155446097, guid: 9dfb5a066acac3247a22931c4c61a884, type: 3}
       propertyPath: m_IsActive
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 9dfb5a066acac3247a22931c4c61a884, type: 3}
+      propertyPath: m_TagString
+      value: enviroment
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 9dfb5a066acac3247a22931c4c61a884, type: 3}

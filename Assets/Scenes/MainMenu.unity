@@ -9367,14 +9367,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   treePrefab: {fileID: 3554480616993564897, guid: d828ee256909ae846878ea711c608397, type: 3}
   placeableModels:
-  - {fileID: 919132149155446097, guid: 12e32f16ff1099a4b9880ab29ff02c61, type: 3}
-  - {fileID: 919132149155446097, guid: 681b2f4ec79dbea43afc68b396047cc8, type: 3}
-  - {fileID: 919132149155446097, guid: f5b1058798c1b514990026712d1cab06, type: 3}
-  - {fileID: 919132149155446097, guid: 6314e920bac2fef4db918073e13d74e9, type: 3}
-  maxPlacedTrees: 500
+  - {fileID: 4138070372470125830, guid: 848a72857742119458a24ced8be1576f, type: 3}
+  maxPlacedTrees: 50
   maxForestSize: 15
   minForestSize: 3
-  successProcent: 0.18
+  heightLimit: 14
+  minHeight: 3
+  successProcent: 0.201
 --- !u!4 &1446050780
 Transform:
   m_ObjectHideFlags: 0

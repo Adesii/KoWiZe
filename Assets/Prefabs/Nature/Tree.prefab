@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2423511964280532844}
   - component: {fileID: 3831799678976250556}
-  - component: {fileID: 781578755946699757}
+  - component: {fileID: 3428037164956080531}
   m_Layer: 0
   m_Name: Tree
   m_TagString: tree
@@ -45,7 +45,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   id: 0
---- !u!65 &781578755946699757
+--- !u!65 &3428037164956080531
 BoxCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -56,5 +56,5 @@ BoxCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 1, y: 2, z: 1}
-  m_Center: {x: 0, y: 1, z: 0}
+  m_Size: {x: 15, y: 5, z: 15}
+  m_Center: {x: 0, y: 2.5, z: 0}

@@ -1,7 +1,7 @@
-﻿using System.Collections;
+﻿
 using System.Collections.Generic;
-using System.Linq;
 using UnityEngine;
+
 
 public class Chunk
 {
@@ -19,6 +19,10 @@ public class Chunk
 
 
     public WorldTypes worldType;
+
+
+    MeshCollider collider;
+    MeshFilter mf;
 
     TreePlacement tr;
 
@@ -44,25 +48,27 @@ public class Chunk
             uv = uv
         };
         mesh.name = lod.ToString();
-        mesh.MarkDynamic();
         mesh.RecalculateBounds();
         //mesh.normals = norm.ToArray();
         mesh.RecalculateNormals();
-        
-        var go = new GameObject("TerrainChunk: "+Position);
-        var mf = go.AddComponent<MeshFilter>();
-        var mr = go.AddComponent<MeshRenderer>();
-        var collider = go.AddComponent<MeshCollider>();
+
+        chunk = new GameObject("TerrainChunk: "+Position);
+        mf = chunk.AddComponent<MeshFilter>();
+        var mr = chunk.AddComponent<MeshRenderer>();
+        collider = chunk.AddComponent<MeshCollider>();
         mr.material = material;
         mf.sharedMesh = mesh;
+        collider.convex = false;
         collider.sharedMesh = mesh;
-        go.transform.position = origin;
-        go.transform.parent = parent;
-        tr = go.AddComponent<TreePlacement>();
-        chunk = go;
+        chunk.transform.position = origin;
+        chunk.transform.parent = parent;
+        tr = chunk.AddComponent<TreePlacement>();
 
         savedMeshed[lod] = mesh;
         LOD = lod;
+
+        if(lod < World.LODLEVELS.LOD1)
+        updateMesh(lod);
     }
 
     public bool hasMesh(World.LODLEVELS lod)
@@ -72,14 +78,11 @@ public class Chunk
 
     public void updateMesh(World.LODLEVELS lod)
     {
-        
-        MeshFilter mf = chunk.GetComponent<MeshFilter>();
-        MeshCollider collider = chunk.GetComponent<MeshCollider>();
         if (savedMeshed.ContainsKey(lod))
         {
             mf.sharedMesh = savedMeshed[lod];
             
-            collider.sharedMesh = savedMeshed[lod];
+            //collider.sharedMesh = savedMeshed[lod];
             LOD = lod;
 
         }
@@ -93,9 +96,9 @@ public class Chunk
                 triangles = Indices,
                 uv = uv
             };
-            mesh.RecalculateBounds();
             //mesh.normals = norm.ToArray();
             mesh.RecalculateNormals();
+
             collider.sharedMesh = mesh;
             mf.sharedMesh = mesh;
             savedMeshed[lod] = mesh;
@@ -104,7 +107,7 @@ public class Chunk
         }
         if (lod < World.LODLEVELS.LOD1)
         {
-            tr.placeTree(chunk.transform.position + savedMeshed[lod].bounds.extents, 0);
+            tr.chunkplaceTree(chunk.transform.position + savedMeshed[lod].bounds.extents, 0);
             tr.showTrees();
 
         }
