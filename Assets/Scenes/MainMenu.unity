@@ -9368,12 +9368,12 @@ MonoBehaviour:
   treePrefab: {fileID: 3554480616993564897, guid: d828ee256909ae846878ea711c608397, type: 3}
   placeableModels:
   - {fileID: 4138070372470125830, guid: 848a72857742119458a24ced8be1576f, type: 3}
-  maxPlacedTrees: 50
+  maxPlacedTrees: 200
   maxForestSize: 15
-  minForestSize: 3
+  minForestSize: 1
   heightLimit: 14
-  minHeight: 3
-  successProcent: 0.201
+  minHeight: 5
+  successProcent: 0.116
 --- !u!4 &1446050780
 Transform:
   m_ObjectHideFlags: 0

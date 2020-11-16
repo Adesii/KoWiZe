@@ -6,5 +6,5 @@ float valuesToIndex_float(float resolution,float valueone, float valuetwo, out f
 {
     
     
-    return index = (resolution * floor(valuetwo + 1)) + floor(floor(valueone * resolution) / resolution);
+    return index = (resolution * floor(valuetwo+1)) + floor(valueone);
 }

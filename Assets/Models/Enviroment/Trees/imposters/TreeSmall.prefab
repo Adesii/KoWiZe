@@ -48,11 +48,11 @@ LODGroup:
   m_AnimateCrossFading: 1
   m_LastLODIsBillboard: 0
   m_LODs:
-  - screenRelativeHeight: 0.05620006
+  - screenRelativeHeight: 0.07623082
     fadeTransitionWidth: 0
     renderers:
     - renderer: {fileID: 2994853675966196485}
-  - screenRelativeHeight: 0.013492604
+  - screenRelativeHeight: 0.026651373
     fadeTransitionWidth: 0
     renderers:
     - renderer: {fileID: 6875573922883660983}
@@ -277,6 +277,10 @@ PrefabInstance:
     - target: {fileID: 919132149155446097, guid: 939ad86a6476b964191958ed2298808a, type: 3}
       propertyPath: m_Name
       value: Tree_small_02LODLOW
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 939ad86a6476b964191958ed2298808a, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 939ad86a6476b964191958ed2298808a, type: 3}
