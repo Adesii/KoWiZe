@@ -262,18 +262,27 @@ MonoBehaviour:
     - playerID: 0
       exponentialFoodProduction: 0
       exponentialScienceProduction: 0
+      science: 0
+      gold: 0
+      playerCities:
+      - {fileID: 1712379294}
+    - playerID: 0
+      exponentialFoodProduction: 0
+      exponentialScienceProduction: 0
+      science: 0
+      gold: 0
       playerCities: []
     - playerID: 0
       exponentialFoodProduction: 0
       exponentialScienceProduction: 0
+      science: 0
+      gold: 0
       playerCities: []
     - playerID: 0
       exponentialFoodProduction: 0
       exponentialScienceProduction: 0
-      playerCities: []
-    - playerID: 0
-      exponentialFoodProduction: 0
-      exponentialScienceProduction: 0
+      science: 0
+      gold: 0
       playerCities: []
 --- !u!4 &286322165
 Transform:
@@ -318,6 +327,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 097f6be6b92c1e941a4283128d1ad193, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  cityID: 0
+  resources: []
 --- !u!4 &1712379295
 Transform:
   m_ObjectHideFlags: 0
