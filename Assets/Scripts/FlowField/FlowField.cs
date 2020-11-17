@@ -5,30 +5,45 @@ using UnityEngine;
 
 public class FlowField : MonoBehaviour
 {
-    private FlowFieldPoint[][] flowField;
-    private int gridWidth;
-    private int gridHeight;
+    public FlowFieldPoint[][] flowField;
+    public int gridWidth;
+    public int gridHeight;
+    public Vector3 posit;
 
     // Start is called before the first frame update
     void Start()
     {
+        posit = transform.position;
+        generateFlowField();
+        print(flowField);
     }
-    class FlowFieldPoint
+    public class FlowFieldPoint
     {
         public Vector2 direction;
         public int cost;
         public Vector2 position;
-        public FlowFieldPoint(Vector2 pos)
+        public Vector3 wpp;
+        public FlowFieldPoint(Vector2 pos,Vector3 wp)
         {
             position = pos;
-            
+            wpp =new Vector3(wp.x+pos.x,wp.y,wp.z+pos.y);
+
         }
         public FlowFieldPoint()
         {
         }
         public FlowFieldPoint[] getNeighbours(ref FlowFieldPoint[][] reference)
         {
-            return null;
+            List<FlowFieldPoint> temp = new List<FlowFieldPoint>();
+            if (position.x - 1 > 0)
+                temp.Add(reference[(int)position.x - 1][(int)position.y]);
+            if (position.x + 1 < reference.Length)
+                temp.Add(reference[(int)position.x + 1][(int)position.y]);
+            if (position.y + 1 < reference[0].Length)
+                temp.Add(reference[(int)position.x][(int)position.y + 1]);
+            if (position.y - 1 > 0)
+                temp.Add(reference[(int)position.x][(int)position.y - 1]);
+            return temp.ToArray();
         }
     }
 
@@ -38,20 +53,20 @@ public class FlowField : MonoBehaviour
 
         //Generate an empty grid, set all places as Vector2.zero, which will stand for no good direction
         flowField = new FlowFieldPoint[gridWidth][];
-		for (x = 0; x < gridWidth; x++)
-		{
-			FlowFieldPoint[] arr = new FlowFieldPoint[gridHeight];
-			for (y = 0; y < gridHeight; y++)
-			{
-				arr[y] = new FlowFieldPoint(new Vector2(x,y));
-			}
-			flowField[x] = arr;
-		}
+        for (x = 0; x < gridWidth; x++)
+        {
+            FlowFieldPoint[] arr = new FlowFieldPoint[gridHeight];
+            for (y = 0; y < gridHeight; y++)
+            {
+                arr[y] = new FlowFieldPoint(new Vector2(x, y),posit);
+            }
+            flowField[x] = arr;
+        }
 
-		//for each grid square
-		for (x = 0; x < gridWidth; x++)
-		{
-			for (y = 0; y < gridHeight; y++)
+        //for each grid square
+        for (x = 0; x < gridWidth; x++)
+        {
+            for (y = 0; y < gridHeight; y++)
             {
 
                 Vector2 pos = new Vector2(x, y);
@@ -80,18 +95,24 @@ public class FlowField : MonoBehaviour
                 }
             }
         }
-	}
-
-    private  Vector2[] allNeighboursOf(Vector2 pos)
-    {
-        throw new NotImplementedException();
     }
 
 
+    private void OnDrawGizmos()
+    {
+        if(Application.isPlaying)
+        foreach (FlowFieldPoint[] item in flowField)
+        {
+            foreach (FlowFieldPoint point in item)
+            {
+                Gizmos.DrawLine(point.wpp, point.wpp + (new Vector3(point.direction.x,0,point.direction.y)));
+            }
+        }
+    }
 
     // Update is called once per frame
     void Update()
     {
-        
+
     }
 }
