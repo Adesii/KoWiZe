@@ -17,6 +17,7 @@ public class Grid2D : MonoBehaviour
         public Vector2 position;
         public float distance;
         private Vector2 vector2;
+        internal Vector2 direction;
 
         public Cell(Vector2 vector2)
         {
@@ -78,6 +79,50 @@ public class Grid2D : MonoBehaviour
             return result;
         }
 
+        public Cell[] GetMooreNeighbours(Cell current)
+        {
+            var result = new Cell[8];
+
+            int x = (int)current.position.x;
+            int y = (int)current.position.y;
+
+            var indices = new int[]
+            {
+            x * lenght + (y + 1),
+            (x + 1) * lenght + y,
+            x * lenght + (y - 1),
+            (x - 1) * lenght + y,
+            (x - 1) * lenght + (y + 1),
+            (x + 1) * lenght + (y + 1),
+            (x - 1) * lenght + (y - 1),
+            (x + 1) * lenght + (y - 1)
+            };
+      
+            if (y < lenght - 1 && x > 0)
+                result[4] = cells[indices[4]];
+            if (y < lenght - 1 && x < width - 1)
+                result[5] = cells[indices[5]];
+            if (y > 0 && x > 0)
+                result[6] = cells[indices[6]];
+            if (y > 0 && x < width - 1)
+                result[7] = cells[indices[7]];
+
+            return result;
+        }
+        public Cell FindCell(Vector2 pos)
+        {
+            int x = (int)pos.x;
+            int y = (int)pos.y;
+
+            if (x >= 0 && x < width && y >= 0 && y < lenght)
+            {
+                int index = x * lenght + y;
+                var cell = cells[index];
+                return cell;
+            }
+
+            return null;
+        }
     }
     public class Algorithm
     {
@@ -128,13 +173,37 @@ public class Grid2D : MonoBehaviour
                 }
             }
         }
+        public void GenerateVectorFields()
+        {
+            for (int i = 0; i < grid.cells.Length; i++)
+            {
+                var cur = grid.cells[i];
+                var neighbours = grid.GetNeighbours(cur);
 
-        // Update is called once per frame
-        void Update()
+                float left, right, up, down;
+                left = right = up = down = cur.distance;
+
+                if (neighbours[0] != null && !neighbours[0].unpassable) up = neighbours[0].distance;
+                if (neighbours[1] != null && !neighbours[1].unpassable) right = neighbours[1].distance;
+                if (neighbours[2] != null && !neighbours[2].unpassable) down = neighbours[2].distance;
+                if (neighbours[3] != null && !neighbours[3].unpassable) left = neighbours[3].distance;
+
+
+                float x = left - right;
+                float y = down - up;
+
+                cur.direction = new Vector2(x, y);
+                cur.direction.Normalize();
+            }
+        }
+    }
+
+    // Update is called once per frame
+    void Update()
         {
 
         }
 
     }
-}
+
 
