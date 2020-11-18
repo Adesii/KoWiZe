@@ -66,5 +66,8 @@ public class Resources
             currentAmount = 0;
             maxCapacity = 0;
         }
+
+        
+       
     }
 }

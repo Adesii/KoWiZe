@@ -24,9 +24,30 @@ public class GameController : MonoBehaviour
     public static float HeightLimit { get => _instance.treeSettings.heightLimit; set => _instance.treeSettings.heightLimit = value; }
     public static float MinHeight { get => _instance.treeSettings.minHeight; set => _instance.treeSettings.minHeight = value; }
     public static CitySetting CitySettings { get => _instance.citySettings; set => _instance.citySettings = value; }
+    public event Action onResourceTick;
+    public float tickRate;
 
 
+    public void ResourceTicker()
+    {
+        if(onResourceTick != null)
+        {
+            onResourceTick(); 
+        }
+    }
+    private void Start()
+    {
+        StartCoroutine(TickStarter());
+    }
+    private IEnumerator TickStarter()
+    {
+        while (true)
+        {
+            ResourceTicker();
 
+            yield return new WaitForSeconds(tickRate);
+        } 
+    }
 
     private void Awake()
     {
