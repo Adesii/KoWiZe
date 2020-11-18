@@ -143,7 +143,7 @@ public class Grid2D : MonoBehaviour
             var cells = grid.cells;
             for (int i = 0; i < goal.Length; i++)
             {
-                var goalCell = cells.First(c => cells.position == goal[i]);
+                var goalCell = cells.First(c => c.position == goal[i]);
                 goalCell.distance = 0;
 
                 marked.Add(goalCell);
