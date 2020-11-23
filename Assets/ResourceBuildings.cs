@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using System;
-using static Resources;
+using static ResourceClass;
 
 public class ResourceBuildings : MonoBehaviour
 {

@@ -1,73 +1,76 @@
 ﻿using System;
 
- [Serializable]
-public class Resources
+[Serializable]
+public class ResourceClass
 {
-    public enum ResourceTypes{
+    public enum ResourceTypes
+    {
         Wood,
         Stone,
         Iron,
         Science,
         Food
     }
+    public ResourceTypes ResourceType;
+    public float currentAmount;
+    public float maxCapacity;
+    public int resourceIndex = 0;
 
-    [Serializable]
-    public class ResourceClass
+    public bool AddResource(float amount)
     {
-        public ResourceTypes ResourceType;
-        public float currentAmount;
-        public float maxCapacity;
-
-        public bool AddResource(float amount)
-        {
-            if (currentAmount + amount <= maxCapacity)
-                currentAmount += amount;
-            else
-                return false;
-            return true;
-        }
-        public bool RemoveResource(float amount)
-        {
-            if (currentAmount - amount > 0)
-                currentAmount -= amount;
-            else
-                return false;
-            return true;
-        }
-
-        public void AddToLimit(float amount)
-        {
-            maxCapacity += amount;
-        }
-        public void RemoveFromLimit(float amount)
-        {
-            if (maxCapacity >= 0f) maxCapacity -= amount;
-        }
-
-        public void SetLimit(float amount)
-        {
-            maxCapacity = amount;
-        }
-        public void SetAmount(float amount)
-        {
-            currentAmount = amount;
-        }
-
-        public ResourceClass(ResourceTypes type,float maxAmount,float startingAmount)
-        {
-            ResourceType = type;
-            currentAmount = startingAmount;
-            maxCapacity = maxAmount;
-        }
-
-        public ResourceClass(ResourceTypes type)
-        {
-            ResourceType = type;
-            currentAmount = 0;
-            maxCapacity = 0;
-        }
-
-        
-       
+        if (currentAmount + amount <= maxCapacity)
+            currentAmount += amount;
+        else
+            return false;
+        return true;
     }
+    public bool RemoveResource(float amount)
+    {
+        if (currentAmount - amount > 0)
+            currentAmount -= amount;
+        else
+            return false;
+        return true;
+    }
+
+    public void AddToLimit(float amount)
+    {
+        maxCapacity += amount;
+    }
+    public void RemoveFromLimit(float amount)
+    {
+        if (maxCapacity >= 0f) maxCapacity -= amount;
+    }
+
+    public void SetLimit(float amount)
+    {
+        maxCapacity = amount;
+    }
+    public void SetAmount(float amount)
+    {
+        currentAmount = amount;
+    }
+
+    public ResourceClass(ResourceTypes type, float maxAmount, float startingAmount)
+    {
+        ResourceType = type;
+        currentAmount = startingAmount;
+        maxCapacity = maxAmount;
+    }
+
+    public ResourceClass(ResourceTypes type)
+    {
+        ResourceType = type;
+        currentAmount = 0;
+        maxCapacity = 0;
+    }
+
+    public ResourceClass(ResourceTypes type,float amount)
+    {
+        ResourceType = type;
+        currentAmount = amount;
+    }
+
+
+
 }

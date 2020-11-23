@@ -1,34 +1,38 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using static Resources;
+using static ResourceClass;
 
 public class citySystem : MonoBehaviour
 {
     public int cityID;
+    public int cityTier = 0;
+    public List<GameObject> buildings;
 
-    public List<ResourceClass> resources = new List<ResourceClass>();
+    public float cityPopulation;
+    public List<float> cityPopulationLimitPerTier;
 
-    public citySystem(List<ResourceClass> resources)
+    
+    public SerializableDictionary<ResourceTypes, ResourceClass> resources = new SerializableDictionary<ResourceTypes, ResourceClass>();
+
+
+    public citySystem(SerializableDictionary<ResourceTypes, ResourceClass> resources)
     {
         this.resources = resources;
     }
     public citySystem()
     {
-        resources.Add(new ResourceClass(ResourceTypes.Wood, 100, 10));
-        resources.Add(new ResourceClass(ResourceTypes.Stone, 100, 10));
-        resources.Add(new ResourceClass(ResourceTypes.Food, 100, 10));
-        resources.Add(new ResourceClass(ResourceTypes.Iron, 100, 10));
+        resources.Add(ResourceTypes.Wood,new ResourceClass(ResourceTypes.Wood, 100, 10));
+        resources.Add(ResourceTypes.Stone,new ResourceClass(ResourceTypes.Stone, 100, 10));
+        resources.Add(ResourceTypes.Food,new ResourceClass(ResourceTypes.Food, 100, 10));
+        resources.Add(ResourceTypes.Iron,new ResourceClass(ResourceTypes.Iron, 100, 10));
     }
 
     public ResourceClass GetResource(ResourceTypes resourceType)
     {
-        for (int i = 0; i < resources.Count; i++)
+        if(resources[resourceType] != null)
         {
-            if(resources[i].ResourceType == resourceType)
-            {
-                return resources[i];
-            }
+            return resources[resourceType];
         }
         return null;
     }
