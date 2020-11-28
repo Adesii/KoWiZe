@@ -1,0 +1,31 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 0}
+  m_Name: TerrainTexture
+  m_EditorClassIdentifier: Assembly-CSharp::TextureHolder
+  textureList:
+  - mainTexture: {fileID: 2800000, guid: f76cc0f5a88300a449560fe44720886a, type: 3}
+    normalTexture: {fileID: 2800000, guid: 17b25be45e2d9e446a086b47f066f41d, type: 3}
+    roughTexture: {fileID: 2800000, guid: 4b3f7deaeaf95f94bbe1f71625a5d3ca, type: 3}
+    height: 0
+  - mainTexture: {fileID: 2800000, guid: 877e9a5d6b43c664ea865133df345c43, type: 3}
+    normalTexture: {fileID: 2800000, guid: abc2f4d5b56125740a64ba28f8bd40f7, type: 3}
+    roughTexture: {fileID: 2800000, guid: 0599166d353ff7d4cab250e87b960bd1, type: 3}
+    height: 1
+  - mainTexture: {fileID: 2800000, guid: 86b49c7570769964493830bd72fb1db6, type: 3}
+    normalTexture: {fileID: 2800000, guid: 2f209572158672f4aa615039d7752335, type: 3}
+    roughTexture: {fileID: 2800000, guid: 2fb9691824d92e04db3d4b07aee6b8c6, type: 3}
+    height: 2
+  - mainTexture: {fileID: 2800000, guid: 4f11079d479a6aa44adec4e30c94c17c, type: 3}
+    normalTexture: {fileID: 2800000, guid: b9e086522bdf90b41a17749863a1ff87, type: 3}
+    roughTexture: {fileID: 2800000, guid: ffea8f483809aba45bf44b8dd09c53bb, type: 3}
+    height: 3

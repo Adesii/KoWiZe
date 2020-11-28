@@ -24,7 +24,7 @@ public class World : MonoBehaviour
     public static bool editing = true;
     public bool liveEditb = true;
     public float updateRate = 2f;
-    public Material terrianMaterial;
+    public Material terrianShader;
     public WorldTypes typeOfWorld;
     public LODLEVELS defaultLOD;
 
@@ -41,7 +41,7 @@ public class World : MonoBehaviour
         if (_main == null)
             _main = this;
         jobManager = gameObject.AddComponent<jobGenerationManager>();
-        jobManager.defaultMaterial = terrianMaterial;
+        jobManager.defaultShader = terrianShader;
         jobManager.initalizeManager(typeOfWorld);
 
 

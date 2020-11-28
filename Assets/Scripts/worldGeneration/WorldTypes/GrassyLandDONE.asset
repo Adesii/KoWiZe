@@ -15,6 +15,7 @@ MonoBehaviour:
   seed: Toyota
   sizeX: 10
   sizeZ: 10
+  TexturesForTerrain: {fileID: 11400000, guid: b2a4864cc95f0384c9d3e603d751b4fc, type: 2}
   noiseLayers:
   - offset: {x: 128.46, y: -100, z: -100}
     seed: 

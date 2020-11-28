@@ -14,8 +14,8 @@ public class WorldTypes : ScriptableObject
     public string seed = "Toyota";
     public int sizeX = 8;
     public int sizeZ = 8;
-   
-    
+    public TextureHolder TexturesForTerrain;
+
     [Reorderable]
     public List<LayerGen> noiseLayers = new List<LayerGen>(1);
     

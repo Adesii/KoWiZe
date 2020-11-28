@@ -1,7 +1,7 @@
 ﻿
 using System.Collections.Generic;
 using UnityEngine;
-
+using static MaterialGenerator;
 
 public class Chunk
 {
@@ -9,6 +9,7 @@ public class Chunk
     public int[] Indices;
     public Vector3[] norm;
     public Vector2[] uv;
+    public float[] noisemap;
 
     public World.ChunkPoint Position;
     public GameObject chunk;
@@ -23,8 +24,14 @@ public class Chunk
 
     MeshCollider collider;
     MeshFilter mf;
+    MeshRenderer mr;
 
     TreePlacement tr;
+
+    Material baseS;
+    WorldTypes typeOfWorld;
+    public int chunkRes;
+
 
     public Chunk(World.ChunkPoint position)
     {
@@ -38,25 +45,29 @@ public class Chunk
         return index;
         //return x + ChunkSize * (y + ChunkSize * z);
     }
-    public void GenerateObject(Material material, Vector3 origin, Transform parent, int chunkRes, World.LODLEVELS lod)
+    public void GenerateObject(float[] noisemap,WorldTypes typeOfWorld,Material baseS, Vector3 origin, Transform parent, int chunkRes, World.LODLEVELS lod)
     {
 
         var mesh = new Mesh
         {
             vertices = Verticies,
             triangles = Indices,
-            uv = uv
+            uv = this.uv
         };
         mesh.name = lod.ToString();
         mesh.RecalculateBounds();
         //mesh.normals = norm.ToArray();
         mesh.RecalculateNormals();
-
+        this.baseS = baseS;
+        this.typeOfWorld = typeOfWorld;
+        this.chunkRes = chunkRes;
         chunk = new GameObject("TerrainChunk: "+Position);
         mf = chunk.AddComponent<MeshFilter>();
-        var mr = chunk.AddComponent<MeshRenderer>();
+        mr = chunk.AddComponent<MeshRenderer>();
         collider = chunk.AddComponent<MeshCollider>();
-        mr.material = material;
+        this.noisemap = noisemap;
+        //mr.material = GenerateMaterial(baseS, typeOfWorld, noisemap, chunkRes);
+        mr.material = baseS;
         mf.sharedMesh = mesh;
         collider.convex = false;
         collider.sharedMesh = mesh;
@@ -81,8 +92,8 @@ public class Chunk
         if (savedMeshed.ContainsKey(lod))
         {
             mf.sharedMesh = savedMeshed[lod];
-            
             //collider.sharedMesh = savedMeshed[lod];
+            //mr.material = GenerateMaterial(baseS, typeOfWorld, noisemap, chunkRes);
             LOD = lod;
 
         }
@@ -94,11 +105,13 @@ public class Chunk
                 name = lod.ToString(),
                 vertices = Verticies,
                 triangles = Indices,
-                uv = uv
+                uv = this.uv
             };
             //mesh.normals = norm.ToArray();
+            
+            
             mesh.RecalculateNormals();
-
+            //mr.material = GenerateMaterial(baseS, typeOfWorld, noisemap, chunkRes);
             collider.sharedMesh = mesh;
             mf.sharedMesh = mesh;
             savedMeshed[lod] = mesh;

@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 262.3371, g: 325.05005, b: 430.21954, a: 1}
+  m_IndirectSpecularColor: {r: 63224.17, g: 65485.67, b: 65504.047, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -494,7 +494,7 @@ MonoBehaviour:
   Player: {fileID: 392146847}
   liveEditb: 0
   updateRate: 0.16
-  terrianMaterial: {fileID: 2100000, guid: c8980c2bb7b1ce242b0b4c568f5bb8c2, type: 2}
+  terrianShader: {fileID: 2100000, guid: c8980c2bb7b1ce242b0b4c568f5bb8c2, type: 2}
   typeOfWorld: {fileID: 11400000, guid: ab4b4faa4ca53fc4eb6e781b5c752593, type: 2}
   defaultLOD: 3
   currPlayerChunk: {x: 0, y: 0}
@@ -707,8 +707,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   treeSettings:
-    treePrefab: {fileID: 0}
-    placeableModels: []
+    treePrefab: {fileID: 3554480616993564897, guid: d828ee256909ae846878ea711c608397, type: 3}
+    placeableModels:
+    - {fileID: 4138070372470125830, guid: 848a72857742119458a24ced8be1576f, type: 3}
     maxPlacedTrees: 200
     maxForestSize: 10
     minForestSize: 2
@@ -1057,7 +1058,7 @@ Light:
   m_Type: 1
   m_Shape: 0
   m_Color: {r: 1, g: 0.95686275, b: 0.8392157, a: 1}
-  m_Intensity: 3.1415927
+  m_Intensity: 500000
   m_Range: 10
   m_SpotAngle: 30
   m_InnerSpotAngle: 21.80208
@@ -1098,10 +1099,10 @@ Light:
   m_RenderingLayerMask: 1
   m_Lightmapping: 4
   m_LightShadowCasterMode: 2
-  m_AreaSize: {x: 1, y: 1}
+  m_AreaSize: {x: 0.5, y: 0.5}
   m_BounceIntensity: 1
-  m_ColorTemperature: 6570
-  m_UseColorTemperature: 0
+  m_ColorTemperature: 7184
+  m_UseColorTemperature: 1
   m_BoundingSphereOverride: {x: 0, y: 0, z: 0, w: 0}
   m_UseBoundingSphereOverride: 0
   m_ShadowRadius: 0
@@ -1152,7 +1153,7 @@ MonoBehaviour:
   m_PointlightHDType: 0
   m_SpotLightShape: 0
   m_AreaLightShape: 0
-  m_Intensity: 3.1415927
+  m_Intensity: 500000
   m_EnableSpotReflector: 0
   m_LuxAtDistance: 1
   m_InnerSpotPercent: 0

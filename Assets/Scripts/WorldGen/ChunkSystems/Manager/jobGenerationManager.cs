@@ -27,7 +27,7 @@ public class jobGenerationManager : MonoBehaviour
     private WorldTypes typeOfWorld;
 
     public bool cleanJobList = true;
-    public Material defaultMaterial;
+    public Material defaultShader;
     public int extraRows = 1;
     public int numberOfSettings = 16;
 
@@ -64,7 +64,7 @@ public class jobGenerationManager : MonoBehaviour
                         norm = item.Value.normals.ToArray(),
                         uv = item.Value.uvs.ToArray()
                     };
-                    c.GenerateObject(defaultMaterial, new Vector3((c.Position.X * chunkSize) - ((typeOfWorld.sizeX * chunkSize) / 2f), 0, (c.Position.Z * chunkSize) - ((typeOfWorld.sizeZ * chunkSize) / 2f)), transform, item.Value.chunkRes, item.Value.LOD);
+                    c.GenerateObject(item.Value.noiseLayeredMap.ToArray(),typeOfWorld, defaultShader, new Vector3((c.Position.X * chunkSize) - ((typeOfWorld.sizeX * chunkSize) / 2f), 0, (c.Position.Z * chunkSize) - ((typeOfWorld.sizeZ * chunkSize) / 2f)), transform, item.Value.chunkRes, item.Value.LOD);
                     _chunks.Add(item.Value._pos, c);
                 }
                 else
@@ -74,6 +74,8 @@ public class jobGenerationManager : MonoBehaviour
                     c.Indices = item.Value.tris.ToArray();
                     c.norm = item.Value.normals.ToArray();
                     c.uv = item.Value.uvs.ToArray();
+                    c.noisemap = item.Value.noiseLayeredMap.ToArray();
+                    c.chunkRes = item.Value.chunkRes;
                     c.updateMesh(item.Value.LOD);
                 }
 

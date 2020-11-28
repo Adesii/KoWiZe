@@ -189,7 +189,7 @@ namespace WorldGenJobs
                     {
                         verts[k] = new Vector3(((float)x / (float)chunkRes) * (float)chunkSize, noiseLayeredMap[k], ((float)z / (float)chunkRes) * (float)chunkSize);
                         normals[k] = new Vector3(0, 1, 0);
-                        uvs[k] = new Vector2(x, z);
+                        uvs[k] = new Vector2((float)x/(float)chunkSize, (float)z/ (float)chunkSize);
                         k++;
                     }
                 }
