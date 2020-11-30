@@ -26,7 +26,7 @@ RenderSettings:
   m_AmbientIntensity: 1
   m_AmbientMode: 0
   m_SubtractiveShadowColor: {r: 0.42, g: 0.478, b: 0.627, a: 1}
-  m_SkyboxMaterial: {fileID: 10304, guid: 0000000000000000f000000000000000, type: 0}
+  m_SkyboxMaterial: {fileID: 0}
   m_HaloStrength: 0.5
   m_FlareStrength: 1
   m_FlareFadeSpeed: 3
@@ -175,7 +175,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 31321ba15b8f8eb4c954353edc038b1d, type: 2}
+  - {fileID: 2100000, guid: 663834164c6a04740aaa1b778249ce7e, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -334,6 +334,7 @@ MonoBehaviour:
     ResourceType: 0
     currentAmount: 0
     maxCapacity: 0
+    resourceIndex: 0
   amount: 10
 --- !u!4 &728817850
 Transform:
@@ -384,6 +385,7 @@ MonoBehaviour:
     ResourceType: 0
     currentAmount: 0
     maxCapacity: 0
+    resourceIndex: 0
   amount: 10
 --- !u!4 &1224922541
 Transform:
@@ -429,10 +431,48 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   cityID: 0
+  cityTier: 0
+  buildings: []
+  cityPopulation: 0
+  cityPopulationLimitPerTier: []
   resources:
-  - ResourceType: 0
-    currentAmount: 0
-    maxCapacity: 200
+    _Buckets: 000000000100000003000000ffffffff02000000ffffffffffffffff
+    _HashCodes: 00000000010000000400000002000000000000000000000000000000
+    _Next: ffffffffffffffffffffffffffffffff000000000000000000000000
+    _Count: 4
+    _Version: 4
+    _FreeList: -1
+    _FreeCount: 0
+    _Keys: 00000000010000000400000002000000000000000000000000000000
+    _Values:
+    - ResourceType: 0
+      currentAmount: 10
+      maxCapacity: 100
+      resourceIndex: 0
+    - ResourceType: 1
+      currentAmount: 10
+      maxCapacity: 100
+      resourceIndex: 0
+    - ResourceType: 4
+      currentAmount: 10
+      maxCapacity: 100
+      resourceIndex: 0
+    - ResourceType: 2
+      currentAmount: 10
+      maxCapacity: 100
+      resourceIndex: 0
+    - ResourceType: 0
+      currentAmount: 0
+      maxCapacity: 0
+      resourceIndex: 0
+    - ResourceType: 0
+      currentAmount: 0
+      maxCapacity: 0
+      resourceIndex: 0
+    - ResourceType: 0
+      currentAmount: 0
+      maxCapacity: 0
+      resourceIndex: 0
 --- !u!4 &1712379295
 Transform:
   m_ObjectHideFlags: 0
@@ -657,6 +697,7 @@ MonoBehaviour:
     ResourceType: 0
     currentAmount: 0
     maxCapacity: 0
+    resourceIndex: 0
   amount: 10
 --- !u!4 &1910518386
 Transform:
