@@ -6,11 +6,21 @@ using UnityEngine;
 public class Grid2D : MonoBehaviour
 {
     // Start is called before the first frame update
+
+    public int size = 10;
+    public Grid grid;
+    public Algorithm rith;
+    public Vector3 goal;
     void Start()
     {
+        grid = new Grid(10, 10);
+        grid.Create();
+        rith = new Algorithm(grid, goal);
+        rith.GenerateVectorFields();
+        rith.CreateCostField();
+
 
     }
-    private Vector2[] goals;
     public class Cell
     {
         internal bool unpassable;
@@ -97,7 +107,7 @@ public class Grid2D : MonoBehaviour
             (x - 1) * lenght + (y - 1),
             (x + 1) * lenght + (y - 1)
             };
-      
+
             if (y < lenght - 1 && x > 0)
                 result[4] = cells[indices[4]];
             if (y < lenght - 1 && x < width - 1)
@@ -126,12 +136,13 @@ public class Grid2D : MonoBehaviour
     }
     public class Algorithm
     {
-        private Grid grid;
-        private Vector2[] goal;
+        public Grid grid;
+        private Vector2 goal;
+        private Cell goalCellVector;
 
         private Algorithm() { }
 
-        public Algorithm(Grid grid, Vector2[] goal)
+        public Algorithm(Grid grid, Vector2 goal)
         {
             this.grid = grid;
             this.goal = goal;
@@ -141,35 +152,30 @@ public class Grid2D : MonoBehaviour
         {
             var marked = new List<Cell>();
             var cells = grid.cells;
-            for (int i = 0; i < goal.Length; i++)
-            {
-                var goalCell = cells.First(c => c.position == goal[i]);
-                goalCell.distance = 0;
+            goalCellVector = grid.FindCell(goal);
+            var goalCell = cells.First(c => c.position == goalCellVector.position);
+            goalCell.distance = 0;
 
-                marked.Add(goalCell);
-            }
-            if (goal == null || goal.Length < 1)
+            marked.Add(goalCell);
+            if (goal == null)
             {
                 Debug.LogError("No goal!");
                 return;
             }
-            while (marked.Count < cells.Length)
+            for (int i = 0; i < cells.Length; i++)
             {
-                for (int i = 0; i < marked.Count; i++)
+                if (cells[i].unpassable)
+                    continue;
+                var neighbours = grid.GetNeighbours(cells[i]);
+                for (int j = 0; j < 4; j++)
                 {
-                    if (marked[i].unpassable)
+                    var cur = neighbours[j];
+                    if (cur == null || cells.Contains(cur))
                         continue;
-                    var neighbours = grid.GetNeighbours(marked[i]);
-                    for (int j = 0; j < 8; j++)
-                    {
-                        var cur = neighbours[j];
-                        if (cur == null || marked.Contains(cur))
-                            continue;
-                        cur.distance = marked[i].distance;
-                        cur.distance += (cur.position - marked[i].position).magnitude;
+                    cur.distance = cells[i].distance;
+                    cur.distance += (cur.position - cells[i].position).magnitude;
 
-                        marked.Add(cur);
-                    }
+                    marked.Add(cur);
                 }
             }
         }
@@ -198,12 +204,21 @@ public class Grid2D : MonoBehaviour
         }
     }
 
+    private void OnDrawGizmos()
+    {
+        if (rith != null)
+            foreach (var item in rith.grid.cells)
+            {
+                Debug.Log(item.direction);
+                Gizmos.DrawLine(item.position, item.position + item.direction);
+            }
+    }
     // Update is called once per frame
     void Update()
-        {
-
-        }
+    {
 
     }
+
+}
 
 
