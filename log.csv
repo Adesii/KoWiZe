@@ -1,3 +1,66 @@
+9a91373;Adesi;Tue, 1 Dec 2020 06:41:33 +0100;Refactored Project folders,Added Simple Build System,Universalized Singleton using yaSingleTon library;
+ 117 files changed, 5768 insertions(+), 1055 deletions(-)
+
+cedd9d8;Adesi;Tue, 1 Dec 2020 03:54:43 +0100;added SourceFolder and added basic city for Testing;
+ 23 files changed, 1557 insertions(+), 452 deletions(-)
+
+33a1ad0;Adesi;Mon, 30 Nov 2020 14:33:46 +0100;tried to fix the flowfield;
+ 2 files changed, 208 insertions(+), 36 deletions(-)
+
+97cfb0a;Adesi;Mon, 30 Nov 2020 13:48:13 +0100;upgraded some materials to HDRP;
+ 18 files changed, 3550 insertions(+), 149 deletions(-)
+
+7dc6efa;Adesi;Mon, 30 Nov 2020 02:19:23 +0100;worked on water shader graph.;
+ 5 files changed, 118 insertions(+), 27 deletions(-)
+
+9252e97;Adesi;Sun, 29 Nov 2020 00:56:31 +0100;Added Materials to the ground;
+ 57 files changed, 3099 insertions(+), 182 deletions(-)
+
+c9ed4f8;Adesi;Sat, 28 Nov 2020 19:23:26 +0100;changed RenderPipeline to HDRP from URP. And Updated Packages to latest Versions;
+ 403 files changed, 328196 insertions(+), 199 deletions(-)
+
+ca03b70;Adesi;Mon, 23 Nov 2020 13:01:10 +0100;Started Worked on CityBuildingUpgradeSystem;
+ 10 files changed, 892 insertions(+), 68 deletions(-)
+
+d9dccc7;Jason21112001;Wed, 18 Nov 2020 20:57:18 +0100;Created Highly Modular City depended resource addition system;
+ 5 files changed, 216 insertions(+), 1 deletion(-)
+
+1b3ba1a;Adesi;Wed, 18 Nov 2020 19:27:29 +0100;fixed cells Problem;
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+81e49c3;Samueltz;Wed, 18 Nov 2020 10:18:25 +0100;Added VectorFields and Updated Grid2D;
+ 1 file changed, 72 insertions(+), 3 deletions(-)
+
+792517c;Samueltz;Tue, 17 Nov 2020 11:01:08 +0100;Adding a new 2DGrid with Costfield;
+ 7 files changed, 207 insertions(+), 27 deletions(-)
+
+f40ae75;Adesi;Tue, 17 Nov 2020 10:50:09 +0100;Update CitySystem.unity;
+ 1 file changed, 12 insertions(+), 1 deletion(-)
+
+0bd48ed;Adesi;Tue, 17 Nov 2020 09:56:16 +0100;Added ResourceClass to streamline Addition and Removing Resources From a City;
+ 3 files changed, 108 insertions(+), 3 deletions(-)
+
+4102c10;Adesi;Mon, 16 Nov 2020 14:36:00 +0100;started work on citySystem;
+ 7 files changed, 600 insertions(+), 29 deletions(-)
+
+35b6bf4;Adesi;Mon, 16 Nov 2020 10:15:09 +0100;worked on the shader and settings of the Trees;
+ 5 files changed, 29 insertions(+), 13 deletions(-)
+
+e57283c;Adesi;Sun, 15 Nov 2020 16:47:44 +0100;Worked on Tree Placing and Repopulating. Also added LOD to Trees to save on Performance;
+ 39 files changed, 2325 insertions(+), 152 deletions(-)
+
+75469f0;Adesi;Sat, 14 Nov 2020 18:42:46 +0100;Started Work on TreePlacement on World Map;
+ 20 files changed, 907 insertions(+), 56 deletions(-)
+
+38ec5a4;Adesi;Sat, 14 Nov 2020 14:57:37 +0100;Removed SettingsSO to change the settings menu to a Hardcoded solution.;
+ 12 files changed, 11575 insertions(+), 3022 deletions(-)
+
+39b590b;Adesi;Fri, 13 Nov 2020 12:12:37 +0100;worked on the settings panels;
+ 18 files changed, 405 insertions(+), 30 deletions(-)
+
+80395cc;Adesi;Wed, 11 Nov 2020 14:01:16 +0100;pushed newest log Command to allow for easy excel tables;
+ 3 files changed, 158 insertions(+), 55 deletions(-)
+
 0e6fe88;Adesi;Wed, 11 Nov 2020 11:28:23 +0100;Reorganized folderStructure and started Working on SettingsClass;
  90 files changed, 150 insertions(+), 45 deletions(-)
 

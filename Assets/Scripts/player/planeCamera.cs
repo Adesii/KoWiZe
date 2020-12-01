@@ -43,6 +43,7 @@ public class planeCamera : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        GameController.addPlayer(this);
         zoomLevel = defaultZoomLevel;
         changeFOV(FOV);
     }

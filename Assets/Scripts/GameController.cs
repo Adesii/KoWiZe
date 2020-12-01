@@ -4,7 +4,7 @@ using System;
 using UnityEngine;
 using yaSingleton;
 
-[CreateAssetMenu(fileName = "GameController",menuName ="KoWiZe Custom Assets/Singletons/GameController")]
+[CreateAssetMenu(fileName = "GameController", menuName = "KoWiZe Custom Assets/Singletons/GameController")]
 public class GameController : Singleton<GameController>
 {
 
@@ -28,15 +28,25 @@ public class GameController : Singleton<GameController>
 
     public void ResourceTicker()
     {
-        if(onResourceTick != null)
+        if (onResourceTick != null)
         {
-            onResourceTick(); 
+            onResourceTick();
         }
     }
-    private void Start()
+    protected override void Initialize()
     {
+        base.Initialize();
         StartCoroutine(TickStarter());
+        citySettings.perPlayerSettings.Clear();
     }
+
+    protected override void Deinitialize()
+    {
+        base.Deinitialize();
+        Instance.citySettings.perPlayerSettings.Clear();
+    }
+
+
     private IEnumerator TickStarter()
     {
         while (true)
@@ -44,7 +54,7 @@ public class GameController : Singleton<GameController>
             ResourceTicker();
 
             yield return new WaitForSeconds(tickRate);
-        } 
+        }
     }
     [Serializable]
     public class TreeSetting
@@ -84,19 +94,20 @@ public class GameController : Singleton<GameController>
 
         }
 
-        
+
     }
     public bool enterCityBuildMode(int playerID)
     {
-        CitySetting.perPlayerCitySettings ppcs = citySettings.perPlayerSettings[playerID];
+        CitySetting.perPlayerCitySettings ppcs = Instance.citySettings.perPlayerSettings[playerID];
         if (ppcs == null) return false;
 
 
-        citySystem cs = Instantiate(citySettings.cityPrefab).GetComponent<citySystem>();
+        citySystem css = Instantiate(citySettings.cityPrefab).GetComponent<citySystem>();
 
-        ppcs.playerScript.buildObject(cs);
 
-        ppcs.playerCities.Add(cs);
+        ppcs.playerScript.buildObject(css);
+
+        ppcs.playerCities.Add(css);
 
 
         return true;
@@ -104,6 +115,17 @@ public class GameController : Singleton<GameController>
     public static void cityBuildmode(int id)
     {
         Instance.enterCityBuildMode(id);
+    }
+    public static void addPlayer(planeCamera playerCam)
+    {
+        CitySetting.perPlayerCitySettings set = new CitySetting.perPlayerCitySettings
+        {
+            playerID = Instance.citySettings.perPlayerSettings.Count,
+            playerScript = playerCam,
+            playerCities = new List<citySystem>()
+        };
+        Instance.citySettings.perPlayerSettings.Add(set);
+
     }
 }
 

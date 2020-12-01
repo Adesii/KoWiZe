@@ -399,6 +399,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: -6299235611117791946, guid: 4b3f9b96fde2c8c47911cea54e5020cd, type: 3}
+    - {fileID: 571037038971714793, guid: 4b3f9b96fde2c8c47911cea54e5020cd, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: 4b3f9b96fde2c8c47911cea54e5020cd, type: 3}
 --- !u!1 &1171783903 stripped
 GameObject:
@@ -592,7 +593,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
+      - m_Target: {fileID: 11400000, guid: 3d645a79d4c4b694a9fe046c616f3c58, type: 2}
         m_TargetAssemblyTypeName: GameController, Assembly-CSharp
         m_MethodName: cityBuildmode
         m_Mode: 3
