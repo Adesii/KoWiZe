@@ -34,6 +34,12 @@ public class planeCamera : MonoBehaviour
     Vector3 dragStartPosition;
     Vector3 dragCurrentPosition;
 
+
+
+    [Header("Current Selection Settings")]
+    public List<GameObject> Currently_Selected;
+    public GameObject building; 
+
     // Start is called before the first frame update
     void Start()
     {
@@ -41,9 +47,6 @@ public class planeCamera : MonoBehaviour
         changeFOV(FOV);
     }
 
-    Vector3 origin;
-    Vector3 Difference;
-    Vector3 transformOrigin;
     // Update is called once per frame
     void LateUpdate()
     {
@@ -195,5 +198,41 @@ public class planeCamera : MonoBehaviour
         childCamera.fieldOfView = FOVNumber;
     }
 
+    public bool buildObject(BuildableObject building)
+    {
 
+        if (this.building != null) return false;
+
+        building.wantsTobeBuild();
+        this.building = building.gameObject;
+
+        return true;
+    }
+
+    public void BuildMode()
+    {
+        if (building != null)
+        {
+            ray = childCamera.ScreenPointToRay(Input.mousePosition);
+
+
+            if (Physics.Raycast(ray, out hit))
+            {
+                building.transform.position = hit.point;
+            }
+            if (Input.GetMouseButtonDown(0))
+            {
+                building.GetComponent<BuildableObject>().HasBeenBuild();
+                building = null;
+            }
+        }
+    }
+
+
+    Ray ray;
+    RaycastHit hit;
+    private void Update()
+    {
+        BuildMode();
+    }
 }
