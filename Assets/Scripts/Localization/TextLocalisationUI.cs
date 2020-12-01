@@ -7,20 +7,18 @@ using UnityEngine;
 public class TextLocalisationUI : MonoBehaviour
 {
     TextMeshProUGUI textField;
-    public string key;
-
-
+    string unlocalizedString;
     // Start is called before the first frame update
     void Start()
     {
         textField = GetComponent<TextMeshProUGUI>();
-        textField.text = localization.GetLocalisedValue(key);
-        
+        unlocalizedString = textField.text;
+        textField.text = localization.GetLocalisedValue(textField.text);
+        GameController.languageChangeEvent += changeLangue;
     }
 
-    // Update is called once per frame
-    void Update()
+    private void changeLangue()
     {
-        
+        textField.text = localization.GetLocalisedValue(unlocalizedString);
     }
 }

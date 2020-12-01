@@ -1,2 +1,9 @@
-﻿"id_test","this is a test"
-"this is another test",
+﻿"key","en_EN",
+"mm_settings","Settings",
+"mm_exit","Exit Game",
+"mm_multiplayer","Multiplayer",
+"mm_load","Load Game",
+"mm_ngame","New Game",
+"bt_back","Back",
+"bt_apply","Apply",
+"l_language","de:German;en:English",

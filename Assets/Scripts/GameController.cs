@@ -3,10 +3,20 @@ using System.Collections.Generic;
 using System;
 using UnityEngine;
 using yaSingleton;
+using TMPro;
 
 [CreateAssetMenu(fileName = "GameController", menuName = "KoWiZe Custom Assets/Singletons/GameController")]
 public class GameController : Singleton<GameController>
 {
+
+    public Languages currentLanguage = Languages.en;
+    public static event Action languageChangeEvent;
+    public enum Languages
+    {
+        de,
+        en
+    }
+
 
     [Header("Tree Generation Variables")]
     public TreeSetting treeSettings = new TreeSetting();
@@ -22,6 +32,8 @@ public class GameController : Singleton<GameController>
     public static float HeightLimit { get => Instance.treeSettings.heightLimit; set => Instance.treeSettings.heightLimit = value; }
     public static float MinHeight { get => Instance.treeSettings.minHeight; set => Instance.treeSettings.minHeight = value; }
     public static CitySetting CitySettings { get => Instance.citySettings; set => Instance.citySettings = value; }
+    public static Languages CurrentLanguage { get => Instance.currentLanguage; set => Instance.currentLanguage = value; }
+
     public event Action onResourceTick;
     public float tickRate;
 
@@ -40,6 +52,12 @@ public class GameController : Singleton<GameController>
         citySettings.perPlayerSettings.Clear();
     }
 
+    public static void changedLanguage()
+    {
+        localization.isInit = false;
+        localization.Init();
+        languageChangeEvent();
+    }
     protected override void Deinitialize()
     {
         base.Deinitialize();

@@ -4,21 +4,20 @@ using UnityEngine;
 
 public class localization : MonoBehaviour
 {
-    public enum Language
-    {
-        English
-    }
-    public static Language language = Language.English;
 
-    private static Dictionary<string, string> localisedEN;
+    private static Dictionary<string, string> localised;
     public static bool isInit;
 
     public static void Init()
     {
-        CSVLoader csvLoader = new CSVLoader();
-        csvLoader.LoadCSV();
 
-        localisedEN = csvLoader.GetDictionaryValues("en");
+        if(CSVLoader.instance == null)
+        {
+            CSVLoader.instance = new CSVLoader();
+        }
+        CSVLoader.instance.LoadCSV();
+
+        localised = CSVLoader.instance.GetDictionaryValues(GameController.CurrentLanguage.ToString());
 
         isInit = true;
     }
@@ -26,12 +25,7 @@ public class localization : MonoBehaviour
     {
         if (!isInit) { Init(); }
         string value = key;
-        switch (language)
-        {
-            case Language.English:
-                localisedEN.TryGetValue(key, out value);
-                break;
-        }
+        localised.TryGetValue(key, out value);
         return value;
     }
 }
