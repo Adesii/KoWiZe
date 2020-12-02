@@ -1,3 +1,15 @@
+65baa8d;Jason21112001;Wed, 2 Dec 2020 12:01:01 +0100;Added menu graphics;
+ 4 files changed, 0 insertions(+), 0 deletions(-)
+
+2a8f538;Adesi;Wed, 2 Dec 2020 00:57:41 +0100;Finished LocalizationSystem V1;
+ 11 files changed, 585 insertions(+), 59 deletions(-)
+
+2ff48cb;Adesi;Tue, 1 Dec 2020 10:56:04 +0100;Worked on Localization Editor;
+ 10 files changed, 173 insertions(+), 11 deletions(-)
+
+9cd48d5;Samueltz;Tue, 1 Dec 2020 10:53:53 +0100;started localization system;
+ 13 files changed, 206 insertions(+), 6 deletions(-)
+
 9a91373;Adesi;Tue, 1 Dec 2020 06:41:33 +0100;Refactored Project folders,Added Simple Build System,Universalized Singleton using yaSingleTon library;
  117 files changed, 5768 insertions(+), 1055 deletions(-)
 
