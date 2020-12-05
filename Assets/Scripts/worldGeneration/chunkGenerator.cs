@@ -2,11 +2,6 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UI;
-using UnityEngine.UIElements;
-using UnityEngine.Jobs;
-using Unity.Jobs;
-using Unity.Collections;
 
 public class chunkGenerator : MonoBehaviour
 {

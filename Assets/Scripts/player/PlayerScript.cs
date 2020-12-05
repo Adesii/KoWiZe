@@ -1,10 +1,7 @@
-﻿using System;
-using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.EventSystems;
 
-public class planeCamera : MonoBehaviour
+public class PlayerScript : MonoBehaviour
 {
 
     public Camera childCamera;
@@ -37,8 +34,8 @@ public class planeCamera : MonoBehaviour
 
 
     [Header("Current Selection Settings")]
-    public List<GameObject> Currently_Selected;
-    public GameObject building; 
+    public List<Selectable> Currently_Selected;
+    public GameObject building;
 
     // Start is called before the first frame update
     void Start()
@@ -46,8 +43,13 @@ public class planeCamera : MonoBehaviour
         GameController.addPlayer(this);
         zoomLevel = defaultZoomLevel;
         changeFOV(FOV);
+        LocalPlayer();
     }
-
+    private void LocalPlayer()
+    {
+        GameController.Instance.localSettings.localPlayer = this;
+        GameController.Instance.localSettings.LocalCamera = Camera.main;
+    }
     // Update is called once per frame
     void LateUpdate()
     {
@@ -61,8 +63,7 @@ public class planeCamera : MonoBehaviour
     private void heightAdjust()
     {
         Ray ray = new Ray(transform.position + new Vector3(0, 10000, 0), -transform.up);
-        RaycastHit hit;
-        if (Physics.Raycast(ray, out hit))
+        if (Physics.Raycast(ray, out RaycastHit hit))
         {
             transform.position = Vector3.Lerp(transform.position, hit.point, Time.deltaTime * 5f);
             //Debug.Log(hit.point);
@@ -216,7 +217,6 @@ public class planeCamera : MonoBehaviour
         {
             ray = childCamera.ScreenPointToRay(Input.mousePosition);
 
-
             if (Physics.Raycast(ray, out hit))
             {
                 building.transform.position = hit.point;
@@ -227,6 +227,21 @@ public class planeCamera : MonoBehaviour
                 building = null;
             }
         }
+        if (Input.GetMouseButtonDown(0))
+        {
+            ray = childCamera.ScreenPointToRay(Input.mousePosition);
+            if (Physics.Raycast(ray, out hit))
+            {
+                if (!hit.collider.CompareTag("Selectable"))
+                {
+                    foreach (var item in Currently_Selected)
+                    {
+                        item.unSelect();
+                    }
+                    Currently_Selected.Clear();
+                }
+            }
+        }
     }
 
 
@@ -235,5 +250,27 @@ public class planeCamera : MonoBehaviour
     private void Update()
     {
         BuildMode();
+    }
+
+
+    public void AddToSelection(Selectable ob)
+    {
+        if (Input.GetAxis("Speed") > 0)
+        {
+            ob.Select();
+            Currently_Selected.Add(ob);
+        }
+        else
+        {
+
+            foreach (var item in Currently_Selected)
+            {
+                item.unSelect();
+            }
+
+            Currently_Selected.Clear();
+            Currently_Selected.Add(ob);
+            ob.Select();
+        }
     }
 }

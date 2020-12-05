@@ -1,6 +1,4 @@
-﻿using System.Collections;
-using System;
-using UnityEngine.Audio;
+﻿using UnityEngine.Audio;
 using System.Collections.Generic;
 using yaSingleton;
 using UnityEngine;

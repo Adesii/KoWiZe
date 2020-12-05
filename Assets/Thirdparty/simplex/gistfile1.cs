@@ -1,5 +1,4 @@
 using UnityEngine;
-using System.Collections;
 
 public class SimplexNoiseGenerator {
     private int[] A = new int[3];

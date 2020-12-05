@@ -49,11 +49,14 @@ MonoBehaviour:
   moveSpeed: 20
   defaultZoomLevel: 30
   zoomLevel: 30
-  zoomSens: 20
-  maxZoom: 120
+  zoomSens: 50
+  maxZoom: 265
   minZoom: 10
+  PositionLayerMask:
+    serializedVersion: 2
+    m_Bits: 256
   RotateSens: 60
-  FOV: 103
+  FOV: 70
   Currently_Selected: []
   building: {fileID: 0}
 --- !u!114 &-6299235611117791946
@@ -85,6 +88,7 @@ GameObject:
   - component: {fileID: 571037038971714798}
   - component: {fileID: 8156585992590825403}
   - component: {fileID: 3235591566924413620}
+  - component: {fileID: 458605658942329763}
   m_Layer: 0
   m_Name: PlayerCam
   m_TagString: MainCamera
@@ -276,3 +280,19 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   attenuationObject: {fileID: 571037038971714797}
   ListenerNumber: -1
+--- !u!114 &458605658942329763
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 571037038971714797}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c49b4cc203aa6414fae5c798d1d0e7d6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_EventMask:
+    serializedVersion: 2
+    m_Bits: 256
+  m_MaxRayIntersections: 0

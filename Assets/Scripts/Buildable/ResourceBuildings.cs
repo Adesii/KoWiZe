@@ -1,7 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-using System;
+﻿using System;
 using static ResourceClass;
 
 public class ResourceBuildings : BuildableObject
@@ -30,6 +27,16 @@ public class ResourceBuildings : BuildableObject
     }
 
     public override void wantsTobeBuild()
+    {
+        throw new NotImplementedException();
+    }
+
+    public override void unSelect()
+    {
+        throw new NotImplementedException();
+    }
+
+    public override void Select()
     {
         throw new NotImplementedException();
     }

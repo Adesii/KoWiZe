@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System;
 using UnityEngine;
 using yaSingleton;
-using TMPro;
 
 [CreateAssetMenu(fileName = "GameController", menuName = "KoWiZe Custom Assets/Singletons/GameController")]
 public class GameController : Singleton<GameController>
@@ -22,6 +21,8 @@ public class GameController : Singleton<GameController>
     public TreeSetting treeSettings = new TreeSetting();
     [Header("CitySettings")]
     public CitySetting citySettings = new CitySetting();
+    [Header("Local Settings")]
+    public LocalSettings localSettings = new LocalSettings();
 
     public static GameObject TreePrefab { get => Instance.treeSettings.treePrefab; set => Instance.treeSettings.treePrefab = value; }
     public static List<GameObject> PlaceableModels { get => Instance.treeSettings.placeableModels; set => Instance.treeSettings.placeableModels = value; }
@@ -35,20 +36,20 @@ public class GameController : Singleton<GameController>
     public static Languages CurrentLanguage { get => Instance.currentLanguage; set => Instance.currentLanguage = value; }
 
     public event Action onResourceTick;
+    public event Action OnGameTick;
     public float tickRate;
+    public float resourceTickRate;
 
 
     public void ResourceTicker()
     {
-        if (onResourceTick != null)
-        {
-            onResourceTick();
-        }
+        onResourceTick?.Invoke();
     }
     protected override void Initialize()
     {
         base.Initialize();
         StartCoroutine(TickStarter());
+        StartCoroutine(GameTickStarter());
         citySettings.perPlayerSettings.Clear();
     }
 
@@ -71,6 +72,18 @@ public class GameController : Singleton<GameController>
         {
             ResourceTicker();
 
+            yield return new WaitForSeconds(resourceTickRate);
+        }
+    }
+    private void GameTick()
+    {
+        OnGameTick?.Invoke();
+    }
+    private IEnumerator GameTickStarter()
+    {
+        while (true)
+        {
+            GameTick();
             yield return new WaitForSeconds(tickRate);
         }
     }
@@ -102,7 +115,7 @@ public class GameController : Singleton<GameController>
             public float exponentialFoodProduction = 2f;
             public float exponentialScienceProduction = 2f;
 
-            public planeCamera playerScript;
+            public PlayerScript playerScript;
 
             public float science;
             public float gold;
@@ -134,7 +147,7 @@ public class GameController : Singleton<GameController>
     {
         Instance.enterCityBuildMode(id);
     }
-    public static void addPlayer(planeCamera playerCam)
+    public static void addPlayer(PlayerScript playerCam)
     {
         CitySetting.perPlayerCitySettings set = new CitySetting.perPlayerCitySettings
         {
