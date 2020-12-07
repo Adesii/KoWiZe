@@ -1,10 +1,6 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 using TMPro;
 using UnityEngine.UI;
-using UnityEditor.PackageManager.UI;
-using System.CodeDom;
 
 [ExecuteInEditMode()]
 public class toolTip : MonoBehaviour

@@ -26,4 +26,5 @@ MonoBehaviour:
   citySettings:
     perPlayerSettings: []
     cityPrefab: {fileID: 6331079277060388891, guid: 9c6916bce633cd94bb90959faaa30dd3, type: 3}
-  tickRate: 5
+  tickRate: 0.25
+  resourceTickRate: 5

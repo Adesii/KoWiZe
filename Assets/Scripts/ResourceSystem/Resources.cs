@@ -3,6 +3,7 @@
 [Serializable]
 public class ResourceClass
 {
+    [Serializable]
     public enum ResourceTypes
     {
         Wood,

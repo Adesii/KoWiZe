@@ -1,14 +1,10 @@
 ﻿using DG.Tweening;
-using JetBrains.Annotations;
 using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEditor;
-using UnityEditor.Experimental.TerrainAPI;
-using UnityEditor.UIElements;
 using UnityEngine;
-using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 
 
@@ -17,7 +13,7 @@ public class UIEventManagerAndNotifier : MonoBehaviour
 {
 
     [Header("Notification Prefabs")]
-    
+
     public PrefabArray[] prefabArray = new PrefabArray[5];
     [Serializable]
     public struct PrefabArray
@@ -86,7 +82,7 @@ public class UIEventManagerAndNotifier : MonoBehaviour
                 //Vector3 cs = gc[iterator - 1].transform.position;
                 //item.transform.DOMove(cs,1f);
                 item.transform.DOBlendableMoveBy(new Vector3(0, -getSizeY(item.GetComponent<RectTransform>()), 0), 0.75f);
-                
+
             }
             iterator++;
 
@@ -123,6 +119,8 @@ public class UIEventManagerAndNotifier : MonoBehaviour
         Countdown
     }
 }
+#if UNITY_EDITOR
+
 
 [CustomEditor(typeof(UIEventManagerAndNotifier))]
 [CanEditMultipleObjects]
@@ -136,12 +134,12 @@ public class drawCustomWindowUI : Editor
     {
         currentSelection = serializedObject.FindProperty("selectedUI");
     }
-    protected void DrawProperties(SerializedProperty prop,bool drawChildren)
+    protected void DrawProperties(SerializedProperty prop, bool drawChildren)
     {
         string lastPropPath = string.Empty;
         foreach (SerializedProperty p in prop)
         {
-            if(p.isArray && p.propertyType == SerializedPropertyType.Generic)
+            if (p.isArray && p.propertyType == SerializedPropertyType.Generic)
             {
                 EditorGUILayout.BeginHorizontal();
                 p.isExpanded = EditorGUILayout.Foldout(p.isExpanded, p.displayName);
@@ -155,7 +153,7 @@ public class drawCustomWindowUI : Editor
             }
             else
             {
-                if(!string.IsNullOrEmpty(lastPropPath)&& p.propertyPath.Contains(lastPropPath)) { continue; }
+                if (!string.IsNullOrEmpty(lastPropPath) && p.propertyPath.Contains(lastPropPath)) { continue; }
                 lastPropPath = p.propertyPath;
                 EditorGUILayout.PropertyField(p, drawChildren);
             }
@@ -205,11 +203,11 @@ public class drawCustomWindowUI : Editor
         }
         EditorGUI.indentLevel--;
         serializedObject.ApplyModifiedProperties();
-        
-       
+
+
     }
 }
-
+#endif
 [Serializable]
 public class stratModeUI
 {

@@ -1,8 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-
-public abstract class BuildableObject : MonoBehaviour
+﻿public abstract class BuildableObject : Selectable
 {
     public bool isBuilding = true;
     public abstract void HasBeenBuild();

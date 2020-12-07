@@ -1,5 +1,3 @@
-using System;
-
 namespace UnityEngine.Rendering.HighDefinition
 {
     [VolumeComponentMenu("Sky/Procedural Sky")]
