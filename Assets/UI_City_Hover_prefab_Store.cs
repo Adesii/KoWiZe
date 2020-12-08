@@ -38,7 +38,7 @@ public class UI_City_Hover_prefab_Store : MonoBehaviour
             {
                 foreach (var item in Iconresources)
                 {
-                    item.ResourceCount.text = localization.GetLocalisedValue("RR_"+item.ResourceType.ToString()) + ":\n " + item.Resourceclass.currentAmount + "/" + item.Resourceclass.maxCapacity;
+                    item.ResourceCount.text = localization.GetLocalisedValue("RR_" + item.ResourceType.ToString()) + ":\n " + item.Resourceclass.currentAmount + "/" + item.Resourceclass.maxCapacity;
                 }
             }
 
@@ -46,7 +46,7 @@ public class UI_City_Hover_prefab_Store : MonoBehaviour
         }
         else
         {
-            if(ownCity != null)
+            if (ownCity != null)
             {
                 foreach (var item in ownCity.res)
                 {
