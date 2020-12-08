@@ -1,3 +1,25 @@
+359a267;Samueltz;Tue, 8 Dec 2020 09:50:09 +0100;Worked on v1 of the Audiomanager;
+ 7 files changed, 1010 insertions(+), 36 deletions(-)
+
+a4d6b4f;Samueltz;Mon, 7 Dec 2020 11:57:00 +0100;added forest Sounds to FMOD project;
+ 25 files changed, 301 insertions(+), 89 deletions(-)
+
+5542a67;Adesi;Mon, 7 Dec 2020 06:40:13 +0100;Merge branch 'master' of https://github.com/Adesii/KoWiZe;
+4dddb97;Adesi;Sat, 5 Dec 2020 07:14:23 +0100;Added CityOverlays and made Selectable Buildings Inherit from a Selectable Class to allow for storing multiple types in a single list. Also removed unnecessary Using's;
+ 146 files changed, 7079 insertions(+), 951 deletions(-)
+
+c8e6852;Adesi;Sat, 5 Dec 2020 00:22:22 +0100;Added FMOD Project and Integration for better Audio Management;
+ 410 files changed, 28945 insertions(+), 29 deletions(-)
+
+271db08;Adesi;Wed, 2 Dec 2020 16:23:01 +0100;Worked on 2D Graphics and added them to the Project;
+ 31 files changed, 1679 insertions(+), 106 deletions(-)
+
+e4bb835;Adesi;Wed, 2 Dec 2020 14:33:11 +0100;updated Localization files.;
+ 4 files changed, 15 insertions(+), 3 deletions(-)
+
+7c0bd0a;Samueltz;Wed, 2 Dec 2020 14:30:14 +0100;started Audiosystem;
+ 9 files changed, 197 insertions(+)
+
 65baa8d;Jason21112001;Wed, 2 Dec 2020 12:01:01 +0100;Added menu graphics;
  4 files changed, 0 insertions(+), 0 deletions(-)
 
