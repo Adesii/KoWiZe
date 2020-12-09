@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System;
 using UnityEngine;
 using yaSingleton;
+using static ResourceClass;
+using UnityEngine.UI;
 
 [CreateAssetMenu(fileName = "GameController", menuName = "KoWiZe Custom Assets/Singletons/GameController")]
 public class GameController : Singleton<GameController>
@@ -105,7 +107,7 @@ public class GameController : Singleton<GameController>
     {
 
         public List<perPlayerCitySettings> perPlayerSettings = new List<perPlayerCitySettings>();
-
+        public List<Sprite> icons = new List<Sprite>();
         public GameObject cityPrefab;
 
         [Serializable]
@@ -157,6 +159,10 @@ public class GameController : Singleton<GameController>
         };
         Instance.citySettings.perPlayerSettings.Add(set);
 
+    }
+    public static Sprite GetResourceIcon(ResourceTypes resource)
+    {
+        return Instance.citySettings.icons[(int)resource];
     }
 }
 

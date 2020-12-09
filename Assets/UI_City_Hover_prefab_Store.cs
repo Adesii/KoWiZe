@@ -38,6 +38,7 @@ public class UI_City_Hover_prefab_Store : MonoBehaviour
             {
                 foreach (var item in Iconresources)
                 {
+                    
                     item.ResourceCount.text = localization.GetLocalisedValue("RR_" + item.ResourceType.ToString()) + ":\n " + item.Resourceclass.currentAmount + "/" + item.Resourceclass.maxCapacity;
                 }
             }
@@ -51,6 +52,7 @@ public class UI_City_Hover_prefab_Store : MonoBehaviour
                 foreach (var item in ownCity.res)
                 {
                     ResourceIcon ress = Instantiate(ResourceInstancing, ResourceParent).GetComponent<ResourceIcon>();
+                    ress.Resource.sprite = GameController.GetResourceIcon(item.Key);
                     ress.ResourceType = item.Key;
                     ress.Resourceclass = item.Value;
                     ress.ResourceCount.text = ress.Resourceclass.ResourceType + ":\n " + ress.Resourceclass.currentAmount + "/" + ress.Resourceclass.maxCapacity;
