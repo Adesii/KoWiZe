@@ -17,5 +17,5 @@ MonoBehaviour:
     - env_forest
     m_values:
     - ID: event:/ForestEnviroment
-      Volume: 0.287
-      pitch: 1.3
+      Volume: 0
+      pitch: 0
