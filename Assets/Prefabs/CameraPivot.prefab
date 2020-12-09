@@ -52,9 +52,6 @@ MonoBehaviour:
   zoomSens: 50
   maxZoom: 265
   minZoom: 10
-  PositionLayerMask:
-    serializedVersion: 2
-    m_Bits: 256
   RotateSens: 60
   FOV: 70
   Currently_Selected: []

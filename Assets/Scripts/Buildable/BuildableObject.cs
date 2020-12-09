@@ -1,4 +1,7 @@
-﻿public abstract class BuildableObject : Selectable
+﻿using Mirror;
+using System;
+
+public abstract class BuildableObject : Selectable
 {
     public bool isBuilding = true;
     public abstract void HasBeenBuild();

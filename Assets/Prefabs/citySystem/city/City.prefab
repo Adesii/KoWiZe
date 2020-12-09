@@ -149,6 +149,8 @@ GameObject:
   - component: {fileID: 6331079277060388889}
   - component: {fileID: 6331079277060388888}
   - component: {fileID: 3330865975126220446}
+  - component: {fileID: 3442290266354950303}
+  - component: {fileID: 348644131694117636}
   m_Layer: 8
   m_Name: City
   m_TagString: Selectable
@@ -237,6 +239,40 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 17, y: 2, z: 15}
   m_Center: {x: 0, y: 1, z: 0}
+--- !u!114 &3442290266354950303
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6331079277060388891}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9b91ecbcc199f4492b9a91e820070131, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  sceneId: 0
+  serverOnly: 0
+  m_AssetId: 
+  hasSpawned: 0
+--- !u!114 &348644131694117636
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6331079277060388891}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2f74aedd71d9a4f55b3ce499326d45fb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  syncMode: 1
+  syncInterval: 0.1
+  clientAuthority: 0
+  localPositionSensitivity: 0.01
+  localRotationSensitivity: 0.01
+  localScaleSensitivity: 0.01
 --- !u!1 &7664112355043849529
 GameObject:
   m_ObjectHideFlags: 0

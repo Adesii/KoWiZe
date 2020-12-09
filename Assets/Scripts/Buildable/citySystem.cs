@@ -2,6 +2,7 @@
 using UnityEngine;
 using UnityEngine.EventSystems;
 using static ResourceClass;
+using Mirror;
 
 public class citySystem : BuildableObject, IPointerEnterHandler, IPointerExitHandler, IPointerClickHandler
 {
@@ -48,7 +49,6 @@ public class citySystem : BuildableObject, IPointerEnterHandler, IPointerExitHan
         }
         return null;
     }
-
     public override void HasBeenBuild()
     {
         Debug.Log("built Completed");
@@ -59,9 +59,12 @@ public class citySystem : BuildableObject, IPointerEnterHandler, IPointerExitHan
         isBuilding = false;
         //add other stuff that should happen when built
         gameObject.GetComponent<Collider>().enabled = true;
-
         gm = UI_City_Hover.addNewCity(this);
+
+
+
     }
+
 
     public override void wantsTobeBuild()
     {
