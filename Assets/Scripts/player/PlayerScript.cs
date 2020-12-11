@@ -226,6 +226,7 @@ public class PlayerScript : MonoBehaviour
                 building.GetComponent<BuildableObject>().HasBeenBuild();
                 building = null;
             }
+
         }
         if (Input.GetMouseButtonDown(0))
         {

@@ -54,6 +54,8 @@ public class LocalizationEditor : EditorWindow
             {
                 bool foldout = false;
                 foldoutlist.TryGetValue(d, out foldout);
+                GUILayout.BeginHorizontal();
+                
                 GUILayout.BeginVertical();
                 
                 EditorGUILayout.GetControlRect(true, 16f, EditorStyles.foldout);
@@ -88,6 +90,8 @@ public class LocalizationEditor : EditorWindow
                 foldoutlist[d] = foldout;
                 EditorGUI.indentLevel--;
                 GUILayout.EndVertical();
+                if (GUILayout.Button("x",GUILayout.Width(position.width/30),GUILayout.Height(position.height/30))) { deleteEntry(d); }
+                GUILayout.EndHorizontal();
             }
             GUILayout.Space(position.height / 100);
         }
@@ -146,7 +150,15 @@ public class LocalizationEditor : EditorWindow
         reloadFiles();
         return true;
     }
-
+    void deleteEntry(string index)
+    {
+        foreach (var item in languagesKeeper.Keys.ToArray())
+        {
+            languagesKeeper[item].Remove(index);
+            languagesKeeperEdited[item].Remove(index);
+        }
+        Debug.Log(index);
+    }
     string dictToCSV(Dictionary<string,string> dic,string lang)
     {
         string temp = "\"key\",\""+lang+"\",\n";

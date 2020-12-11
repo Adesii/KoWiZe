@@ -68,11 +68,11 @@ MonoBehaviour:
     min: 0
     max: 360
   skyIntensityMode:
-    m_OverrideState: 0
+    m_OverrideState: 1
     m_Value: 0
   exposure:
     m_OverrideState: 1
-    m_Value: 15
+    m_Value: 16.51
   multiplier:
     m_OverrideState: 0
     m_Value: 1
@@ -99,17 +99,17 @@ MonoBehaviour:
     m_Value: 0
   sunSize:
     m_OverrideState: 0
-    m_Value: 0.04
+    m_Value: 0.255
     min: 0
     max: 1
   sunSizeConvergence:
     m_OverrideState: 0
-    m_Value: 5
+    m_Value: 3.62
     min: 1
     max: 10
   atmosphereThickness:
     m_OverrideState: 0
-    m_Value: 1
+    m_Value: 1.34
     min: 0
     max: 5
   skyTint:
@@ -120,13 +120,45 @@ MonoBehaviour:
     showEyeDropper: 1
   groundColor:
     m_OverrideState: 0
-    m_Value: {r: 0.369, g: 0.349, b: 0.341, a: 1}
+    m_Value: {r: 0.6509434, g: 0.6509434, b: 0.6509434, a: 1}
     hdr: 0
     showAlpha: 1
     showEyeDropper: 1
   enableSunDisk:
     m_OverrideState: 0
     m_Value: 1
+--- !u!114 &-4603917270531566028
+MonoBehaviour:
+  m_ObjectHideFlags: 3
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f034cba68ab55e046ae1445a42f18c0e, type: 3}
+  m_Name: IndirectLightingController
+  m_EditorClassIdentifier: 
+  active: 0
+  m_AdvancedMode: 0
+  indirectDiffuseIntensity:
+    m_OverrideState: 1
+    m_Value: 1
+    min: 0
+  indirectDiffuseLightingLayers:
+    m_OverrideState: 0
+    m_Value: 255
+  reflectionLightingMultiplier:
+    m_OverrideState: 0
+    m_Value: 1
+    min: 0
+  reflectionLightingLayers:
+    m_OverrideState: 0
+    m_Value: 255
+  indirectSpecularIntensity:
+    m_OverrideState: 0
+    m_Value: 1
+    min: 0
 --- !u!114 &-1016694868962581565
 MonoBehaviour:
   m_ObjectHideFlags: 3
@@ -205,6 +237,7 @@ MonoBehaviour:
   - {fileID: -7089757308646879465}
   - {fileID: 8988579258671452274}
   - {fileID: -5747457991576786058}
+  - {fileID: -4603917270531566028}
 --- !u!114 &1501199423866068322
 MonoBehaviour:
   m_ObjectHideFlags: 3

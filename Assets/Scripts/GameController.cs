@@ -9,9 +9,11 @@ using UnityEngine.UI;
 [CreateAssetMenu(fileName = "GameController", menuName = "KoWiZe Custom Assets/Singletons/GameController")]
 public class GameController : Singleton<GameController>
 {
-
+    private int currLangIndex;
     public Languages currentLanguage = Languages.en;
     public static event Action languageChangeEvent;
+    public GameObject UI_Prefab;
+    public int localPlayerID = 0; 
     public enum Languages
     {
         de,
@@ -36,11 +38,15 @@ public class GameController : Singleton<GameController>
     public static float MinHeight { get => Instance.treeSettings.minHeight; set => Instance.treeSettings.minHeight = value; }
     public static CitySetting CitySettings { get => Instance.citySettings; set => Instance.citySettings = value; }
     public static Languages CurrentLanguage { get => Instance.currentLanguage; set => Instance.currentLanguage = value; }
+    public static int CurrLangIndex { get => Instance.currLangIndex; set => Instance.currLangIndex = value; }
 
     public event Action onResourceTick;
     public event Action OnGameTick;
     public float tickRate;
     public float resourceTickRate;
+
+    [HideInInspector]
+    public static UIEventManagerAndNotifier UIInstance;
 
 
     public void ResourceTicker()
@@ -53,6 +59,14 @@ public class GameController : Singleton<GameController>
         StartCoroutine(TickStarter());
         StartCoroutine(GameTickStarter());
         citySettings.perPlayerSettings.Clear();
+
+        UIInstance = FindObjectOfType<UIEventManagerAndNotifier>();
+        if (FindObjectOfType<UIEventManagerAndNotifier>() == null)
+        {
+            Instantiate(UI_Prefab);
+            UIInstance = FindObjectOfType<UIEventManagerAndNotifier>();
+        }
+            
     }
 
     public static void changedLanguage()
@@ -109,6 +123,7 @@ public class GameController : Singleton<GameController>
         public List<perPlayerCitySettings> perPlayerSettings = new List<perPlayerCitySettings>();
         public List<Sprite> icons = new List<Sprite>();
         public GameObject cityPrefab;
+        public GameObject ResourcePrefab;
 
         [Serializable]
         public class perPlayerCitySettings
@@ -145,9 +160,26 @@ public class GameController : Singleton<GameController>
 
         return true;
     }
+    public bool enterResourceBuildMode(int Resource)
+    {
+        CitySetting.perPlayerCitySettings ppcs = Instance.citySettings.perPlayerSettings[localPlayerID];
+        if (ppcs == null) return false;
+        citySystem csr = (citySystem)ppcs.playerScript.Currently_Selected[ppcs.playerScript.Currently_Selected.Count-1];
+        if (csr == null) return false;
+        ResourceBuildings css = Instantiate(citySettings.ResourcePrefab).GetComponent<ResourceBuildings>();
+        css.type = (ResourceTypes)Resource;
+        css.resourceCity = csr;
+        ppcs.playerScript.buildObject(css);
+        
+        return true;
+    }
     public static void cityBuildmode(int id)
     {
         Instance.enterCityBuildMode(id);
+    }
+    public static void resourceBuildMode(int resourceID)
+    {
+        Instance.enterResourceBuildMode(resourceID);
     }
     public static void addPlayer(PlayerScript playerCam)
     {
@@ -163,6 +195,13 @@ public class GameController : Singleton<GameController>
     public static Sprite GetResourceIcon(ResourceTypes resource)
     {
         return Instance.citySettings.icons[(int)resource];
+    }
+
+    public static void ApplySetting()
+    {
+        Debug.Log(CurrLangIndex);
+        CurrentLanguage =(Languages) CurrLangIndex;
+        changedLanguage();
     }
 }
 

@@ -24,6 +24,7 @@ public class localization : MonoBehaviour
     {
         if (!isInit) { Init(); }
         string value = key;
+        if (value != null)
         localised.TryGetValue(key, out value);
         return value;
     }

@@ -120,7 +120,10 @@ public class TreePlacement : MonoBehaviour
     public void chunkplaceTree(Vector3 StartPos, int id)
     {
         if (trees.Count <= maxPlacedTrees)
+        {
             co = StartCoroutine(chunkPlaceTree(StartPos, id));
+        }
+            
     }
     public IEnumerator chunkPlaceTree(Vector3 startSpot, int id)
     {
@@ -143,6 +146,7 @@ public class TreePlacement : MonoBehaviour
                 GameObject newTree = Instantiate(TreePrefab, hit.point, Quaternion.Euler(transform.rotation.eulerAngles + new Vector3(0, Random.Range(0f, 360f), 0)), TreeParent.transform);
                 newTree.GetComponent<Repopulate>().id = id + 1;
                 Instantiate(placeableModels[Random.Range(0, placeableModels.Count)], newTree.transform);
+                if (id == 0) SFXManagerController.Instance.PlayOnObject("env_forest", newTree);
                 trees.Add(newTree);
             }
             else if (id < minForestSize)

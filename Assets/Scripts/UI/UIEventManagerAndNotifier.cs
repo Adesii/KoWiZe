@@ -18,7 +18,6 @@ public class UIEventManagerAndNotifier : MonoBehaviour
     [Serializable]
     public struct PrefabArray
     {
-
         public List<GameObject> prefabs;
     }
 
@@ -29,8 +28,10 @@ public class UIEventManagerAndNotifier : MonoBehaviour
     public stratModeUI strategyModeUI = new stratModeUI();
     [SerializeField]
     public menuUI menuUI = new menuUI();
+
     [SerializeField]
     public battleModeUI battleModeUI = new battleModeUI();
+
 
     [HideInInspector]
     public static List<GameObject> gc = new List<GameObject>();
@@ -40,6 +41,17 @@ public class UIEventManagerAndNotifier : MonoBehaviour
     {
         //StartCoroutine(ie());
         can = gameObject.GetComponent<Canvas>();
+        DontDestroyOnLoad(gameObject);
+        updateUISelection();
+
+
+    }
+
+    private void updateUISelection()
+    {
+        strategyModeUI.UIItem.SetActive(selectedUI == type_Of_UI.stratMode);
+        menuUI.UIItem.SetActive(selectedUI == type_Of_UI.mainMenu);
+
     }
     private IEnumerator ie()
     {
@@ -96,7 +108,11 @@ public class UIEventManagerAndNotifier : MonoBehaviour
     }
     public void NewGame()
     {
+        
         SceneManager.LoadScene(1);
+        selectedUI = type_Of_UI.stratMode;
+        updateUISelection();
+
     }
     public static float getSizeY(RectTransform rt)
     {
@@ -120,8 +136,6 @@ public class UIEventManagerAndNotifier : MonoBehaviour
     }
 }
 #if UNITY_EDITOR
-
-
 [CustomEditor(typeof(UIEventManagerAndNotifier))]
 [CanEditMultipleObjects]
 public class drawCustomWindowUI : Editor
@@ -155,7 +169,15 @@ public class drawCustomWindowUI : Editor
             {
                 if (!string.IsNullOrEmpty(lastPropPath) && p.propertyPath.Contains(lastPropPath)) { continue; }
                 lastPropPath = p.propertyPath;
-                EditorGUILayout.PropertyField(p, drawChildren);
+                if(p.GetType() == typeof(GameObject))
+                {
+                    EditorGUILayout.ObjectField(p);
+                }
+                else
+                {
+                    EditorGUILayout.PropertyField(p, drawChildren);
+
+                }
             }
 
         }
@@ -208,9 +230,11 @@ public class drawCustomWindowUI : Editor
     }
 }
 #endif
+
 [Serializable]
 public class stratModeUI
 {
+    public GameObject UIItem;
     [Header("UI Areas")]
     public RectTransform sideBarNotificationArea;
     public RectTransform timedEventArea;
@@ -218,16 +242,22 @@ public class stratModeUI
     public RectTransform selectionArea;
     public RectTransform topUIBar;
     public RectTransform bottomUIBar;
+
+    public GameObject BuildPanel;
 }
 [Serializable]
 public class battleModeUI
 {
+    public GameObject UIItem;
+
     public string ss = "working";
 }
 [Serializable]
 
 public class menuUI
 {
+    public GameObject UIItem;
+
     public string ss = "working";
 }
 

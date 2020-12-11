@@ -1,5 +1,6 @@
 ﻿using TMPro;
 using UnityEngine;
+using System.Collections;
 
 [RequireComponent(typeof(TextMeshProUGUI))]
 public class TextLocalisationUI : MonoBehaviour
@@ -11,12 +12,25 @@ public class TextLocalisationUI : MonoBehaviour
     {
         textField = GetComponent<TextMeshProUGUI>();
         unlocalizedString = textField.text;
-        textField.text = localization.GetLocalisedValue(textField.text);
+        string temp = localization.GetLocalisedValue(unlocalizedString);
+        if (!string.IsNullOrEmpty(temp))
+            textField.text = temp;
         GameController.languageChangeEvent += changeLangue;
     }
-
-    private void changeLangue()
+    private void OnEnable()
     {
-        textField.text = localization.GetLocalisedValue(unlocalizedString);
+        changeLangue();
+    }
+    public void changeLangue()
+    {
+        string temp = localization.GetLocalisedValue(unlocalizedString);
+        if (!string.IsNullOrEmpty(temp))
+            textField.text = temp;
+    }
+
+    public void newUnlocalisationChange()
+    {
+        unlocalizedString = textField.text;
+        changeLangue();
     }
 }

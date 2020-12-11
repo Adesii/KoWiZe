@@ -4,7 +4,7 @@ using UnityEngine.EventSystems;
 using static ResourceClass;
 using Mirror;
 
-public class citySystem : BuildableObject, IPointerEnterHandler, IPointerExitHandler, IPointerClickHandler
+public class citySystem : Selectable
 {
     public int cityID;
     public int cityTier = 0;
@@ -13,9 +13,10 @@ public class citySystem : BuildableObject, IPointerEnterHandler, IPointerExitHan
 
     public float cityPopulation;
     public List<float> cityPopulationLimitPerTier;
+    public List<ResourceBuildings> ResourceBuilding= new List<ResourceBuildings>();
 
-    public GameObject built;
-    public GameObject currentlyBuilding;
+    
+    
     public Transform hoverCityPosition;
 
     public UI_City_Hover_prefab_Store gm;
@@ -40,6 +41,20 @@ public class citySystem : BuildableObject, IPointerEnterHandler, IPointerExitHan
         res.Add(ResourceTypes.Iron, new ResourceClass(ResourceTypes.Iron, 100, 10));
     }
 
+
+
+    private void Update()
+    {
+        if (isSelected)
+        {
+            foreach (var item in ResourceBuilding)
+            {
+                Debug.DrawLine(transform.position, item.transform.position, new Color(0, 0, 255), 1f, false);
+            }
+            Debug.Log(ResourceBuilding.Count);
+        }
+    }
+
     public ResourceClass GetResource(ResourceTypes resourceType)
     {
         print(resourceType);
@@ -51,41 +66,28 @@ public class citySystem : BuildableObject, IPointerEnterHandler, IPointerExitHan
     }
     public override void HasBeenBuild()
     {
-        Debug.Log("built Completed");
-        if (currentlyBuilding != null)
-            currentlyBuilding.SetActive(false);
-        if (built != null)
-            built.SetActive(true);
-        isBuilding = false;
-        //add other stuff that should happen when built
-        gameObject.GetComponent<Collider>().enabled = true;
+        base.HasBeenBuild();
         gm = UI_City_Hover.addNewCity(this);
+    }
 
-
+    public override void PointerClicked()
+    {
+        base.PointerClicked();
 
     }
 
-
-    public override void wantsTobeBuild()
+    public override void PointerEntered()
     {
-        Debug.Log("building Object : " + cityID + ": ID ; " + gameObject.name + " : name;");
-        gameObject.GetComponent<Collider>().enabled = false;
-        if (currentlyBuilding != null)
-            currentlyBuilding.SetActive(true);
-        //effectsForBuildingMode
-    }
-
-    public void OnPointerEnter(PointerEventData eventData)
-    {
+        base.PointerEntered();
         if (!isSelected && !isBuilding)
         {
             print("You Hovered: " + gameObject.name);
             if (gm != null) gm.gameObject.SetActive(true);
         }
     }
-
-    public void OnPointerExit(PointerEventData eventData)
+    public override void PointerExited()
     {
+        base.PointerExited();
         if (!isSelected && !isBuilding)
         {
             print("You Exited: " + gameObject.name);
@@ -93,11 +95,6 @@ public class citySystem : BuildableObject, IPointerEnterHandler, IPointerExitHan
         }
     }
 
-    public void OnPointerClick(PointerEventData eventData)
-    {
-        if (!isBuilding)
-            GameController.Instance.localSettings.localPlayer.AddToSelection(this);
-    }
 
     public override void unSelect()
     {
@@ -107,6 +104,8 @@ public class citySystem : BuildableObject, IPointerEnterHandler, IPointerExitHan
             gm.disableObject();
             SelectionRing.SetActive(false);
         }
+        GameController.UIInstance.strategyModeUI.BuildPanel.GetComponent<simpleUIFader>().disableObject();
+
     }
 
     public override void Select()
@@ -117,7 +116,19 @@ public class citySystem : BuildableObject, IPointerEnterHandler, IPointerExitHan
             gm.gameObject.SetActive(true);
             SelectionRing.SetActive(true);
         }
+        GameController.UIInstance.strategyModeUI.BuildPanel.SetActive(true);
     }
+
+
+
+
+
+
+
+
+
+
+
     [System.Serializable]
     public class ResResClassDictionary : SerializableDictionary<ResourceTypes, ResourceClass> { }
 }

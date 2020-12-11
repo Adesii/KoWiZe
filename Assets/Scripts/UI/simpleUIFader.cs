@@ -17,6 +17,7 @@ public class simpleUIFader : MonoBehaviour
     private void Awake()
     {
         orgPosition = transform.localPosition;
+        transform.localPosition = orgPosition - FadeDistance;
         cg = GetComponent<CanvasGroup>();
     }
     private void OnEnable()
@@ -102,10 +103,5 @@ public class simpleUIFader : MonoBehaviour
                 cg.DOFade(0, duration);
             }
         }
-    }
-    private void OnDisable()
-    {
-        
-
     }
 }
