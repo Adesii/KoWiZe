@@ -1,9 +1,11 @@
 ﻿using System.Collections.Generic;
 using UnityEngine;
+using static ResourceClass;
 
 public class UI_City_Hover : MonoBehaviour
 {
     public GameObject CityHoverIcon;
+    public GameObject BuildingPanel;
     public Dictionary<citySystem, UI_City_Hover_prefab_Store> HoverList = new Dictionary<citySystem, UI_City_Hover_prefab_Store>();
     public float UIScale = 1f;
 
@@ -50,5 +52,9 @@ public class UI_City_Hover : MonoBehaviour
         _Instance.HoverList.Add(city, gm);
         gm.ownCity = city;
         return gm;
+    }
+    public void BuildResourceBuilding(int resourcesTypes)
+    {
+        Debug.Log((ResourceTypes)resourcesTypes);
     }
 }
