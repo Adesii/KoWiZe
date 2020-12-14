@@ -174,7 +174,7 @@ public class jobGenerationManager : MonoBehaviour
             _chunks[cp].updateMesh(lod);
         else
         {
-            if (lod < LODLEVELS.LOD1 || lod > LODLEVELS.LOD2)
+            if (lod <= LODLEVELS.LOD1 || lod > LODLEVELS.LOD2)
             {
                 int chunkRes;
                 switch (lod)
@@ -183,7 +183,7 @@ public class jobGenerationManager : MonoBehaviour
                         chunkRes = 200;
                         break;
                     case LODLEVELS.LOD1:
-                        chunkRes = 128;
+                        chunkRes = 100;
                         break;
                     case LODLEVELS.LOD2:
                         chunkRes = 32;

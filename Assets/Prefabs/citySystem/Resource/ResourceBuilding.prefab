@@ -175,7 +175,7 @@ GameObject:
   - component: {fileID: 4536597682198182527}
   m_Layer: 0
   m_Name: ResourceBuilding
-  m_TagString: Untagged
+  m_TagString: Selectable
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -295,6 +295,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: IronMine
       objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 6c87c7f192fff6c40864a293ba63020a, type: 3}
+      propertyPath: m_TagString
+      value: Untagged
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 6c87c7f192fff6c40864a293ba63020a, type: 3}
 --- !u!1 &74042722866618314 stripped
@@ -361,6 +365,10 @@ PrefabInstance:
     - target: {fileID: 919132149155446097, guid: b20481d9215d71144b8423c914e98746, type: 3}
       propertyPath: m_Name
       value: WoodShack
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: b20481d9215d71144b8423c914e98746, type: 3}
+      propertyPath: m_TagString
+      value: Untagged
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: b20481d9215d71144b8423c914e98746, type: 3}

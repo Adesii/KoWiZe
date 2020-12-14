@@ -6,9 +6,12 @@ public class Repopulate : MonoBehaviour
     public int id;
     private void Awake()
     {
-
         pa = GetComponentInParent<TreePlacement>();
-        pa.placeTree(transform.position, id+1);
+        if (transform.position.y < pa.heightLimit && transform.position.y > pa.minHeight)
+        {
+            pa.placeTree(transform.position, id + 1);
+        }
+        else { Destroy(gameObject); }
 
     }
 

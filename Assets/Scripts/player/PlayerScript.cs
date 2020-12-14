@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.EventSystems;
 
 public class PlayerScript : MonoBehaviour
 {
@@ -219,7 +220,8 @@ public class PlayerScript : MonoBehaviour
 
             if (Physics.Raycast(ray, out hit))
             {
-                building.transform.position = hit.point;
+                if (!hit.collider.CompareTag("Selectable"))
+                    building.transform.position = hit.point;
             }
             if (Input.GetMouseButtonDown(0))
             {
@@ -231,7 +233,7 @@ public class PlayerScript : MonoBehaviour
         if (Input.GetMouseButtonDown(0))
         {
             ray = childCamera.ScreenPointToRay(Input.mousePosition);
-            if (Physics.Raycast(ray, out hit))
+            if (Physics.Raycast(ray, out hit) && !EventSystem.current.IsPointerOverGameObject())
             {
                 if (!hit.collider.CompareTag("Selectable"))
                 {

@@ -612,7 +612,7 @@ MonoBehaviour:
   updateRate: 0.16
   terrianShader: {fileID: 2100000, guid: c8980c2bb7b1ce242b0b4c568f5bb8c2, type: 2}
   typeOfWorld: {fileID: 11400000, guid: ab4b4faa4ca53fc4eb6e781b5c752593, type: 2}
-  defaultLOD: 3
+  defaultLOD: 1
   currPlayerChunk: {x: 0, y: 0}
   lodPow: 0.35
 --- !u!1 &1069842975
@@ -1364,7 +1364,6 @@ GameObject:
   m_Component:
   - component: {fileID: 2027323795}
   - component: {fileID: 2027323794}
-  - component: {fileID: 2027323796}
   - component: {fileID: 2027323797}
   m_Layer: 0
   m_Name: Directional Light
@@ -1448,18 +1447,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 20, y: -30, z: 0}
---- !u!114 &2027323796
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2027323793}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 474bcb49853aa07438625e644c072ee6, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &2027323797
 MonoBehaviour:
   m_ObjectHideFlags: 0

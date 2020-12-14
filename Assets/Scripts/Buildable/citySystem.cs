@@ -13,10 +13,10 @@ public class citySystem : Selectable
 
     public float cityPopulation;
     public List<float> cityPopulationLimitPerTier;
-    public List<ResourceBuildings> ResourceBuilding= new List<ResourceBuildings>();
+    public List<ResourceBuildings> ResourceBuilding = new List<ResourceBuildings>();
 
-    
-    
+
+
     public Transform hoverCityPosition;
 
     public UI_City_Hover_prefab_Store gm;
@@ -67,6 +67,8 @@ public class citySystem : Selectable
     public override void HasBeenBuild()
     {
         base.HasBeenBuild();
+        isSelected = false;
+        isBuilding = false;
         gm = UI_City_Hover.addNewCity(this);
     }
 
@@ -79,20 +81,13 @@ public class citySystem : Selectable
     public override void PointerEntered()
     {
         base.PointerEntered();
-        if (!isSelected && !isBuilding)
-        {
-            print("You Hovered: " + gameObject.name);
-            if (gm != null) gm.gameObject.SetActive(true);
-        }
+        if (gm != null) gm.gameObject.SetActive(true);
     }
     public override void PointerExited()
     {
         base.PointerExited();
-        if (!isSelected && !isBuilding)
-        {
-            print("You Exited: " + gameObject.name);
-            if (gm != null) gm.disableObject();
-        }
+        print("You Exited: " + gameObject.name);
+        if (gm != null) gm.disableObject();
     }
 
 

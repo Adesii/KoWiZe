@@ -21,7 +21,7 @@ public class Chunk
     public WorldTypes worldType;
 
 
-    MeshCollider collider;
+    public MeshCollider collider;
     MeshFilter mf;
     MeshRenderer mr;
 
@@ -51,12 +51,12 @@ public class Chunk
         {
             vertices = Verticies,
             triangles = Indices,
+            normals = norm,
             uv = this.uv
         };
         mesh.name = lod.ToString();
-        mesh.RecalculateBounds();
+        //mesh.RecalculateBounds();
         //mesh.normals = norm.ToArray();
-        mesh.RecalculateNormals();
         this.baseS = baseS;
         this.typeOfWorld = typeOfWorld;
         this.chunkRes = chunkRes;
@@ -64,20 +64,20 @@ public class Chunk
         mf = chunk.AddComponent<MeshFilter>();
         mr = chunk.AddComponent<MeshRenderer>();
         collider = chunk.AddComponent<MeshCollider>();
+        collider.cookingOptions = MeshColliderCookingOptions.None;
         this.noisemap = noisemap;
         //mr.material = GenerateMaterial(baseS, typeOfWorld, noisemap, chunkRes);
         mr.material = baseS;
         mf.sharedMesh = mesh;
-        collider.convex = false;
-        collider.sharedMesh = mesh;
+        collider.cookingOptions = MeshColliderCookingOptions.UseFastMidphase;
         chunk.transform.position = origin;
         chunk.transform.parent = parent;
         tr = chunk.AddComponent<TreePlacement>();
 
         savedMeshed[lod] = mesh;
         LOD = lod;
-
-        if(lod < World.LODLEVELS.LOD1)
+        if(lod == World.LODLEVELS.LOD1) collider.sharedMesh = mesh;
+        if (lod <= World.LODLEVELS.LOD1)
         updateMesh(lod);
     }
 
@@ -104,14 +104,11 @@ public class Chunk
                 name = lod.ToString(),
                 vertices = Verticies,
                 triangles = Indices,
+                normals = norm,
                 uv = this.uv
             };
             //mesh.normals = norm.ToArray();
-            
-            
-            mesh.RecalculateNormals();
             //mr.material = GenerateMaterial(baseS, typeOfWorld, noisemap, chunkRes);
-            collider.sharedMesh = mesh;
             mf.sharedMesh = mesh;
             savedMeshed[lod] = mesh;
             LOD = lod;
