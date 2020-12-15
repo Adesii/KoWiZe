@@ -14,6 +14,8 @@ public class simpleUIFader : MonoBehaviour
     public bool FadeChildren = false;
     bool fadein = true;
 
+    Coroutine rot;
+
     private void Awake()
     {
         orgPosition = transform.localPosition;
@@ -27,7 +29,8 @@ public class simpleUIFader : MonoBehaviour
 
     public void disableObject()
     {
-        StartCoroutine(fadeout());
+        if (rot != null)
+            rot = StartCoroutine(fadeout());
     }
     IEnumerator fadeinIE()
     {
@@ -50,6 +53,7 @@ public class simpleUIFader : MonoBehaviour
         cg.blocksRaycasts = false;
         yield return new WaitForSeconds(duration);
         gameObject.SetActive(false);
+        rot = null;
         yield return null;
     }
     private void childrenFading()
@@ -62,23 +66,23 @@ public class simpleUIFader : MonoBehaviour
                 for (int i = 0; i < transform.childCount; i++)
                 {
                     Transform child = transform.GetChild(i);
-                    
+
                     foreach (var item in child.GetComponentsInChildren<Image>())
                     {
                         item.DOComplete();
                         Color newC = item.color;
                         newC.a = 0;
                         item.color = newC;
-                        item.DOFade(1,duration*counter).SetDelay(duration);
-                        item.transform.DOBlendableLocalMoveBy(-FadeDistance,0.1f);
-                        item.transform.DOBlendableLocalMoveBy(FadeDistance,duration).SetDelay(duration*(counter/2f));
-                        
+                        item.DOFade(1, duration * counter).SetDelay(duration);
+                        item.transform.DOBlendableLocalMoveBy(-FadeDistance, 0.1f);
+                        item.transform.DOBlendableLocalMoveBy(FadeDistance, duration).SetDelay(duration * (counter / 2f));
+
                         TextMeshProUGUI itemChild = item.transform.GetChild(0).GetComponent<TextMeshProUGUI>();
-                        if(itemChild != null)
+                        if (itemChild != null)
                         {
 
-                        itemChild.alpha = 0;
-                        itemChild.DOFade(1, duration * counter).SetDelay(duration);
+                            itemChild.alpha = 0;
+                            itemChild.DOFade(1, duration * counter).SetDelay(duration);
                         }
                         counter++;
                     }

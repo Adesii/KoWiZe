@@ -18,21 +18,22 @@ public abstract class Selectable : BuildableObject, IPointerEnterHandler, IPoint
     }
     public virtual void PointerClicked()
     {
-
+        if (!isBuilding)
+            GameController.Instance.localSettings.localPlayer.AddToSelection(this);
     }
     public void OnPointerEnter(PointerEventData eventData)
     {
-        
+        PointerEntered();
     }
 
     public void OnPointerExit(PointerEventData eventData)
     {
-        
+        PointerExited();
     }
 
     public void OnPointerClick(PointerEventData eventData)
     {
-        if (!isBuilding)
-            GameController.Instance.localSettings.localPlayer.AddToSelection(this);
+        PointerClicked();
+        
     }
 }

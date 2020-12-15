@@ -51,7 +51,6 @@ public class citySystem : Selectable
             {
                 Debug.DrawLine(transform.position, item.transform.position, new Color(0, 0, 255), 1f, false);
             }
-            Debug.Log(ResourceBuilding.Count);
         }
     }
 
@@ -86,7 +85,6 @@ public class citySystem : Selectable
     public override void PointerExited()
     {
         base.PointerExited();
-        print("You Exited: " + gameObject.name);
         if (gm != null) gm.disableObject();
     }
 

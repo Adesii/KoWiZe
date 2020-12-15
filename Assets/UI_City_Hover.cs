@@ -24,7 +24,7 @@ public class UI_City_Hover : MonoBehaviour
             _Instance = this;
             DontDestroyOnLoad(gameObject);
         }
-            
+        cam = Camera.main;
     }
 
     // Update is called once per frame
@@ -37,13 +37,11 @@ public class UI_City_Hover : MonoBehaviour
     {
         foreach (var item in HoverList)
         {
-            if (!item.Value.gameObject.activeSelf) continue;
+            if (!item.Value.gameObject.activeInHierarchy) continue;
             if (cam == null) cam = GameController.Instance.localSettings.LocalCamera;
             item.Value.transform.position = cam.WorldToScreenPoint(item.Key.hoverCityPosition.position);
             item.Value.sortingStuff.sortingOrder = (int)-(Vector3.Distance(cam.transform.position, item.Key.transform.position));
             item.Value.UIscale = UIScale;
-
-
         }
     }
     public static UI_City_Hover_prefab_Store addNewCity(citySystem city)
