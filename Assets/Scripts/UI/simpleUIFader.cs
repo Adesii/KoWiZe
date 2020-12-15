@@ -14,8 +14,6 @@ public class simpleUIFader : MonoBehaviour
     public bool FadeChildren = false;
     bool fadein = true;
 
-    Coroutine rot;
-
     private void Awake()
     {
         orgPosition = transform.localPosition;
@@ -29,8 +27,7 @@ public class simpleUIFader : MonoBehaviour
 
     public void disableObject()
     {
-        if (rot != null)
-            rot = StartCoroutine(fadeout());
+        StartCoroutine(fadeout());
     }
     IEnumerator fadeinIE()
     {
@@ -53,7 +50,6 @@ public class simpleUIFader : MonoBehaviour
         cg.blocksRaycasts = false;
         yield return new WaitForSeconds(duration);
         gameObject.SetActive(false);
-        rot = null;
         yield return null;
     }
     private void childrenFading()
