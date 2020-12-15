@@ -80,12 +80,12 @@ public class citySystem : Selectable
     public override void PointerEntered()
     {
         base.PointerEntered();
-        if (gm != null) gm.gameObject.SetActive(true);
+        if (gm != null && !isSelected) gm.gameObject.SetActive(true);
     }
     public override void PointerExited()
     {
         base.PointerExited();
-        if (gm != null) gm.disableObject();
+        if (gm != null && !isSelected) gm.disableObject();
     }
 
 
