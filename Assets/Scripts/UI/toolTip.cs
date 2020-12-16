@@ -25,7 +25,7 @@ public class toolTip : MonoBehaviour
         position = Input.mousePosition;
     }
 
-    private void Update()
+    private void LateUpdate()
     {
         if (Application.isEditor)
         {
