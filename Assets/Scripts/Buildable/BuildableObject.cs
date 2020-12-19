@@ -3,6 +3,7 @@ using UnityEngine;
 
 public abstract class BuildableObject : MonoBehaviour
 {
+    [Header("Buildable Settings")]
     public bool isBuilding = true;
     public GameObject currentlyBuilding;
     public GameObject built;

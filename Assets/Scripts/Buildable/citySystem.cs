@@ -6,10 +6,10 @@ using Mirror;
 
 public class citySystem : Selectable
 {
+    [Header("CitySettings")]
     public int cityID;
     public int cityTier = 0;
     public List<GameObject> buildings;
-    public GameObject SelectionRing;
 
     public float cityPopulation;
     public List<float> cityPopulationLimitPerTier;
@@ -40,20 +40,6 @@ public class citySystem : Selectable
         res.Add(ResourceTypes.Food, new ResourceClass(ResourceTypes.Food, 100, 10));
         res.Add(ResourceTypes.Iron, new ResourceClass(ResourceTypes.Iron, 100, 10));
     }
-
-
-
-    private void Update()
-    {
-        if (isSelected)
-        {
-            foreach (var item in ResourceBuilding)
-            {
-                Debug.DrawLine(transform.position, item.transform.position, new Color(0, 0, 255), 1f, false);
-            }
-        }
-    }
-
     public ResourceClass GetResource(ResourceTypes resourceType)
     {
         print(resourceType);
@@ -91,11 +77,10 @@ public class citySystem : Selectable
 
     public override void unSelect()
     {
-        isSelected = false;
+        base.unSelect();
         if (gm != null)
         {
             gm.disableObject();
-            SelectionRing.SetActive(false);
         }
         GameController.UIInstance.strategyModeUI.BuildPanel.GetComponent<simpleUIFader>().disableObject();
 
@@ -103,11 +88,10 @@ public class citySystem : Selectable
 
     public override void Select()
     {
-        isSelected = true;
+        base.Select();
         if (gm != null)
         {
             gm.gameObject.SetActive(true);
-            SelectionRing.SetActive(true);
         }
         GameController.UIInstance.strategyModeUI.BuildPanel.SetActive(true);
     }

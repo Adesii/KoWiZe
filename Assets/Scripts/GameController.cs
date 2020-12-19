@@ -44,6 +44,7 @@ public class GameController : Singleton<GameController>
     public event Action OnGameTick;
     public float tickRate;
     public float resourceTickRate;
+    public GameObject SelectionPrefab;
 
     [HideInInspector]
     public static UIEventManagerAndNotifier UIInstance;

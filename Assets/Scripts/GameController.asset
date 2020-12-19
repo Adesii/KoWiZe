@@ -37,3 +37,4 @@ MonoBehaviour:
     ResourcePrefab: {fileID: 7833055878185881318, guid: 0cd7a1b6823a5824d9bae5dc494c5da0, type: 3}
   tickRate: 0.25
   resourceTickRate: 5
+  SelectionPrefab: {fileID: 1380584819664867890, guid: 7f849fbf58154f741a508c2dc7cae3d1, type: 3}
