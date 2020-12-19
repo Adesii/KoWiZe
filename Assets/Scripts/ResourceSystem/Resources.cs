@@ -9,8 +9,9 @@ public class ResourceClass
         Wood,
         Stone,
         Iron,
+        Food,
         Science,
-        Food
+        
     }
     public ResourceTypes ResourceType;
     public float currentAmount;

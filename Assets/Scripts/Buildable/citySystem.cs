@@ -3,23 +3,28 @@ using UnityEngine;
 using UnityEngine.EventSystems;
 using static ResourceClass;
 using Mirror;
+using UnityEngine.VFX;
 
 public class citySystem : Selectable
 {
     [Header("CitySettings")]
     public int cityID;
     public int cityTier = 0;
+    public int maxAmountOfBuildings = 10;
     public List<GameObject> buildings;
 
     public float cityPopulation;
     public List<float> cityPopulationLimitPerTier;
-    public List<ResourceBuildings> ResourceBuilding = new List<ResourceBuildings>();
+    private List<ResourceBuildings> ResourceBuilding = new List<ResourceBuildings>();
 
 
 
     public Transform hoverCityPosition;
 
     public UI_City_Hover_prefab_Store gm;
+    public List<VisualEffect> vsfL;
+    public GameObject arrowPrefab;
+    public Gradient colorGradient;
 
     [SerializeField]
     ResResClassDictionary resource = new ResResClassDictionary();
@@ -78,22 +83,67 @@ public class citySystem : Selectable
     public override void unSelect()
     {
         base.unSelect();
-        if (gm != null)
+        if (gm != null )
         {
             gm.disableObject();
+            
         }
-        GameController.UIInstance.strategyModeUI.BuildPanel.GetComponent<simpleUIFader>().disableObject();
-
+        Debug.Log(GameController.Instance.localSettings.localPlayer.Currently_Selected.Count);
+        if(GameController.Instance.localSettings.localPlayer.Currently_Selected.Count<=0 ||GameController.Instance.localSettings.localPlayer.Currently_Selected[0].GetType() != typeof(citySystem))
+            GameController.UIInstance.strategyModeUI.BuildPanel.GetComponent<simpleUIFader>().disableObject();
+        hideResources();
     }
 
     public override void Select()
     {
         base.Select();
-        if (gm != null)
+        if (gm != null && !gm.isActiveAndEnabled)
         {
             gm.gameObject.SetActive(true);
         }
         GameController.UIInstance.strategyModeUI.BuildPanel.SetActive(true);
+        ShowResources();
+    }
+
+    private void hideResources()
+    {
+        foreach (var item in vsfL)
+        {
+            item.Stop();
+
+        }
+    }
+
+    private void ShowResources()
+    {
+        int index = 0;
+        foreach (var item in vsfL)
+        {
+            
+            item.SetVector3("start", transform.position);
+            item.SetVector3("end", ResourceBuilding[index].transform.position);
+            //item.SetGradient("colorGradient", colorGradient);
+            item.SetFloat("resourceColor", Mathf.Clamp(((float)ResourceBuilding[index].type),0f,100f));
+            item.Play();
+            index++;
+        }
+    }
+    public bool AddResourceBuilding(ResourceBuildings building)
+    {
+        if(ResourceBuilding.Count >= maxAmountOfBuildings)
+        {
+            return false;
+        }
+        ResourceBuilding.Add(building);
+
+        vsfL.Add(Instantiate(arrowPrefab,transform).GetComponent<VisualEffect>());
+        vsfL[vsfL.Count - 1].Stop();
+        if (isSelected)
+        {
+            ShowResources();
+        }
+
+        return true;
     }
 
 

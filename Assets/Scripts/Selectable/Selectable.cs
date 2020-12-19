@@ -48,6 +48,10 @@ public abstract class Selectable : BuildableObject, IPointerEnterHandler, IPoint
         if (!isBuilding)
             GameController.Instance.localSettings.localPlayer.AddToSelection(this);
     }
+    public virtual void RightPointerClicked()
+    {
+
+    }
     public void OnPointerEnter(PointerEventData eventData)
     {
         PointerEntered();
@@ -60,7 +64,20 @@ public abstract class Selectable : BuildableObject, IPointerEnterHandler, IPoint
 
     public void OnPointerClick(PointerEventData eventData)
     {
-        PointerClicked();
+        switch (eventData.button)   
+        {
+            case PointerEventData.InputButton.Left:
+                PointerClicked();
+                break;
+            case PointerEventData.InputButton.Right:
+                RightPointerClicked();
+                break;
+            case PointerEventData.InputButton.Middle:
+                break;
+            default:
+                break;
+        }
+        
         
     }
 }

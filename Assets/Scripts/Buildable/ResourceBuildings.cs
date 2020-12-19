@@ -25,7 +25,15 @@ public class ResourceBuildings : Selectable
             }
             else
             {
-                buildings[i].SetActive(false);
+                try
+                {
+                    buildings[i].SetActive(false);
+                }
+                catch (Exception)
+                {
+
+                }
+                
             }
         }
     }
@@ -39,12 +47,20 @@ public class ResourceBuildings : Selectable
 
     private void onResource()
     {
+        if (resource != null)
         resource.AddResource(amount);
+    }
+
+    public override void wantsTobeBuild()
+    {
+        base.wantsTobeBuild();
+        transform.parent = resourceCity.transform;
     }
     public override void HasBeenBuild()
     {
         base.HasBeenBuild();
-        resourceCity.ResourceBuilding.Add(this);
+        resourceCity.AddResourceBuilding(this);
+        
     }
 
     public override void unSelect()

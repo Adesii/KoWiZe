@@ -3,7 +3,7 @@ using UnityEngine.UI;
 using UnityEngine.EventSystems;
 
 [RequireComponent(typeof(Image))]
-public class TabButton : MonoBehaviour,IPointerEnterHandler,IPointerClickHandler,IPointerExitHandler
+public class GroupTabButton : MonoBehaviour,IPointerEnterHandler,IPointerClickHandler,IPointerExitHandler
 {
     public TabGroup tabGroup;
 

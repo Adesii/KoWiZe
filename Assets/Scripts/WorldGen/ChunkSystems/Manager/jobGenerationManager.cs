@@ -39,7 +39,6 @@ public class jobGenerationManager : MonoBehaviour
         GUI.Label(new Rect(0, 0, 50, 100), new GUIContent("FillJobs" + jobAmount.ToString() + "\n MeshJobs :" + meshJobAmount));
     }
 
-    bool BreakingUP = true;
     private void LateUpdate()
     {
         int iterations = 0;

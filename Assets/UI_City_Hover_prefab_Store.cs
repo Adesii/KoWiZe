@@ -14,7 +14,6 @@ public class UI_City_Hover_prefab_Store : MonoBehaviour
     public Canvas sortingStuff;
 
     public float UIscale;
-    private bool firstUpdate = true;
 
     private void Awake()
     {

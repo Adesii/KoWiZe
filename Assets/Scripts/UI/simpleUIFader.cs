@@ -27,6 +27,7 @@ public class simpleUIFader : MonoBehaviour
 
     public void disableObject()
     {
+        if(gameObject.activeSelf != false)
         StartCoroutine(fadeout());
     }
     IEnumerator fadeinIE()

@@ -197,6 +197,7 @@ MonoBehaviour:
   unselectPunchRotation: {x: 0, y: 270, z: 0}
   cityID: 0
   cityTier: 0
+  maxAmountOfBuildings: 10
   buildings:
   - {fileID: 7954744662522698689}
   - {fileID: 2984978259594253231}
@@ -206,9 +207,10 @@ MonoBehaviour:
   - {fileID: 8511818700390101981}
   cityPopulation: 0
   cityPopulationLimitPerTier: []
-  ResourceBuilding: []
   hoverCityPosition: {fileID: 3910441502134068072}
   gm: {fileID: 0}
+  vsfL: []
+  arrowPrefab: {fileID: 8653677731540000276, guid: 33e2ffb465d3cbf43b9899a1a9e78acb, type: 3}
   resource:
     m_keys: 00000000010000000400000002000000
     m_values:

@@ -237,11 +237,14 @@ public class PlayerScript : MonoBehaviour
             {
                 if (!hit.collider.CompareTag("Selectable"))
                 {
-                    foreach (var item in Currently_Selected)
+                    Selectable[] tempList = new Selectable[Currently_Selected.Count];
+                    Currently_Selected.CopyTo(tempList);
+                    Currently_Selected.Clear();
+                    foreach (var item in tempList)
                     {
                         item.unSelect();
                     }
-                    Currently_Selected.Clear();
+                    
                 }
             }
         }
@@ -265,15 +268,19 @@ public class PlayerScript : MonoBehaviour
         }
         else
         {
-
-            foreach (var item in Currently_Selected)
+            Selectable[] tempList = new Selectable[Currently_Selected.Count];
+            Currently_Selected.CopyTo(tempList);
+            Currently_Selected.Clear();
+            Currently_Selected.Add(ob);
+            ob.Select();
+            foreach (var item in tempList)
             {
                 item.unSelect();
             }
 
-            Currently_Selected.Clear();
-            Currently_Selected.Add(ob);
-            ob.Select();
+            
+            
+            
         }
     }
 }

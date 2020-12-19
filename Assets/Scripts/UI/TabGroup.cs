@@ -4,22 +4,22 @@ using UnityEngine;
 
 public class TabGroup : MonoBehaviour
 {
-    public List<TabButton> tabButtons;
+    public List<GroupTabButton> tabButtons;
     public Color tabIdle;
     public Color tabHover;
     public Color tabActive;
 
     public float FadeTime;
-    public TabButton selectedTab;
+    public GroupTabButton selectedTab;
     public Vector3 scaler;
 
     public List<GameObject> swappingItems;
     bool firstSelect = false;
-    public void Subscribe(TabButton button)
+    public void Subscribe(GroupTabButton button)
     {
         if(tabButtons == null)
         {
-            tabButtons = new List<TabButton>();
+            tabButtons = new List<GroupTabButton>();
         }
         else
         {
@@ -34,7 +34,7 @@ public class TabGroup : MonoBehaviour
         tabButtons.Add(button);
         ResetTabs();
     }
-    public void OnTabEnter(TabButton button)
+    public void OnTabEnter(GroupTabButton button)
     {
         ResetTabs();
         if (selectedTab == null || button != selectedTab)
@@ -44,7 +44,7 @@ public class TabGroup : MonoBehaviour
             button.transform.GetChild(0).DOBlendableScaleBy(-scaler, FadeTime);
         }
     }
-    public void OnTabExit(TabButton button)
+    public void OnTabExit(GroupTabButton button)
     {
         ResetTabs();
 
@@ -56,7 +56,7 @@ public class TabGroup : MonoBehaviour
         }
 
     }
-    public void OnTabSelected(TabButton button)
+    public void OnTabSelected(GroupTabButton button)
     {
         selectedTab = button;
         ResetTabs();
@@ -79,7 +79,7 @@ public class TabGroup : MonoBehaviour
 
     public void ResetTabs()
     {
-        foreach (TabButton item in tabButtons)
+        foreach (GroupTabButton item in tabButtons)
         {
             if(selectedTab != null && item == selectedTab) { continue; }
             item.background.color = tabIdle;

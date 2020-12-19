@@ -38,3 +38,4 @@ MonoBehaviour:
   tickRate: 0.25
   resourceTickRate: 5
   SelectionPrefab: {fileID: 1380584819664867890, guid: 7f849fbf58154f741a508c2dc7cae3d1, type: 3}
+  CustomPass: {fileID: 1410795643684855977, guid: b12e68b798890884fb19bd0c79c3716e, type: 3}

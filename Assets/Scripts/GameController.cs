@@ -45,6 +45,7 @@ public class GameController : Singleton<GameController>
     public float tickRate;
     public float resourceTickRate;
     public GameObject SelectionPrefab;
+    public GameObject CustomPass;
 
     [HideInInspector]
     public static UIEventManagerAndNotifier UIInstance;
@@ -66,6 +67,10 @@ public class GameController : Singleton<GameController>
         {
             Instantiate(UI_Prefab);
             UIInstance = FindObjectOfType<UIEventManagerAndNotifier>();
+        }
+        if(GameObject.FindGameObjectWithTag("GlobalVolume") == null)
+        {
+            DontDestroyOnLoad(Instantiate(CustomPass));
         }
             
     }
