@@ -1477,10 +1477,6 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.y
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 2016416135910513800, guid: bf73ac15dad7c9247bc4fe439243889b, type: 3}
-      propertyPath: selectedUI
-      value: 2
-      objectReference: {fileID: 0}
     - target: {fileID: 2016416135910513801, guid: bf73ac15dad7c9247bc4fe439243889b, type: 3}
       propertyPath: m_Name
       value: UI_StratView
@@ -1640,6 +1636,10 @@ PrefabInstance:
     - target: {fileID: 6496804087170718676, guid: bf73ac15dad7c9247bc4fe439243889b, type: 3}
       propertyPath: m_AnchoredPosition.y
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7869516409316541888, guid: bf73ac15dad7c9247bc4fe439243889b, type: 3}
+      propertyPath: delay
+      value: 0.5
       objectReference: {fileID: 0}
     - target: {fileID: 9060829087017655802, guid: bf73ac15dad7c9247bc4fe439243889b, type: 3}
       propertyPath: m_AnchorMax.y

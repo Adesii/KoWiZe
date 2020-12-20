@@ -21,7 +21,7 @@ public class UIEventManagerAndNotifier : MonoBehaviour
         public List<GameObject> prefabs;
     }
 
-
+    
     [Header("Type Selection")]
     public type_Of_UI selectedUI;
     [SerializeField]
@@ -108,12 +108,31 @@ public class UIEventManagerAndNotifier : MonoBehaviour
     }
     public void NewGame()
     {
-        
-        SceneManager.LoadScene(1);
+
+
+        if (menuUI.BlackScreen != null)
+        {
+            menuUI.BlackScreen.SetActive(true);
+        }
+
         selectedUI = type_Of_UI.stratMode;
-        updateUISelection();
+
+        InvokeRepeating(nameof(LoadnewScene), 1,0);
+        InvokeRepeating(nameof(FadeScene), 1.5f, 0);
 
     }
+
+    private void LoadnewScene()
+    {
+        SceneManager.LoadScene(1);
+    }
+
+    private void FadeScene()
+    {
+        updateUISelection();
+        menuUI.BlackScreen.GetComponent<simpleUIFader>().disableObject();
+    }
+
     public static float getSizeY(RectTransform rt)
     {
         //return rt.sizeDelta.y;
@@ -258,11 +277,6 @@ public class menuUI
 {
     public GameObject UIItem;
 
+    public GameObject BlackScreen;
     public string ss = "working";
 }
-
-
-
-
-
-
