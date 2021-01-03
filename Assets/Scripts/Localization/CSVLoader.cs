@@ -13,8 +13,9 @@ public class CSVLoader
     public static CSVLoader instance;
     public void LoadCSV()
     {
-        csvFile = Resources.Load<TextAsset>("locale/"+GameController.CurrentLanguage.ToString()+"_"+GameController.CurrentLanguage.ToString().ToUpper());
+        csvFile = Resources.Load<TextAsset>("locale/" + GameController.CurrentLanguage.ToString() + "_" + GameController.CurrentLanguage.ToString().ToUpper());
         Debug.Log(csvFile);
+
     }
     public Dictionary<string, string> GetDictionaryValues(string attributeID)
     {

@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 01b3e78a146b1a94caa47b57d190197a, type: 3}
   m_Name: GameController
   m_EditorClassIdentifier: 
-  currentLanguage: 1
+  currentLanguage: 0
   UI_Prefab: {fileID: 2016416135910513801, guid: bf73ac15dad7c9247bc4fe439243889b, type: 3}
   localPlayerID: 0
   treeSettings:
@@ -35,6 +35,9 @@ MonoBehaviour:
     - {fileID: 21300000, guid: be70d0f60d51cc74f80a4b11bb55dc8a, type: 3}
     cityPrefab: {fileID: 6331079277060388891, guid: 9c6916bce633cd94bb90959faaa30dd3, type: 3}
     ResourcePrefab: {fileID: 7833055878185881318, guid: 0cd7a1b6823a5824d9bae5dc494c5da0, type: 3}
+  localSettings:
+    LocalCamera: {fileID: 0}
+    localPlayer: {fileID: 0}
   tickRate: 0.25
   resourceTickRate: 5
   SelectionPrefab: {fileID: 1380584819664867890, guid: 7f849fbf58154f741a508c2dc7cae3d1, type: 3}

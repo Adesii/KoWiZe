@@ -3,7 +3,7 @@ using UnityEngine;
 using System.Collections.Generic;
 using static ResourceClass;
 
-public class ResourceBuildings : Selectable
+public class ResourceBuildings : BuildableObject
 {
     public citySystem resourceCity;
     public ResourceTypes type;
@@ -23,16 +23,9 @@ public class ResourceBuildings : Selectable
             {
                 buildings[i].SetActive(true);
             }
-            else
+            else if(buildings[i] != null)
             {
-                try
-                {
                     buildings[i].SetActive(false);
-                }
-                catch (Exception)
-                {
-
-                }
                 
             }
         }
@@ -61,15 +54,5 @@ public class ResourceBuildings : Selectable
         base.HasBeenBuild();
         resourceCity.AddResourceBuilding(this);
         
-    }
-
-    public override void unSelect()
-    {
-        throw new NotImplementedException();
-    }
-
-    public override void Select()
-    {
-        throw new NotImplementedException();
     }
 }

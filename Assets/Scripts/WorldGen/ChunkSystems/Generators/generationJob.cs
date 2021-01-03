@@ -209,11 +209,10 @@ namespace WorldGenJobs
 
             public void Dispose()
             {
+                
                 lastnoiseLayeredMap.Dispose();
                 noiseLayeredMap.Dispose();
-
                 layerSettings.Dispose();
-
                 verts.Dispose();
                 tris.Dispose();
                 normals.Dispose();

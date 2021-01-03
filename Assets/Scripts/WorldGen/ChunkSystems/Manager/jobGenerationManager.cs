@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System.Collections;
+using System.Collections.Generic;
 using Unity.Collections;
 using Unity.Jobs;
 using UnityEngine;
@@ -32,6 +33,7 @@ public class jobGenerationManager : MonoBehaviour
     {
         typeOfWorld = type;
         //StartCoroutine(checkJobList());
+        StartCoroutine(Joblisting());
     }
 
     private void OnGUI()
@@ -39,51 +41,57 @@ public class jobGenerationManager : MonoBehaviour
         GUI.Label(new Rect(0, 0, 50, 100), new GUIContent("FillJobs" + jobAmount.ToString() + "\n MeshJobs :" + meshJobAmount));
     }
 
-    private void LateUpdate()
+    public IEnumerator Joblisting()
     {
-        int iterations = 0;
-        foreach (var item in jobFillList)
+        while (true)
         {
-            if (item.Key.IsCompleted)
-            {
-                item.Key.Complete();
-                if (!_chunks.ContainsKey(item.Value._pos))
-                {
-                    Chunk c = new Chunk(item.Value._pos)
-                    {
-                        Verticies = item.Value.verts.ToArray(),
-                        Indices = item.Value.tris.ToArray(),
-                        norm = item.Value.normals.ToArray(),
-                        uv = item.Value.uvs.ToArray()
-                    };
-                    c.GenerateObject(item.Value.noiseLayeredMap.ToArray(),typeOfWorld, defaultShader, new Vector3((c.Position.X * chunkSize) - ((typeOfWorld.sizeX * chunkSize) / 2f), 0, (c.Position.Z * chunkSize) - ((typeOfWorld.sizeZ * chunkSize) / 2f)), transform, item.Value.chunkRes, item.Value.LOD);
-                    _chunks.Add(item.Value._pos, c);
-                }
-                else
-                {
-                    Chunk c = _chunks[item.Value._pos];
-                    c.Verticies = item.Value.verts.ToArray();
-                    c.Indices = item.Value.tris.ToArray();
-                    c.norm = item.Value.normals.ToArray();
-                    c.uv = item.Value.uvs.ToArray();
-                    c.noisemap = item.Value.noiseLayeredMap.ToArray();
-                    c.chunkRes = item.Value.chunkRes;
-                    c.updateMesh(item.Value.LOD);
-                }
 
-                item.Value.Dispose();
-                jobsToRemove.Add(item);
-            }
-            iterations++;/*
+
+            int iterations = 0;
+            foreach (var item in jobFillList)
+            {
+                if (item.Key.IsCompleted)
+                {
+                    item.Key.Complete();
+                    if (!_chunks.ContainsKey(item.Value._pos))
+                    {
+                        Chunk c = new Chunk(item.Value._pos)
+                        {
+                            Verticies = item.Value.verts.ToArray(),
+                            Indices = item.Value.tris.ToArray(),
+                            norm = item.Value.normals.ToArray(),
+                            uv = item.Value.uvs.ToArray()
+                        };
+                        c.GenerateObject(item.Value.noiseLayeredMap.ToArray(), typeOfWorld, defaultShader, new Vector3((c.Position.X * chunkSize) - ((typeOfWorld.sizeX * chunkSize) / 2f), 0, (c.Position.Z * chunkSize) - ((typeOfWorld.sizeZ * chunkSize) / 2f)), transform, item.Value.chunkRes, item.Value.LOD);
+                        _chunks.Add(item.Value._pos, c);
+                    }
+                    else
+                    {
+                        Chunk c = _chunks[item.Value._pos];
+                        c.Verticies = item.Value.verts.ToArray();
+                        c.Indices = item.Value.tris.ToArray();
+                        c.norm = item.Value.normals.ToArray();
+                        c.uv = item.Value.uvs.ToArray();
+                        c.noisemap = item.Value.noiseLayeredMap.ToArray();
+                        c.chunkRes = item.Value.chunkRes;
+                        c.updateMesh(item.Value.LOD);
+                    }
+
+                    item.Value.Dispose();
+                    jobsToRemove.Add(item);
+                }
+                iterations++;/*
             if (iterations > jobFillList.Count/6)
             {
                 break;
             }
             */
-        }
-        foreach (JobHolder item in jobsToRemove)
-        {
-            jobFillList.Remove(item);
+            }
+            foreach (JobHolder item in jobsToRemove)
+            {
+                jobFillList.Remove(item);
+            }
+            yield return new WaitForEndOfFrame();
         }
     }
 
