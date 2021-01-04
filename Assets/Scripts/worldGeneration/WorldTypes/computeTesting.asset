@@ -1,0 +1,39 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4f8210c45a6776e4081c60f5309bd70e, type: 3}
+  m_Name: computeTesting
+  m_EditorClassIdentifier: 
+  seed: Toyota
+  sizeX: 8
+  sizeZ: 8
+  TexturesForTerrain: {fileID: 11400000, guid: b2a4864cc95f0384c9d3e603d751b4fc, type: 2}
+  noiseLayers:
+  - offset: {x: 0, y: 0, z: 0}
+    seed: 
+    octaves: 5
+    multiplier: 25
+    amplitute: 0.5
+    lacunarity: 2
+    persistance: 0.9
+    heightCurve:
+      serializedVersion: 2
+      m_Curve: []
+      m_PreInfinity: 0
+      m_PostInfinity: 0
+      m_RotationOrder: 0
+    sizeScalex: 1
+    sizeScalez: 1
+    blendMode: 0
+    min: 0
+    max: 1000
+    MultiplicationOfFinal: 1
+    subtraction: 0

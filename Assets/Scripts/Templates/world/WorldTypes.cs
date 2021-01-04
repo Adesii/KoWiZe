@@ -13,7 +13,6 @@ public class WorldTypes : ScriptableObject
     public int sizeZ = 8;
     public TextureHolder TexturesForTerrain;
 
-    [Reorderable]
     public List<LayerGen> noiseLayers = new List<LayerGen>(1);
     
 }

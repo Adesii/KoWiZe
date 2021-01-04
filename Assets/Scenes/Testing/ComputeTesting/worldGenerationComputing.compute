@@ -1,41 +1,40 @@
 // Each #kernel tells which function to compile; you can have many kernels
 #pragma kernel CSMain
-
 // Create a RenderTexture with enableRandomWrite flag and set it
 // with cs.SetTexture
 
+static const int maxNumberOfSettingsLayers = 8;
+
 float4 worldpos = float4(0, 0, 0, 0);
-float chunkRes = float(2048);
-float chunkSize = float(256);
+float chunkRes = 512.0;
+float chunkSize = 256.0;
 
 float numThreads = 10;
 
 
-int octa[] = { 0};
-float mult[] = { 0};
-float ampl[] = { 0 };
-float lacu[] = { 0 };
-float pers[] = { 0 };
-float sizeScalex[] = { 0 };
-float sizeScalez[] = { 0 };
-float MultiplicationOfFinal[] = { 0 };
-float subtraction[] = { 0 };
-int blendmode[] = { 0 };
-float offsetX[] = { 0 };
-float offsetY[] = { 0 };
-float offsetZ[] = { 0 };
-float minimal[] = { 0 };
-float maximal[] = { 0 };
-float minHeight[] = { 0 };
-float maxHeight[] = { 0 };
+int octa[maxNumberOfSettingsLayers];
+float multi[maxNumberOfSettingsLayers];
+float ampl[maxNumberOfSettingsLayers];
+float lacu[maxNumberOfSettingsLayers];
+float pers[maxNumberOfSettingsLayers];
+float sizeScalex[maxNumberOfSettingsLayers];
+float sizeScalez[maxNumberOfSettingsLayers];
+float MultiplicationOfFinal[maxNumberOfSettingsLayers];
+float subtraction[maxNumberOfSettingsLayers];
+int blendmode[maxNumberOfSettingsLayers];
+float offsetX[maxNumberOfSettingsLayers];
+float offsetY[maxNumberOfSettingsLayers];
+float offsetZ[maxNumberOfSettingsLayers];
+float minimal[maxNumberOfSettingsLayers];
+float maximal[maxNumberOfSettingsLayers];
+float minHeight[maxNumberOfSettingsLayers];
+float maxHeight[maxNumberOfSettingsLayers];
 
 int numberoflayers = 1;
 
 
-float noiseLayeredMap[] = { 0 };
-float lastnoiseLayeredMap[] = { 0 };
-
-
+//float noiseLayeredMap[maxResolutionTerrain];
+//float lastnoiseLayeredMap[maxResolutionTerrain];
 
 struct meshData
 {
@@ -160,92 +159,112 @@ float coherentNoise(float3 xyz, int octaves = 1, int multiplier = 25, float ampl
     return val;
 }
 
+int innerResurse = 2;
 
-
-
-[numthreads(10, 1, 1)]
+[numthreads(8, 8, 1)]
 void CSMain(uint3 id : SV_DispatchThreadID)
 {
-    for (int j = 0; j < numberoflayers; j++)
+    int index = id.y * chunkRes + id.x;
+    
+    int j = 0;
+    for (int x = 0; x < innerResurse; x++)
     {
-        int i = 0;
-        for (int x = id.x * chunkSize + id.y; x <= chunkSize * numThreads; x++)
+        for (int y = 0; y < innerResurse; y++)
         {
-            for (int z = id.x * chunkSize + id.y; z <= chunkSize * numThreads; z++)
+            int vi = x * innerResurse + y;
+            vi += index;
+            meshData meshh = mesh[vi];
+            float xCord = 0;
+            float yCord = 0;
+        
+            float3 p = float3((xCord + offsetX[j]) * sizeScalex[j], offsetY[j], (yCord + offsetZ[j]) * sizeScalez[j]);
+            float noiseFloat = coherentNoise(p, octa[j], multi[j], ampl[j], lacu[j], pers[j]);
+    //meshh.vert.y = noiseFloat * 100;
+            noiseFloat = (noiseFloat + 0.5);
+        
+            noiseFloat *= MultiplicationOfFinal[j];
+            noiseFloat -= subtraction[j];
+
+            if (noiseFloat < minimal[j] && blendmode[j] != 4)
             {
-
-                            //float xCord = ((((float)x) / (float)chunkRes) * (float)chunkSize) + _pos.X;
-                float xCord = (((float) x / (float) chunkRes) * (float) chunkSize) + ((float) worldpos.x * chunkSize);
-                            //float yCord = ((((float)z) / (float)chunkRes) * (float)chunkSize) + _pos.Z;
-                float yCord = (((float) z / (float) chunkRes) * (float) chunkSize) + ((float) worldpos.z * chunkSize);
-                float3 p = float3((xCord + offsetX[j]) * sizeScalex[j], offsetY[j], (yCord + offsetZ[j]) * sizeScalez[j]);
-                float noiseFloat = coherentNoise(p, octa[j], mult[j], ampl[j], lacu[j], pers[j]);
-                noiseFloat = (noiseFloat + 1) / 2;
-
-                noiseFloat *= MultiplicationOfFinal[j];
-                noiseFloat -= subtraction[j];
-
-
-                if (noiseFloat < minimal[j] && blendmode[j] != 4)
-                {
-                    noiseFloat = minimal[j];
-                    blendmode[j] = 2;
-                }
-                if (noiseFloat > maximal[j] && blendmode[j] != 4)
-                {
-                    noiseFloat = maximal[j];
-                    blendmode[j] = 2;
-                }
-
-
-
-                switch (blendmode[j])
-                {
-                    case 0:
-                        noiseFloat *= lastnoiseLayeredMap[i];
-
-                        break;
-                    case 1:
-                        noiseFloat = lastnoiseLayeredMap[i] - noiseFloat;
-
-                        break;
-                    case 2:
-                        noiseFloat += lastnoiseLayeredMap[i];
-
-                        break;
-                    case 3:
-                        noiseFloat = lastnoiseLayeredMap[i] / noiseFloat;
-                        break;
-                    case 4:
-                        if (lastnoiseLayeredMap[i] < maximal[j] && lastnoiseLayeredMap[i] > minimal[j])
-                        {
-                            noiseFloat += lastnoiseLayeredMap[i];
-                        }
-                        else
-                        {
-                            noiseFloat = lastnoiseLayeredMap[i];
-                        }
-                        break;
-                    default:
-                        break;
-                }
-                //layers[j].blendmode = layers[j].blendmode;
-                noiseLayeredMap[i] = noiseFloat;
-                lastnoiseLayeredMap[i] = noiseFloat;
-
-                            //noiseLayeredMap[i] = coherentNoise(xCord, 0, yCord, octaves, multiplier, amplitute, lacunarity, persistance) * MultiplicationOfFinal;
-                i++;
+                noiseFloat = minimal[j];
+                blendmode[j] = 2;
             }
+            if (noiseFloat > maximal[j] && blendmode[j] != 4)
+            {
+                noiseFloat = maximal[j];
+                blendmode[j] = 2;
+            }
+        
+       /*
+    switch (blendmode[j])
+    {
+        case 0:
+            noiseFloat *= meshh.vert.y;
+
+            break;
+        case 1:
+            noiseFloat = meshh.vert.y - noiseFloat;
+
+            break;
+        case 2:
+            noiseFloat += meshh.vert.y;
+
+            break;
+        case 3:
+            noiseFloat = meshh.vert.y / noiseFloat;
+            break;
+        case 4:
+            if (meshh.vert.y < maximal[j] && meshh.vert.y > minimal[j])
+            {
+                noiseFloat += meshh.vert.y;
+            }
+            else
+            {
+                noiseFloat = meshh.vert.y;
+            }
+            break;
+        default:
+            noiseFloat = noiseFloat;
+            break;
+    }
+    */
+                //layers[j].blendmode = layers[j].blendmode;
+            meshh.vert.y = noiseFloat;
+            meshh.vert.xz = float2(xCord, yCord);
+            meshh.normals = float3(0, 1, 0);
+            meshh.uvs = float2(xCord / chunkSize, yCord / chunkSize);
+    
+            if (vi % chunkRes != 0)
+            {
+                _tri tr;
+                tr.tris1 = vi;
+                tr.tris2 = vi + 1;
+                tr.tris3 = vi + chunkRes;
+                tr.tris4 = vi + 1;
+                tr.tris5 = vi + chunkRes + 1;
+                tr.tris6 = vi + chunkRes;
+                tris.Append(tr);
+                
+            }
+            mesh[vi] = meshh;
+                            //noiseLayeredMap[i] = coherentNoise(xCord, 0, yCord, octaves, multiplier, amplitute, lacunarity, persistance) * MultiplicationOfFinal;
         }
     }
+    //meshh.vert.xz = float2(id.x, id.y);
+    
+    
+    
+    /*
+    tris[ti] = vi;
+    tris[ti + 3] = tris[ti + 2] = vi + chunkRes + 1;
+    tris[ti + 4] = tris[ti + 1] = vi + 1;
+    tris[ti + 5] = vi + chunkRes + 2;
+                        
+                       
+                        
+*/
+    
+    
 
-    mesh[0].vert = float3(((float) id.x / (float) chunkRes) * (float) chunkSize, noiseLayeredMap[id.x * chunkSize + id.y] + float(20), ((float) id.y / (float) chunkRes) * (float) chunkSize);
-    mesh[id.x * chunkSize + id.y].normals = float3(0, 1, 0);
-    mesh[id.x * chunkSize + id.y].uvs = float2((float) id.x / (float) chunkSize, (float) id.y / (float) chunkSize);
-    _tri tr;
-    tr.tris6 = id.x * chunkSize + id.y + chunkRes + 2;
-    tr.tris5 = tr.tris2 = id.x * chunkSize + id.y + 1;
-    tr.tris4 = tr.tris3 = id.x * chunkSize + id.y + chunkRes + 1;
-    tr.tris1 = id.x * chunkSize + id.y;
-    tris.Append(tr);
 }
