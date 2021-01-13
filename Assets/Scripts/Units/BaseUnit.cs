@@ -2,19 +2,19 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-enum unit_type
+public enum unit_type
 {
     Melee,
     Ranged,
     Siege
 }
-enum unit_subtype
+public enum unit_subtype
 {
     None,
     Cavalry
 }
 
-enum unit_building
+public enum unit_building
 {
     Barracks,
     Archery_Range,
@@ -24,11 +24,10 @@ enum unit_building
 
 public interface IUnit
 {
-
 }
 public abstract class BaseUnit : ScriptableObject, IUnit
 {
-    public string name = "base";
+    public string Unit_name = "base";
     public unit_type type;
     public unit_subtype subtype;
     public float hp = 100f;
