@@ -26,6 +26,8 @@ public class citySystem : Selectable
     public GameObject arrowPrefab;
     public Gradient colorGradient;
 
+    public List<IUnit> UnitInventory = new List<IUnit>();
+
     [SerializeField]
     ResResClassDictionary resource = new ResResClassDictionary();
     public IDictionary<ResourceTypes, ResourceClass> res

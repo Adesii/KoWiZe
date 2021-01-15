@@ -1477,6 +1477,10 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 2016416135910513800, guid: bf73ac15dad7c9247bc4fe439243889b, type: 3}
+      propertyPath: selectedUI
+      value: 2
+      objectReference: {fileID: 0}
     - target: {fileID: 2016416135910513801, guid: bf73ac15dad7c9247bc4fe439243889b, type: 3}
       propertyPath: m_Name
       value: UI_StratView
