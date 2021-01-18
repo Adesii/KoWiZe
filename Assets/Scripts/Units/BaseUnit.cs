@@ -26,11 +26,11 @@ public enum unit_building
 public interface IUnit
 {
 }
-public abstract class BaseUnit : ScriptableObject, IUnit
+[System.Serializable]
+public abstract class BaseUnit : IUnit
 {
     public Image UnitIcon;
     public string Unit_name = "base";
-    public unit_type type;
     public unit_subtype subtype;
     public float hp = 100f;
     public float armor = 1f;
@@ -39,6 +39,7 @@ public abstract class BaseUnit : ScriptableObject, IUnit
     public Dictionary<ResourceClass.ResourceTypes, float> costs;
     public unit_building building;
     public float build_time = 10f;
+    public float UnitRange = 1f;
     //todo technology unlock
     [Multiline]
     public string description = "Lorem Ipsum Dolor Sit Amet";
@@ -52,27 +53,26 @@ public abstract class BaseUnit : ScriptableObject, IUnit
     }
     public void MoveUnit()
     {
-        
+
     }
     public void Attack(float amount)
     {
 
     }
 }
-[CreateAssetMenu(fileName = "MeeleUnit", menuName = "KoWiZe Custom Assets/Units/Melee")]
+[System.Serializable]
 public class MeleeUnit : BaseUnit
 {
 
-
+    
 }
-[CreateAssetMenu(fileName ="RangedUnit", menuName ="KoWiZe Custom Assets/Units/Ranged" )]
+[System.Serializable]
 public class RangedUnit : BaseUnit
 {
-    public float UnitRange = 100f;
+
 
 }
-
-[CreateAssetMenu(fileName="SiegeUnit",menuName="KoWiZe Custom Assets/Units/Siege")]
+[System.Serializable]
 public class SiegeUnit : BaseUnit
 {
 
