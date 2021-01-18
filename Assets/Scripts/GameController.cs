@@ -63,10 +63,9 @@ public class GameController : Singleton<GameController>
         citySettings.perPlayerSettings.Clear();
 
         UIInstance = FindObjectOfType<UIEventManagerAndNotifier>();
-        if (FindObjectOfType<UIEventManagerAndNotifier>() == null)
+        if (UIInstance == null)
         {
-            Instantiate(UI_Prefab);
-            UIInstance = FindObjectOfType<UIEventManagerAndNotifier>();
+            UIInstance = Instantiate(UI_Prefab).GetComponentInChildren<UIEventManagerAndNotifier>();
         }
         if(GameObject.FindGameObjectWithTag("GlobalVolume") == null)
         {

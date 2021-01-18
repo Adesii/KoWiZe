@@ -15,7 +15,16 @@ public class CityInfoPanel : MonoBehaviour
     private void Awake()
     {
         GameController.Instance.OnGameTick += UpdateResources;
-
+        GameController.UIInstance.strategyModeUI.BuildPanel.GetComponent<simpleUIFader>().onFadedOut += CityInfoPanel_onFadedOut;
+        
+    }
+    private void OnEnable()
+    {
+        GameController.UIInstance.strategyModeUI.city = this;
+    }
+    private void CityInfoPanel_onFadedOut()
+    {
+        ownCity = null;
     }
     public void UpdateResources()
     {
@@ -41,7 +50,7 @@ public class CityInfoPanel : MonoBehaviour
                     ress.ResourceType = item.Key;
                     ress.Resourceclass = item.Value;
                     ress.ResourceCount.text = ress.Resourceclass.ResourceType + ":\n " + ress.Resourceclass.currentAmount + "/" + ress.Resourceclass.maxCapacity;
-                    CityName.text = gameObject.name;
+                    CityName.text = ownCity.name;
                     Iconresources.Add(ress);
                 }
             }

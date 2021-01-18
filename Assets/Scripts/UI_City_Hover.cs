@@ -49,6 +49,7 @@ public class UI_City_Hover : MonoBehaviour
         UI_City_Hover_prefab_Store gm = Instantiate(_Instance.CityHoverIcon, _Instance.transform).GetComponent<UI_City_Hover_prefab_Store>();
         _Instance.HoverList.Add(city, gm);
         gm.ownCity = city;
+        gm.SetName();
         return gm;
     }
     public void BuildResourceBuilding(int resourcesTypes)

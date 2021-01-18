@@ -263,6 +263,7 @@ public class stratModeUI
     public RectTransform bottomUIBar;
 
     public GameObject BuildPanel;
+    public CityInfoPanel city;
 }
 [Serializable]
 public class battleModeUI

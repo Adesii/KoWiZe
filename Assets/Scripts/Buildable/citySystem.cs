@@ -17,7 +17,7 @@ public class citySystem : Selectable
     public List<float> cityPopulationLimitPerTier;
     private List<ResourceBuildings> ResourceBuilding = new List<ResourceBuildings>();
 
-
+    public CityInfoPanel buildPanel;
 
     public Transform hoverCityPosition;
 
@@ -99,11 +99,15 @@ public class citySystem : Selectable
     public override void Select()
     {
         base.Select();
-        if (gm != null && !gm.isActiveAndEnabled)
+        if (gm != null)
         {
             gm.gameObject.SetActive(true);
+            gm.ownCity = this;
         }
         GameController.UIInstance.strategyModeUI.BuildPanel.SetActive(true);
+        CityInfoPanel p = GameController.UIInstance.strategyModeUI.city;
+        p.ownCity = this;
+        p.UpdateResources();
         ShowResources();
     }
 

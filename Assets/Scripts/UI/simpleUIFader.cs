@@ -3,6 +3,7 @@ using System.Collections;
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
+using System;
 
 public class simpleUIFader : MonoBehaviour
 {
@@ -13,6 +14,8 @@ public class simpleUIFader : MonoBehaviour
     CanvasGroup cg;
     public bool FadeChildren = false;
     bool fadein = true;
+
+    public event Action onFadedOut;
 
     private void Awake()
     {
@@ -50,6 +53,7 @@ public class simpleUIFader : MonoBehaviour
         cg.interactable = false;
         cg.blocksRaycasts = false;
         yield return new WaitForSeconds(duration);
+        onFadedOut?.Invoke();
         gameObject.SetActive(false);
         yield return null;
     }

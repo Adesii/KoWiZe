@@ -19,10 +19,15 @@ public class UI_City_Hover_prefab_Store : MonoBehaviour
     private void OnEnable()
     {
         transform.DOScale(UIscale, 0.2f);
+        
     }
     public void disableObject()
     {
         transform.DOScale(0, 0.2f).OnComplete(() => { gameObject.SetActive(false); });
+    }
+    public void SetName()
+    {
+        CityName.text = ownCity.name;
     }
 
    

@@ -31,8 +31,8 @@ MonoBehaviour:
     - {fileID: 21300000, guid: e30a565fa57483e4da2010256190d4e8, type: 3}
     - {fileID: 21300000, guid: 941e50f05f287ab4f8ab471207efa16e, type: 3}
     - {fileID: 21300000, guid: fa1f7b1d369f7e84facea78d8cd1dcbd, type: 3}
-    - {fileID: 0}
     - {fileID: 21300000, guid: be70d0f60d51cc74f80a4b11bb55dc8a, type: 3}
+    - {fileID: 0}
     cityPrefab: {fileID: 6331079277060388891, guid: 9c6916bce633cd94bb90959faaa30dd3, type: 3}
     ResourcePrefab: {fileID: 7833055878185881318, guid: 0cd7a1b6823a5824d9bae5dc494c5da0, type: 3}
   localSettings:
