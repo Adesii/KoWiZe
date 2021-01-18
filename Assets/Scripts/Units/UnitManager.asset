@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 31386f00e9e62e442993ddf01d218dcc, type: 3}
   m_Name: UnitManager
   m_EditorClassIdentifier: 
-  RangedUnits:
+  rangedUnits:
   - UnitIcon: {fileID: 0}
     Unit_name: Archer
     subtype: 0
@@ -23,18 +23,18 @@ MonoBehaviour:
     building: 1
     build_time: 10
     UnitRange: 100
-    description: Basic Ranged Unit shooting arrows at his opponents.
-  MeleeUnits:
+    description: "Basic Ranged Unit shooting arrows at his opponents.\r"
+  meleeUnits:
   - UnitIcon: {fileID: 0}
     Unit_name: Speermen
     subtype: 0
     hp: 100
     armor: 4
     attack: 8
-    speed: 100
+    speed: 90
     building: 0
     build_time: 10
     UnitRange: 1
-    description: Basic Infantry armed with a speer and shield perfect to counter
-      Cavalry.
-  SiegeUnits: []
+    description: "Basic Infantry armed with a speer and shield perfect to counter
+      Cavalry.\r"
+  siegeUnits: []

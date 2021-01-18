@@ -3,20 +3,13 @@ using UnityEngine;
 using UnityEngine.UIElements;
 using UnityEditor.UIElements;
 
-
-public class unitManagerWindow : EditorWindow
+//[CustomEditor(typeof(UnitManagerSingleton))]
+public class unitManagerWindow : Editor
 {
-    [MenuItem("Window/UI Toolkit/unitManagerWindow")]
-    public static void ShowExample()
-    {
-        unitManagerWindow wnd = GetWindow<unitManagerWindow>();
-        wnd.titleContent = new GUIContent("unitManagerWindow");
-    }
-
-    public void CreateGUI()
+    VisualElement root = new VisualElement();
+    public override VisualElement CreateInspectorGUI()
     {
         // Each editor window contains a root VisualElement object
-        VisualElement root = rootVisualElement;
 
         // VisualElements objects can contain other VisualElement following a tree hierarchy.
         VisualElement label = new Label("Hello World! From C#");
@@ -33,5 +26,6 @@ public class unitManagerWindow : EditorWindow
         VisualElement labelWithStyle = new Label("Hello World! With Style");
         labelWithStyle.styleSheets.Add(styleSheet);
         root.Add(labelWithStyle);
+        return root;
     }
 }

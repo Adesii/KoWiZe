@@ -47,15 +47,15 @@ public abstract class BaseUnit : IUnit
     public Dictionary<IUnit, float> unit_strenght;
 
 
-    public void TakeDamage(float amount)
+    public virtual void TakeDamage(float amount)
     {
 
     }
-    public void MoveUnit()
+    public virtual void MoveUnit()
     {
 
     }
-    public void Attack(float amount)
+    public virtual void Attack(float amount)
     {
 
     }
@@ -63,8 +63,6 @@ public abstract class BaseUnit : IUnit
 [System.Serializable]
 public class MeleeUnit : BaseUnit
 {
-
-    
 }
 [System.Serializable]
 public class RangedUnit : BaseUnit

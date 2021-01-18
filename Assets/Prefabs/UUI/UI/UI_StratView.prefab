@@ -13433,7 +13433,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   FadeDistance: {x: 0, y: 0, z: 0}
   duration: 0.5
-  delay: 0
+  delay: 0.5
   FadeChildren: 0
 --- !u!225 &312234609391825920
 CanvasGroup:
@@ -13888,7 +13888,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3349298221541207998, guid: ef784f860a1271941b4b6ca21e10f052, type: 3}
       propertyPath: m_SizeDelta.x
-      value: 631.693
+      value: 1532
       objectReference: {fileID: 0}
     - target: {fileID: 3349298221541207998, guid: ef784f860a1271941b4b6ca21e10f052, type: 3}
       propertyPath: m_SizeDelta.y
@@ -13924,7 +13924,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3349298221541207998, guid: ef784f860a1271941b4b6ca21e10f052, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: -837.88
+      value: -682.2003
       objectReference: {fileID: 0}
     - target: {fileID: 3349298221541207998, guid: ef784f860a1271941b4b6ca21e10f052, type: 3}
       propertyPath: m_AnchoredPosition.y
