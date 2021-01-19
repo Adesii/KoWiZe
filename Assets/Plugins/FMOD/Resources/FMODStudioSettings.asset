@@ -324,6 +324,8 @@ MonoBehaviour:
   - Master
   Banks:
   - Enviroment
+  - Main
+  - Menu
   BanksToLoad: []
   LiveUpdatePort: 9264
   EnableMemoryTracking: 0

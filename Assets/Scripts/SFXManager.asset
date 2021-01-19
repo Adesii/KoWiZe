@@ -15,7 +15,11 @@ MonoBehaviour:
   soundeffects:
     m_keys:
     - env_forest
+    - bgm_menu
     m_values:
     - ID: event:/ForestEnviroment
+      Volume: 0
+      pitch: 0
+    - ID: event:/MenuMusic
       Volume: 0
       pitch: 0
