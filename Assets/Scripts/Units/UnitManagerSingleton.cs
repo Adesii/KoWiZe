@@ -4,17 +4,12 @@ using UnityEngine;
 using yaSingleton;
 using UnityEditor;
 [CreateAssetMenu(fileName = "UnitManager", menuName = "KoWiZe Custom Assets/Singletons/UnitManager")]
+[ExecuteAlways]
 [System.Serializable]
-public class UnitManagerSingleton : LazySingleton<UnitManagerSingleton>
+public class UnitManagerSingleton : Singleton<UnitManagerSingleton>
 {
-    [SerializeField]
-    private RangedUnit[] rangedUnits;
-    [SerializeField]
-    private MeleeUnit[] meleeUnits;
-    [SerializeField]
-    private SiegeUnit[] siegeUnits;
+    public RangedUnit[] rangedUnits;
+    public MeleeUnit[] meleeUnits;
+    public SiegeUnit[] siegeUnits;
 
-    public RangedUnit[] RangedUnits { get => rangedUnits; set => rangedUnits = value; }
-    public MeleeUnit[] MeleeUnits { get => meleeUnits; set => meleeUnits = value; }
-    public SiegeUnit[] SiegeUnits { get => siegeUnits; set => siegeUnits = value; }
 }

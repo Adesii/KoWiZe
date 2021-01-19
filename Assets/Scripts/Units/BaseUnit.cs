@@ -59,6 +59,10 @@ public abstract class BaseUnit : IUnit
     {
 
     }
+    public override string ToString()
+    {
+        return Unit_name;
+    }
 }
 [System.Serializable]
 public class MeleeUnit : BaseUnit

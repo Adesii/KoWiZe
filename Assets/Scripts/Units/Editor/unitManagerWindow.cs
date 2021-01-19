@@ -1,31 +1,73 @@
+#if UNITY_EDITOR
+using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
 using UnityEditor;
 using UnityEngine;
-using UnityEngine.UIElements;
-using UnityEditor.UIElements;
+using System.IO;
+using System.Collections.Generic;
 
-//[CustomEditor(typeof(UnitManagerSingleton))]
+[CustomEditor(typeof(UnitManagerSingleton))]
 public class unitManagerWindow : Editor
 {
-    VisualElement root = new VisualElement();
-    public override VisualElement CreateInspectorGUI()
+    string SaveFile = "Assets/Scripts/Units/unitSaveData.json";
+    Dictionary<string,IUnit[]> units;
+
+    public override void OnInspectorGUI()
     {
-        // Each editor window contains a root VisualElement object
+        base.OnInspectorGUI();
+        if (GUILayout.Button("Save Units"))
+        {
+            Debug.Log("saved");
+            SaveUnits();
+        }
+        if (GUILayout.Button("Load Unity"))
+        {
+            Debug.Log("load");
+            LoadUnits();
+        }
 
-        // VisualElements objects can contain other VisualElement following a tree hierarchy.
-        VisualElement label = new Label("Hello World! From C#");
-        root.Add(label);
+    }
 
-        // Import UXML
-        var visualTree = AssetDatabase.LoadAssetAtPath<VisualTreeAsset>("Assets/Scripts/Units/Editor/unitManagerWindow.uxml");
-        VisualElement labelFromUXML = visualTree.Instantiate();
-        root.Add(labelFromUXML);
+    public void LoadUnits()
+    {
+        string txt = File.ReadAllText(SaveFile);
+        var ob = JObject.Parse(txt);
+        int i = 0;
+        units = new Dictionary<string, IUnit[]>();
+        foreach (var item in ob)
+        {
+            if (item.Key.Contains("Units"))
+            {
+                switch (i)
+                {
 
-        // A stylesheet can be added to a VisualElement.
-        // The style will be applied to the VisualElement and all of its children.
-        var styleSheet = AssetDatabase.LoadAssetAtPath<StyleSheet>("Assets/Scripts/Units/Editor/unitManagerWindow.uss");
-        VisualElement labelWithStyle = new Label("Hello World! With Style");
-        labelWithStyle.styleSheets.Add(styleSheet);
-        root.Add(labelWithStyle);
-        return root;
+                    case 0:
+                        units.Add(typeof(RangedUnit[]).ToString(), item.Value.ToObject<RangedUnit[]>());
+                        break;
+                    case 1:
+                        units.Add(typeof(MeleeUnit[]).ToString(), item.Value.ToObject<MeleeUnit[]>());
+                        break;
+                    case 2:
+                        units.Add(typeof(SiegeUnit[]).ToString(), item.Value.ToObject<SiegeUnit[]>());
+                        break;
+                    default:
+                        Debug.LogError("Units of type: " + item.Value + " not added yet to loading Methods");
+                        break;
+                }
+                i++;
+            }
+        }
+        UnitManagerSingleton ui = (UnitManagerSingleton)serializedObject.targetObject;
+
+        ui.meleeUnits = (MeleeUnit[])units[ui.meleeUnits.GetType().ToString()];
+        ui.rangedUnits = (RangedUnit[])units[ui.rangedUnits.GetType().ToString()];
+        ui.siegeUnits = (SiegeUnit[])units[ui.siegeUnits.GetType().ToString()];
+    }
+
+    public void SaveUnits()
+    {
+        File.WriteAllText(SaveFile, JsonConvert.SerializeObject(serializedObject.targetObject));
     }
 }
+#endif
+
