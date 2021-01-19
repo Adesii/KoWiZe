@@ -14,7 +14,7 @@
 
 👤 **Adrian,Jason,Samuel**
 
-* Github: [@Adesi](https://github.com/Adesi)
+* Github: [@Adesii](https://github.com/Adesii)
 
 ## 🤝 Contributing
 
