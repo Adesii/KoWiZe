@@ -16,11 +16,11 @@ public class CityInfoPanel : MonoBehaviour
     {
         GameController.Instance.OnGameTick += UpdateResources;
         GameController.UIInstance.strategyModeUI.BuildPanel.GetComponent<simpleUIFader>().onFadedOut += CityInfoPanel_onFadedOut;
-        
+
     }
     private void OnEnable()
     {
-        GameController.UIInstance.strategyModeUI.city = this;
+        //GameController.UIInstance.strategyModeUI.BuildPanel = gameObject;
     }
     private void CityInfoPanel_onFadedOut()
     {
@@ -28,21 +28,21 @@ public class CityInfoPanel : MonoBehaviour
     }
     public void UpdateResources()
     {
-        if (Iconresources.Count > 0)
+        if (ownCity != null)
         {
-            if (ownCity != null)
+            CityName.text = ownCity.name;
+            if (Iconresources.Count > 0)
             {
+                
                 foreach (var item in Iconresources)
                 {
-
+                    item.Resourceclass = ownCity.GetResource(item.ResourceType);
                     item.ResourceCount.text = localization.GetLocalisedValue("RR_" + item.ResourceType.ToString()) + ":\n " + item.Resourceclass.currentAmount + "/" + item.Resourceclass.maxCapacity;
                 }
             }
-        }
-        else
-        {
-            if (ownCity != null)
+            else
             {
+
                 foreach (var item in ownCity.res)
                 {
                     ResourceIcon ress = Instantiate(ResourceInstancing, ResourceParent).GetComponent<ResourceIcon>();
@@ -50,9 +50,9 @@ public class CityInfoPanel : MonoBehaviour
                     ress.ResourceType = item.Key;
                     ress.Resourceclass = item.Value;
                     ress.ResourceCount.text = ress.Resourceclass.ResourceType + ":\n " + ress.Resourceclass.currentAmount + "/" + ress.Resourceclass.maxCapacity;
-                    CityName.text = ownCity.name;
                     Iconresources.Add(ress);
                 }
+
             }
         }
     }

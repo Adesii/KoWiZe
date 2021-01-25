@@ -21,7 +21,7 @@ public class UIEventManagerAndNotifier : MonoBehaviour
         public List<GameObject> prefabs;
     }
 
-    
+
     [Header("Type Selection")]
     public type_Of_UI selectedUI;
     [SerializeField]
@@ -117,7 +117,7 @@ public class UIEventManagerAndNotifier : MonoBehaviour
 
         selectedUI = type_Of_UI.stratMode;
 
-        InvokeRepeating(nameof(LoadnewScene), 1,0);
+        InvokeRepeating(nameof(LoadnewScene), 1, 0);
         InvokeRepeating(nameof(FadeScene), 1.5f, 0);
 
     }
@@ -188,7 +188,7 @@ public class drawCustomWindowUI : Editor
             {
                 if (!string.IsNullOrEmpty(lastPropPath) && p.propertyPath.Contains(lastPropPath)) { continue; }
                 lastPropPath = p.propertyPath;
-                if(p.GetType() == typeof(GameObject))
+                if (p.GetType() == typeof(GameObject))
                 {
                     EditorGUILayout.ObjectField(p);
                 }
@@ -263,7 +263,33 @@ public class stratModeUI
     public RectTransform bottomUIBar;
 
     public GameObject BuildPanel;
-    public CityInfoPanel city;
+    private BuildPanelMenu buildPanelScript;
+    private CityInfoPanel city;
+    public CityInfoPanel City
+    {
+        get
+        {
+            if (city != null) return BuildPanelScript.CityInfoPanel;
+            else
+            {
+                city = buildPanelScript.CityInfoPanel;
+                return city;
+            }
+        }
+    }
+
+    public BuildPanelMenu BuildPanelScript
+    {
+        get
+        {
+            if (buildPanelScript == null)
+            {
+                buildPanelScript = BuildPanel.GetComponent<BuildPanelMenu>();
+
+            }
+            return buildPanelScript;
+        }
+    }
 }
 [Serializable]
 public class battleModeUI

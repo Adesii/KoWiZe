@@ -17,7 +17,7 @@ public class citySystem : Selectable
     public List<float> cityPopulationLimitPerTier;
     private List<ResourceBuildings> ResourceBuilding = new List<ResourceBuildings>();
 
-    public CityInfoPanel buildPanel;
+    public BuildPanelMenu buildPanel;
 
     public Transform hoverCityPosition;
 
@@ -49,7 +49,7 @@ public class citySystem : Selectable
     }
     public ResourceClass GetResource(ResourceTypes resourceType)
     {
-        print(resourceType);
+        //print(resourceType);
         if (res.TryGetValue(resourceType, out ResourceClass re))
         {
             return re;
@@ -59,11 +59,18 @@ public class citySystem : Selectable
     public override void HasBeenBuild()
     {
         base.HasBeenBuild();
+        name = "City: " + getCityName();
         isSelected = false;
         isBuilding = false;
         gm = UI_City_Hover.addNewCity(this);
+        buildPanel = GameController.UIInstance.strategyModeUI.BuildPanelScript;
     }
 
+    private string getCityName()
+    {
+        List<string> liss = new List<string>() { "Rosevelt", "Bobs Burger Palace","SomethingNice","Not a Real City", "Aachen","Koeln" };
+        return liss[Random.Range(0, liss.Count)];
+    }
     public override void PointerClicked()
     {
         base.PointerClicked();
@@ -85,14 +92,15 @@ public class citySystem : Selectable
     public override void unSelect()
     {
         base.unSelect();
-        if (gm != null )
+        if (gm != null)
         {
             gm.disableObject();
-            
         }
+        if (buildPanel != null)
+            buildPanel.CityInfoPanel.ownCity = null;
         Debug.Log(GameController.Instance.localSettings.localPlayer.Currently_Selected.Count);
-        if(GameController.Instance.localSettings.localPlayer.Currently_Selected.Count<=0 ||GameController.Instance.localSettings.localPlayer.Currently_Selected[0].GetType() != typeof(citySystem))
-            GameController.UIInstance.strategyModeUI.BuildPanel.GetComponent<simpleUIFader>().disableObject();
+        if (GameController.Instance.localSettings.localPlayer.Currently_Selected.Count <= 0 || GameController.Instance.localSettings.localPlayer.Currently_Selected[0].GetType() != typeof(citySystem))
+            GameController.UIInstance.strategyModeUI.BuildPanelScript.FadeUI();
         hideResources();
     }
 
@@ -104,10 +112,10 @@ public class citySystem : Selectable
             gm.gameObject.SetActive(true);
             gm.ownCity = this;
         }
-        GameController.UIInstance.strategyModeUI.BuildPanel.SetActive(true);
-        CityInfoPanel p = GameController.UIInstance.strategyModeUI.city;
-        p.ownCity = this;
-        p.UpdateResources();
+        
+        buildPanel.gameObject.SetActive(true);
+        buildPanel.CityInfoPanel.ownCity = this;
+        buildPanel.CityInfoPanel.UpdateResources();
         ShowResources();
     }
 
@@ -125,24 +133,24 @@ public class citySystem : Selectable
         int index = 0;
         foreach (var item in vsfL)
         {
-            
+
             item.SetVector3("start", transform.position);
             item.SetVector3("end", ResourceBuilding[index].transform.position);
             //item.SetGradient("colorGradient", colorGradient);
-            item.SetFloat("resourceColor", Mathf.Clamp(((float)ResourceBuilding[index].type),0f,100f));
+            item.SetFloat("resourceColor", Mathf.Clamp(((float)ResourceBuilding[index].type), 0f, 100f));
             item.Play();
             index++;
         }
     }
     public bool AddResourceBuilding(ResourceBuildings building)
     {
-        if(ResourceBuilding.Count >= maxAmountOfBuildings)
+        if (ResourceBuilding.Count >= maxAmountOfBuildings)
         {
             return false;
         }
         ResourceBuilding.Add(building);
 
-        vsfL.Add(Instantiate(arrowPrefab,transform).GetComponent<VisualEffect>());
+        vsfL.Add(Instantiate(arrowPrefab, transform).GetComponent<VisualEffect>());
         vsfL[vsfL.Count - 1].Stop();
         if (isSelected)
         {

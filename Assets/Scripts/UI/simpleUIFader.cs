@@ -47,13 +47,13 @@ public class simpleUIFader : MonoBehaviour
 
     IEnumerator fadeout()
     {
+        onFadedOut?.Invoke();
         fadein = false;
         transform.DOLocalMove(orgPosition - FadeDistance, duration);
         childrenFading();
         cg.interactable = false;
         cg.blocksRaycasts = false;
         yield return new WaitForSeconds(duration);
-        onFadedOut?.Invoke();
         gameObject.SetActive(false);
         yield return null;
     }
