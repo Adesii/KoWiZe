@@ -35,7 +35,6 @@
 			<destination>{341f7056-7541-475e-bc9f-9e1cb6085e48}</destination>
 		</relationship>
 		<relationship name="banks">
-			<destination>{d5a47b88-45b3-4620-92c2-c660a6947fa0}</destination>
 			<destination>{a4caa452-ce22-4066-98c3-d5ab3ca3ea28}</destination>
 		</relationship>
 	</object>
@@ -86,7 +85,7 @@
 	</object>
 	<object class="EventMixerMaster" id="{03e1fd2c-8d8f-48c7-9841-d6e8ddb99022}">
 		<property name="volume">
-			<value>-20.5</value>
+			<value>-10</value>
 		</property>
 		<relationship name="effectChain">
 			<destination>{59f407f4-4631-4fbc-aec5-fc6daa5fc51b}</destination>
@@ -177,11 +176,17 @@
 		</property>
 	</object>
 	<object class="ObjectSpatialiserEffect" id="{94190e3e-870d-4e5c-a833-97799ca14093}">
+		<property name="distanceRolloffType">
+			<value>1</value>
+		</property>
 		<property name="minimumDistance">
 			<value>0</value>
 		</property>
 		<property name="maximumDistance">
-			<value>8.40000057</value>
+			<value>450</value>
+		</property>
+		<property name="minimumExtent">
+			<value>124</value>
 		</property>
 	</object>
 	<object class="RandomizerModulator" id="{6ecfd93d-1830-4b5e-9b25-ff1a40ba2985}">

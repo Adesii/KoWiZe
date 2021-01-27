@@ -1136,10 +1136,15 @@ PrefabInstance:
     - target: {fileID: 3235591566924413620, guid: 4b3f9b96fde2c8c47911cea54e5020cd, type: 3}
       propertyPath: attenuationObject
       value: 
-      objectReference: {fileID: 392146847}
+      objectReference: {fileID: 1465311160}
     m_RemovedComponents:
     - {fileID: -6299235611117791946, guid: 4b3f9b96fde2c8c47911cea54e5020cd, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: 4b3f9b96fde2c8c47911cea54e5020cd, type: 3}
+--- !u!1 &1465311160 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 571037038971714797, guid: 4b3f9b96fde2c8c47911cea54e5020cd, type: 3}
+  m_PrefabInstance: {fileID: 1465311159}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1554641626
 GameObject:
   m_ObjectHideFlags: 0
