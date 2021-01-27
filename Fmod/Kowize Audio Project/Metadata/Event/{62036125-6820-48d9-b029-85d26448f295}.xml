@@ -36,6 +36,7 @@
 		</relationship>
 		<relationship name="banks">
 			<destination>{d5a47b88-45b3-4620-92c2-c660a6947fa0}</destination>
+			<destination>{a4caa452-ce22-4066-98c3-d5ab3ca3ea28}</destination>
 		</relationship>
 	</object>
 	<object class="EventMixer" id="{97c70ca9-f024-4fea-a5f8-b0002eadc6f4}">
@@ -62,7 +63,11 @@
 			<destination>{408b9b37-a41a-45c6-af87-1e0c57b8473a}</destination>
 		</relationship>
 	</object>
-	<object class="EventAutomatableProperties" id="{480e5208-f46e-4296-8377-16df30d1c786}" />
+	<object class="EventAutomatableProperties" id="{480e5208-f46e-4296-8377-16df30d1c786}">
+		<property name="priority">
+			<value>3</value>
+		</property>
+	</object>
 	<object class="MarkerTrack" id="{ddc448fc-f7ac-477d-a6b3-35b2d9f68f17}" />
 	<object class="GroupTrack" id="{d3656793-ecb2-4c73-8e56-273e639cbaaa}">
 		<relationship name="mixerGroup">
@@ -176,7 +181,7 @@
 			<value>0</value>
 		</property>
 		<property name="maximumDistance">
-			<value>0.400000006</value>
+			<value>8.40000057</value>
 		</property>
 	</object>
 	<object class="RandomizerModulator" id="{6ecfd93d-1830-4b5e-9b25-ff1a40ba2985}">

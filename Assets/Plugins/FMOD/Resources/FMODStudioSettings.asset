@@ -305,7 +305,7 @@ MonoBehaviour:
   SourceBankPathUnformatted: 
   AutomaticEventLoading: 1
   BankLoadType: 0
-  AutomaticSampleLoading: 0
+  AutomaticSampleLoading: 1
   EncryptionKey: 
   ImportType: 0
   TargetAssetPath: FMODBanks
@@ -616,7 +616,7 @@ MonoBehaviour:
     CallbackHandler:
       Value: {fileID: 0}
       HasValue: 0
-  outputType: 
+  outputType: AUTODETECT
 --- !u!114 &7670421212844306812
 MonoBehaviour:
   m_ObjectHideFlags: 0

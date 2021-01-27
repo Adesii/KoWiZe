@@ -1,3 +1,117 @@
+1a913dd;Adesi;Mon, 25 Jan 2021 13:05:33 +0100;fixed bug in buildmenu.;
+ 22 files changed, 131 insertions(+), 87 deletions(-)
+
+39da197;Samueltz;Mon, 25 Jan 2021 12:57:04 +0100;fixed FMOD-Studio Events;
+ 9 files changed, 68 deletions(-)
+
+f63e411;Adesi;Tue, 19 Jan 2021 09:31:14 +0100;Update README.md;
+ 1 file changed, 2 insertions(+), 2 deletions(-)
+
+de4e70a;Adesi;Tue, 19 Jan 2021 09:30:04 +0100;Update README.md;
+ 1 file changed, 33 insertions(+), 1 deletion(-)
+
+daa81de;Adesi;Tue, 19 Jan 2021 09:08:05 +0100;Merge branch 'master' of https://github.com/Adesii/KoWiZe;
+225aab5;Adesi;Tue, 19 Jan 2021 09:07:15 +0100;Added unitmanager Save and Load Feature. Added Newtonsoft.Json.dll;
+ 15 files changed, 11395 insertions(+), 71 deletions(-)
+
+a28ac74;Samueltz;Tue, 19 Jan 2021 08:40:26 +0100;added Music Controller to MainMenu;
+ 2 files changed, 25 insertions(+), 6 deletions(-)
+
+3ba40af;Samueltz;Tue, 19 Jan 2021 08:04:38 +0100;added background Music;
+ 34 files changed, 453 insertions(+)
+
+e0a2e67;Adesi;Mon, 18 Jan 2021 14:57:29 +0100;adjusted Buildmenu And City overlay;
+ 14 files changed, 387 insertions(+), 275 deletions(-)
+
+abb17c6;Adesi;Mon, 18 Jan 2021 10:22:39 +0100;UnitManager Redo;
+ 12 files changed, 641 insertions(+), 261 deletions(-)
+
+88badc0;Adesi;Mon, 18 Jan 2021 09:11:17 +0100;Unit System Rework;
+ 30 files changed, 2845 insertions(+), 81 deletions(-)
+
+e82b10e;Adesi;Fri, 15 Jan 2021 13:08:27 +0100;Upgraded Project to version 2020.1.1f1;
+ 5 files changed, 12 insertions(+), 6 deletions(-)
+
+f16a94d;Samueltz;Fri, 15 Jan 2021 08:25:55 +0100;Added Melee,Ranged and SiegeUnit Base Class;
+ 8 files changed, 123 insertions(+), 4 deletions(-)
+
+8db7800;Adesi;Wed, 13 Jan 2021 13:09:04 +0100;Update BaseUnit.cs;
+ 1 file changed, 4 insertions(+), 5 deletions(-)
+
+c8b70e3;Samueltz;Tue, 12 Jan 2021 10:54:07 +0100;Merge branch 'master' of https://github.com/Adesii/KoWiZe;
+2c91900;Samueltz;Tue, 12 Jan 2021 10:53:59 +0100;Created BaseUnit;
+ 4 files changed, 66 insertions(+), 3 deletions(-)
+
+3a525c6;Adesi;Tue, 12 Jan 2021 10:43:32 +0100;Started work on TechTree Framework;
+ 6 files changed, 107 insertions(+), 3 deletions(-)
+
+585285a;Adesi;Mon, 4 Jan 2021 01:05:17 +0100;computeShaderTesting.;
+ 7 files changed, 618 insertions(+), 169 deletions(-)
+
+0fbe138;Adesi;Sun, 3 Jan 2021 15:25:20 +0100;slight refactoring;
+ 27 files changed, 1768 insertions(+), 63 deletions(-)
+
+07e2f12;Adesi;Sun, 20 Dec 2020 17:48:57 +0100;added simple fade from main menu to game scene;
+ 3 files changed, 345 insertions(+), 200 deletions(-)
+
+92792d0;Adesi;Sat, 19 Dec 2020 18:28:18 +0100;added  Arrow to Resource Effect and fixed buildmenu disappearing when clicking on another city;
+ 52 files changed, 4327 insertions(+), 374 deletions(-)
+
+da67bf6;Adesi;Sat, 19 Dec 2020 09:28:16 +0100;change Selection Circle to be a Visual Effect instead of a mesh;
+ 25 files changed, 3423 insertions(+), 256 deletions(-)
+
+1d9ca5e;Adesi;Wed, 16 Dec 2020 14:01:52 +0100;hotfix#002 Fixed video Background Speed;
+ 2 files changed, 6 insertions(+), 6 deletions(-)
+
+8cbe16d;Adesi;Wed, 16 Dec 2020 14:00:06 +0100;Adjusted Video Background and Fixed Tooltip Popin;
+ 3 files changed, 81 insertions(+), 116 deletions(-)
+
+8cc1b1b;Adesi;Wed, 16 Dec 2020 12:49:37 +0100;Upgraded Unity to the Newest Version;
+ 102 files changed, 22330 insertions(+), 1647 deletions(-)
+
+2a3b0c4;Adesi;Wed, 16 Dec 2020 09:53:02 +0100;fixed Food Building Feature;
+ 2 files changed, 3 insertions(+), 2 deletions(-)
+
+c7b83e8;Adesi;Tue, 15 Dec 2020 09:38:48 +0100;Update citySystem.cs;
+ 1 file changed, 2 insertions(+), 2 deletions(-)
+
+b6b082a;Adesi;Tue, 15 Dec 2020 09:10:50 +0100;Hotfix #00.1 Fixed MainMenu;
+ 4 files changed, 5 insertions(+), 109 deletions(-)
+
+c2bb805;Adesi;Tue, 15 Dec 2020 08:46:15 +0100;Fixed Hover not working;
+ 4 files changed, 21 insertions(+), 20 deletions(-)
+
+9788556;Adesi;Mon, 14 Dec 2020 12:13:42 +0100;Adjusted Lighting to eliminate Black Shadows;
+ 8 files changed, 163 insertions(+), 37 deletions(-)
+
+d9ce199;Adesi;Mon, 14 Dec 2020 11:46:25 +0100;Fixed Bug of not being able to Build on Terrain;
+ 17 files changed, 94 insertions(+), 213 deletions(-)
+
+0eaeaa1;Adesi;Fri, 11 Dec 2020 06:53:30 +0100;Added ResourceBuildings and Audio to Trees;
+ 56 files changed, 20049 insertions(+), 17767 deletions(-)
+
+278aadc;Adesi;Fri, 11 Dec 2020 02:29:36 +0100;Merge branch 'master' of https://github.com/Adesii/KoWiZe;
+5035185;Adesi;Fri, 11 Dec 2020 02:29:10 +0100;worked on building UI;
+ 7 files changed, 1348 insertions(+), 22 deletions(-)
+
+ff730f5;Jason21112001;Thu, 10 Dec 2020 10:06:59 +0100;Worked on icons;
+ 9 files changed, 0 insertions(+), 0 deletions(-)
+
+18d7242;Adesi;Thu, 10 Dec 2020 00:14:37 +0100;Added ParrelSync Lib and looked a bit into Networking;
+ 46 files changed, 2390 insertions(+), 284 deletions(-)
+
+e9f32ef;Adesi;Wed, 9 Dec 2020 19:14:31 +0100;Added Icons to Overlay;
+ 16 files changed, 1265 insertions(+), 6 deletions(-)
+
+2674ac5;Adesi;Wed, 9 Dec 2020 18:44:42 +0100;Moved Icons to their appropriate Folders;
+ 23 files changed, 110 insertions(+), 7 deletions(-)
+
+ed56c72;Jason21112001;Wed, 9 Dec 2020 15:06:24 +0100;Added icons (wood, stone, iron and food); wood not finished;
+ 9 files changed, 36 insertions(+)
+
+4cf7ff0;Adesi;Tue, 8 Dec 2020 10:59:41 +0100;started work on lobby;
+ 3 files changed, 1120 insertions(+), 11 deletions(-)
+
 359a267;Samueltz;Tue, 8 Dec 2020 09:50:09 +0100;Worked on v1 of the Audiomanager;
  7 files changed, 1010 insertions(+), 36 deletions(-)
 

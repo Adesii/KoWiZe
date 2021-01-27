@@ -24,6 +24,7 @@ public class SFXManagerController : Singleton<SFXManagerController>
         public float Volume = 0.5f;
         [Range(0f, 5f)]
         public float pitch = 1f;
+        [SerializeField]
         public List <FMOD.Studio.EventInstance> instance = new List<FMOD.Studio.EventInstance>();
     }
 
@@ -44,9 +45,11 @@ public class SFXManagerController : Singleton<SFXManagerController>
     public void PlayOnObject(string name, GameObject target)
     {
         SFXHolder s = AS[name];
+        UnityEngine.Debug.Log(s);
         FMOD.Studio.EventInstance inst = FMODUnity.RuntimeManager.CreateInstance(s.ID);
-        inst.set3DAttributes(FMODUnity.RuntimeUtils.To3DAttributes(target));
+        inst.set3DAttributes(FMODUnity.RuntimeUtils.To3DAttributes(target.transform.position));
         inst.start();
+        inst.setVolume(1f);
         s.instance.Add(inst);
 
     }

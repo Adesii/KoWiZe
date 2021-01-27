@@ -130,23 +130,25 @@ public class TreePlacement : MonoBehaviour
         Vector3 random = Random.insideUnitCircle.normalized * Random.Range(1f, 15f);
         Ray ray = new Ray(startSpot + (Vector3.up * 10), new Vector3(0, -1, 0));
 
+
+
         if (Physics.Raycast(ray, out RaycastHit hit))
         {
-                if (!hit.collider.CompareTag("tree") && hit.point.y < heightLimit && hit.point.y > minHeight && !hit.collider.CompareTag("enviroment"))
-                {
-                    if (id == 0) absoluteStartSpot = hit.point;
-                    GameObject newTree = Instantiate(TreePrefab, hit.point, Quaternion.Euler(transform.rotation.eulerAngles + new Vector3(0, Random.Range(0f, 360f), 0)), TreeParent.transform);
-                    newTree.GetComponent<Repopulate>().id = id + 1;
-                    Instantiate(placeableModels[Random.Range(0, placeableModels.Count)], newTree.transform);
-                    if (id == 0) SFXManagerController.Instance.PlayOnObject("env_forest", newTree);
-                    trees.Add(newTree);
+            if (!hit.collider.CompareTag("tree") && hit.point.y < heightLimit && hit.point.y > minHeight && !hit.collider.CompareTag("enviroment"))
+            {
+                if (id == 0) absoluteStartSpot = hit.point;
+                GameObject newTree = Instantiate(TreePrefab, hit.point, Quaternion.Euler(transform.rotation.eulerAngles + new Vector3(0, Random.Range(0f, 360f), 0)), TreeParent.transform);
+                newTree.GetComponent<Repopulate>().id = id + 1;
+                Instantiate(placeableModels[Random.Range(0, placeableModels.Count)], newTree.transform);
+                if (id == 0) { SFXManagerController.Instance.PlayOnObject("env_forest", newTree); Debug.Log("Playing Sound on Object: " + newTree.name); }
+                trees.Add(newTree);
 
-                }
-                else if (id < minForestSize)
-                {
-                    if (trees.Count > 0)
-                        placeTree(trees[trees.Count - 1].transform.position + random, id - 1);
-                }
+            }
+            else if (id < minForestSize)
+            {
+                if (trees.Count > 0)
+                    placeTree(trees[trees.Count - 1].transform.position + random, id - 1);
+            }
 
         }
         if (id < minForestSize)
@@ -174,7 +176,7 @@ public class TreePlacement : MonoBehaviour
         if (trees.Count < 1) r = Random.insideUnitCircle.normalized * Random.Range(1f, 15f);
         else r = ((absoluteStartSpot - trees[trees.Count - 1].transform.position).normalized + Random.insideUnitSphere) * Random.Range(1f, 15f) * id;
         Vector3 random = new Vector3(r.x, 0, r.y);
-        
+
         Ray ray = new Ray(startSpot + (Vector3.up * 10), new Vector3(0, -1, 0));
 
         if (Physics.Raycast(ray, out RaycastHit hit))
