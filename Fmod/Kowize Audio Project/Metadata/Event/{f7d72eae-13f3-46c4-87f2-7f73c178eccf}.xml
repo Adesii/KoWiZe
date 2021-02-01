@@ -63,8 +63,8 @@
 	<object class="MarkerTrack" id="{d271ed8e-e66d-4f67-af75-81a1dab65ac4}" />
 	<object class="GroupTrack" id="{ca4e6150-5376-4364-8f11-a6e1f8cb040c}">
 		<relationship name="modules">
-			<destination>{f9e5868b-ba09-4fa2-82ad-c41652bb2b16}</destination>
 			<destination>{a768357a-cb51-40ea-95b9-f92cdf2b2a6c}</destination>
+			<destination>{a0304701-08d0-4451-b4a5-6a7cf6c373b5}</destination>
 		</relationship>
 		<relationship name="mixerGroup">
 			<destination>{f79c931c-fb6e-4557-b99f-58f85a4f576c}</destination>
@@ -77,8 +77,8 @@
 	</object>
 	<object class="ParameterProxy" id="{c571d7e9-ceb1-4adc-a391-51ef5bb26128}">
 		<relationship name="modules">
-			<destination>{f9e5868b-ba09-4fa2-82ad-c41652bb2b16}</destination>
 			<destination>{a768357a-cb51-40ea-95b9-f92cdf2b2a6c}</destination>
+			<destination>{a0304701-08d0-4451-b4a5-6a7cf6c373b5}</destination>
 		</relationship>
 		<relationship name="preset">
 			<destination>{3d8a388b-d000-48ba-91d8-bcfba58a4df9}</destination>
@@ -101,14 +101,6 @@
 		</relationship>
 	</object>
 	<object class="MixerBusPanner" id="{987884c5-f3a4-4404-89f3-a3350e4c8cd6}" />
-	<object class="SingleSound" id="{f9e5868b-ba09-4fa2-82ad-c41652bb2b16}">
-		<property name="isCutoff">
-			<value>true</value>
-		</property>
-		<relationship name="audioFile">
-			<destination>{d4a699f7-c73e-48fd-bea1-60b998f125bc}</destination>
-		</relationship>
-	</object>
 	<object class="SingleSound" id="{a768357a-cb51-40ea-95b9-f92cdf2b2a6c}">
 		<property name="isCutoff">
 			<value>true</value>
@@ -118,6 +110,17 @@
 		</property>
 		<relationship name="audioFile">
 			<destination>{9e43f3ca-e2ca-437d-a2f4-5b682e2909d1}</destination>
+		</relationship>
+	</object>
+	<object class="EventSound" id="{a0304701-08d0-4451-b4a5-6a7cf6c373b5}">
+		<property name="isCutoff">
+			<value>true</value>
+		</property>
+		<property name="startOffset">
+			<value>24.5</value>
+		</property>
+		<relationship name="event">
+			<destination>{c63201c9-5731-4ead-9b2a-9290f8f50253}</destination>
 		</relationship>
 	</object>
 	<object class="EventMixerGroup" id="{f79c931c-fb6e-4557-b99f-58f85a4f576c}">
