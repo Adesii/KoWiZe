@@ -2,7 +2,7 @@
 <objects serializationModel="Studio.02.01.00">
 	<object class="AudioFile" id="{cbdbbf8b-8ee3-4171-870b-a011d677301d}">
 		<property name="assetPath">
-			<value>Behind the Sword.mp3</value>
+			<value>menu/Behind the Sword.mp3</value>
 		</property>
 		<property name="isStreaming">
 			<value>true</value>

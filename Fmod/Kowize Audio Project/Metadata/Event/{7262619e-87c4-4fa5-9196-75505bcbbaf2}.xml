@@ -32,7 +32,6 @@
 			<destination>{c2f1588a-49be-4673-9933-fb66b85b0b76}</destination>
 		</relationship>
 		<relationship name="parameters">
-			<destination>{435f2f88-2afc-4ef6-9a80-de8161d6a7e7}</destination>
 			<destination>{f3445277-1a07-4249-a32f-91a6ea250df6}</destination>
 		</relationship>
 		<relationship name="banks">
@@ -74,11 +73,6 @@
 		<relationship name="markers">
 			<destination>{4c64e606-4166-449a-8e8a-440e432abcfc}</destination>
 			<destination>{e9410ef1-18b7-47c3-87cf-62fa90f81c1c}</destination>
-		</relationship>
-	</object>
-	<object class="ParameterProxy" id="{435f2f88-2afc-4ef6-9a80-de8161d6a7e7}">
-		<relationship name="preset">
-			<destination>{32841422-c631-491c-a9b9-8ab0e05cf593}</destination>
 		</relationship>
 	</object>
 	<object class="ActionSheet" id="{f3445277-1a07-4249-a32f-91a6ea250df6}">
