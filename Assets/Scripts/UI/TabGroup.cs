@@ -52,7 +52,6 @@ public class TabGroup : MonoBehaviour
         {
             button.transform.DOBlendableScaleBy(-scaler, FadeTime);
             button.transform.GetChild(0).DOBlendableScaleBy(scaler, FadeTime);
-
         }
 
     }

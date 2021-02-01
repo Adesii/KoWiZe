@@ -13858,9 +13858,9 @@ PrefabInstance:
       propertyPath: m_Name
       value: BuildMenuPanel
       objectReference: {fileID: 0}
-    - target: {fileID: 1398375640486960497, guid: ef784f860a1271941b4b6ca21e10f052, type: 3}
-      propertyPath: m_IsActive
-      value: 0
+    - target: {fileID: 2450450871924203453, guid: ef784f860a1271941b4b6ca21e10f052, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 0.000091552734
       objectReference: {fileID: 0}
     - target: {fileID: 2708945771846966015, guid: ef784f860a1271941b4b6ca21e10f052, type: 3}
       propertyPath: m_AnchorMax.y
