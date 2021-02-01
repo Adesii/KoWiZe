@@ -21,7 +21,10 @@ public class FlexibleGridLayout : LayoutGroup
 
     public bool fitX;
     public bool fitY;
-
+    protected override void OnEnable()
+    {
+        CalculateLayoutInputHorizontal();
+    }
     public override void CalculateLayoutInputVertical()
     {
         base.CalculateLayoutInputHorizontal();
