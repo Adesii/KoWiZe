@@ -25,6 +25,7 @@ public class simpleUIFader : MonoBehaviour
     }
     private void OnEnable()
     {
+        cg.alpha = 0;
         StartCoroutine(fadeinIE());
     }
 

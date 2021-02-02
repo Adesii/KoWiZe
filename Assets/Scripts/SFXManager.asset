@@ -20,6 +20,6 @@ MonoBehaviour:
     - ID: event:/ForestEnviroment
       Volume: 0
       pitch: 0
-    - ID: event:/MenuMusic
+    - ID: event:/Music
       Volume: 0
       pitch: 0
