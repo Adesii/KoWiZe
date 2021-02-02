@@ -38,6 +38,27 @@ public class PlayerScript : MonoBehaviour
     public List<Selectable> Currently_Selected;
     public GameObject building;
 
+
+    private static StandaloneInputModuleV2 currentInput;
+    private StandaloneInputModuleV2 CurrentInput
+    {
+        get
+        {
+            if (currentInput == null)
+            {
+                currentInput = EventSystem.current.currentInputModule as StandaloneInputModuleV2;
+                if (currentInput == null)
+                {
+                    Debug.LogError("Missing StandaloneInputModuleV2.");
+                    // some error handling
+                }
+            }
+
+            return currentInput;
+        }
+
+    }
+
     // Start is called before the first frame update
     void Start()
     {
@@ -72,32 +93,35 @@ public class PlayerScript : MonoBehaviour
     }
     private void zoomCamera()
     {
-        if (Input.GetAxis("Mouse ScrollWheel") < 0 && zoomLevel < maxZoom)
+        if (CurrentInput.GameObjectUnderPointer(-1) == null ||!(CurrentInput.GameObjectUnderPointer(-1).layer == LayerMask.NameToLayer("UI")))
         {
 
-            if (Input.GetAxis("Speed") != 0)
+            if (Input.GetAxis("Mouse ScrollWheel") < 0 && zoomLevel < maxZoom)
             {
-                zoomLevel -= Input.GetAxis("Mouse ScrollWheel") * zoomSens * 2;
-            }
-            else
-            {
-                zoomLevel -= Input.GetAxis("Mouse ScrollWheel") * zoomSens;
-            }
 
+                if (Input.GetAxis("Speed") != 0)
+                {
+                    zoomLevel -= Input.GetAxis("Mouse ScrollWheel") * zoomSens * 2;
+                }
+                else
+                {
+                    zoomLevel -= Input.GetAxis("Mouse ScrollWheel") * zoomSens;
+                }
+
+            }
+            else if (Input.GetAxis("Mouse ScrollWheel") > 0 && zoomLevel > minZoom)
+            {
+                if (Input.GetAxis("Speed") != 0)
+                {
+                    zoomLevel -= Input.GetAxis("Mouse ScrollWheel") * zoomSens * 2;
+                }
+                else
+                {
+                    zoomLevel -= Input.GetAxis("Mouse ScrollWheel") * zoomSens;
+                }
+
+            }
         }
-        else if (Input.GetAxis("Mouse ScrollWheel") > 0 && zoomLevel > minZoom)
-        {
-            if (Input.GetAxis("Speed") != 0)
-            {
-                zoomLevel -= Input.GetAxis("Mouse ScrollWheel") * zoomSens * 2;
-            }
-            else
-            {
-                zoomLevel -= Input.GetAxis("Mouse ScrollWheel") * zoomSens;
-            }
-
-        }
-
         Vector3 height = childCamera.transform.position;
         height.y = zoomLevel + transform.position.y;
         childCamera.transform.position = height;
@@ -233,9 +257,10 @@ public class PlayerScript : MonoBehaviour
         if (Input.GetMouseButtonDown(0))
         {
             ray = childCamera.ScreenPointToRay(Input.mousePosition);
-            if (Physics.Raycast(ray, out hit) && !EventSystem.current.IsPointerOverGameObject())
+            if (Physics.Raycast(ray, out hit) && !EventSystem.current.IsPointerOverGameObject(-1))
             {
-                if (!hit.collider.CompareTag("Selectable"))
+                Debug.Log(hit.transform.name);
+                if (!hit.collider.CompareTag("Selectable") && !(hit.transform.gameObject.layer == LayerMask.NameToLayer("UI")))
                 {
                     Selectable[] tempList = new Selectable[Currently_Selected.Count];
                     Currently_Selected.CopyTo(tempList);
@@ -244,7 +269,7 @@ public class PlayerScript : MonoBehaviour
                     {
                         item.unSelect();
                     }
-                    
+
                 }
             }
         }
@@ -278,9 +303,9 @@ public class PlayerScript : MonoBehaviour
                 item.unSelect();
             }
 
-            
-            
-            
+
+
+
         }
     }
 }

@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 5078083049684350889}
   - component: {fileID: 7815141113338770126}
   - component: {fileID: 6496534784813778958}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: builtEffect
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -87,7 +87,8 @@ VFXRenderer:
   m_RayTraceProcedural: 0
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
-  m_Materials: []
+  m_Materials:
+  - {fileID: 0}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -117,7 +118,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3910441502134068072}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: InfoPosition
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -207,6 +208,7 @@ MonoBehaviour:
   - {fileID: 8511818700390101981}
   cityPopulation: 0
   cityPopulationLimitPerTier: []
+  buildPanel: {fileID: 0}
   hoverCityPosition: {fileID: 3910441502134068072}
   gm: {fileID: 0}
   vsfL: []
@@ -317,7 +319,7 @@ GameObject:
   - component: {fileID: 5035591573054491831}
   - component: {fileID: 4579298893785086668}
   - component: {fileID: 5333068222869319284}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: buildingEffect
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -396,7 +398,8 @@ VFXRenderer:
   m_RayTraceProcedural: 0
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
-  m_Materials: []
+  m_Materials:
+  - {fileID: 0}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -468,9 +471,45 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: -3989346385401443251, guid: 4e99d656fbe034745962c350fa6d777f, type: 3}
+      propertyPath: m_Layer
+      value: 8
+      objectReference: {fileID: 0}
+    - target: {fileID: -3624326959281452679, guid: 4e99d656fbe034745962c350fa6d777f, type: 3}
+      propertyPath: m_Layer
+      value: 8
+      objectReference: {fileID: 0}
+    - target: {fileID: -688203921412350334, guid: 4e99d656fbe034745962c350fa6d777f, type: 3}
+      propertyPath: m_Layer
+      value: 8
+      objectReference: {fileID: 0}
+    - target: {fileID: -17060858582584880, guid: 4e99d656fbe034745962c350fa6d777f, type: 3}
+      propertyPath: m_Layer
+      value: 8
+      objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: 4e99d656fbe034745962c350fa6d777f, type: 3}
       propertyPath: m_Name
       value: cityPrefab
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 4e99d656fbe034745962c350fa6d777f, type: 3}
+      propertyPath: m_Layer
+      value: 8
+      objectReference: {fileID: 0}
+    - target: {fileID: 1481272418230398376, guid: 4e99d656fbe034745962c350fa6d777f, type: 3}
+      propertyPath: m_Layer
+      value: 8
+      objectReference: {fileID: 0}
+    - target: {fileID: 3450334905291317554, guid: 4e99d656fbe034745962c350fa6d777f, type: 3}
+      propertyPath: m_Layer
+      value: 8
+      objectReference: {fileID: 0}
+    - target: {fileID: 4010153435870251310, guid: 4e99d656fbe034745962c350fa6d777f, type: 3}
+      propertyPath: m_Layer
+      value: 8
+      objectReference: {fileID: 0}
+    - target: {fileID: 8119645684759740736, guid: 4e99d656fbe034745962c350fa6d777f, type: 3}
+      propertyPath: m_Layer
+      value: 8
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 4e99d656fbe034745962c350fa6d777f, type: 3}
