@@ -8,12 +8,12 @@ public class MusicController : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        RuntimeManager.StudioSystem.setParameterByName("GlobalState", 3f);
         SFXManagerController.Instance.Play("bgm_menu");
     }
-
-    // Update is called once per frame
-    void Update()
+    private void OnDestroy()
     {
-        
+        RuntimeManager.StudioSystem.setParameterByName("GlobalState", 0f);
+
     }
 }

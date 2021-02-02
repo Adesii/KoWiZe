@@ -116,6 +116,12 @@
 		<property name="start">
 			<value>3</value>
 		</property>
+		<property name="looping">
+			<value>true</value>
+		</property>
+		<relationship name="modulators">
+			<destination>{b1fb4b4a-7a47-4e23-81dc-b9508ef0db94}</destination>
+		</relationship>
 		<relationship name="audioFile">
 			<destination>{9e43f3ca-e2ca-437d-a2f4-5b682e2909d1}</destination>
 		</relationship>
@@ -124,6 +130,9 @@
 		<property name="isCutoff">
 			<value>true</value>
 		</property>
+		<relationship name="modulators">
+			<destination>{5a4988c0-cebe-41d7-9828-395ccca78850}</destination>
+		</relationship>
 		<relationship name="event">
 			<destination>{c63201c9-5731-4ead-9b2a-9290f8f50253}</destination>
 		</relationship>
@@ -152,6 +161,40 @@
 	</object>
 	<object class="MixerBusPanner" id="{0ad0fbe5-25c9-4e05-9369-af834077aa8d}" />
 	<object class="MixerBusFader" id="{658bcd36-0e63-4978-bdd0-698831943067}" />
+	<object class="ADSRModulator" id="{b1fb4b4a-7a47-4e23-81dc-b9508ef0db94}">
+		<property name="nameOfPropertyBeingModulated">
+			<value>volume</value>
+		</property>
+		<property name="initialValue">
+			<value>-80</value>
+		</property>
+		<property name="attackShape">
+			<value>-0.197351336</value>
+		</property>
+		<property name="releaseShape">
+			<value>0.179758608</value>
+		</property>
+		<property name="finalValue">
+			<value>-80</value>
+		</property>
+	</object>
+	<object class="ADSRModulator" id="{5a4988c0-cebe-41d7-9828-395ccca78850}">
+		<property name="nameOfPropertyBeingModulated">
+			<value>volume</value>
+		</property>
+		<property name="initialValue">
+			<value>-80</value>
+		</property>
+		<property name="attackShape">
+			<value>-0.291795075</value>
+		</property>
+		<property name="releaseShape">
+			<value>0.291794986</value>
+		</property>
+		<property name="finalValue">
+			<value>-80</value>
+		</property>
+	</object>
 	<object class="Automator" id="{abd6fa50-84a3-4b74-afb0-079c0b0a5324}">
 		<property name="nameOfPropertyBeingAutomated">
 			<value>volume</value>
