@@ -1308,6 +1308,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1284488865463646112, guid: d254002e027ed45429df1b46ce795959, type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 1284488865463646113, guid: d254002e027ed45429df1b46ce795959, type: 3}
       propertyPath: m_Name
       value: networkManager

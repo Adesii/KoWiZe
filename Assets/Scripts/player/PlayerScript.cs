@@ -65,6 +65,7 @@ public class PlayerScript : NetworkBehaviour
     {
         if (!hasAuthority) return;
         if (!isClient) gameObject.SetActive(false);
+        World.main.Player = gameObject;
         CmdaddPlayerToServer();
         GameController.Instance.localPlayerID = (int)netId;
         zoomLevel = defaultZoomLevel;
