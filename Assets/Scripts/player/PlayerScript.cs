@@ -1,8 +1,8 @@
 ﻿using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
-
-public class PlayerScript : MonoBehaviour
+using Mirror;
+public class PlayerScript : NetworkBehaviour
 {
 
     public Camera childCamera;
@@ -46,7 +46,8 @@ public class PlayerScript : MonoBehaviour
         {
             if (currentInput == null)
             {
-                currentInput = EventSystem.current.currentInputModule as StandaloneInputModuleV2;
+                if(GameController.UIInstance.GetComponent<StandaloneInputModuleV2>() != null)
+                currentInput = GameController.UIInstance.GetComponent<StandaloneInputModuleV2>() as StandaloneInputModuleV2;
                 if (currentInput == null)
                 {
                     Debug.LogError("Missing StandaloneInputModuleV2.");
@@ -62,11 +63,20 @@ public class PlayerScript : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        GameController.addPlayer(this);
+        if (!hasAuthority) return;
+        if (!isClient) gameObject.SetActive(false);
+        CmdaddPlayerToServer();
+        GameController.Instance.localPlayerID = (int)netId;
         zoomLevel = defaultZoomLevel;
         changeFOV(FOV);
         LocalPlayer();
     }
+    [Command]
+    private void CmdaddPlayerToServer()
+    {
+        GameController.addPlayer(this);
+    }
+
     private void LocalPlayer()
     {
         GameController.Instance.localSettings.localPlayer = this;
@@ -75,7 +85,7 @@ public class PlayerScript : MonoBehaviour
     // Update is called once per frame
     void LateUpdate()
     {
-
+        if (!hasAuthority) return;
         moveView();
         rotateView();
         zoomCamera();
@@ -93,7 +103,7 @@ public class PlayerScript : MonoBehaviour
     }
     private void zoomCamera()
     {
-        if (CurrentInput.GameObjectUnderPointer(-1) == null ||!(CurrentInput.GameObjectUnderPointer(-1).layer == LayerMask.NameToLayer("UI")))
+        if (CurrentInput != null &&(CurrentInput.GameObjectUnderPointer(-1) == null ||!(CurrentInput.GameObjectUnderPointer(-1).layer == LayerMask.NameToLayer("UI"))))
         {
 
             if (Input.GetAxis("Mouse ScrollWheel") < 0 && zoomLevel < maxZoom)
@@ -280,6 +290,7 @@ public class PlayerScript : MonoBehaviour
     RaycastHit hit;
     private void Update()
     {
+        if (!hasAuthority) return;
         BuildMode();
     }
 
@@ -302,10 +313,6 @@ public class PlayerScript : MonoBehaviour
             {
                 item.unSelect();
             }
-
-
-
-
         }
     }
 }

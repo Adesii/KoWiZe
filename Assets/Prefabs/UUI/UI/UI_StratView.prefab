@@ -8474,7 +8474,7 @@ MonoBehaviour:
   - prefabs: []
   - prefabs: []
   - prefabs: []
-  selectedUI: 2
+  selectedUI: 1
   strategyModeUI:
     UIItem: {fileID: 2016416136280863305}
     sideBarNotificationArea: {fileID: 5001175516626711009}

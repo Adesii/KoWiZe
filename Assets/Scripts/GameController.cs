@@ -5,6 +5,7 @@ using UnityEngine;
 using yaSingleton;
 using static ResourceClass;
 using UnityEngine.UI;
+using Mirror;
 
 [CreateAssetMenu(fileName = "GameController", menuName = "KoWiZe Custom Assets/Singletons/GameController")]
 public class GameController : Singleton<GameController>
@@ -13,7 +14,8 @@ public class GameController : Singleton<GameController>
     public Languages currentLanguage = Languages.en;
     public static event Action languageChangeEvent;
     public GameObject UI_Prefab;
-    public int localPlayerID = 0; 
+    public int localPlayerID = 0;
+    public NetworkManager manager;
     public enum Languages
     {
         de,
@@ -47,7 +49,7 @@ public class GameController : Singleton<GameController>
     public GameObject SelectionPrefab;
     public GameObject CustomPass;
 
-    [HideInInspector]
+    //[HideInInspector]
     public static UIEventManagerAndNotifier UIInstance;
 
 
@@ -60,7 +62,7 @@ public class GameController : Singleton<GameController>
         base.Initialize();
         StartCoroutine(TickStarter());
         StartCoroutine(GameTickStarter());
-        citySettings.perPlayerSettings.Clear();
+        //Instance.citySettings.perPlayerSettings.Clear();
 
         UIInstance = FindObjectOfType<UIEventManagerAndNotifier>();
         if (UIInstance == null)
@@ -70,6 +72,10 @@ public class GameController : Singleton<GameController>
         if(GameObject.FindGameObjectWithTag("GlobalVolume") == null)
         {
             DontDestroyOnLoad(Instantiate(CustomPass));
+        }
+        if(manager == null)
+        {
+            manager = FindObjectOfType<NetworkManager>();
         }
             
     }
@@ -124,7 +130,6 @@ public class GameController : Singleton<GameController>
     [Serializable]
     public class CitySetting
     {
-
         public List<perPlayerCitySettings> perPlayerSettings = new List<perPlayerCitySettings>();
         public List<Sprite> icons = new List<Sprite>();
         public GameObject cityPrefab;
@@ -152,7 +157,7 @@ public class GameController : Singleton<GameController>
     public bool enterCityBuildMode(int playerID)
     {
         CitySetting.perPlayerCitySettings ppcs = Instance.citySettings.perPlayerSettings[playerID];
-        if (ppcs == null) return false;
+        if (ppcs.playerScript == null) return false;
 
 
         citySystem css = Instantiate(citySettings.cityPrefab).GetComponent<citySystem>();
@@ -168,7 +173,7 @@ public class GameController : Singleton<GameController>
     public bool enterResourceBuildMode(int Resource)
     {
         CitySetting.perPlayerCitySettings ppcs = Instance.citySettings.perPlayerSettings[localPlayerID];
-        if (ppcs == null) return false;
+        if (ppcs.playerScript == null) return false;
         citySystem csr = (citySystem)ppcs.playerScript.Currently_Selected[ppcs.playerScript.Currently_Selected.Count-1];
         if (csr == null) return false;
         ResourceBuildings css = Instantiate(citySettings.ResourcePrefab).GetComponent<ResourceBuildings>();
@@ -188,10 +193,16 @@ public class GameController : Singleton<GameController>
     }
     public static void addPlayer(PlayerScript playerCam)
     {
+        foreach (var item in Instance.citySettings.perPlayerSettings)
+        {
+            if (item.playerScript.netId == playerCam.netId) return;
+        }
         CitySetting.perPlayerCitySettings set = new CitySetting.perPlayerCitySettings
         {
-            playerID = Instance.citySettings.perPlayerSettings.Count,
+            playerID = (int)playerCam.netId,
             playerScript = playerCam,
+            gold = 10,
+            science = 0,
             playerCities = new List<citySystem>()
         };
         Instance.citySettings.perPlayerSettings.Add(set);

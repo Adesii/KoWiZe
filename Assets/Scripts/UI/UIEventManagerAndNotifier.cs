@@ -6,6 +6,7 @@ using System.Linq;
 using UnityEditor;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using Mirror;
 
 
 [Serializable]
@@ -108,8 +109,7 @@ public class UIEventManagerAndNotifier : MonoBehaviour
     }
     public void NewGame()
     {
-
-
+        
         if (menuUI.BlackScreen != null)
         {
             menuUI.BlackScreen.SetActive(true);
@@ -125,6 +125,7 @@ public class UIEventManagerAndNotifier : MonoBehaviour
     private void LoadnewScene()
     {
         SceneManager.LoadScene(1);
+        GameController.Instance.manager.StartHost();
     }
 
     private void FadeScene()
