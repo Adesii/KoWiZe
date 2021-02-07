@@ -173,6 +173,7 @@ GameObject:
   - component: {fileID: 5566187412020137394}
   - component: {fileID: 2205751884653802412}
   - component: {fileID: 4536597682198182527}
+  - component: {fileID: 7323802172587086695}
   m_Layer: 0
   m_Name: ResourceBuilding
   m_TagString: Selectable
@@ -226,10 +227,6 @@ MonoBehaviour:
   isBuilding: 1
   currentlyBuilding: {fileID: 0}
   built: {fileID: 0}
-  isSelected: 0
-  SelectionRadius: 10
-  playSpeed: 2
-  unselectPunchRotation: {x: 0, y: 0, z: 0}
   resourceCity: {fileID: 0}
   type: 0
   buildings:
@@ -243,6 +240,22 @@ MonoBehaviour:
     maxCapacity: 0
     resourceIndex: 0
   amount: 10
+--- !u!114 &7323802172587086695
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7833055878185881318}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9b91ecbcc199f4492b9a91e820070131, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  sceneId: 0
+  serverOnly: 0
+  m_AssetId: 
+  hasSpawned: 0
 --- !u!1001 &992591437221061275
 PrefabInstance:
   m_ObjectHideFlags: 0

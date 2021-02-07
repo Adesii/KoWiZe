@@ -1209,8 +1209,9 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1568262027}
-  - component: {fileID: 1568262026}
   - component: {fileID: 1568262025}
+  - component: {fileID: 1568262026}
+  - component: {fileID: 1568262028}
   m_Layer: 0
   m_Name: networkManager
   m_TagString: Untagged
@@ -1269,7 +1270,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 1568262024}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8aab4c8111b7c411b9b92cf3dbc5bd4e, type: 3}
+  m_Script: {fileID: 11500000, guid: 6b8e4c797bc2dcf45b4fbc44ffa3a233, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   dontDestroyOnLoad: 1
@@ -1289,6 +1290,13 @@ MonoBehaviour:
   autoCreatePlayer: 1
   playerSpawnMethod: 0
   spawnPrefabs: []
+  showRoomGUI: 1
+  minPlayers: 1
+  roomPlayerPrefab: {fileID: 7423424900061788772, guid: 48aa45c923827644d9d7c5ef44dc8b55, type: 3}
+  RoomScene: Assets/Scenes/MainMenu.unity
+  GameplayScene: Assets/Scenes/Testing/worldGeneration.unity
+  _allPlayersReady: 0
+  roomSlots: []
 --- !u!4 &1568262027
 Transform:
   m_ObjectHideFlags: 0
@@ -1303,6 +1311,21 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1568262028
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1568262024}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6442dc8070ceb41f094e44de0bf87274, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  showGUI: 1
+  offsetX: 0
+  offsetY: 0
 --- !u!1001 &1659482603
 PrefabInstance:
   m_ObjectHideFlags: 0
