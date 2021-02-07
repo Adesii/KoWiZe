@@ -1,12 +1,13 @@
 using Steamworks;
 using System;
+using System.Collections.Generic;
 using System.IO;
 using UnityEngine;
 
 namespace Mirror.FizzySteam
 {
     [RequireComponent(typeof(SteamManager))]
-    [HelpURL("https://github.com/Chykary/FizzySteamworks")]    
+    [HelpURL("https://github.com/Chykary/FizzySteamworks")]
     public class FizzySteamworks : Transport
     {
         private const string STEAM_SCHEME = "steam";
@@ -101,11 +102,12 @@ namespace Mirror.FizzySteam
             ClientConnect(uri.Host);
         }
 
-        public override void ClientSend(int channelId, ArraySegment<byte> segment)
+        public override bool ClientSend(int channelId, ArraySegment<byte> segment)
         {
             byte[] data = new byte[segment.Count];
             Array.Copy(segment.Array, segment.Offset, data, 0, segment.Count);
             client.Send(data, channelId);
+            return true;
         }
 
         public override void ClientDisconnect()
@@ -159,14 +161,20 @@ namespace Mirror.FizzySteam
             return steamBuilder.Uri;
         }
 
-        public override void ServerSend(int connectionId, int channelId, ArraySegment<byte> segment)
+        public override bool ServerSend(List<int> connectionId, int channelId, ArraySegment<byte> segment)
         {
             if (ServerActive())
             {
                 byte[] data = new byte[segment.Count];
                 Array.Copy(segment.Array, segment.Offset, data, 0, segment.Count);
-                server.SendAll(connectionId, data, channelId);
+                foreach (var item in connectionId)
+                {
+                    server.SendAll(item, data, channelId);
+                }
+
+                return true;
             }
+            return false;
         }
         public override bool ServerDisconnect(int connectionId) => ServerActive() && server.Disconnect(connectionId);
         public override string ServerGetClientAddress(int connectionId) => ServerActive() ? server.ServerGetClientAddress(connectionId) : string.Empty;
@@ -191,7 +199,7 @@ namespace Mirror.FizzySteam
 
         public override int GetMaxPacketSize(int channelId)
         {
-            if(channelId >= Channels.Length)
+            if (channelId >= Channels.Length)
             {
                 Debug.LogError("Channel Id exceeded configured channels! Please configure more channels.");
                 return 1200;
