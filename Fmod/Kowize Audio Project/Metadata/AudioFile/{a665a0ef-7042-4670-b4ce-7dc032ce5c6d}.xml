@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<objects serializationModel="Studio.02.01.00">
+	<object class="AudioFile" id="{a665a0ef-7042-4670-b4ce-7dc032ce5c6d}">
+		<property name="assetPath">
+			<value>14_Ean Grimm - Seven Sins.mp3</value>
+		</property>
+		<property name="isStreaming">
+			<value>true</value>
+		</property>
+		<property name="frequencyInKHz">
+			<value>44.0999985</value>
+		</property>
+		<property name="channelCount">
+			<value>2</value>
+		</property>
+		<property name="length">
+			<value>200.41142857142856</value>
+		</property>
+		<relationship name="masterAssetFolder">
+			<destination>{03ae2304-bc0a-400e-8363-a19bea2e0e17}</destination>
+		</relationship>
+	</object>
+</objects>

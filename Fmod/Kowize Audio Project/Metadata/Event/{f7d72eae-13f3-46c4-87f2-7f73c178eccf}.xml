@@ -68,6 +68,7 @@
 		<relationship name="modules">
 			<destination>{a768357a-cb51-40ea-95b9-f92cdf2b2a6c}</destination>
 			<destination>{a0304701-08d0-4451-b4a5-6a7cf6c373b5}</destination>
+			<destination>{aec56968-2b5d-474f-a306-566450750df1}</destination>
 		</relationship>
 		<relationship name="mixerGroup">
 			<destination>{f79c931c-fb6e-4557-b99f-58f85a4f576c}</destination>
@@ -82,6 +83,7 @@
 		<relationship name="modules">
 			<destination>{a768357a-cb51-40ea-95b9-f92cdf2b2a6c}</destination>
 			<destination>{a0304701-08d0-4451-b4a5-6a7cf6c373b5}</destination>
+			<destination>{aec56968-2b5d-474f-a306-566450750df1}</destination>
 		</relationship>
 		<relationship name="preset">
 			<destination>{3d8a388b-d000-48ba-91d8-bcfba58a4df9}</destination>
@@ -116,12 +118,6 @@
 		<property name="start">
 			<value>3</value>
 		</property>
-		<property name="looping">
-			<value>true</value>
-		</property>
-		<relationship name="modulators">
-			<destination>{b1fb4b4a-7a47-4e23-81dc-b9508ef0db94}</destination>
-		</relationship>
 		<relationship name="audioFile">
 			<destination>{9e43f3ca-e2ca-437d-a2f4-5b682e2909d1}</destination>
 		</relationship>
@@ -130,11 +126,33 @@
 		<property name="isCutoff">
 			<value>true</value>
 		</property>
+		<property name="startOffset">
+			<value>50</value>
+		</property>
 		<relationship name="modulators">
-			<destination>{5a4988c0-cebe-41d7-9828-395ccca78850}</destination>
+			<destination>{60fea213-6f9c-4243-9915-394555028548}</destination>
+			<destination>{f8149f7f-876e-430c-83fb-d6ba190ec519}</destination>
 		</relationship>
 		<relationship name="event">
 			<destination>{c63201c9-5731-4ead-9b2a-9290f8f50253}</destination>
+		</relationship>
+	</object>
+	<object class="EventSound" id="{aec56968-2b5d-474f-a306-566450750df1}">
+		<property name="isCutoff">
+			<value>true</value>
+		</property>
+		<property name="start">
+			<value>1</value>
+		</property>
+		<property name="startOffset">
+			<value>50</value>
+		</property>
+		<relationship name="modulators">
+			<destination>{73ba027a-16cb-47a4-9779-39777657fdb3}</destination>
+			<destination>{d45455b1-9462-48d9-bb52-c4b358e8f8a3}</destination>
+		</relationship>
+		<relationship name="event">
+			<destination>{73b9718c-e789-4f81-ab6c-55e7cdd6c24e}</destination>
 		</relationship>
 	</object>
 	<object class="EventMixerGroup" id="{f79c931c-fb6e-4557-b99f-58f85a4f576c}">
@@ -161,35 +179,39 @@
 	</object>
 	<object class="MixerBusPanner" id="{0ad0fbe5-25c9-4e05-9369-af834077aa8d}" />
 	<object class="MixerBusFader" id="{658bcd36-0e63-4978-bdd0-698831943067}" />
-	<object class="ADSRModulator" id="{b1fb4b4a-7a47-4e23-81dc-b9508ef0db94}">
+	<object class="RandomizerModulator" id="{60fea213-6f9c-4243-9915-394555028548}">
+		<property name="nameOfPropertyBeingModulated">
+			<value>startOffset</value>
+		</property>
+		<property name="amount">
+			<value>100</value>
+		</property>
+	</object>
+	<object class="ADSRModulator" id="{f8149f7f-876e-430c-83fb-d6ba190ec519}">
 		<property name="nameOfPropertyBeingModulated">
 			<value>volume</value>
 		</property>
 		<property name="initialValue">
 			<value>-80</value>
-		</property>
-		<property name="attackShape">
-			<value>-0.197351336</value>
-		</property>
-		<property name="releaseShape">
-			<value>0.179758608</value>
 		</property>
 		<property name="finalValue">
 			<value>-80</value>
 		</property>
 	</object>
-	<object class="ADSRModulator" id="{5a4988c0-cebe-41d7-9828-395ccca78850}">
+	<object class="RandomizerModulator" id="{73ba027a-16cb-47a4-9779-39777657fdb3}">
+		<property name="nameOfPropertyBeingModulated">
+			<value>startOffset</value>
+		</property>
+		<property name="amount">
+			<value>100</value>
+		</property>
+	</object>
+	<object class="ADSRModulator" id="{d45455b1-9462-48d9-bb52-c4b358e8f8a3}">
 		<property name="nameOfPropertyBeingModulated">
 			<value>volume</value>
 		</property>
 		<property name="initialValue">
 			<value>-80</value>
-		</property>
-		<property name="attackShape">
-			<value>-0.291795075</value>
-		</property>
-		<property name="releaseShape">
-			<value>0.291794986</value>
 		</property>
 		<property name="finalValue">
 			<value>-80</value>

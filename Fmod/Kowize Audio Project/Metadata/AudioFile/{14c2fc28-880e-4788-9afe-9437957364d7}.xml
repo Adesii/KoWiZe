@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<objects serializationModel="Studio.02.01.00">
+	<object class="AudioFile" id="{14c2fc28-880e-4788-9afe-9437957364d7}">
+		<property name="assetPath">
+			<value>6_Ean Grimm - Sir Trollmoonshine.mp3</value>
+		</property>
+		<property name="isStreaming">
+			<value>true</value>
+		</property>
+		<property name="frequencyInKHz">
+			<value>44.0999985</value>
+		</property>
+		<property name="channelCount">
+			<value>2</value>
+		</property>
+		<property name="length">
+			<value>198.68734693877551</value>
+		</property>
+		<relationship name="masterAssetFolder">
+			<destination>{03ae2304-bc0a-400e-8363-a19bea2e0e17}</destination>
+		</relationship>
+	</object>
+</objects>
