@@ -602,7 +602,7 @@ GameObject:
   - component: {fileID: 967373851}
   - component: {fileID: 967373850}
   m_Layer: 5
-  m_Name: Apply
+  m_Name: Start
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -709,7 +709,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 967373851}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 2016416135910513800}
+        m_TargetAssemblyTypeName: UIEventManagerAndNotifier, Assembly-CSharp
+        m_MethodName: NewGame
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!1 &1210201433
 GameObject:
   m_ObjectHideFlags: 0
@@ -1998,8 +2010,8 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 2016416136075253186}
   m_HandleRect: {fileID: 2016416136075253187}
   m_Direction: 2
-  m_Value: 1
-  m_Size: 0.9978142
+  m_Value: 0
+  m_Size: 1
   m_NumberOfSteps: 0
   m_OnValueChanged:
     m_PersistentCalls:
@@ -9153,7 +9165,7 @@ MonoBehaviour:
   - prefabs: []
   - prefabs: []
   - prefabs: []
-  selectedUI: 2
+  selectedUI: 1
   strategyModeUI:
     UIItem: {fileID: 2016416136280863305}
     sideBarNotificationArea: {fileID: 5001175516626711009}
@@ -10767,7 +10779,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: -14.630379, y: -0.0001502717}
+  m_AnchoredPosition: {x: -0.000012397766, y: -0.0000042746888}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0, y: 1}
 --- !u!114 &377353075
@@ -12450,8 +12462,8 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 2016416136751913149}
   m_HandleRect: {fileID: 2016416136751913146}
   m_Direction: 0
-  m_Value: 1.0000668
-  m_Size: 0.98138136
+  m_Value: 0
+  m_Size: 0.98606724
   m_NumberOfSteps: 0
   m_OnValueChanged:
     m_PersistentCalls:

@@ -2,10 +2,13 @@
 using UnityEngine;
 using UnityEngine.EventSystems;
 using Mirror;
+using Cinemachine;
 public class PlayerScript : NetworkBehaviour
 {
 
-    public Camera childCamera;
+    [SerializeField] private Camera childCamera;
+    [SerializeField] private CinemachineVirtualCamera VCam;
+    private CinemachineOrbitalTransposer transposer;
 
     [Header("Movement Settings")]
     public float moveSpeed = 10f;
@@ -46,8 +49,8 @@ public class PlayerScript : NetworkBehaviour
         {
             if (currentInput == null)
             {
-                if(GameController.UIInstance.GetComponent<StandaloneInputModuleV2>() != null)
-                currentInput = GameController.UIInstance.GetComponent<StandaloneInputModuleV2>() as StandaloneInputModuleV2;
+                if (GameController.UIInstance.GetComponent<StandaloneInputModuleV2>() != null)
+                    currentInput = GameController.UIInstance.GetComponent<StandaloneInputModuleV2>() as StandaloneInputModuleV2;
                 if (currentInput == null)
                 {
                     Debug.LogError("Missing StandaloneInputModuleV2.");
@@ -65,11 +68,13 @@ public class PlayerScript : NetworkBehaviour
     {
         if (!hasAuthority) return;
         if (!isClient) gameObject.SetActive(false);
+        if(World.main != null)
         World.main.Player = gameObject;
+        transposer = VCam.GetCinemachineComponent<CinemachineOrbitalTransposer>();
         CmdaddPlayerToServer();
         GameController.Instance.localPlayerID = (int)netId;
         zoomLevel = defaultZoomLevel;
-        changeFOV(FOV);
+        //changeFOV(FOV);
         LocalPlayer();
     }
     [Command]
@@ -104,7 +109,7 @@ public class PlayerScript : NetworkBehaviour
     }
     private void zoomCamera()
     {
-        if (CurrentInput != null &&(CurrentInput.GameObjectUnderPointer(-1) == null ||!(CurrentInput.GameObjectUnderPointer(-1).layer == LayerMask.NameToLayer("UI"))))
+        if (CurrentInput != null && (CurrentInput.GameObjectUnderPointer(-1) == null || !(CurrentInput.GameObjectUnderPointer(-1).layer == LayerMask.NameToLayer("UI"))))
         {
 
             if (Input.GetAxis("Mouse ScrollWheel") < 0 && zoomLevel < maxZoom)
@@ -133,10 +138,11 @@ public class PlayerScript : NetworkBehaviour
 
             }
         }
-        Vector3 height = childCamera.transform.position;
-        height.y = zoomLevel + transform.position.y;
-        childCamera.transform.position = height;
-        childCamera.transform.LookAt(transform);
+        //Vector3 height = childCamera.transform.position;
+        //height.y = zoomLevel + transform.position.y;
+        //childCamera.transform.position = height;
+        //childCamera.transform.LookAt(transform);
+        transposer.m_FollowOffset.y = (transform.position.y + zoomLevel);
 
 
     }
@@ -261,6 +267,7 @@ public class PlayerScript : NetworkBehaviour
             if (Input.GetMouseButtonDown(0))
             {
                 building.GetComponent<BuildableObject>().HasBeenBuild();
+                NetworkServer.Spawn(building);
                 building = null;
             }
 

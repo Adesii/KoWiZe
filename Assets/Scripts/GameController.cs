@@ -195,7 +195,7 @@ public class GameController : Singleton<GameController>
     {
         foreach (var item in Instance.citySettings.perPlayerSettings)
         {
-            if (item.playerScript.netId == playerCam.netId) return;
+            if ((int)item.playerScript.netId == (int)playerCam.netId) return;
         }
         CitySetting.perPlayerCitySettings set = new CitySetting.perPlayerCitySettings
         {

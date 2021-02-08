@@ -145,13 +145,16 @@ public class World : MonoBehaviour
     }
     public IEnumerator updateLOD()
     {
+        while(Player == null)
+        {
+            yield return new WaitForSeconds(updateRate);
+        }
         while (true)
         {
             for (int x = -LODRadius; x < LODRadius; x++)
             {
                 for (int z = -LODRadius; z < LODRadius; z++)
                 {
-
                     ChunkPoint chunk = new ChunkPoint((int)((Player.transform.position.x / chunkSize) + (x) + ((typeOfWorld.sizeX) / 2f)), (int)((Player.transform.position.z / chunkSize) + (z) + ((typeOfWorld.sizeZ) / 2f)));
                     ChunkPoint playerChunk = new ChunkPoint((int)((Player.transform.position.x / chunkSize) + ((typeOfWorld.sizeX) / 2f)), (int)((Player.transform.position.z / chunkSize) + ((typeOfWorld.sizeZ) / 2f)));
                     currPlayerChunk = new Vector2(playerChunk.X, playerChunk.Z);
