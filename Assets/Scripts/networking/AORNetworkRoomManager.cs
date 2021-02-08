@@ -54,18 +54,4 @@ public class AORNetworkRoomManager : NetworkRoomManager
 
         playerInfoDisplay.SetSteamId(steamId.m_SteamID);
     }
-
-    /*
-    public void getInfo(GameObject ob)
-    {
-        CSteamID steamID = SteamMatchmaking.GetLobbyMemberByIndex(
-                lobbyID,
-                numPlayers - 1
-                );
-
-        var playerinfo = ob.GetComponent<AORNetworkRoomPlayer>();
-        Debug.Log(steamID);
-        playerinfo.SetSteamId(steamID.m_SteamID);
-    }
-    */
 }

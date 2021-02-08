@@ -80,7 +80,8 @@ public class SteamLobby : MonoBehaviour
         string hostAddress = SteamMatchmaking.GetLobbyData(
             new CSteamID(callback.m_ulSteamIDLobby),
             HostAddressKey);
-
+        lobbyMenu.SetActive(true);
+        mainMenuFader.GetComponent<simpleUIFader>().disableObject();
         networkManager.networkAddress = hostAddress;
         networkManager.StartClient();
 
