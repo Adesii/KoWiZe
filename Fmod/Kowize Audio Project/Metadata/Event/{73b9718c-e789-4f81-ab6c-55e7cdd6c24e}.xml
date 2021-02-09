@@ -199,6 +199,12 @@
 		<property name="length">
 			<value>127.5</value>
 		</property>
+		<property name="triggerProbabilityEnabled">
+			<value>true</value>
+		</property>
+		<property name="triggerProbability">
+			<value>25</value>
+		</property>
 		<relationship name="timeline">
 			<destination>{7c3248a5-60ff-4561-ad34-d31d7e35e1af}</destination>
 		</relationship>
@@ -212,6 +218,12 @@
 		</property>
 		<property name="length">
 			<value>138.5</value>
+		</property>
+		<property name="triggerProbabilityEnabled">
+			<value>true</value>
+		</property>
+		<property name="triggerProbability">
+			<value>24.5</value>
 		</property>
 		<relationship name="timeline">
 			<destination>{7c3248a5-60ff-4561-ad34-d31d7e35e1af}</destination>
@@ -227,6 +239,12 @@
 		<property name="length">
 			<value>160</value>
 		</property>
+		<property name="triggerProbabilityEnabled">
+			<value>true</value>
+		</property>
+		<property name="triggerProbability">
+			<value>24.5</value>
+		</property>
 		<relationship name="timeline">
 			<destination>{7c3248a5-60ff-4561-ad34-d31d7e35e1af}</destination>
 		</relationship>
@@ -241,6 +259,12 @@
 		<property name="length">
 			<value>132.48979591836735</value>
 		</property>
+		<property name="triggerProbabilityEnabled">
+			<value>true</value>
+		</property>
+		<property name="triggerProbability">
+			<value>25</value>
+		</property>
 		<relationship name="timeline">
 			<destination>{7c3248a5-60ff-4561-ad34-d31d7e35e1af}</destination>
 		</relationship>
@@ -250,10 +274,7 @@
 	</object>
 	<object class="TransitionMarker" id="{c6f6b94d-9178-4885-ad46-55ed9c9ba610}">
 		<property name="position">
-			<value>565</value>
-		</property>
-		<property name="triggerProbabilityEnabled">
-			<value>true</value>
+			<value>568.48979591836735</value>
 		</property>
 		<property name="triggerProbability">
 			<value>25</value>

@@ -3,10 +3,16 @@ using System.Collections.Generic;
 using yaSingleton;
 using UnityEngine;
 using FMOD;
+using System;
+
 [CreateAssetMenu(fileName = "SFXManager", menuName = "KoWiZe Custom Assets/Singletons/SFXManager")]
 public class SFXManagerController : Singleton<SFXManagerController>
 {
-
+    FMOD.Studio.Bus Music;
+    FMOD.Studio.Bus SoundEffects;
+    FMOD.Studio.Bus Master;
+    FMOD.Studio.Bus Enviroment;
+    VolumeTarget target;
     [SerializeField]
     StringSFXDictionary soundeffects = new StringSFXDictionary();
     public IDictionary<string,SFXHolder> AS
@@ -31,6 +37,10 @@ public class SFXManagerController : Singleton<SFXManagerController>
     protected override void Initialize()
     {
         base.Initialize();
+        Music = FMODUnity.RuntimeManager.GetBus("bus:/Master/Music");
+        SoundEffects = FMODUnity.RuntimeManager.GetBus("bus:/Master/Sound effects");
+        Enviroment = FMODUnity.RuntimeManager.GetBus("bus:/Master/Enviroment");
+        Master = FMODUnity.RuntimeManager.GetBus("bus:/Master");
     }
     public void Play(string name)
     {
@@ -53,6 +63,38 @@ public class SFXManagerController : Singleton<SFXManagerController>
         s.instance.Add(inst);
 
     }
+    public void setTarget(string t)
+    {
+        target = (VolumeTarget)Enum.Parse(typeof(VolumeTarget),t);
+    }
+    public void VolumeLevel(float newMasterVolume)
+    {
+        switch (target)
+        {
+            case VolumeTarget.Master:
+                Master.setVolume(newMasterVolume);
+                break;
+            case VolumeTarget.Enviroment:
+                Enviroment.setVolume(newMasterVolume);
+                break;
+            case VolumeTarget.Music:
+                Music.setVolume(newMasterVolume);
+                break;
+            case VolumeTarget.Effects:
+                SoundEffects.setVolume(newMasterVolume);
+                break;
+            default:
+                break;
+        }
+    }
+    public enum VolumeTarget
+    {
+        Master,
+        Enviroment,
+        Music,
+        Effects
+    }
+
 
     [System.Serializable]
     public class StringSFXDictionary : SerializableDictionary<string, SFXHolder> { }
