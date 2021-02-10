@@ -478,79 +478,6 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 2016416135132598839, guid: bf73ac15dad7c9247bc4fe439243889b, type: 3}
   m_PrefabInstance: {fileID: 1659482603}
   m_PrefabAsset: {fileID: 0}
---- !u!1 &691477620 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 1284488865463646113, guid: d254002e027ed45429df1b46ce795959, type: 3}
-  m_PrefabInstance: {fileID: 1284488864435433513}
-  m_PrefabAsset: {fileID: 0}
---- !u!114 &691477621
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 691477620}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ea368fb6f27ec2f40a40e20977992b9c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  OnClientConnected:
-    m_PersistentCalls:
-      m_Calls: []
-  OnClientDataReceived:
-    m_PersistentCalls:
-      m_Calls: []
-  OnClientError:
-    m_PersistentCalls:
-      m_Calls: []
-  OnClientDisconnected:
-    m_PersistentCalls:
-      m_Calls: []
-  OnServerConnected:
-    m_PersistentCalls:
-      m_Calls: []
-  OnServerDataReceived:
-    m_PersistentCalls:
-      m_Calls: []
-  OnServerError:
-    m_PersistentCalls:
-      m_Calls: []
-  OnServerDisconnected:
-    m_PersistentCalls:
-      m_Calls: []
-  Channels: 02000000
-  Timeout: 25
-  SteamAppID: 480
-  AllowSteamRelay: 1
-  SteamUserID: 0
---- !u!114 &691477622
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 691477620}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ef4bffeda13d7a748973ff9204401c07, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!114 &691477623
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 691477620}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fbc249189224fbd429bf967c0a369d39, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  newGameButton: {fileID: 954826628}
-  lobbyMenu: {fileID: 576048640}
-  mainMenuFader: {fileID: 1354049046}
 --- !u!114 &954826628 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 2016416135847365237, guid: bf73ac15dad7c9247bc4fe439243889b, type: 3}
@@ -1402,6 +1329,18 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 691477623, guid: d254002e027ed45429df1b46ce795959, type: 3}
+      propertyPath: lobbyMenu
+      value: 
+      objectReference: {fileID: 576048640}
+    - target: {fileID: 691477623, guid: d254002e027ed45429df1b46ce795959, type: 3}
+      propertyPath: mainMenuFader
+      value: 
+      objectReference: {fileID: 1354049046}
+    - target: {fileID: 691477623, guid: d254002e027ed45429df1b46ce795959, type: 3}
+      propertyPath: newGameButton
+      value: 
+      objectReference: {fileID: 954826628}
     - target: {fileID: 1284488865463646113, guid: d254002e027ed45429df1b46ce795959, type: 3}
       propertyPath: m_Name
       value: networkManager
@@ -1450,9 +1389,5 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 1284488865463646115, guid: d254002e027ed45429df1b46ce795959, type: 3}
-      propertyPath: transport
-      value: 
-      objectReference: {fileID: 691477621}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: d254002e027ed45429df1b46ce795959, type: 3}
