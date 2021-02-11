@@ -124,8 +124,9 @@ public class UIEventManagerAndNotifier : MonoBehaviour
 
     private void LoadnewScene()
     {
-        SceneManager.LoadScene(1);
-        GameController.Instance.manager.StartHost();
+        GameController.Instance.manager.ServerChangeScene("worldGeneration");
+        //SceneManager.LoadScene(1);
+        //GameController.Instance.manager.StartHost();
     }
 
     private void FadeScene()

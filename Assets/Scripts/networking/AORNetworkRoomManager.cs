@@ -28,10 +28,8 @@ public class AORNetworkRoomManager : NetworkRoomManager
     public override void OnRoomStartServer()
     {
         spawnPrefabs = Resources.LoadAll<GameObject>("SpawnablePrefabs").ToList();
-    }
-    public override void OnStartServer()
-    {
-        base.OnStartServer();
+        base.OnRoomStartServer();
+
     }
 
     public override void OnRoomStartClient()
@@ -41,11 +39,12 @@ public class AORNetworkRoomManager : NetworkRoomManager
         {
             ClientScene.RegisterPrefab(item);
         }
+        base.OnRoomStartClient();
+
     }
     public override void OnServerAddPlayer(NetworkConnection conn)
     {
         base.OnServerAddPlayer(conn);
-
         CSteamID steamId = SteamMatchmaking.GetLobbyMemberByIndex(
             SteamLobby.LobbyId,
             numPlayers - 1);

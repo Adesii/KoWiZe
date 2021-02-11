@@ -28,11 +28,11 @@ public class UI_City_Hover : MonoBehaviour
     }
 
     // Update is called once per frame
-    void LateUpdate()
+    private void LateUpdate()
     {
         updateHover();
-    }
 
+    }
     private void updateHover()
     {
         foreach (var item in HoverList)

@@ -8,7 +8,7 @@ using UnityEngine.UI;
 using Mirror;
 
 [CreateAssetMenu(fileName = "GameController", menuName = "KoWiZe Custom Assets/Singletons/GameController")]
-public class GameController : Singleton<GameController>
+public partial class GameController : Singleton<GameController>
 {
     private int currLangIndex;
     public Languages currentLanguage = Languages.en;
@@ -127,33 +127,6 @@ public class GameController : Singleton<GameController>
         [Range(0, 1)]
         public float successProcent = 0.50f;
     }
-    [Serializable]
-    public class CitySetting
-    {
-        public List<perPlayerCitySettings> perPlayerSettings = new List<perPlayerCitySettings>();
-        public List<Sprite> icons = new List<Sprite>();
-        public GameObject cityPrefab;
-        public GameObject ResourcePrefab;
-
-        [Serializable]
-        public class perPlayerCitySettings
-        {
-            public int playerID;
-            public float exponentialFoodProduction = 2f;
-            public float exponentialScienceProduction = 2f;
-
-            public PlayerScript playerScript;
-
-            public float science;
-            public float gold;
-
-            public List<citySystem> playerCities;
-
-
-        }
-
-
-    }
     public bool enterCityBuildMode(int playerID)
     {
         CitySetting.perPlayerCitySettings ppcs = Instance.citySettings.perPlayerSettings[playerID];
@@ -197,9 +170,10 @@ public class GameController : Singleton<GameController>
         {
             if ((int)item.playerScript.netId == (int)playerCam.netId) return;
         }
+        if (playerCam.isLocalPlayer) Instance.localPlayerID = Instance.citySettings.perPlayerSettings.Count;
         CitySetting.perPlayerCitySettings set = new CitySetting.perPlayerCitySettings
         {
-            playerID = (int)playerCam.netId,
+            playerID = Instance.citySettings.perPlayerSettings.Count,
             playerScript = playerCam,
             gold = 10,
             science = 0,

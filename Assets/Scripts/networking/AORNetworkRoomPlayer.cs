@@ -39,7 +39,7 @@ public class AORNetworkRoomPlayer : NetworkRoomPlayer
     public override void OnStartClient()
     {
         avatarImageLoaded = Callback<AvatarImageLoaded_t>.Create(OnAvatarImageLoaded);
-        transform.parent = FindObjectOfType<AORRoomDisplayer>().transform;
+        transform.SetParent(FindObjectOfType<AORRoomDisplayer>().transform);
     }
 
     private void HandleSteamIdUpdated(ulong oldSteamId, ulong newSteamId)

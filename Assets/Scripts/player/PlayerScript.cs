@@ -67,12 +67,12 @@ public class PlayerScript : NetworkBehaviour
     void Start()
     {
         if (!hasAuthority) return;
-        if (!isClient) gameObject.SetActive(false);
-        if(World.main != null)
-        World.main.Player = gameObject;
+        if (!isLocalPlayer) { gameObject.SetActive(false); return; }
+        if (World.main != null)
+            World.main.Player = gameObject;
+        childCamera = Camera.main;
         transposer = VCam.GetCinemachineComponent<CinemachineOrbitalTransposer>();
         CmdaddPlayerToServer();
-        GameController.Instance.localPlayerID = (int)netId;
         zoomLevel = defaultZoomLevel;
         //changeFOV(FOV);
         LocalPlayer();

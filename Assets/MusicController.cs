@@ -10,6 +10,7 @@ public class MusicController : MonoBehaviour
     {
         RuntimeManager.StudioSystem.setParameterByName("GlobalState", 3f);
         SFXManagerController.Instance.Play("bgm_menu");
+        DontDestroyOnLoad(gameObject);
     }
     private void OnDestroy()
     {
