@@ -66,10 +66,16 @@ public class PlayerScript : NetworkBehaviour
     // Start is called before the first frame update
     void Start()
     {
+
+    }
+
+    public override void OnStartClient()
+    {
+        base.OnStartClient();
         GameController.addPlayer(gameObject);
 
         if (!hasAuthority) return;
-        if (!isLocalPlayer) {return; }
+        if (!isLocalPlayer) { return; }
         if (World.main != null)
             World.main.Player = gameObject;
         childCamera = Camera.main;
@@ -263,10 +269,10 @@ public class PlayerScript : NetworkBehaviour
             }
             if (Input.GetMouseButtonDown(0))
             {
-                var bb =building.GetComponent<BuildableObject>();
+                var bb = building.GetComponent<BuildableObject>();
                 bb.HasBeenBuild();
-                bb.OwnerID = (int)netId;
-                NetworkServer.Spawn(building,gameObject);
+                bb.playerOwner = netIdentity;
+                NetworkServer.Spawn(building, gameObject);
                 building = null;
             }
 

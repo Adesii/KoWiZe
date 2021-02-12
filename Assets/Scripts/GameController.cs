@@ -137,7 +137,7 @@ public partial class GameController : Singleton<GameController>
         return true;
     }
     [ClientRpc]
-    public static void AddCityToPlayers(NetworkIdentity city,int OwnerID)
+    public static void AddCityToPlayers(NetworkIdentity city,uint OwnerID)
     {
         Instance.citySettings.perPlayerSettings[GetPlayerIndexbyNetID(OwnerID)].playerCities.Add(city.GetComponent<citySystem>());
     }
@@ -185,7 +185,7 @@ public partial class GameController : Singleton<GameController>
     {
         return Instance.citySettings.icons[(int)resource];
     }
-    public static citySystem TryGetCityFromIDs(int playerNetID,int cityID)
+    public static citySystem TryGetCityFromIDs(uint playerNetID,int cityID)
     {
         foreach (var item in Instance.citySettings.perPlayerSettings[GetPlayerIndexbyNetID(playerNetID)].playerCities)
         {
@@ -193,7 +193,7 @@ public partial class GameController : Singleton<GameController>
         }
         return null;
     }
-    public static int GetPlayerIndexbyNetID(int netID)
+    public static int GetPlayerIndexbyNetID(uint netID)
     {
         for (int i = 0; i < Instance.citySettings.perPlayerSettings.Count; i++)
         {

@@ -17,14 +17,11 @@ public class ResourceBuildings : BuildableObject
 
     public float amount = 10f;
 
-    private void Start()
+    internal override void NewParent(NetworkIdentity oldP, NetworkIdentity newP)
     {
-        if (resourceCity == null)
-        {
-            resourceCity = GameController.TryGetCityFromIDs(OwnerID, OwnerCityID);
-            if (resourceCity != null) init();
-        }
-
+        base.NewParent(oldP,newP);
+        Debug.Log($"Hook Called on {netIdentity.name}");
+        resourceCity = newP.GetComponent<citySystem>();
     }
     private void Update()
     {
@@ -33,7 +30,12 @@ public class ResourceBuildings : BuildableObject
             transform.LookAt(resourceCity.transform);
         }
     }
-
+    public override void OnStartClient()
+    {
+        base.OnStartClient();
+        init();
+        resourceCity.AddResourceBuilding(this);
+    }
     public void init()
     {
         GameController.Instance.onResourceTick += onResource;

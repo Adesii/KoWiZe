@@ -10,7 +10,7 @@ public class citySystem : Selectable
     [Header("CitySettings")]
     [SyncVar]
     public int cityID;
-    
+
     public int cityTier = 0;
     public int maxAmountOfBuildings = 10;
     public List<GameObject> buildings;
@@ -61,7 +61,6 @@ public class citySystem : Selectable
     public override void HasBeenBuild()
     {
         base.HasBeenBuild();
-        AddPlayerCity();
         name = "City: " + getCityName();
         isSelected = false;
         isBuilding = false;
@@ -71,15 +70,10 @@ public class citySystem : Selectable
         cityID = GameController.Instance.citySettings.perPlayerSettings[GameController.Instance.localPlayerID].playerCities.Count - 1;
     }
 
-    [Command(ignoreAuthority =true)]
-    public void AddPlayerCity()
-    {
-        GameController.AddCityToPlayers(netIdentity, OwnerID);
-    }
 
     private string getCityName()
     {
-        List<string> liss = new List<string>() { "Rosevelt", "Bobs Burger Palace","SomethingNice","Not a Real City", "Aachen","Koeln" };
+        List<string> liss = new List<string>() { "Rosevelt", "Bobs Burger Palace", "SomethingNice", "Not a Real City", "Aachen", "Koeln" };
         return liss[Random.Range(0, liss.Count)];
     }
     public override void PointerClicked()
@@ -123,7 +117,7 @@ public class citySystem : Selectable
             gm.gameObject.SetActive(true);
             gm.ownCity = this;
         }
-        
+
         buildPanel.gameObject.SetActive(true);
         buildPanel.CityInfoPanel.ownCity = this;
         buildPanel.CityInfoPanel.UpdateResources();
@@ -172,6 +166,14 @@ public class citySystem : Selectable
         return true;
     }
 
+    internal override void NewOwner(NetworkIdentity oldO, NetworkIdentity newO)
+    {
+        base.NewOwner(oldO, newO);
+        var pps = GameController.CitySettings.perPlayerSettings[GameController.GetPlayerIndexbyNetID(oldO.netId)];
+        if (pps.playerCities.Contains(this))
+            pps.playerCities.Remove(this);
+        GameController.CitySettings.perPlayerSettings[GameController.GetPlayerIndexbyNetID(OwnerID)].playerCities.Add(this);
+    }
 
 
 
