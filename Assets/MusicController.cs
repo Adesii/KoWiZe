@@ -8,9 +8,10 @@ public class MusicController : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        DontDestroyOnLoad(gameObject);
         RuntimeManager.StudioSystem.setParameterByName("GlobalState", 3f);
         SFXManagerController.Instance.Play("bgm_menu");
-        DontDestroyOnLoad(gameObject);
+        
     }
     private void OnDestroy()
     {

@@ -19,6 +19,7 @@ public partial class GameController
             public float exponentialFoodProduction = 2f;
             public float exponentialScienceProduction = 2f;
 
+            
             public PlayerScript playerScript;
 
             public float science;

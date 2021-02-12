@@ -37,10 +37,18 @@ public class SFXManagerController : Singleton<SFXManagerController>
     protected override void Initialize()
     {
         base.Initialize();
-        Music = FMODUnity.RuntimeManager.GetBus("bus:/Master/Music");
-        SoundEffects = FMODUnity.RuntimeManager.GetBus("bus:/Master/Sound effects");
-        Enviroment = FMODUnity.RuntimeManager.GetBus("bus:/Master/Enviroment");
-        Master = FMODUnity.RuntimeManager.GetBus("bus:/Master");
+        try
+        {
+            Music = FMODUnity.RuntimeManager.GetBus("bus:/Master/Music");
+            SoundEffects = FMODUnity.RuntimeManager.GetBus("bus:/Master/Sound effects");
+            Enviroment = FMODUnity.RuntimeManager.GetBus("bus:/Master/Enviroment");
+            Master = FMODUnity.RuntimeManager.GetBus("bus:/Master");
+        }
+        finally
+        {
+
+        }
+        
     }
     public void Play(string name)
     {

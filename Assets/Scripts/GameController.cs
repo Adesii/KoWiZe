@@ -15,7 +15,7 @@ public partial class GameController : Singleton<GameController>
     public static event Action languageChangeEvent;
     public GameObject UI_Prefab;
     public int localPlayerID = 0;
-    public NetworkManager manager;
+    public AORNetworkRoomManager manager;
     public enum Languages
     {
         de,
@@ -75,7 +75,7 @@ public partial class GameController : Singleton<GameController>
         }
         if(manager == null)
         {
-            manager = FindObjectOfType<NetworkManager>();
+            manager = FindObjectOfType<AORNetworkRoomManager>();
         }
             
     }
@@ -127,22 +127,21 @@ public partial class GameController : Singleton<GameController>
         [Range(0, 1)]
         public float successProcent = 0.50f;
     }
-    public bool enterCityBuildMode(int playerID)
+    public bool enterCityBuildMode()
     {
-        CitySetting.perPlayerCitySettings ppcs = Instance.citySettings.perPlayerSettings[playerID];
+        CitySetting.perPlayerCitySettings ppcs = Instance.citySettings.perPlayerSettings[localPlayerID];
         if (ppcs.playerScript == null) return false;
-
-
         citySystem css = Instantiate(citySettings.cityPrefab).GetComponent<citySystem>();
-
-
-        ppcs.playerScript.buildObject(css);
-
         ppcs.playerCities.Add(css);
-
-
+        ppcs.playerScript.buildObject(css);
         return true;
     }
+    [ClientRpc]
+    public static void AddCityToPlayers(NetworkIdentity city,int OwnerID)
+    {
+        Instance.citySettings.perPlayerSettings[GetPlayerIndexbyNetID(OwnerID)].playerCities.Add(city.GetComponent<citySystem>());
+    }
+
     public bool enterResourceBuildMode(int Resource)
     {
         CitySetting.perPlayerCitySettings ppcs = Instance.citySettings.perPlayerSettings[localPlayerID];
@@ -156,37 +155,58 @@ public partial class GameController : Singleton<GameController>
         
         return true;
     }
-    public static void cityBuildmode(int id)
+    public static void cityBuildmode()
     {
-        Instance.enterCityBuildMode(id);
+        Instance.enterCityBuildMode();
     }
     public static void resourceBuildMode(int resourceID)
     {
         Instance.enterResourceBuildMode(resourceID);
     }
-    public static void addPlayer(PlayerScript playerCam)
+    public static void addPlayer(GameObject player)
     {
+        var playerCam = player.GetComponent<PlayerScript>();
         foreach (var item in Instance.citySettings.perPlayerSettings)
         {
-            if ((int)item.playerScript.netId == (int)playerCam.netId) return;
+            if (item.playerScript != null &&(item.playerScript.netId == playerCam.netId)) return;
         }
         if (playerCam.isLocalPlayer) Instance.localPlayerID = Instance.citySettings.perPlayerSettings.Count;
         CitySetting.perPlayerCitySettings set = new CitySetting.perPlayerCitySettings
         {
-            playerID = Instance.citySettings.perPlayerSettings.Count,
+            playerID = (int)playerCam.netId,
             playerScript = playerCam,
             gold = 10,
             science = 0,
             playerCities = new List<citySystem>()
         };
         Instance.citySettings.perPlayerSettings.Add(set);
-
     }
     public static Sprite GetResourceIcon(ResourceTypes resource)
     {
         return Instance.citySettings.icons[(int)resource];
     }
-
+    public static citySystem TryGetCityFromIDs(int playerNetID,int cityID)
+    {
+        foreach (var item in Instance.citySettings.perPlayerSettings[GetPlayerIndexbyNetID(playerNetID)].playerCities)
+        {
+            if (cityID == item.cityID) return item;
+        }
+        return null;
+    }
+    public static int GetPlayerIndexbyNetID(int netID)
+    {
+        for (int i = 0; i < Instance.citySettings.perPlayerSettings.Count; i++)
+        {
+            var item = Instance.citySettings.perPlayerSettings[i];
+            if (item.playerScript.netId == netID) return i;
+        }
+        return -1;
+    }
+    [ClientRpc(excludeOwner = true)]
+    public static void RpctriggerHasBeenBuilton(NetworkIdentity ent)
+    {
+        ent.GetComponent<BuildableObject>().HasBeenBuild();
+    }
     public static void ApplySetting()
     {
         Debug.Log(CurrLangIndex);

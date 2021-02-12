@@ -66,21 +66,18 @@ public class PlayerScript : NetworkBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        GameController.addPlayer(gameObject);
+
         if (!hasAuthority) return;
-        if (!isLocalPlayer) { gameObject.SetActive(false); return; }
+        if (!isLocalPlayer) {return; }
         if (World.main != null)
             World.main.Player = gameObject;
         childCamera = Camera.main;
         transposer = VCam.GetCinemachineComponent<CinemachineOrbitalTransposer>();
-        CmdaddPlayerToServer();
+        VCam.Priority = 1000;
         zoomLevel = defaultZoomLevel;
         //changeFOV(FOV);
         LocalPlayer();
-    }
-    [Command]
-    private void CmdaddPlayerToServer()
-    {
-        GameController.addPlayer(this);
     }
 
     private void LocalPlayer()
@@ -266,8 +263,10 @@ public class PlayerScript : NetworkBehaviour
             }
             if (Input.GetMouseButtonDown(0))
             {
-                building.GetComponent<BuildableObject>().HasBeenBuild();
-                NetworkServer.Spawn(building);
+                var bb =building.GetComponent<BuildableObject>();
+                bb.HasBeenBuild();
+                bb.OwnerID = (int)netId;
+                NetworkServer.Spawn(building,gameObject);
                 building = null;
             }
 

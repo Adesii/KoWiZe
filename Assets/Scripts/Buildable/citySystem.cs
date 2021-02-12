@@ -8,7 +8,9 @@ using UnityEngine.VFX;
 public class citySystem : Selectable
 {
     [Header("CitySettings")]
+    [SyncVar]
     public int cityID;
+    
     public int cityTier = 0;
     public int maxAmountOfBuildings = 10;
     public List<GameObject> buildings;
@@ -59,11 +61,20 @@ public class citySystem : Selectable
     public override void HasBeenBuild()
     {
         base.HasBeenBuild();
+        AddPlayerCity();
         name = "City: " + getCityName();
         isSelected = false;
         isBuilding = false;
         gm = UI_City_Hover.addNewCity(this);
         buildPanel = GameController.UIInstance.strategyModeUI.BuildPanelScript;
+
+        cityID = GameController.Instance.citySettings.perPlayerSettings[GameController.Instance.localPlayerID].playerCities.Count - 1;
+    }
+
+    [Command(ignoreAuthority =true)]
+    public void AddPlayerCity()
+    {
+        GameController.AddCityToPlayers(netIdentity, OwnerID);
     }
 
     private string getCityName()
@@ -148,6 +159,7 @@ public class citySystem : Selectable
         {
             return false;
         }
+        building.OwnerCityID = cityID;
         ResourceBuilding.Add(building);
 
         vsfL.Add(Instantiate(arrowPrefab, transform).GetComponent<VisualEffect>());

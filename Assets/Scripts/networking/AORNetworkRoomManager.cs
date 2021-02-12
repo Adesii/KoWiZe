@@ -53,4 +53,21 @@ public class AORNetworkRoomManager : NetworkRoomManager
 
         playerInfoDisplay.SetSteamId(steamId.m_SteamID);
     }
+    public override void OnClientSceneChanged(NetworkConnection conn)
+    {
+        base.OnClientSceneChanged(conn);
+        GameController.UIInstance.NewGame();
+
+    }
+    public void ChangePlayerReadyState()
+    {
+        foreach (var item in roomSlots)
+        {
+            if (item.isLocalPlayer)
+            {
+                item.CmdChangeReadyState(!item.readyToBegin);
+            }
+        }
+    }
+    
 }
