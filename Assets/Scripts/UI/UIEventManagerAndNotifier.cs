@@ -116,7 +116,7 @@ public class UIEventManagerAndNotifier : MonoBehaviour
         }
 
         selectedUI = type_Of_UI.stratMode;
-        InvokeRepeating(nameof(FadeScene), 1.5f, 0);
+        FadeScene();
 
     }
 

@@ -29,7 +29,6 @@ public abstract class BuildableObject : NetworkBehaviour
     }
     internal virtual void NewOwner(NetworkIdentity oldO,NetworkIdentity newO)
     {
-        if (oldO == null) return;
         OwnerID = newO.netId;
     }
 

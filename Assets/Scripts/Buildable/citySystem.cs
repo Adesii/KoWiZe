@@ -169,9 +169,12 @@ public class citySystem : Selectable
     internal override void NewOwner(NetworkIdentity oldO, NetworkIdentity newO)
     {
         base.NewOwner(oldO, newO);
-        var pps = GameController.CitySettings.perPlayerSettings[GameController.GetPlayerIndexbyNetID(oldO.netId)];
-        if (pps.playerCities.Contains(this))
-            pps.playerCities.Remove(this);
+        if(oldO != null)
+        {
+            var pps = GameController.CitySettings.perPlayerSettings[GameController.GetPlayerIndexbyNetID(oldO.netId)];
+            if (pps.playerCities.Contains(this))
+                pps.playerCities.Remove(this);
+        }
         GameController.CitySettings.perPlayerSettings[GameController.GetPlayerIndexbyNetID(OwnerID)].playerCities.Add(this);
     }
 

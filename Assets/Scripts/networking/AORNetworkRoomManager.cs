@@ -55,8 +55,8 @@ public class AORNetworkRoomManager : NetworkRoomManager
     }
     public override void OnClientSceneChanged(NetworkConnection conn)
     {
-        base.OnClientSceneChanged(conn);
         GameController.UIInstance.NewGame();
+        base.OnClientSceneChanged(conn);
 
     }
     public void ChangePlayerReadyState()

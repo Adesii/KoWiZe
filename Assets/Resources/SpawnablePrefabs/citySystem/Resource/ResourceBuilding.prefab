@@ -228,6 +228,7 @@ MonoBehaviour:
   syncMode: 0
   syncInterval: 0.1
   OwnerID: 0
+  playerOwner: {fileID: 0}
   isBuilding: 1
   currentlyBuilding: {fileID: 0}
   built: {fileID: 0}
@@ -239,7 +240,7 @@ MonoBehaviour:
   - {fileID: 5047747355204653606}
   - {fileID: 2707947118956590531}
   - {fileID: 74042722866618314}
-  - {fileID: 6852530814182375312, guid: 12a4c14e672c00b4b840f937d824b890, type: 3}
+  - {fileID: 1996461003805720375}
   resource:
     ResourceType: 0
     currentAmount: 0

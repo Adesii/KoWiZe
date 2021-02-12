@@ -22,6 +22,8 @@ public class ResourceBuildings : BuildableObject
         base.NewParent(oldP,newP);
         Debug.Log($"Hook Called on {netIdentity.name}");
         resourceCity = newP.GetComponent<citySystem>();
+        init();
+        resourceCity.AddResourceBuilding(this);
     }
     private void Update()
     {
@@ -29,12 +31,6 @@ public class ResourceBuildings : BuildableObject
         {
             transform.LookAt(resourceCity.transform);
         }
-    }
-    public override void OnStartClient()
-    {
-        base.OnStartClient();
-        init();
-        resourceCity.AddResourceBuilding(this);
     }
     public void init()
     {
@@ -62,7 +58,6 @@ public class ResourceBuildings : BuildableObject
     public override void wantsTobeBuild()
     {
         base.wantsTobeBuild();
-        parent = resourceCity.netIdentity;
     }
     public override void HasBeenBuild()
     {

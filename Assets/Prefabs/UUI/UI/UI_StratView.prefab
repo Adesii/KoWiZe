@@ -710,9 +710,9 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 2016416135910513800}
-        m_TargetAssemblyTypeName: UIEventManagerAndNotifier, Assembly-CSharp
-        m_MethodName: NewGame
+      - m_Target: {fileID: 0}
+        m_TargetAssemblyTypeName: AORNetworkRoomManager, Assembly-CSharp
+        m_MethodName: ChangePlayerReadyState
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -1413,8 +1413,8 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 11400000, guid: 3d645a79d4c4b694a9fe046c616f3c58, type: 2}
         m_TargetAssemblyTypeName: GameController, Assembly-CSharp
-        m_MethodName: cityBuildmode
-        m_Mode: 3
+        m_MethodName: CmdcityBuildmode
+        m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
@@ -9068,7 +9068,6 @@ GameObject:
   - component: {fileID: 2016416135910513800}
   - component: {fileID: 36853479}
   - component: {fileID: 36853478}
-  - component: {fileID: 6582146979847533777}
   m_Layer: 5
   m_Name: UI_StratView
   m_TagString: UITag
@@ -9229,40 +9228,6 @@ MonoBehaviour:
   m_InputActionsPerSecond: 10
   m_RepeatDelay: 0.5
   m_ForceModuleActive: 0
---- !u!114 &6582146979847533777
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2016416135910513801}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 72ece51f2901e7445ab60da3685d6b5f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_ShowDebugText: 0
-  m_ShowCameraFrustum: 1
-  m_IgnoreTimeScale: 0
-  m_WorldUpOverride: {fileID: 0}
-  m_UpdateMethod: 2
-  m_BlendUpdateMethod: 1
-  m_DefaultBlend:
-    m_Style: 1
-    m_Time: 2
-    m_CustomCurve:
-      serializedVersion: 2
-      m_Curve: []
-      m_PreInfinity: 2
-      m_PostInfinity: 2
-      m_RotationOrder: 4
-  m_CustomBlends: {fileID: 0}
-  m_CameraCutEvent:
-    m_PersistentCalls:
-      m_Calls: []
-  m_CameraActivatedEvent:
-    m_PersistentCalls:
-      m_Calls: []
 --- !u!1 &2016416135944679347
 GameObject:
   m_ObjectHideFlags: 0
@@ -14825,14 +14790,14 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: ef784f860a1271941b4b6ca21e10f052, type: 3}
---- !u!224 &3349298221048361753 stripped
-RectTransform:
-  m_CorrespondingSourceObject: {fileID: 3349298221541207998, guid: ef784f860a1271941b4b6ca21e10f052, type: 3}
-  m_PrefabInstance: {fileID: 765516967}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1398375640128291286 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 1398375640486960497, guid: ef784f860a1271941b4b6ca21e10f052, type: 3}
+  m_PrefabInstance: {fileID: 765516967}
+  m_PrefabAsset: {fileID: 0}
+--- !u!224 &3349298221048361753 stripped
+RectTransform:
+  m_CorrespondingSourceObject: {fileID: 3349298221541207998, guid: ef784f860a1271941b4b6ca21e10f052, type: 3}
   m_PrefabInstance: {fileID: 765516967}
   m_PrefabAsset: {fileID: 0}
 --- !u!1001 &447100954180225611

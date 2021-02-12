@@ -3,6 +3,8 @@ using UnityEngine;
 using UnityEngine.EventSystems;
 using Mirror;
 using Cinemachine;
+using static ResourceClass;
+
 public class PlayerScript : NetworkBehaviour
 {
 
@@ -38,6 +40,8 @@ public class PlayerScript : NetworkBehaviour
 
 
     [Header("Current Selection Settings")]
+    [SyncVar]
+    public NetworkIdentity CurrentSelectedListTop;
     public List<Selectable> Currently_Selected;
     public GameObject building;
 
@@ -72,7 +76,7 @@ public class PlayerScript : NetworkBehaviour
     public override void OnStartClient()
     {
         base.OnStartClient();
-        GameController.addPlayer(gameObject);
+        GameController.addPlayer(netIdentity);
 
         if (!hasAuthority) return;
         if (!isLocalPlayer) { return; }
@@ -272,7 +276,7 @@ public class PlayerScript : NetworkBehaviour
                 var bb = building.GetComponent<BuildableObject>();
                 bb.HasBeenBuild();
                 bb.playerOwner = netIdentity;
-                NetworkServer.Spawn(building, gameObject);
+
                 building = null;
             }
 
@@ -327,5 +331,58 @@ public class PlayerScript : NetworkBehaviour
                 item.unSelect();
             }
         }
+        CmdChangeCurrentSelectedTopList(Currently_Selected[Currently_Selected.Count - 1].GetComponent<NetworkIdentity>());
+    }
+
+    [Command]
+    public void CmdChangeCurrentSelectedTopList(NetworkIdentity to)
+    {
+        CurrentSelectedListTop = to;
+    }
+
+
+    #region CityBuilding
+    [Command]
+    public void CmdenterCityBuildMode(NetworkConnectionToClient conn = null)
+    {
+        GameController Instance = GameController.Instance;
+        var ppcs = Instance.citySettings.perPlayerSettings[GameController.GetPlayerIndexbyNetID(conn.identity.netId)];
+        if (ppcs.playerScript == null) return;
+        GameObject go = Instantiate(Instance.citySettings.cityPrefab);
+        NetworkServer.Spawn(go, conn);
+        citySystem css = go.GetComponent<citySystem>();
+        css.playerOwner = conn.identity;
+        TargetBuildMode(conn, go.GetComponent<NetworkIdentity>());
+    }
+
+
+    #endregion
+
+    #region Resourcebuilding
+    [Command]
+    public void CmdenterResourceBuildMode(int Resource, NetworkConnectionToClient conn = null)
+    {
+        GameController Instance = GameController.Instance;
+        var ppcs = Instance.citySettings.perPlayerSettings[GameController.GetPlayerIndexbyNetID(conn.identity.netId)];
+        if (ppcs.playerScript == null) return;
+        ppcs.playerScript.CurrentSelectedListTop.TryGetComponent(out citySystem csr);
+        if (csr == null) return;
+        GameObject go = Instantiate(Instance.citySettings.ResourcePrefab);
+        NetworkServer.Spawn(go, conn);
+        ResourceBuildings css = go.GetComponent<ResourceBuildings>();
+        css.type = (ResourceTypes)Resource;
+        css.parent = csr.netIdentity;
+
+        TargetBuildMode(conn, go.GetComponent<NetworkIdentity>());
+        //ppcs.playerScript.buildObject(css);
+    }
+
+    #endregion
+    [TargetRpc]
+    private void TargetBuildMode(NetworkConnection conn, NetworkIdentity go)
+    {
+        GameController Instance = GameController.Instance;
+        var ppcs = Instance.citySettings.perPlayerSettings[Instance.localPlayerID];
+        ppcs.playerScript.buildObject(go.GetComponent<BuildableObject>());
     }
 }

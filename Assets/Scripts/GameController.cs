@@ -127,43 +127,26 @@ public partial class GameController : Singleton<GameController>
         [Range(0, 1)]
         public float successProcent = 0.50f;
     }
-    public bool enterCityBuildMode()
-    {
-        CitySetting.perPlayerCitySettings ppcs = Instance.citySettings.perPlayerSettings[localPlayerID];
-        if (ppcs.playerScript == null) return false;
-        citySystem css = Instantiate(citySettings.cityPrefab).GetComponent<citySystem>();
-        ppcs.playerCities.Add(css);
-        ppcs.playerScript.buildObject(css);
-        return true;
-    }
+    
+
+    
     [ClientRpc]
     public static void AddCityToPlayers(NetworkIdentity city,uint OwnerID)
     {
         Instance.citySettings.perPlayerSettings[GetPlayerIndexbyNetID(OwnerID)].playerCities.Add(city.GetComponent<citySystem>());
     }
 
-    public bool enterResourceBuildMode(int Resource)
+    
+    
+    public static void CmdcityBuildmode()
     {
-        CitySetting.perPlayerCitySettings ppcs = Instance.citySettings.perPlayerSettings[localPlayerID];
-        if (ppcs.playerScript == null) return false;
-        citySystem csr = (citySystem)ppcs.playerScript.Currently_Selected[ppcs.playerScript.Currently_Selected.Count-1];
-        if (csr == null) return false;
-        ResourceBuildings css = Instantiate(citySettings.ResourcePrefab).GetComponent<ResourceBuildings>();
-        css.type = (ResourceTypes)Resource;
-        css.resourceCity = csr;
-        ppcs.playerScript.buildObject(css);
-        
-        return true;
-    }
-    public static void cityBuildmode()
-    {
-        Instance.enterCityBuildMode();
+        Instance.localSettings.localPlayer.CmdenterCityBuildMode();
     }
     public static void resourceBuildMode(int resourceID)
     {
-        Instance.enterResourceBuildMode(resourceID);
+        Instance.localSettings.localPlayer.CmdenterResourceBuildMode(resourceID);
     }
-    public static void addPlayer(GameObject player)
+    public static void addPlayer(NetworkIdentity player)
     {
         var playerCam = player.GetComponent<PlayerScript>();
         foreach (var item in Instance.citySettings.perPlayerSettings)
@@ -197,15 +180,9 @@ public partial class GameController : Singleton<GameController>
     {
         for (int i = 0; i < Instance.citySettings.perPlayerSettings.Count; i++)
         {
-            var item = Instance.citySettings.perPlayerSettings[i];
-            if (item.playerScript.netId == netID) return i;
+            if (Instance.citySettings.perPlayerSettings[i].playerID == (int)netID) return i;
         }
         return -1;
-    }
-    [ClientRpc(excludeOwner = true)]
-    public static void RpctriggerHasBeenBuilton(NetworkIdentity ent)
-    {
-        ent.GetComponent<BuildableObject>().HasBeenBuild();
     }
     public static void ApplySetting()
     {
