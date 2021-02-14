@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 4951486202126833102}
   - component: {fileID: 1838134607704344682}
   - component: {fileID: 9026577945881913520}
+  - component: {fileID: 1192382654602785546}
   m_Layer: 5
   m_Name: LocalizedSlider
   m_TagString: Untagged
@@ -77,6 +78,22 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+--- !u!114 &1192382654602785546
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1546069258890170742}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 52d81a9b5be270e4790e4290fd3e0d8f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  settingID: {fileID: 6426836788527503691}
+  category: General
+  SettingType: 1
+  Holder: {fileID: 5308820332687308543}
 --- !u!1 &3669043494865334071
 GameObject:
   m_ObjectHideFlags: 0
@@ -224,6 +241,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0d2a846f91b7b0547b76fc444619f5d4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  unlocalizedString: 
 --- !u!1 &4315943149034257748
 GameObject:
   m_ObjectHideFlags: 0
@@ -308,7 +326,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4573062725486697900}
-  - component: {fileID: 2388414829929149909}
+  - component: {fileID: 7910001874301331653}
   m_Layer: 5
   m_Name: Slider
   m_TagString: Untagged
@@ -338,7 +356,7 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 451.70996, y: 0}
   m_Pivot: {x: 1, y: 0.5}
---- !u!114 &2388414829929149909
+--- !u!114 &7910001874301331653
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -347,7 +365,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 5308820332687308543}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 67db9e8f0e2ae9c40bc1e2b64352a6b4, type: 3}
+  m_Script: {fileID: 11500000, guid: dbbccd2bf83a76a489cc190128013bf5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   m_Navigation:
@@ -383,8 +401,8 @@ MonoBehaviour:
   m_HandleRect: {fileID: 3315736673942261091}
   m_Direction: 0
   m_MinValue: 0
-  m_MaxValue: 1
-  m_WholeNumbers: 0
+  m_MaxValue: 100
+  m_WholeNumbers: 1
   m_Value: 0
   m_OnValueChanged:
     m_PersistentCalls:
@@ -404,6 +422,18 @@ MonoBehaviour:
       - m_Target: {fileID: 11400000, guid: a5a42ebcd89db2f4d898c7fedd1ef3f3, type: 2}
         m_TargetAssemblyTypeName: SFXManagerController, Assembly-CSharp
         m_MethodName: VolumeLevel
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 1192382654602785546}
+        m_TargetAssemblyTypeName: Setting, Assembly-CSharp
+        m_MethodName: ValueChanged
         m_Mode: 0
         m_Arguments:
           m_ObjectArgument: {fileID: 0}

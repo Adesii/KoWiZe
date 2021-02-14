@@ -87,6 +87,7 @@ GameObject:
   - component: {fileID: 5812807252549378627}
   - component: {fileID: 5812807252549378625}
   - component: {fileID: 5812807252549378624}
+  - component: {fileID: 3139259210278468845}
   m_Layer: 5
   m_Name: CheckMarkLocalized
   m_TagString: Untagged
@@ -153,6 +154,22 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+--- !u!114 &3139259210278468845
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5812807252549378626}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 52d81a9b5be270e4790e4290fd3e0d8f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  settingID: {fileID: 5426981228657261179}
+  category: General
+  SettingType: 3
+  Holder: {fileID: 5812807253411616994}
 --- !u!1 &5812807253411616994
 GameObject:
   m_ObjectHideFlags: 0
@@ -162,7 +179,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5812807253411616995}
-  - component: {fileID: 5812807253411616992}
+  - component: {fileID: 7963572409353188353}
   m_Layer: 5
   m_Name: Toggle
   m_TagString: Untagged
@@ -190,7 +207,7 @@ RectTransform:
   m_AnchoredPosition: {x: 229, y: 0}
   m_SizeDelta: {x: 100, y: 70}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!114 &5812807253411616992
+--- !u!114 &7963572409353188353
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -199,11 +216,12 @@ MonoBehaviour:
   m_GameObject: {fileID: 5812807253411616994}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9085046f02f69544eb97fd06b6048fe2, type: 3}
+  m_Script: {fileID: 11500000, guid: 59454fff289b24f4ca61ee0f00ca1e7c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   m_Navigation:
     m_Mode: 3
+    m_WrapAround: 0
     m_SelectOnUp: {fileID: 0}
     m_SelectOnDown: {fileID: 0}
     m_SelectOnLeft: {fileID: 0}
@@ -235,7 +253,19 @@ MonoBehaviour:
   m_Group: {fileID: 0}
   onValueChanged:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 3139259210278468845}
+        m_TargetAssemblyTypeName: Setting, Assembly-CSharp
+        m_MethodName: ValueChanged
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
   m_IsOn: 0
 --- !u!1 &5812807253730616168
 GameObject:
@@ -384,6 +414,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0d2a846f91b7b0547b76fc444619f5d4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  unlocalizedString: 
 --- !u!1 &5812807254028604672
 GameObject:
   m_ObjectHideFlags: 0

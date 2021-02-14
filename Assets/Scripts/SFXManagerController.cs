@@ -77,6 +77,7 @@ public class SFXManagerController : Singleton<SFXManagerController>
     }
     public void VolumeLevel(float newMasterVolume)
     {
+        newMasterVolume /= 100;
         switch (target)
         {
             case VolumeTarget.Master:

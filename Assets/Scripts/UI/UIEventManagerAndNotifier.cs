@@ -298,12 +298,3 @@ public class battleModeUI
 
     public string ss = "working";
 }
-[Serializable]
-
-public class menuUI
-{
-    public GameObject UIItem;
-
-    public GameObject BlackScreen;
-    public string ss = "working";
-}

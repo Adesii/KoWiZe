@@ -187,6 +187,8 @@ public partial class GameController : Singleton<GameController>
     public static void ApplySetting()
     {
         Debug.Log(CurrLangIndex);
+        SettingsManager.SaveSettings();
+
         CurrentLanguage =(Languages) CurrLangIndex;
         changedLanguage();
     }

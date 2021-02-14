@@ -21,9 +21,13 @@ public class FlexibleGridLayout : LayoutGroup
 
     public bool fitX;
     public bool fitY;
+    protected override void Start()
+    {
+        //CalculateLayoutInputVertical();
+    }
     protected override void OnEnable()
     {
-        CalculateLayoutInputHorizontal();
+        CalculateLayoutInputVertical();
     }
     public override void CalculateLayoutInputVertical()
     {
@@ -68,7 +72,7 @@ public class FlexibleGridLayout : LayoutGroup
 
             var xPos = (cellSize.x * columnCount) + (spacing.x * columnCount) + padding.left;
             var yPos = (cellSize.y * rowCount) + (spacing.y * rowCount) + padding.top;
-
+            if (cellSize.x == 0 || cellSize.y == 0) continue;
             SetChildAlongAxis(item, 0, xPos, cellSize.x);
             SetChildAlongAxis(item, 1, yPos, cellSize.y);
         }
@@ -77,11 +81,9 @@ public class FlexibleGridLayout : LayoutGroup
 
     public override void SetLayoutHorizontal()
     {
-
     }
 
     public override void SetLayoutVertical()
     {
-
     }
 }

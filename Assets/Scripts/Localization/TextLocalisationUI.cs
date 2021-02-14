@@ -6,20 +6,19 @@ using System.Collections;
 public class TextLocalisationUI : MonoBehaviour
 {
     TextMeshProUGUI textField;
-    string unlocalizedString;
+
+    private string unString;
+    public string unlocalizedString;
     // Start is called before the first frame update
-    void Start()
+    private void Awake()
     {
         textField = GetComponent<TextMeshProUGUI>();
         unlocalizedString = textField.text;
-        string temp = localization.GetLocalisedValue(unlocalizedString);
-        if (!string.IsNullOrEmpty(temp))
-            textField.text = temp;
-        GameController.languageChangeEvent += changeLangue;
     }
-    private void OnEnable()
+    void Start()
     {
-        changeLangue();
+        newUnlocalisationChange();
+        GameController.languageChangeEvent += changeLangue;
     }
     public void changeLangue()
     {

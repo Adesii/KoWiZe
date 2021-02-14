@@ -12,9 +12,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 01b3e78a146b1a94caa47b57d190197a, type: 3}
   m_Name: GameController
   m_EditorClassIdentifier: 
-  currentLanguage: 0
+  currentLanguage: 1
   UI_Prefab: {fileID: 2016416135910513801, guid: bf73ac15dad7c9247bc4fe439243889b, type: 3}
   localPlayerID: 0
+  manager: {fileID: 0}
   treeSettings:
     treePrefab: {fileID: 3554480616993564897, guid: d828ee256909ae846878ea711c608397, type: 3}
     placeableModels:

@@ -166,6 +166,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Navigation:
     m_Mode: 3
+    m_WrapAround: 0
     m_SelectOnUp: {fileID: 0}
     m_SelectOnDown: {fileID: 0}
     m_SelectOnLeft: {fileID: 0}
@@ -530,6 +531,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0d2a846f91b7b0547b76fc444619f5d4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  unlocalizedString: 
 --- !u!1 &6515798294132976536
 GameObject:
   m_ObjectHideFlags: 0
@@ -541,6 +543,7 @@ GameObject:
   - component: {fileID: 6515798294132976537}
   - component: {fileID: 6515798294132976539}
   - component: {fileID: 6515798294132976538}
+  - component: {fileID: 2835071845412604827}
   m_Layer: 5
   m_Name: DropDownSettingLocalized
   m_TagString: Untagged
@@ -607,6 +610,22 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+--- !u!114 &2835071845412604827
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6515798294132976536}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 52d81a9b5be270e4790e4290fd3e0d8f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  settingID: {fileID: 5425957571640169385}
+  category: General
+  SettingType: 2
+  Holder: {fileID: 6515798294890770683}
 --- !u!1 &6515798294251895035
 GameObject:
   m_ObjectHideFlags: 0
@@ -940,6 +959,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0d2a846f91b7b0547b76fc444619f5d4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  unlocalizedString: 
 --- !u!1 &6515798294890770683
 GameObject:
   m_ObjectHideFlags: 0
@@ -951,7 +971,7 @@ GameObject:
   - component: {fileID: 6515798294890770660}
   - component: {fileID: 6515798294890770663}
   - component: {fileID: 6515798294890770662}
-  - component: {fileID: 6515798294890770661}
+  - component: {fileID: 4312659098320688429}
   m_Layer: 5
   m_Name: Dropdown
   m_TagString: Untagged
@@ -1019,7 +1039,7 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
---- !u!114 &6515798294890770661
+--- !u!114 &4312659098320688429
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -1028,11 +1048,12 @@ MonoBehaviour:
   m_GameObject: {fileID: 6515798294890770683}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7b743370ac3e4ec2a1668f5455a8ef8a, type: 3}
+  m_Script: {fileID: 11500000, guid: 5048a62a2ec8f784e8876b03e341a8c2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   m_Navigation:
     m_Mode: 3
+    m_WrapAround: 0
     m_SelectOnUp: {fileID: 0}
     m_SelectOnDown: {fileID: 0}
     m_SelectOnLeft: {fileID: 0}
@@ -1089,9 +1110,9 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-      - m_Target: {fileID: 11400000, guid: 3d645a79d4c4b694a9fe046c616f3c58, type: 2}
-        m_TargetAssemblyTypeName: GameController, Assembly-CSharp
-        m_MethodName: set_CurrLangIndex
+      - m_Target: {fileID: 2835071845412604827}
+        m_TargetAssemblyTypeName: Setting, Assembly-CSharp
+        m_MethodName: ValueChanged
         m_Mode: 0
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -1155,6 +1176,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Navigation:
     m_Mode: 3
+    m_WrapAround: 0
     m_SelectOnUp: {fileID: 0}
     m_SelectOnDown: {fileID: 0}
     m_SelectOnLeft: {fileID: 0}
@@ -1425,6 +1447,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0d2a846f91b7b0547b76fc444619f5d4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  unlocalizedString: 
 --- !u!1 &6515798295193745184
 GameObject:
   m_ObjectHideFlags: 0
