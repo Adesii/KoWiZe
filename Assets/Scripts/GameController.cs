@@ -6,6 +6,7 @@ using yaSingleton;
 using static ResourceClass;
 using UnityEngine.UI;
 using Mirror;
+using Random = UnityEngine.Random;
 
 [CreateAssetMenu(fileName = "GameController", menuName = "KoWiZe Custom Assets/Singletons/GameController")]
 public partial class GameController : Singleton<GameController>
@@ -30,6 +31,8 @@ public partial class GameController : Singleton<GameController>
     [Header("Local Settings")]
     public LocalSettings localSettings = new LocalSettings();
 
+    public static SyncableStorage SyncableStorageInstance;
+    
     public static GameObject TreePrefab { get => Instance.treeSettings.treePrefab; set => Instance.treeSettings.treePrefab = value; }
     public static List<GameObject> PlaceableModels { get => Instance.treeSettings.placeableModels; set => Instance.treeSettings.placeableModels = value; }
     public static int MaxPlacedTrees { get => Instance.treeSettings.maxPlacedTrees; set => Instance.treeSettings.maxPlacedTrees = value; }
@@ -79,7 +82,16 @@ public partial class GameController : Singleton<GameController>
         }
             
     }
+    
 
+    public static void setWorldSeed(string newSeeed)
+    {
+        Debug.Log($"set new seed {newSeeed}");
+        Instance.localSettings.localRoomPlayer.CmdSetLobbySettings(new AORNetworkRoomPlayer.AORLobbySettings
+        {
+            seed = newSeeed
+        });
+    }
     public static void changedLanguage()
     {
         localization.isInit = false;

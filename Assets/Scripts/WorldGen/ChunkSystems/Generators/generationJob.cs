@@ -60,6 +60,7 @@ namespace WorldGenJobs
             public float minHeight;
             public float maxHeight;
 
+            public int seed;
 
             //Mesh Creation;
             [WriteOnly]
@@ -74,6 +75,7 @@ namespace WorldGenJobs
 
             public void Execute()
             {
+                seed /= 10000;
                 for (int j = 0; j < layerSettings.Length / numberOfSettings; j++)
                 {
                     octaves = (int)layerSettings[(j * numberOfSettings)];
@@ -119,10 +121,10 @@ namespace WorldGenJobs
 
 
                             //float xCord = ((((float)x) / (float)chunkRes) * (float)chunkSize) + _pos.X;
-                            float xCord = (((float)x / (float)chunkRes) * (float)chunkSize) + ((float)_pos.X * chunkSize);
+                            float xCord = (((float)x / (float)chunkRes) * (float)chunkSize) + ((float)_pos.X * chunkSize)+seed;
                             //float yCord = ((((float)z) / (float)chunkRes) * (float)chunkSize) + _pos.Z;
-                            float yCord = (((float)z / (float)chunkRes) * (float)chunkSize) + ((float)_pos.Z * chunkSize);
-                            float noiseFloat = coherentNoise((xCord + offsetX) * sizeScalex, offsetY, (yCord + offsetZ) * sizeScalez, octaves, multiplier, amplitute, lacunarity, persistance);
+                            float yCord = (((float)z / (float)chunkRes) * (float)chunkSize) + ((float)_pos.Z * chunkSize)+seed;
+                            float noiseFloat = coherentNoise((xCord + offsetX) * sizeScalex, offsetY+seed, (yCord + offsetZ) * sizeScalez, octaves, multiplier, amplitute, lacunarity, persistance);
                             noiseFloat = (noiseFloat + 1) / 2;
 
                             noiseFloat *= MultiplicationOfFinal;

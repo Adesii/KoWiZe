@@ -38,7 +38,6 @@ public class UI_City_Hover : MonoBehaviour
         {
             updateHover();
             lastPos = cam.transform.position;
-            print(lastPos-cam.transform.position);
         }
 
     }

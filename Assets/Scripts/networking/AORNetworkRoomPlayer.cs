@@ -40,7 +40,23 @@ public class AORNetworkRoomPlayer : NetworkRoomPlayer
     {
         avatarImageLoaded = Callback<AvatarImageLoaded_t>.Create(OnAvatarImageLoaded);
         transform.SetParent(FindObjectOfType<AORRoomDisplayer>().transform);
+        if (isLocalPlayer) GameController.Instance.localSettings.localRoomPlayer = this;
     }
+    [Command]
+    public void CmdSetLobbySettings(AORLobbySettings lobbySettings)
+    {
+        SyncableStorage.main.WorldSeedString = lobbySettings.seed;
+    }
+
+
+
+
+    [System.Serializable]
+    public struct AORLobbySettings
+    {
+        public string seed;
+    }
+
 
     private void HandleSteamIdUpdated(ulong oldSteamId, ulong newSteamId)
     {

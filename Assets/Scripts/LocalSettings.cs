@@ -8,6 +8,8 @@ public class LocalSettings
 {
     public Camera LocalCamera;
     public PlayerScript localPlayer;
+    public AORNetworkRoomPlayer localRoomPlayer;
+
     public List<IUnit> LocalPlayerUnlockedUnits = new List<IUnit>();
 
     public static connPlayerDictionary playerPairs = new connPlayerDictionary();

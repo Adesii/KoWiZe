@@ -231,6 +231,8 @@ public class jobGenerationManager : MonoBehaviour
                     chunkSize = chunkSize,
                     numberOfSettings = numberOfSettings,
 
+                    seed = SyncableStorage.main.WorldSeedInt,
+            
                     verts = verts,
                     uvs = uvs,
                     normals = normals,
