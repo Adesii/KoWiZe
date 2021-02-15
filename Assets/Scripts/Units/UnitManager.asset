@@ -24,6 +24,19 @@ MonoBehaviour:
     build_time: 10
     UnitRange: 100
     description: "Basic Ranged Unit shooting arrows at his opponents.\r"
+    unitStrenghts: []
+  - UnitIcon: {fileID: 0}
+    Unit_name: Archer
+    subtype: 0
+    hp: 80
+    armor: 2
+    attack: 12
+    speed: 100
+    building: 1
+    build_time: 10
+    UnitRange: 100
+    description: "Basic Ranged Unit shooting arrows at his opponents.\r"
+    unitStrenghts: []
   meleeUnits:
   - UnitIcon: {fileID: 0}
     Unit_name: Speermen
@@ -37,4 +50,5 @@ MonoBehaviour:
     UnitRange: 1
     description: "Basic Infantry armed with a speer and shield perfect to counter
       Cavalry.\r"
+    unitStrenghts: []
   siegeUnits: []

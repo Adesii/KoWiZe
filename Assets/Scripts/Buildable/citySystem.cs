@@ -85,22 +85,19 @@ public class citySystem : Selectable
     public override void PointerEntered()
     {
         base.PointerEntered();
-        if (gm != null && !isSelected) gm.gameObject.SetActive(true);
+        //if (gm != null && !isSelected) gm.gameObject.SetActive(true);
     }
     public override void PointerExited()
     {
         base.PointerExited();
-        if (gm != null && !isSelected) gm.disableObject();
+        //if (gm != null && !isSelected) gm.disableObject();
     }
 
 
     public override void unSelect()
     {
         base.unSelect();
-        if (gm != null)
-        {
-            gm.disableObject();
-        }
+        //if (gm != null) gm.disableObject();
         if (buildPanel != null)
             buildPanel.CityInfoPanel.ownCity = null;
         Debug.Log(GameController.Instance.localSettings.localPlayer.Currently_Selected.Count);
@@ -112,12 +109,12 @@ public class citySystem : Selectable
     public override void Select()
     {
         base.Select();
-        if (gm != null)
+        /*if (gm != null)
         {
             gm.gameObject.SetActive(true);
             gm.ownCity = this;
         }
-
+        */
         buildPanel.gameObject.SetActive(true);
         buildPanel.CityInfoPanel.ownCity = this;
         buildPanel.CityInfoPanel.UpdateResources();

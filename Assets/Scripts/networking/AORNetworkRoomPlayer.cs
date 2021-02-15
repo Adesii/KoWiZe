@@ -20,8 +20,8 @@ public class AORNetworkRoomPlayer : NetworkRoomPlayer
     [SyncVar(hook = nameof(HandleSteamIdUpdated))]
     private ulong steamId;
 
-    [SerializeField] private RawImage profileImage = null;
-    [SerializeField] private TMP_Text displayNameText = null;
+    [SerializeField] public RawImage profileImage = null;
+    [SerializeField] public TMP_Text displayNameText = null;
 
     protected Callback<AvatarImageLoaded_t> avatarImageLoaded;
 
@@ -61,7 +61,6 @@ public class AORNetworkRoomPlayer : NetworkRoomPlayer
 
         profileImage.texture = GetSteamImageAsTexture(callback.m_iImage);
     }
-
     private Texture2D GetSteamImageAsTexture(int iImage)
     {
         Texture2D texture = null;

@@ -20,7 +20,13 @@ using Steamworks;
 /// </summary>
 public class AORNetworkRoomManager : NetworkRoomManager
 {
+    public static AORNetworkRoomManager instance;
 
+    public override void Awake()
+    {
+        base.Awake();
+        instance = this;
+    }
     /// <summary>
     /// This is called on the server when the server is started - including when a host is started.
     /// </summary>
@@ -58,6 +64,16 @@ public class AORNetworkRoomManager : NetworkRoomManager
         GameController.UIInstance.NewGame();
         base.OnClientSceneChanged(conn);
 
+    }
+    public override bool OnRoomServerSceneLoadedForPlayer(NetworkConnection conn, GameObject roomPlayer, GameObject gamePlayer)
+    {
+        
+        LocalSettings.playerPairs.Add(gamePlayer.GetComponent<NetworkIdentity>(), new LocalSettings.playerPair
+        {
+            GamePlayer = gamePlayer.GetComponent<NetworkIdentity>(),
+            RoomPlayer = roomPlayer.GetComponent<NetworkIdentity>()
+        });
+        return base.OnRoomServerSceneLoadedForPlayer(conn, roomPlayer, gamePlayer);
     }
     public void ChangePlayerReadyState()
     {

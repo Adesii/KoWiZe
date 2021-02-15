@@ -1,5 +1,7 @@
-﻿using System.Collections.Generic;
+﻿using Mirror;
+using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 [System.Serializable]
 public class LocalSettings
@@ -8,4 +10,13 @@ public class LocalSettings
     public PlayerScript localPlayer;
     public List<IUnit> LocalPlayerUnlockedUnits = new List<IUnit>();
 
+    public static connPlayerDictionary playerPairs = new connPlayerDictionary();
+
+    public class connPlayerDictionary : SyncDictionary<NetworkIdentity, playerPair> { }
+    [System.Serializable]
+    public struct playerPair
+    {
+        public NetworkIdentity RoomPlayer;
+        public NetworkIdentity GamePlayer;
+    }
 }

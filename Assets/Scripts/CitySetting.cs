@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System;
 using UnityEngine;
+using UnityEngine.UI;
 
 public partial class GameController
 {
@@ -16,6 +17,7 @@ public partial class GameController
         public class perPlayerCitySettings
         {
             public int playerID;
+            public RawImage playerProfilePic;
             public float exponentialFoodProduction = 2f;
             public float exponentialScienceProduction = 2f;
 

@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -26,6 +27,8 @@ public enum unit_building
 public interface IUnit
 {
 }
+
+
 [System.Serializable]
 public abstract class BaseUnit : IUnit
 {
@@ -43,9 +46,15 @@ public abstract class BaseUnit : IUnit
     //todo technology unlock
     [Multiline]
     public string description = "Lorem Ipsum Dolor Sit Amet";
-
-    public Dictionary<IUnit, float> unit_strenght;
-
+    [SerializeField]
+    List<UnitStrenghts> unitStrenghts;
+    [Serializable]
+    public struct UnitStrenghts
+    {
+        public string unitName;
+        public float UnitStrenght;
+    }
+    
 
     public virtual void TakeDamage(float amount)
     {

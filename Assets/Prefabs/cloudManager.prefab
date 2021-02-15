@@ -44,33 +44,43 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a01348fa6cb3eca44b4800db140a2328, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  samples: 32
-  height: 80
+  samples: 4
+  height: 10
   cloudPrefab: {fileID: 8354570639958389063, guid: ad2e2fbac2279b041bcf957ac213173f, type: 3}
   cloudCurve:
     serializedVersion: 2
     m_Curve:
     - serializedVersion: 3
-      time: 0.0041408017
-      value: 0.53731143
-      inSlope: 0
-      outSlope: 0
+      time: -0.04909816
+      value: 0.40525794
+      inSlope: 0.15794371
+      outSlope: 0.15794371
       tangentMode: 0
       weightedMode: 0
       inWeight: 0
-      outWeight: 0
+      outWeight: 0.06252405
     - serializedVersion: 3
-      time: 1
-      value: 1
-      inSlope: 0
-      outSlope: 0
+      time: 0.79701126
+      value: 0.58704126
+      inSlope: 0.48642105
+      outSlope: 0.48642105
       tangentMode: 0
       weightedMode: 0
-      inWeight: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 0.9898585
+      value: 0.7410675
+      inSlope: 0.64873666
+      outSlope: 0.64873666
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.08094445
       outWeight: 0
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+  parentConstraint: {fileID: 1798911328}
 --- !u!1773428102 &1798911328
 ParentConstraint:
   m_ObjectHideFlags: 0
@@ -80,10 +90,10 @@ ParentConstraint:
   m_GameObject: {fileID: 6096513774850999548}
   m_Enabled: 1
   m_Weight: 1
-  m_TranslationAtRest: {x: -24.2, y: 76, z: 0}
+  m_TranslationAtRest: {x: -24.2, y: 15, z: 0}
   m_RotationAtRest: {x: 0, y: 0, z: 0}
   m_TranslationOffsets:
-  - {x: 0, y: 76, z: 0}
+  - {x: 0, y: 15, z: 0}
   m_RotationOffsets:
   - {x: 0, y: 0, z: 0}
   m_AffectTranslationX: 1

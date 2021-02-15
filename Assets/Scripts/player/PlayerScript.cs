@@ -77,7 +77,6 @@ public class PlayerScript : NetworkBehaviour
     {
         base.OnStartClient();
         GameController.addPlayer(netIdentity);
-
         if (!hasAuthority) return;
         if (!isLocalPlayer) { return; }
         if (World.main != null)
@@ -94,6 +93,8 @@ public class PlayerScript : NetworkBehaviour
     {
         GameController.Instance.localSettings.localPlayer = this;
         GameController.Instance.localSettings.LocalCamera = Camera.main;
+
+        FindObjectOfType<cloudmanager>().init(transform);
     }
     // Update is called once per frame
     void LateUpdate()

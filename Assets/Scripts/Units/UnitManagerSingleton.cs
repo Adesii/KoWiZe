@@ -12,4 +12,15 @@ public class UnitManagerSingleton : Singleton<UnitManagerSingleton>
     public MeleeUnit[] meleeUnits;
     public SiegeUnit[] siegeUnits;
 
+
+    public Dictionary<string, BaseUnit[]> AllUnits
+    {
+        get => new Dictionary<string, BaseUnit[]>
+            {
+                { "Ranged Units", rangedUnits },
+                { "Melee Units", meleeUnits },
+                { "Siege Units", siegeUnits }
+            };
+
+    }
 }

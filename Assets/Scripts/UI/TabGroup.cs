@@ -36,29 +36,30 @@ public class TabGroup : MonoBehaviour
     }
     public void OnTabEnter(GroupTabButton button)
     {
-        ResetTabs();
+        
         if (selectedTab == null || button != selectedTab)
         {
             button.background.DOBlendableColor(tabHover, FadeTime);
             button.transform.DOBlendableScaleBy(scaler, FadeTime);
             button.transform.GetChild(0).DOBlendableScaleBy(-scaler, FadeTime);
         }
+        ResetTabs();
     }
     public void OnTabExit(GroupTabButton button)
     {
-        ResetTabs();
+        
 
         if (selectedTab == null || button != selectedTab)
         {
             button.transform.DOBlendableScaleBy(-scaler, FadeTime);
             button.transform.GetChild(0).DOBlendableScaleBy(scaler, FadeTime);
         }
-
+        ResetTabs();
     }
     public void OnTabSelected(GroupTabButton button)
     {
         selectedTab = button;
-        ResetTabs();
+        
         button.background.DOBlendableColor(tabActive,FadeTime);
 
         int index = button.transform.GetSiblingIndex();
@@ -73,6 +74,7 @@ public class TabGroup : MonoBehaviour
                 swappingItems[i].SetActive(false);
             }
         }
+        ResetTabs();
     }
 
 
