@@ -27,11 +27,14 @@ public class citySystem : Selectable
     public List<VisualEffect> vsfL;
     public GameObject arrowPrefab;
     public Gradient colorGradient;
+    public AORBuildCreator Creator;
 
     public List<IUnit> UnitInventory = new List<IUnit>();
 
+
     [SerializeField]
     ResResClassDictionary resource = new ResResClassDictionary();
+
     public IDictionary<ResourceTypes, ResourceClass> res
     {
         get { return resource; }
@@ -68,8 +71,18 @@ public class citySystem : Selectable
         buildPanel = GameController.UIInstance.strategyModeUI.BuildPanelScript;
 
         cityID = GameController.Instance.citySettings.perPlayerSettings[GameController.Instance.localPlayerID].playerCities.Count - 1;
+
+        Creator = new AORBuildCreator();
+        Creator.Finished += onFinishedCallback;
     }
 
+    private void onFinishedCallback(AORQueableItem item)
+    {
+        if (BaseUnit.isUnit(item))
+        {
+            UnitInventory.Add((IUnit)item);
+        }
+    }
 
     private string getCityName()
     {
@@ -98,8 +111,6 @@ public class citySystem : Selectable
     {
         base.unSelect();
         //if (gm != null) gm.disableObject();
-        if (buildPanel != null)
-            buildPanel.CityInfoPanel.ownCity = null;
         Debug.Log(GameController.Instance.localSettings.localPlayer.Currently_Selected.Count);
         if (GameController.Instance.localSettings.localPlayer.Currently_Selected.Count <= 0 || GameController.Instance.localSettings.localPlayer.Currently_Selected[0].GetType() != typeof(citySystem))
             GameController.UIInstance.strategyModeUI.BuildPanelScript.FadeUI();
@@ -175,7 +186,10 @@ public class citySystem : Selectable
         GameController.CitySettings.perPlayerSettings[GameController.GetPlayerIndexbyNetID(OwnerID)].playerCities.Add(this);
     }
 
+    public void QueueNewUnit(BaseUnit unit)
+    {
 
+    }
 
 
 

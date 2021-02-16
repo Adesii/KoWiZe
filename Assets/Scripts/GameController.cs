@@ -96,7 +96,7 @@ public partial class GameController : Singleton<GameController>
     {
         localization.isInit = false;
         localization.Init();
-        languageChangeEvent();
+        languageChangeEvent?.Invoke();
     }
     protected override void Deinitialize()
     {

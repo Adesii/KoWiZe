@@ -13,18 +13,64 @@ public class AORUnitRecruitmentMasterPanel : MonoBehaviour
     [SerializeField]
     TextMeshProUGUI UnitInfo;
     [SerializeField]
-    TextMeshProUGUI UnitStrenghts;
+    GameObject UnitStrenghts;
+    [SerializeField]
+    GameObject UnitAttrPrefab;
+    [SerializeField]
+    BuildPanelMenu panel;
+
+    BaseUnit currUnit;
 
     private void Awake()
     {
         BuildPanelMenu.OnSelectionChange += onSelectedUnit;
     }
+
+    public void ProduceUnit()
+    {
+        panel.QueueNewItem(currUnit);
+    }
+
     public void onSelectedUnit(BaseUnit unit)
     {
-        if (unit.UnitIcon != null)
-            UnitPicture.sprite = unit.UnitIcon.sprite;
+
+        currUnit = unit;
+        //if (unit.UnitIcon != null)
+        //    UnitPicture.sprite = unit.UnitIcon.sprite;
         UnitName.text = unit.Unit_name;
         UnitInfo.text = unit.description;
-        UnitStrenghts.text = "None lol";
+
+        foreach (Transform child in UnitStrenghts.transform)
+        {
+            Destroy(child.gameObject);
+        }
+
+        foreach (var item in unit.GetStats())
+        {
+            if (item.Value == null) continue;
+            var go = Instantiate(UnitAttrPrefab, UnitStrenghts.transform).GetComponent<AORUnitAttrShow>();
+            switch (item.Key)
+            {
+                case "Unit_Costs":
+                    var gs = "";
+                    foreach (var g in item.Value as List<BaseUnit.Costs>)
+                    {
+                        gs += g.ToString() + "\n";
+                    }
+                    go.SetAttr(item.Key, gs);
+                    break;
+                case "Unit_Strenghts":
+                    var s = "";
+                    foreach (var ss in item.Value as List<BaseUnit.UnitStrenghts>)
+                    {
+                        s += ss.ToString()+ "\n";
+                    }
+                    go.SetAttr(item.Key, s);
+                    break;
+                default:
+                    go.SetAttr(item.Key, item.Value.ToString());
+                    break;
+            }
+        }
     }
 }

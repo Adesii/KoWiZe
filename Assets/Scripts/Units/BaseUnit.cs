@@ -27,21 +27,30 @@ public enum unit_building
 public interface IUnit
 {
 }
+public abstract class AORQueableItem
+{
+    public citySystem ownerCity;
+    public string Unit_name = "base";
+    public float build_time = 10f;
+    public virtual float GetBuildTime()
+    {
+        return build_time;
+    }
+}
 
 
 [System.Serializable]
-public abstract class BaseUnit : IUnit
+public abstract class BaseUnit : AORQueableItem,IUnit
 {
     public Image UnitIcon;
-    public string Unit_name = "base";
     public unit_subtype subtype;
     public float hp = 100f;
     public float armor = 1f;
     public float attack = 10f;
     public float speed = 100f;
-    public Dictionary<ResourceClass.ResourceTypes, float> costs;
+    public List<Costs> costs;
     public unit_building building;
-    public float build_time = 10f;
+    
     public float UnitRange = 1f;
     //todo technology unlock
     [Multiline]
@@ -53,6 +62,20 @@ public abstract class BaseUnit : IUnit
     {
         public string unitName;
         public float UnitStrenght;
+        public override string ToString()
+        {
+            return $"{unitName} = {UnitStrenght}";
+        }
+    }
+    [Serializable]
+    public struct Costs
+    {
+        public ResourceClass.ResourceTypes Resource;
+        public float Cost;
+        public override string ToString()
+        {
+            return $"{Resource} = {Cost}";
+        }
     }
     
 
@@ -68,9 +91,34 @@ public abstract class BaseUnit : IUnit
     {
 
     }
+
+    public virtual Dictionary<string,object> GetStats()
+    {
+        return new Dictionary<string, object>
+        {
+            { "Unit_Subtype", subtype },
+            { "Unit_HP", hp },
+            { "Unit_Armor", armor },
+            { "Unit_AttackDamage", attack },
+            { "Unit_MovementSpeed", speed },
+            {"Unit_BuildTime",build_time },
+            {"Unit_Range",UnitRange },
+            {"Unit_Strenghts",unitStrenghts },
+            { "Unit_Costs", costs }
+
+        };
+    }
     public override string ToString()
     {
         return Unit_name;
+    }
+    public static bool isUnit(object i)
+    {
+        if(i as BaseUnit != null)
+        {
+            return true;
+        }
+        return true;
     }
 }
 [System.Serializable]
@@ -80,7 +128,6 @@ public class MeleeUnit : BaseUnit
 [System.Serializable]
 public class RangedUnit : BaseUnit
 {
-
 
 }
 [System.Serializable]

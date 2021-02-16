@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
@@ -5,9 +6,24 @@ using UnityEngine;
 
 public class CityInfoPanel : MonoBehaviour
 {
+    public Action<citySystem, citySystem> citySelectionChanged;
+
     public List<ResourceIcon> Iconresources = new List<ResourceIcon>();
     public TextMeshProUGUI CityName;
-    public citySystem ownCity;
+    private citySystem ownCityy;
+    public citySystem ownCity
+    {
+        get
+        {
+            return ownCityy;
+        }
+        set
+        {
+
+            citySelectionChanged?.Invoke(ownCityy, value);
+            ownCityy = value;
+        }
+    }
 
     public GameObject ResourceInstancing;
     public Transform ResourceParent;
@@ -16,7 +32,6 @@ public class CityInfoPanel : MonoBehaviour
     {
         GameController.Instance.OnGameTick += UpdateResources;
         GameController.UIInstance.strategyModeUI.BuildPanel.GetComponent<simpleUIFader>().onFadedOut += CityInfoPanel_onFadedOut;
-
     }
     private void OnEnable()
     {
@@ -24,7 +39,7 @@ public class CityInfoPanel : MonoBehaviour
     }
     private void CityInfoPanel_onFadedOut()
     {
-        ownCity = null;
+        //ownCity = null;
     }
     public void UpdateResources()
     {

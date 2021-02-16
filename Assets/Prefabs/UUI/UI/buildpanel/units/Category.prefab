@@ -215,7 +215,7 @@ MonoBehaviour:
     m_Top: 0
     m_Bottom: 0
   m_ChildAlignment: 1
-  m_Spacing: 0
+  m_Spacing: 5
   m_ChildForceExpandWidth: 1
   m_ChildForceExpandHeight: 1
   m_ChildControlWidth: 1
@@ -238,6 +238,7 @@ MonoBehaviour:
   CategoryName: {fileID: 8751835874892566974}
   Units: {fileID: 2449175985927290727}
   UnitPrefab: {fileID: 6240880575161642802, guid: b8c99ce03fd491c4689cb1e2167380a8, type: 3}
+  p: {fileID: 0}
 --- !u!114 &-1980869668216436771
 MonoBehaviour:
   m_ObjectHideFlags: 0

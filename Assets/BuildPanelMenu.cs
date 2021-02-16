@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -34,20 +35,56 @@ public class BuildPanelMenu : MonoBehaviour
         BuildPanelFader.disableObject();
     }
 
+    public void timerCallback(float time)
+    {
+        Debug.Log(time);
+    }
+    public void ItemFinishedCallback(AORQueableItem item)
+    {
+        if (BaseUnit.isUnit(item))
+        {
+            foreach (var unit in item.ownerCity.UnitInventory)
+            {
+                Debug.Log(unit);
+            }
+        }
+        Debug.Log(item.GetType());
+        Debug.Log(item.ToString());
+    }
+    public void QueueNewItem(AORQueableItem item)
+    {
+        item.ownerCity = CityInfoPanel.ownCity;
+        CityInfoPanel.ownCity.Creator.QueueNewItem(item);
+    }
+
     private void Start()
     {
-
         foreach (var item in UnitManagerSingleton.Instance.AllUnits)
         {
             if (item.Value.Length <= 0) continue;
             var unitCategory = Instantiate(CategoriesPrefab, ScrollContentWindow.transform).GetComponent<AORCategorySorter>();
             unitCategory.CategoryName.text = item.Key;
+            unitCategory.p = this;
             foreach (var unit in item.Value)
             {
                 if (selectedUnit == null)
                     selectedUnit = unit;
                 unitCategory.AddUnit(unit);
             }
+        }
+    }
+
+    public void registerNewCities(citySystem arg1, citySystem arg2)
+    {
+        if (arg1 != null)
+        {
+            arg1.Creator.LeftForCurrentItem -= timerCallback;
+            arg1.Creator.Finished -= ItemFinishedCallback;
+        }
+        if (arg2 != null)
+        {
+            arg2.Creator.LeftForCurrentItem += timerCallback;
+            arg2.Creator.Finished += ItemFinishedCallback;
         }
     }
 }
