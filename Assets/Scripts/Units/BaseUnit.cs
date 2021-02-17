@@ -30,10 +30,11 @@ public interface IUnit
 public abstract class AORQueableItem
 {
     public Sprite UnitIcon;
+    [HideInInspector]
     public citySystem ownerCity;
     public string Unit_name = "base";
     public float build_time = 10f;
-
+    [HideInInspector]
     public int QueueType = -1;
     public virtual float GetBuildTime()
     {
