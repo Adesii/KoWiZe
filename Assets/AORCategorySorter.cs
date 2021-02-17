@@ -20,6 +20,6 @@ public class AORCategorySorter : MonoBehaviour
         go.b = p;
         go.ownUnit = unit;
         if(unit.UnitIcon != null)
-        go.UnitPicture.sprite = unit.UnitIcon.sprite;
+        go.UnitPicture.sprite = unit.UnitIcon;
     }
 }

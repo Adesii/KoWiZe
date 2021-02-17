@@ -12,6 +12,8 @@ public class BuildPanelMenu : MonoBehaviour
 
     public GameObject CategoriesPrefab;
 
+    public AORUnitDisplayViewer viewer;
+
     public AORUnitRecruitmentMasterPanel arourmp;
 
     public delegate void OnVariableChangeDelegate(BaseUnit newSelectedUnit);
@@ -41,22 +43,23 @@ public class BuildPanelMenu : MonoBehaviour
     }
     public void ItemFinishedCallback(AORQueableItem item)
     {
+        Debug.Log("BuildpanelNoticed");
         if (BaseUnit.isUnit(item))
         {
-            foreach (var unit in item.ownerCity.UnitInventory)
-            {
-                Debug.Log(unit);
-            }
+            Debug.Log("Finished new Unit. " + item.Unit_name);
+            viewer.AddNewUnitToDisplay(item);
         }
-        Debug.Log(item.GetType());
-        Debug.Log(item.ToString());
     }
     public void QueueNewItem(AORQueableItem item)
     {
         item.ownerCity = CityInfoPanel.ownCity;
         CityInfoPanel.ownCity.Creator.QueueNewItem(item);
     }
+    private void OnEnable()
+    {
+        CityInfoPanel.citySelectionChanged += registerNewCities;
 
+    }
     private void Start()
     {
         foreach (var item in UnitManagerSingleton.Instance.AllUnits)
@@ -74,17 +77,18 @@ public class BuildPanelMenu : MonoBehaviour
         }
     }
 
-    public void registerNewCities(citySystem arg1, citySystem arg2)
+    public void registerNewCities(citySystem arg1,citySystem arg2)
     {
-        if (arg1 != null)
+        if(arg1 != null)
         {
             arg1.Creator.LeftForCurrentItem -= timerCallback;
             arg1.Creator.Finished -= ItemFinishedCallback;
         }
-        if (arg2 != null)
+        if(arg2 != null)
         {
             arg2.Creator.LeftForCurrentItem += timerCallback;
             arg2.Creator.Finished += ItemFinishedCallback;
         }
+            
     }
 }

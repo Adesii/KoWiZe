@@ -29,7 +29,7 @@ public class citySystem : Selectable
     public Gradient colorGradient;
     public AORBuildCreator Creator;
 
-    public List<IUnit> UnitInventory = new List<IUnit>();
+    public List<AORQueableItem> UnitInventory = new List<AORQueableItem>();
 
 
     [SerializeField]
@@ -78,9 +78,10 @@ public class citySystem : Selectable
 
     private void onFinishedCallback(AORQueableItem item)
     {
+        Debug.Log("Finished");
         if (BaseUnit.isUnit(item))
         {
-            UnitInventory.Add((IUnit)item);
+            UnitInventory.Add(item);
         }
     }
 

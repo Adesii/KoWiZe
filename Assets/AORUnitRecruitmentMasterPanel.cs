@@ -28,6 +28,8 @@ public class AORUnitRecruitmentMasterPanel : MonoBehaviour
 
     public void ProduceUnit()
     {
+        Debug.Log("presseButton");
+        currUnit.QueueType = 1;
         panel.QueueNewItem(currUnit);
     }
 

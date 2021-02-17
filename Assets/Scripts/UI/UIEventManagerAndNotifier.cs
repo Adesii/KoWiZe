@@ -269,7 +269,7 @@ public class stratModeUI
     {
         get
         {
-            if (city != null) return BuildPanelScript.CityInfoPanel;
+            if (city != null) return buildPanelScript.CityInfoPanel;
             else
             {
                 city = buildPanelScript.CityInfoPanel;

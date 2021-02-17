@@ -20,7 +20,7 @@ public class CityInfoPanel : MonoBehaviour
         set
         {
 
-            citySelectionChanged?.Invoke(ownCityy, value);
+            citySelectionChanged.Invoke(ownCityy, value);
             ownCityy = value;
         }
     }

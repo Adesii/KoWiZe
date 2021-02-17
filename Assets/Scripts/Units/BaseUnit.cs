@@ -29,9 +29,12 @@ public interface IUnit
 }
 public abstract class AORQueableItem
 {
+    public Sprite UnitIcon;
     public citySystem ownerCity;
     public string Unit_name = "base";
     public float build_time = 10f;
+
+    public int QueueType = -1;
     public virtual float GetBuildTime()
     {
         return build_time;
@@ -42,7 +45,6 @@ public abstract class AORQueableItem
 [System.Serializable]
 public abstract class BaseUnit : AORQueableItem,IUnit
 {
-    public Image UnitIcon;
     public unit_subtype subtype;
     public float hp = 100f;
     public float armor = 1f;
@@ -112,13 +114,13 @@ public abstract class BaseUnit : AORQueableItem,IUnit
     {
         return Unit_name;
     }
-    public static bool isUnit(object i)
+    public static bool isUnit(AORQueableItem i)
     {
-        if(i as BaseUnit != null)
+        if(i.QueueType == 1)
         {
             return true;
         }
-        return true;
+        return false;
     }
 }
 [System.Serializable]

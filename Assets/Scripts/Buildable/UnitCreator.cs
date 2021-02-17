@@ -27,23 +27,21 @@ public class AORBuildCreator
 
     private async void Timer()
     {
-        await Task.Run(async () =>
+        while (TimerActive)
         {
-            while (TimerActive)
+            if (currBuildTime <= 0f)
             {
-                if (currBuildTime <= 0f)
-                {
-                    if (currentlyBuilding != null) Finished?.Invoke(currentlyBuilding);
-                    if (itemQueue.Count == 0) { TimerActive = false; return; }
-                    currentlyBuilding = itemQueue.Dequeue();
-                    totalBuildTime = currentlyBuilding.build_time;
-                    currBuildTime = totalBuildTime;
-                }
-                LeftForCurrentItem?.Invoke(currBuildTime);
-                currBuildTime -= 1f;
-                await Task.Delay(1000);
+
+                if (currentlyBuilding != null) Finished?.Invoke(currentlyBuilding);
+                if (itemQueue.Count == 0) { TimerActive = false; return; }
+                currentlyBuilding = itemQueue.Dequeue();
+                totalBuildTime = currentlyBuilding.build_time;
+                currBuildTime = totalBuildTime;
             }
-        });
+            LeftForCurrentItem?.Invoke(currBuildTime);
+            currBuildTime -= 1f;
+            await Task.Delay(1000);
+        }
 
     }
 }
