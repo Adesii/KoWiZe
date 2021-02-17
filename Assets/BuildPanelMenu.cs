@@ -55,13 +55,16 @@ public class BuildPanelMenu : MonoBehaviour
         item.ownerCity = CityInfoPanel.ownCity;
         CityInfoPanel.ownCity.Creator.QueueNewItem(item);
     }
-    private void OnEnable()
+    private void Awake()
     {
         CityInfoPanel.citySelectionChanged += registerNewCities;
-
+        CityInfoPanel.citySelectionChanged += viewer.onCityChange;
     }
     private void Start()
     {
+        
+
+
         foreach (var item in UnitManagerSingleton.Instance.AllUnits)
         {
             if (item.Value.Length <= 0) continue;

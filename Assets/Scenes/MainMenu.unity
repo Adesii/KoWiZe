@@ -537,6 +537,17 @@ MonoBehaviour:
   serverOnly: 0
   m_AssetId: 
   hasSpawned: 0
+--- !u!114 &463647067 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 691477621, guid: d254002e027ed45429df1b46ce795959, type: 3}
+  m_PrefabInstance: {fileID: 1284488864435433513}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ea368fb6f27ec2f40a40e20977992b9c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &576048640 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 2016416135132598839, guid: bf73ac15dad7c9247bc4fe439243889b, type: 3}
@@ -1960,17 +1971,6 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: bf73ac15dad7c9247bc4fe439243889b, type: 3}
---- !u!114 &2017759042 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 1284488865463646112, guid: d254002e027ed45429df1b46ce795959, type: 3}
-  m_PrefabInstance: {fileID: 1284488864435433513}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c7424c1070fad4ba2a7a96b02fbeb4bb, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1001 &1284488864435433513
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1990,6 +1990,10 @@ PrefabInstance:
       propertyPath: newGameButton
       value: 
       objectReference: {fileID: 954826628}
+    - target: {fileID: 1284488865463646112, guid: d254002e027ed45429df1b46ce795959, type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 1284488865463646113, guid: d254002e027ed45429df1b46ce795959, type: 3}
       propertyPath: m_Name
       value: networkManager
@@ -2041,7 +2045,7 @@ PrefabInstance:
     - target: {fileID: 1284488865463646115, guid: d254002e027ed45429df1b46ce795959, type: 3}
       propertyPath: transport
       value: 
-      objectReference: {fileID: 2017759042}
+      objectReference: {fileID: 463647067}
     - target: {fileID: 1284488865463646115, guid: d254002e027ed45429df1b46ce795959, type: 3}
       propertyPath: showDebugMessages
       value: 0
