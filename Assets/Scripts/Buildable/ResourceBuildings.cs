@@ -34,7 +34,6 @@ public class ResourceBuildings : BuildableObject
     }
     public void init()
     {
-        GameController.Instance.onResourceTick += onResource;
         resource = resourceCity.GetResource(type);
         for (int i = 0; i < buildings.Count; i++)
         {
@@ -52,7 +51,7 @@ public class ResourceBuildings : BuildableObject
     private void onResource()
     {
         if (resource != null)
-            resource.AddResource(amount);
+            resource.AddResource(GameController.Instance.localSettings.GainAmount[(int)resource.ResourceType].amount);
     }
 
     public override void wantsTobeBuild()
@@ -63,6 +62,8 @@ public class ResourceBuildings : BuildableObject
     {
         base.HasBeenBuild();
         init();
+        GameController.Instance.onResourceTick += onResource;
+
         resourceCity.AddResourceBuilding(this);
 
     }

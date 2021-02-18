@@ -14,6 +14,14 @@ public class LocalSettings
 
     public static connPlayerDictionary playerPairs = new connPlayerDictionary();
 
+    public List<GainPair> GainAmount= new List<GainPair>();
+    [System.Serializable]
+    public struct GainPair
+    {
+        public ResourceClass.ResourceTypes Resource;
+        public float amount;
+    }
+
     public class connPlayerDictionary : SyncDictionary<NetworkIdentity, playerPair> { }
     [System.Serializable]
     public struct playerPair
@@ -21,4 +29,5 @@ public class LocalSettings
         public NetworkIdentity RoomPlayer;
         public NetworkIdentity GamePlayer;
     }
+
 }

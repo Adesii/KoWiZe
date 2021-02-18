@@ -26,14 +26,6 @@ public class SyncableStorage : NetworkBehaviour
         base.OnStartClient();
         GameController.SyncableStorageInstance = this;
     }
-    public override void OnStartServer()
-    {
-        DontDestroyOnLoad(gameObject);
-
-        base.OnStartServer();
-        GameController.SyncableStorageInstance = this;
-
-    }
 
     #region SyncableLobbySettings
 
