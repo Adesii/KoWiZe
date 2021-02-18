@@ -40,17 +40,17 @@ public class TabGroup : MonoBehaviour
         if (selectedTab == null || button != selectedTab)
         {
             button.background.DOBlendableColor(tabHover, FadeTime);
+            button.transform.DOComplete();
             button.transform.DOBlendableScaleBy(scaler, FadeTime);
             button.transform.GetChild(0).DOBlendableScaleBy(-scaler, FadeTime);
+            ResetTabs();
         }
-        ResetTabs();
     }
     public void OnTabExit(GroupTabButton button)
     {
-        
-
         if (selectedTab == null || button != selectedTab)
         {
+            button.transform.DOComplete();
             button.transform.DOBlendableScaleBy(-scaler, FadeTime);
             button.transform.GetChild(0).DOBlendableScaleBy(scaler, FadeTime);
         }
@@ -84,7 +84,8 @@ public class TabGroup : MonoBehaviour
         {
             if(selectedTab != null && item == selectedTab) { continue; }
             item.background.color = tabIdle;
-            if(item.transform.localScale.y >1 && !DOTween.IsTweening(item.transform))
+
+            if (item.transform.localScale.y >1 && !DOTween.IsTweening(item.transform,true))
             {
                 item.transform.GetChild(0).DOScaleY(1, FadeTime);
                 item.transform.DOScaleY(1, FadeTime);
