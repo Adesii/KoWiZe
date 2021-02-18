@@ -1,6 +1,7 @@
 ﻿using System;
 using UnityEngine;
 using System.Collections.Generic;
+using System.Linq;
 using static ResourceClass;
 using Mirror;
 
@@ -51,7 +52,7 @@ public class ResourceBuildings : BuildableObject
     private void onResource()
     {
         if (resource != null)
-            resource.AddResource(GameController.Instance.localSettings.GainAmount[(int)resource.ResourceType].amount);
+            resource.AddResource(GameController.Instance.localSettings.GainAmount.Find((e)=>e.Resource==resource.ResourceType).amount);
     }
 
     public override void wantsTobeBuild()

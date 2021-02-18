@@ -28,11 +28,22 @@ public class ResourceClass
     }
     public bool RemoveResource(float amount)
     {
-        if (currentAmount - amount > 0)
+        if (currentAmount - amount >= 0)
+        {
             currentAmount -= amount;
+            return true;
+        }
         else
             return false;
-        return true;
+    }
+    public bool canRemoveResource(float amount)
+    {
+        if (currentAmount - amount >= 0)
+        {
+            return true;
+        }
+        else
+            return false;
     }
 
     public void AddToLimit(float amount)

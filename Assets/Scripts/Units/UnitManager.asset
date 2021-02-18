@@ -25,35 +25,9 @@ MonoBehaviour:
     speed: 100
     costs:
     - Resource: 0
-      Cost: 100
+      Cost: 10
     - Resource: 1
-      Cost: 250
-    - Resource: 1
-      Cost: 250
-    - Resource: 1
-      Cost: 250
-    - Resource: 1
-      Cost: 250
-    - Resource: 1
-      Cost: 250
-    - Resource: 1
-      Cost: 250
-    - Resource: 1
-      Cost: 250
-    - Resource: 1
-      Cost: 250
-    - Resource: 1
-      Cost: 250
-    - Resource: 1
-      Cost: 250
-    - Resource: 1
-      Cost: 250
-    - Resource: 1
-      Cost: 250
-    - Resource: 1
-      Cost: 250
-    - Resource: 1
-      Cost: 250
+      Cost: 25
     building: 1
     UnitRange: 100
     description: "Basic Ranged Unit shooting arrows at his opponents.\r"
@@ -101,7 +75,7 @@ MonoBehaviour:
     ownerCity: {fileID: 0}
     Unit_name: Rheinhard
     build_time: 25
-    QueueType: -1
+    QueueType: 1
     subtype: 0
     hp: 2520
     armor: 500

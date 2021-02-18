@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 01b3e78a146b1a94caa47b57d190197a, type: 3}
   m_Name: GameController
   m_EditorClassIdentifier: 
-  currentLanguage: 0
+  currentLanguage: 1
   UI_Prefab: {fileID: 2016416135910513801, guid: bf73ac15dad7c9247bc4fe439243889b, type: 3}
   localPlayerID: 0
   manager: {fileID: 0}
@@ -43,10 +43,10 @@ MonoBehaviour:
     GainAmount:
     - Resource: 0
       amount: 5
-    - Resource: 1
-      amount: 3
     - Resource: 2
       amount: 2
+    - Resource: 1
+      amount: 3
     - Resource: 3
       amount: 6
     - Resource: 4

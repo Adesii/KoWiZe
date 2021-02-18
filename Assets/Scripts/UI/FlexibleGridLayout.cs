@@ -23,7 +23,7 @@ public class FlexibleGridLayout : LayoutGroup
     public bool fitY;
     protected override void Start()
     {
-        //CalculateLayoutInputVertical();
+        CalculateLayoutInputVertical();
     }
     protected override void OnEnable()
     {

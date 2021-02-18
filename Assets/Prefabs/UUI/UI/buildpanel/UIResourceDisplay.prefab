@@ -85,8 +85,8 @@ GameObject:
   m_Component:
   - component: {fileID: 2302573395732703385}
   - component: {fileID: 5494581965552719312}
-  - component: {fileID: 5508426524985904819}
   - component: {fileID: -6881722588401240624}
+  - component: {fileID: 7662512431603333302}
   m_Layer: 5
   m_Name: UIResourceDisplay
   m_TagString: Untagged
@@ -135,31 +135,6 @@ MonoBehaviour:
     currentAmount: 0
     maxCapacity: 0
     resourceIndex: 0
---- !u!114 &5508426524985904819
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6972289363867350232}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ead834e5d2001454a8b7c16c2bf4d598, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_Padding:
-    m_Left: 0
-    m_Right: 0
-    m_Top: 0
-    m_Bottom: 0
-  m_ChildAlignment: 4
-  fitType: 3
-  rows: 1
-  columns: 2
-  cellSize: {x: 960, y: 1080}
-  spacing: {x: 0, y: 0}
-  fitX: 1
-  fitY: 1
 --- !u!114 &-6881722588401240624
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -180,6 +155,32 @@ MonoBehaviour:
   m_FlexibleWidth: -1
   m_FlexibleHeight: -1
   m_LayoutPriority: 1
+--- !u!114 &7662512431603333302
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6972289363867350232}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 30649d3a9faa99c48a7b1166b86bf2a0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Padding:
+    m_Left: 0
+    m_Right: 0
+    m_Top: 0
+    m_Bottom: 0
+  m_ChildAlignment: 1
+  m_Spacing: 10
+  m_ChildForceExpandWidth: 1
+  m_ChildForceExpandHeight: 1
+  m_ChildControlWidth: 1
+  m_ChildControlHeight: 1
+  m_ChildScaleWidth: 0
+  m_ChildScaleHeight: 0
+  m_ReverseArrangement: 0
 --- !u!1 &7490276528635351653
 GameObject:
   m_ObjectHideFlags: 0
@@ -272,7 +273,7 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 860
+  m_fontSize: 614.05
   m_fontSizeBase: 36
   m_fontWeight: 400
   m_enableAutoSizing: 1

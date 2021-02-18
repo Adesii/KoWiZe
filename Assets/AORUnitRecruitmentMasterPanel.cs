@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using TMPro;
 using UnityEngine.UI;
@@ -28,9 +29,16 @@ public class AORUnitRecruitmentMasterPanel : MonoBehaviour
 
     public void ProduceUnit()
     {
-        Debug.Log("presseButton");
         currUnit.QueueType = 1;
-        panel.QueueNewItem(currUnit);
+        if(currUnit.costs.All((e) => panel.CityInfoPanel.ownCity.res[e.Resource].canRemoveResource(e.Cost)))
+        {
+            foreach (var item in currUnit.costs)
+            {
+                panel.CityInfoPanel.ownCity.res[item.Resource].RemoveResource(item.Cost);
+            }
+            panel.QueueNewItem(currUnit);
+        }
+
     }
 
     public void onSelectedUnit(BaseUnit unit)
