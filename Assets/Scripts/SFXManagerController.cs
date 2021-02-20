@@ -80,16 +80,16 @@ public class SFXManagerController : Singleton<SFXManagerController>
         newMasterVolume /= 100;
         switch (target)
         {
-            case VolumeTarget.Master:
+            case VolumeTarget.AS_Master:
                 Master.setVolume(newMasterVolume);
                 break;
-            case VolumeTarget.Enviroment:
+            case VolumeTarget.AS_Enviroment:
                 Enviroment.setVolume(newMasterVolume);
                 break;
-            case VolumeTarget.Music:
+            case VolumeTarget.AS_Music:
                 Music.setVolume(newMasterVolume);
                 break;
-            case VolumeTarget.Effects:
+            case VolumeTarget.AS_SoundEffects:
                 SoundEffects.setVolume(newMasterVolume);
                 break;
             default:
@@ -98,10 +98,10 @@ public class SFXManagerController : Singleton<SFXManagerController>
     }
     public enum VolumeTarget
     {
-        Master,
-        Enviroment,
-        Music,
-        Effects
+        AS_Master,
+        AS_Enviroment,
+        AS_Music,
+        AS_SoundEffects
     }
 
 

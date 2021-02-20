@@ -4,18 +4,19 @@ using UnityEngine;
 using TMPro;
 using UnityEngine.UI;
 using UnityEngine.Events;
+using System.Threading.Tasks;
 
 public class Setting : MonoBehaviour
 {
     [SerializeField]
-    private TextLocalisationUI settingID;
+    public TextLocalisationUI settingID;
     [SerializeField]
-    private string category = "General";
-    private SharpConfig.Setting SharpSetting;
+    public string category = "General";
+    public SharpConfig.Setting SharpSetting;
     [SerializeField]
-    private SettingValueType SettingType = SettingValueType.String;
+    public SettingValueType SettingType = SettingValueType.String;
     [SerializeField]
-    private GameObject Holder;
+    public GameObject Holder;
 
     public string SettingKey;
 
@@ -68,8 +69,6 @@ public class Setting : MonoBehaviour
     }
     public void Loaded()
     {
-        
-        
         var val = SettingsManager.settings[category][settingID.unlocalizedString];
         print(val);
         switch (SettingType)
@@ -77,18 +76,19 @@ public class Setting : MonoBehaviour
             case SettingValueType.String:
                 break;
             case SettingValueType.Float:
-                Holder.GetComponent<Slider>().value = val.FloatValue;
+                Holder.GetComponent<Slider>().value =val.FloatValue;
+                SFXManagerController.Instance.setTarget(settingID.unlocalizedString);
+                SFXManagerController.Instance.VolumeLevel(val.FloatValue);
                 break;
             case SettingValueType.Int:
                 Holder.GetComponent<TMP_Dropdown>().value = val.IntValue;
                 break;
             case SettingValueType.Bool:
-                Holder.GetComponent<Toggle>().isOn = val.BoolValue;
+                Holder.GetComponent<Toggle>().isOn=val.BoolValue;
                 break;
             default:
                 break;
         }
-
     }
 
     public enum SettingValueType

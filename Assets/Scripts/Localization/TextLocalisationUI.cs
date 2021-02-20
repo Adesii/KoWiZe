@@ -9,13 +9,7 @@ public class TextLocalisationUI : MonoBehaviour
 
     private string unString;
     public string unlocalizedString;
-    // Start is called before the first frame update
-    private void Awake()
-    {
-        textField = GetComponent<TextMeshProUGUI>();
-        unlocalizedString = textField.text;
-    }
-    void Start()
+    public void Start()
     {
         newUnlocalisationChange();
         GameController.languageChangeEvent += changeLangue;
@@ -29,6 +23,7 @@ public class TextLocalisationUI : MonoBehaviour
 
     public void newUnlocalisationChange()
     {
+        if (textField == null) textField = GetComponent<TextMeshProUGUI>();
         unlocalizedString = textField.text;
         changeLangue();
     }

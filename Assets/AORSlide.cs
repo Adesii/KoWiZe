@@ -8,5 +8,6 @@ public class AORSlide : Slider,IAORSettingsSaver
     public void TriggerUpdate()
     {
         onValueChanged?.Invoke(value);
+        
     }
 }

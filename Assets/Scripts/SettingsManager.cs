@@ -6,6 +6,9 @@ using System.IO;
 using UnityEngine.EventSystems;
 using UnityEngine.Rendering.HighDefinition;
 using UnityEngine.Rendering;
+using System.Linq;
+using TMPro;
+using UnityEngine.UI;
 
 public class SettingsManager : MonoBehaviour
 {
@@ -20,6 +23,7 @@ public class SettingsManager : MonoBehaviour
     private HDAdditionalCameraData _cameraData;
     private FrameSettings _frameSettings;
     private FrameSettingsOverrideMask _frameSettingsOverrideMask;
+    List<Setting> allSettings;
 
     public static void SaveSettings()
     {
@@ -33,12 +37,13 @@ public class SettingsManager : MonoBehaviour
     {
         instance = this;
         LoadSettings();
-        init();
+        initSettings();
+        applyAllSettings();
 
     }
     private void Start()
     {
-        onLoad?.Invoke();
+        //onLoad?.Invoke();
         GameController.ApplySetting();
     }
     public void LoadSettings()
@@ -48,6 +53,27 @@ public class SettingsManager : MonoBehaviour
         if (!File.Exists(CfgPath + "/game.cfg")) return;
         settings = Configuration.LoadFromFile(CfgPath + "/game.cfg");
         print($"Loaded Settings From Path {CfgPath}");
+    }
+
+    private void applyAllSettings()
+    {
+
+        allSettings = FindObjectsOfType<Setting>(true).ToList();
+        foreach (var item in allSettings)
+        {
+            var val = settings[item.category][item.settingID.GetComponent<TextMeshProUGUI>().text];
+            print(val);
+            switch (item.SettingType)
+            {
+                case Setting.SettingValueType.Float:
+                    //item.Holder.GetComponent<Slider>().value = val.FloatValue;
+                    SFXManagerController.Instance.setTarget(item.settingID.GetComponent<TextMeshProUGUI>().text);
+                    SFXManagerController.Instance.VolumeLevel(val.FloatValue);
+                    break;
+                default:
+                    break;
+            }
+        }
     }
 
     public static void init()
@@ -109,6 +135,6 @@ public class SettingsManager : MonoBehaviour
             default:
                 break;
         }
-
+        GameController.CurrLangIndex = settings["Language"]["MMS_Lang"].IntValue;
     }
 }
