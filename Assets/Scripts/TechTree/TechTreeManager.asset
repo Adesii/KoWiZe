@@ -12,25 +12,95 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 39a644647cce08d4b9376b46fe39c082, type: 3}
   m_Name: TechTreeManager
   m_EditorClassIdentifier: 
+  SaveData: 0
   Techs:
   - TechTreeName: TechTree
     techLayers:
-    - LayerName: 
+    - LayerName: StartingLayer
       techNodes:
-      - {fileID: 0}
-    - LayerName: 
+      - owner: {fileID: 0}
+        TechName: Tech_Starting
+        TechDescription: base
+        dependsIDs: []
+        m_isAvailable: 1
+        m_unlocked: 1
+        onUnlocked:
+          m_PersistentCalls:
+            m_Calls: []
+    - LayerName: secondLayer
       techNodes:
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-    - LayerName: 
+      - owner: {fileID: 0}
+        TechName: Tech_FirstSteps
+        TechDescription: base
+        dependsIDs:
+        - isUnlocked: 0
+          techName: Tech_Starting
+        m_isAvailable: 0
+        m_unlocked: 0
+        onUnlocked:
+          m_PersistentCalls:
+            m_Calls: []
+      - owner: {fileID: 0}
+        TechName: DifferentPath
+        TechDescription: base
+        dependsIDs:
+        - isUnlocked: 0
+          techName: Tech_Starting
+        m_isAvailable: 0
+        m_unlocked: 0
+        onUnlocked:
+          m_PersistentCalls:
+            m_Calls: []
+    - LayerName: thirdLayer
       techNodes:
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-  - TechTreeName: TechTree
-    techLayers:
-    - LayerName: 
+      - owner: {fileID: 0}
+        TechName: Tech_LastFrontier
+        TechDescription: This is very coool
+        dependsIDs:
+        - isUnlocked: 0
+          techName: Tech_FirstSteps
+        - isUnlocked: 0
+          techName: DifferentPath
+        m_isAvailable: 0
+        m_unlocked: 0
+        onUnlocked:
+          m_PersistentCalls:
+            m_Calls: []
+    - LayerName: TheIndependent
       techNodes:
-      - {fileID: 0}
-      - {fileID: 0}
+      - owner: {fileID: 0}
+        TechName: Tech_YouThough
+        TechDescription: This is very coool
+        dependsIDs:
+        - isUnlocked: 0
+          techName: Tech_LastFrontier
+        m_isAvailable: 0
+        m_unlocked: 0
+        onUnlocked:
+          m_PersistentCalls:
+            m_Calls: []
+      - owner: {fileID: 0}
+        TechName: Tech_YouNot
+        TechDescription: This is very coool
+        dependsIDs:
+        - isUnlocked: 0
+          techName: Tech_LastFrontier
+        m_isAvailable: 0
+        m_unlocked: 0
+        onUnlocked:
+          m_PersistentCalls:
+            m_Calls: []
+      - owner: {fileID: 0}
+        TechName: Tech_Youyeah
+        TechDescription: This is very coool
+        dependsIDs:
+        - isUnlocked: 0
+          techName: Tech_LastFrontier
+        - isUnlocked: 0
+          techName: Tech_FirstSteps
+        m_isAvailable: 0
+        m_unlocked: 0
+        onUnlocked:
+          m_PersistentCalls:
+            m_Calls: []
+  saveToChangeTechs: []
