@@ -34,11 +34,6 @@ public class LineGraphic : MaskableGraphic
                 var oV2 = (Vector2)corners[i1].root.InverseTransformPoint(corners[i1].dependency.TransformPoint(corners[i1].dependency.anchoredPosition));
                 oV2.y -= (i1 * (thickness + 50f));
                 var vv = new Vector2(oV2.x, iV2.y + (i1 * (thickness + 100f)));
-                if (i1 == 1)
-                {
-                    Debug.Log(vv);
-                }
-
                 points.Add(iV2);
                 points.Add(vv);
                 points.Add(oV2);

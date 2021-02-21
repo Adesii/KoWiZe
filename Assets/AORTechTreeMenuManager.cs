@@ -27,6 +27,11 @@ public class AORTechTreeMenuManager : MonoBehaviour
         TechTreeViewer.SetActive(true);
         if (!initialized) init();
     }
+    public void closeTechTree()
+    {
+        TechTreeViewer.GetComponent<simpleUIFader>().disableObject();
+    }
+
     private void init()
     {
         localLayers = TechTreeManager.Instance.saveToChangeTechs[0].techLayers;
