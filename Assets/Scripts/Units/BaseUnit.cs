@@ -2,7 +2,6 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UI;
 
 public enum unit_type
 {
@@ -27,8 +26,10 @@ public enum unit_building
 public interface IUnit
 {
 }
+[System.Serializable]
 public abstract class AORQueableItem
 {
+    [Newtonsoft.Json.JsonIgnore]
     public Sprite UnitIcon;
     [HideInInspector]
     public citySystem ownerCity;
@@ -102,6 +103,7 @@ public abstract class BaseUnit : AORQueableItem,IUnit
     {
         return new Dictionary<string, object>
         {
+            { "Unit_Costs", costs },
             { "Unit_Subtype", subtype },
             { "Unit_HP", hp },
             { "Unit_Armor", armor },
@@ -109,8 +111,7 @@ public abstract class BaseUnit : AORQueableItem,IUnit
             { "Unit_MovementSpeed", speed },
             {"Unit_BuildTime",build_time },
             {"Unit_Range",UnitRange },
-            {"Unit_Strenghts",unitStrenghts },
-            { "Unit_Costs", costs }
+            {"Unit_Strenghts",unitStrenghts }
 
         };
     }
