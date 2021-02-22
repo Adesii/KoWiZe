@@ -10,7 +10,7 @@ public class LocalSettings
     public PlayerScript localPlayer;
     public AORNetworkRoomPlayer localRoomPlayer;
 
-    public List<IUnit> LocalPlayerUnlockedUnits = new List<IUnit>();
+    public List<BaseUnit> LocalPlayerUnlockedUnits = new List<BaseUnit>();
 
     public static connPlayerDictionary playerPairs = new connPlayerDictionary();
 

@@ -15,6 +15,7 @@ public class TechTreeManager : Singleton<TechTreeManager>
     [SerializeField]
     public List<TechTree> Techs;
 
+    public Action NewTechUnlocked;
 
 
     public Dictionary<string, TechNode> TechNodeDict;
@@ -42,6 +43,16 @@ public class TechTreeManager : Singleton<TechTreeManager>
                     foreach (var node in layer.techNodes)
                     {
                         TechNodeDict.Add(node.TechName, node);
+                        if (node.isUnlocked)
+                        {
+                            foreach (var unitsIDs in node.UnitIDS)
+                            {
+                                if (UnitManagerSingleton.Instance.AllBaseUnits.TryGetValue(unitsIDs, out BaseUnit unit))
+                                    GameController.Instance.localSettings.LocalPlayerUnlockedUnits.Add(unit);
+                            }
+                        }
+
+
                     }
                 }
             }
@@ -75,6 +86,13 @@ public class TechTreeManager : Singleton<TechTreeManager>
                 item.Value.isAvailable = true;
             }
         }
+        foreach (var item in tech.UnitIDS)
+        {
+            if (UnitManagerSingleton.Instance.AllBaseUnits.TryGetValue(item, out BaseUnit unit))
+                GameController.Instance.localSettings.LocalPlayerUnlockedUnits.Add(unit);
+        }
+
+        NewTechUnlocked?.Invoke();
     }
 }
 [System.Serializable]
@@ -87,6 +105,8 @@ public class TechNode
     public string TechDescription = "base";
 
     public List<Dependencies> dependsIDs;
+
+    public List<string> UnitIDS;
 
     [SerializeField]
     private bool m_isAvailable = false;

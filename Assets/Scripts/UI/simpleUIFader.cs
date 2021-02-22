@@ -17,6 +17,8 @@ public class simpleUIFader : MonoBehaviour
 
     public event Action onFadedOut;
 
+    public bool dontFadeOnEnable = false;
+
     private void Awake()
     {
         orgPosition = transform.localPosition;
@@ -26,13 +28,14 @@ public class simpleUIFader : MonoBehaviour
     private void OnEnable()
     {
         cg.alpha = 0;
-        StartCoroutine(fadeinIE());
+        if (!dontFadeOnEnable)
+            StartCoroutine(fadeinIE());
     }
 
     public void disableObject()
     {
-        if(gameObject.activeSelf != false)
-        StartCoroutine(fadeout());
+        if (gameObject.activeSelf != false)
+            StartCoroutine(fadeout());
     }
     IEnumerator fadeinIE()
     {

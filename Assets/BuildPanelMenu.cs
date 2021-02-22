@@ -59,39 +59,57 @@ public class BuildPanelMenu : MonoBehaviour
     {
         CityInfoPanel.citySelectionChanged += registerNewCities;
         CityInfoPanel.citySelectionChanged += viewer.onCityChange;
+        TechTreeManager.Instance.NewTechUnlocked += UpdateViewSelection;
     }
     private void Start()
     {
-        
+        UpdateViewSelection();
+    }
 
+    private Dictionary<string, AORCategorySorter> CreatedCategories = new Dictionary<string, AORCategorySorter>();
 
-        foreach (var item in UnitManagerSingleton.Instance.AllUnits)
+    private void UpdateViewSelection()
+    {
+        foreach (var item in GameController.Instance.localSettings.LocalPlayerUnlockedUnits)
         {
-            if (item.Value.Length <= 0) continue;
-            var unitCategory = Instantiate(CategoriesPrefab, ScrollContentWindow.transform).GetComponent<AORCategorySorter>();
-            unitCategory.CategoryName.text = item.Key;
-            unitCategory.p = this;
-            foreach (var unit in item.Value)
+            if (CreatedCategories.TryGetValue(item.Categorie, out AORCategorySorter val))
             {
+
                 if (selectedUnit == null)
-                    selectedUnit = unit;
-                unitCategory.AddUnit(unit);
+                    selectedUnit = item;
+                val.AddUnit(item);
+                val.UpdateLayout();
             }
+            else
+            {
+
+                var v = Instantiate(CategoriesPrefab, ScrollContentWindow.transform).GetComponent<AORCategorySorter>();
+                v.CategoryName.text = item.Categorie;
+                v.p = this;
+                if (selectedUnit == null)
+                    selectedUnit = item;
+                v.AddUnit(item);
+                CreatedCategories.Add(item.Categorie, v);
+                v.UpdateLayout();
+
+            }
+
         }
     }
 
-    public void registerNewCities(citySystem arg1,citySystem arg2)
+
+    public void registerNewCities(citySystem arg1, citySystem arg2)
     {
-        if(arg1 != null)
+        if (arg1 != null)
         {
             arg1.Creator.LeftForCurrentItem -= timerCallback;
             arg1.Creator.Finished -= ItemFinishedCallback;
         }
-        if(arg2 != null)
+        if (arg2 != null)
         {
             arg2.Creator.LeftForCurrentItem += timerCallback;
             arg2.Creator.Finished += ItemFinishedCallback;
         }
-            
+
     }
 }

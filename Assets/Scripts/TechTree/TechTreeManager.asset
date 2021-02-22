@@ -22,6 +22,8 @@ MonoBehaviour:
         TechName: Tech_Starting
         TechDescription: base
         dependsIDs: []
+        UnitIDS:
+        - Sniper
         m_isAvailable: 1
         m_unlocked: 1
         onUnlocked:
@@ -30,22 +32,25 @@ MonoBehaviour:
     - LayerName: secondLayer
       techNodes:
       - owner: {fileID: 0}
-        TechName: Tech_FirstSteps
+        TechName: DifferentPath
         TechDescription: base
         dependsIDs:
         - isUnlocked: 0
           techName: Tech_Starting
+        UnitIDS:
+        - Archer
         m_isAvailable: 0
         m_unlocked: 0
         onUnlocked:
           m_PersistentCalls:
             m_Calls: []
       - owner: {fileID: 0}
-        TechName: DifferentPath
+        TechName: Tech_FirstSteps
         TechDescription: base
         dependsIDs:
         - isUnlocked: 0
           techName: Tech_Starting
+        UnitIDS: []
         m_isAvailable: 0
         m_unlocked: 0
         onUnlocked:
@@ -61,6 +66,7 @@ MonoBehaviour:
           techName: Tech_FirstSteps
         - isUnlocked: 0
           techName: DifferentPath
+        UnitIDS: []
         m_isAvailable: 0
         m_unlocked: 0
         onUnlocked:
@@ -74,6 +80,7 @@ MonoBehaviour:
         dependsIDs:
         - isUnlocked: 0
           techName: Tech_LastFrontier
+        UnitIDS: []
         m_isAvailable: 0
         m_unlocked: 0
         onUnlocked:
@@ -85,6 +92,7 @@ MonoBehaviour:
         dependsIDs:
         - isUnlocked: 0
           techName: Tech_LastFrontier
+        UnitIDS: []
         m_isAvailable: 0
         m_unlocked: 0
         onUnlocked:
@@ -98,6 +106,8 @@ MonoBehaviour:
           techName: Tech_LastFrontier
         - isUnlocked: 0
           techName: Tech_FirstSteps
+        UnitIDS:
+        - Speermen
         m_isAvailable: 0
         m_unlocked: 0
         onUnlocked:

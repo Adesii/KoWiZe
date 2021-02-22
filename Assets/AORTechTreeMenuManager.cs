@@ -21,18 +21,19 @@ public class AORTechTreeMenuManager : MonoBehaviour
     private List<TechLayer> localLayers;
 
     public bool initialized = false;
-
     public void OpenTechTree()
     {
         TechTreeViewer.SetActive(true);
-        if (!initialized) init();
     }
     public void closeTechTree()
     {
         TechTreeViewer.GetComponent<simpleUIFader>().disableObject();
     }
-
-    private void init()
+    private void Update()
+    {
+        if (!initialized) init();
+    }
+    public void init()
     {
         localLayers = TechTreeManager.Instance.saveToChangeTechs[0].techLayers;
         foreach (var item in localLayers)
@@ -64,7 +65,6 @@ public class AORTechTreeMenuManager : MonoBehaviour
                     if (nodes.isUnlocked)
                     {
                         n.LightOut.SetActive(true);
-                        TechTreeManager.Instance.unlockedTech(n.ownNode);
                     }
                 }
                 n.newNode();
