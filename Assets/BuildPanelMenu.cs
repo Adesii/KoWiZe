@@ -63,6 +63,7 @@ public class BuildPanelMenu : MonoBehaviour
     }
     private void Start()
     {
+        
         UpdateViewSelection();
     }
 
@@ -74,9 +75,6 @@ public class BuildPanelMenu : MonoBehaviour
         {
             if (CreatedCategories.TryGetValue(item.Categorie, out AORCategorySorter val))
             {
-
-                if (selectedUnit == null)
-                    selectedUnit = item;
                 val.AddUnit(item);
                 val.UpdateLayout();
             }
@@ -86,14 +84,13 @@ public class BuildPanelMenu : MonoBehaviour
                 var v = Instantiate(CategoriesPrefab, ScrollContentWindow.transform).GetComponent<AORCategorySorter>();
                 v.CategoryName.text = item.Categorie;
                 v.p = this;
-                if (selectedUnit == null)
-                    selectedUnit = item;
                 v.AddUnit(item);
                 CreatedCategories.Add(item.Categorie, v);
                 v.UpdateLayout();
 
             }
-
+            if (selectedUnit == null)
+                selectedUnit = item;
         }
     }
 

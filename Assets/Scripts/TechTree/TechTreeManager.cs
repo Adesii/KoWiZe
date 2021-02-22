@@ -14,6 +14,7 @@ public class TechTreeManager : Singleton<TechTreeManager>
     public bool SaveData;
     [SerializeField]
     public List<TechTree> Techs;
+    public TechTreeHolder holder;
 
     public Action NewTechUnlocked;
 
@@ -28,32 +29,31 @@ public class TechTreeManager : Singleton<TechTreeManager>
     public static bool CreateNewInstance = true;
     protected override void Initialize()
     {
-        if (CreateNewInstance)
+        base.Initialize();
+
+        CreateNewInstance = false;
+
+        holder.Tree = Techs;
+        var b = Instantiate(holder);
+        saveToChangeTechs = b.Tree;
+        TechNodeDict = new Dictionary<string, TechNode>();
+        foreach (var item in saveToChangeTechs)
         {
-            base.Initialize();
-
-            CreateNewInstance = false;
-            var b = Instantiate(this);
-            saveToChangeTechs = b.Techs;
-            TechNodeDict = new Dictionary<string, TechNode>();
-            foreach (var item in saveToChangeTechs)
+            foreach (var layer in item.techLayers)
             {
-                foreach (var layer in item.techLayers)
+                foreach (var node in layer.techNodes)
                 {
-                    foreach (var node in layer.techNodes)
+                    TechNodeDict.Add(node.TechName, node);
+                    if (node.isUnlocked)
                     {
-                        TechNodeDict.Add(node.TechName, node);
-                        if (node.isUnlocked)
+                        foreach (var unitsIDs in node.UnitIDS)
                         {
-                            foreach (var unitsIDs in node.UnitIDS)
-                            {
-                                if (UnitManagerSingleton.Instance.AllBaseUnits.TryGetValue(unitsIDs, out BaseUnit unit))
-                                    GameController.Instance.localSettings.LocalPlayerUnlockedUnits.Add(unit);
-                            }
+                            if (UnitManagerSingleton.Instance.AllBaseUnits.TryGetValue(unitsIDs, out BaseUnit unit))
+                                GameController.Instance.localSettings.LocalPlayerUnlockedUnits.Add(unit);
                         }
-
-
                     }
+
+
                 }
             }
         }
@@ -61,8 +61,7 @@ public class TechTreeManager : Singleton<TechTreeManager>
     }
     protected override void Deinitialize()
     {
-        if (CreateNewInstance)
-            base.Deinitialize();
+        base.Deinitialize();
         saveToChangeTechs = new List<TechTree>();
         CreateNewInstance = true;
     }
