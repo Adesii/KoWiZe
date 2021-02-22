@@ -53,6 +53,9 @@ public abstract class BaseUnit : AORQueableItem,IUnit
     public float speed = 100f;
     public List<Costs> costs;
     public unit_building building;
+
+    [HideInInspector]
+    public string Categorie = "Not Assigned";
     
     public float UnitRange = 1f;
     //todo technology unlock

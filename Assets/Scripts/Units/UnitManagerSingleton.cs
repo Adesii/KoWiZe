@@ -23,4 +23,21 @@ public class UnitManagerSingleton : Singleton<UnitManagerSingleton>
             };
 
     }
+    protected override void Initialize()
+    {
+        base.Initialize();
+
+        var b = new Dictionary<string, BaseUnit>();
+
+        foreach (var item in AllUnits)
+        {
+            foreach (var unit in item.Value)
+            {
+                unit.Categorie = item.Key;
+                b.Add(unit.Unit_name, unit);
+            }
+        }
+        AllBaseUnits = b;
+    }
+    public Dictionary<string, BaseUnit> AllBaseUnits;
 }
