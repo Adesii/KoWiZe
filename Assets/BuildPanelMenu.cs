@@ -63,7 +63,6 @@ public class BuildPanelMenu : MonoBehaviour
     }
     private void Start()
     {
-        
         UpdateViewSelection();
     }
 
@@ -92,6 +91,7 @@ public class BuildPanelMenu : MonoBehaviour
             if (selectedUnit == null)
                 selectedUnit = item;
         }
+        arourmp.onSelectedUnit(selectedUnit);
     }
 
 

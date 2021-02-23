@@ -183,28 +183,15 @@ public class jobGenerationManager : MonoBehaviour
         {
             if (lod <= LODLEVELS.LOD1 || lod > LODLEVELS.LOD2)
             {
-                int chunkRes;
-                switch (lod)
+                var chunkRes = lod switch
                 {
-                    case LODLEVELS.LOD0:
-                        chunkRes = 200;
-                        break;
-                    case LODLEVELS.LOD1:
-                        chunkRes = 100;
-                        break;
-                    case LODLEVELS.LOD2:
-                        chunkRes = 32;
-                        break;
-                    case LODLEVELS.LOD3:
-                        chunkRes = 4;
-                        break;
-                    case LODLEVELS.LOD4:
-                        chunkRes = 4;
-                        break;
-                    default:
-                        chunkRes = 2;
-                        break;
-                }
+                    LODLEVELS.LOD0 => 200,
+                    LODLEVELS.LOD1 => 100,
+                    LODLEVELS.LOD2 => 32,
+                    LODLEVELS.LOD3 => 4,
+                    LODLEVELS.LOD4 => 4,
+                    _ => 2,
+                };
 
                 //if (jobFillList.Count < 30)
                 //{

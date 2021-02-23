@@ -72,6 +72,9 @@ public class Chunk
         collider.cookingOptions = MeshColliderCookingOptions.UseFastMidphase;
         chunk.transform.position = origin;
         chunk.transform.parent = parent;
+
+
+
         tr = chunk.AddComponent<TreePlacement>();
 
         savedMeshed[lod] = mesh;
@@ -114,9 +117,9 @@ public class Chunk
             LOD = lod;
             
         }
-        if (lod < World.LODLEVELS.LOD1)
+        if (lod < World.LODLEVELS.LOD2)
         {
-            tr.chunkplaceTree(chunk.transform.position + savedMeshed[lod].bounds.extents, 0);
+            tr.chunkplaceTree(chunk.transform.position, this);
             tr.showTrees();
 
         }

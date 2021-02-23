@@ -7,7 +7,7 @@ using UnityEditor;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using Mirror;
-
+using System.Threading.Tasks;
 
 [Serializable]
 public class UIEventManagerAndNotifier : MonoBehaviour
@@ -107,19 +107,18 @@ public class UIEventManagerAndNotifier : MonoBehaviour
     {
         Application.Quit();
     }
-    public void NewGame()
+    public void NewGame(Action callBack)
     {
-        
-        if (menuUI.BlackScreen != null)
-        {
-            menuUI.BlackScreen.SetActive(true);
-        }
-
         selectedUI = type_Of_UI.stratMode;
-        FadeScene();
-
+        StartCoroutine(nameof(faders),callBack);
     }
-
+    private IEnumerator faders(Action callback)
+    {
+        yield return new WaitForSeconds(menuUI.BlackScreen.GetComponent<simpleUIFader>().duration+0.1f);
+        callback?.Invoke();
+        yield return new WaitForSeconds(menuUI.BlackScreen.GetComponent<simpleUIFader>().duration + 0.1f);
+        FadeScene();
+    }
     private void LoadnewScene()
     {
         GameController.Instance.manager.ServerChangeScene("worldGeneration");
@@ -127,7 +126,7 @@ public class UIEventManagerAndNotifier : MonoBehaviour
         //GameController.Instance.manager.StartHost();
     }
 
-    private void FadeScene()
+    public void FadeScene()
     {
         updateUISelection();
         menuUI.BlackScreen.GetComponent<simpleUIFader>().disableObject();

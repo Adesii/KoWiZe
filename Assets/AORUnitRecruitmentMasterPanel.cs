@@ -24,9 +24,12 @@ public class AORUnitRecruitmentMasterPanel : MonoBehaviour
 
     private void Awake()
     {
-        BuildPanelMenu.OnSelectionChange += onSelectedUnit;
     }
+    private void Start()
+    {
+        BuildPanelMenu.OnSelectionChange += onSelectedUnit;
 
+    }
     public void ProduceUnit()
     {
         currUnit.QueueType = 1;

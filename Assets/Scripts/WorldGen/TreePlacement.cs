@@ -21,13 +21,18 @@ public class TreePlacement : MonoBehaviour
     Vector3 absoluteStartSpot;
 
     Coroutine co;
-
+    [SerializeField]
     GameObject TreeParent;
 
 
+    List<Vector2> treePositions;
+
+
     // Start is called before the first frame update
-    void Start()
+    private void Awake()
     {
+        TreeParent = new GameObject();
+        TreeParent.transform.parent = transform;
         TreePrefab = GameController.TreePrefab;
         placeableModels = GameController.PlaceableModels;
         maxPlacedTrees = GameController.MaxPlacedTrees;
@@ -35,8 +40,6 @@ public class TreePlacement : MonoBehaviour
         successProcent = GameController.SuccessProcent;
         heightLimit = GameController.HeightLimit;
         minHeight = GameController.MinHeight;
-        TreeParent = new GameObject();
-        TreeParent.transform.parent = transform;
     }
 
     // Update is called once per frame
@@ -86,7 +89,7 @@ public class TreePlacement : MonoBehaviour
             trees.RemoveAt(i);
             DestroyImmediate(temp);
         }
-        placeTree(transform.position, 0);
+        Random.InitState(2);
 
 
     }
@@ -111,98 +114,119 @@ public class TreePlacement : MonoBehaviour
 
         return false;
     }
-
-    public void placeTree(Vector3 StartPos, int id)
+    public void chunkplaceTree(Vector3 StartPos, Chunk c)
     {
-        if (trees.Count <= maxPlacedTrees)
-            co = StartCoroutine(PlaceTree(StartPos, id));
-    }
-    public void chunkplaceTree(Vector3 StartPos, int id)
-    {
-        if (trees.Count <= maxPlacedTrees)
+        if (trees.Count < 1)
         {
-            co = StartCoroutine(chunkPlaceTree(StartPos, id));
+            Random.InitState(SyncableStorage.main.WorldSeedInt + c.Position.X + c.Position.Z);
+            chunkPlaceTree(StartPos, c);
         }
 
     }
-    public IEnumerator chunkPlaceTree(Vector3 startSpot, int id)
+    public void chunkPlaceTree(Vector3 ChunkMiddle, Chunk c)
     {
-        Vector3 random = Random.insideUnitCircle.normalized * Random.Range(1f, 15f);
-        Ray ray = new Ray(startSpot + (Vector3.up * 10), new Vector3(0, -1, 0));
-
-
-
-        if (Physics.Raycast(ray, out RaycastHit hit))
+        treePositions = PoissonDiscSampling.GeneratePoints(8f, new Vector2(World.chunkSize, World.chunkSize), 2, maxPlacedTrees);
+        for (int i = 0; i < treePositions.Count; i++)
         {
-            if (!hit.collider.CompareTag("tree") && hit.point.y < heightLimit && hit.point.y > minHeight && !hit.collider.CompareTag("enviroment"))
+            Vector2 item = treePositions[i];
+            //Debug.DrawRay(s + ChunkMiddle + new Vector3(item.x, 0, item.y), Vector3.up, Color.green, 10f);
+            var newPos = (new Vector3(Mathf.Lerp(0, World.chunkSize, item.x / World.chunkSize), 0, Mathf.Lerp(0, World.chunkSize, item.y / World.chunkSize)) + ChunkMiddle);
+            Ray ray = new Ray(newPos + (Vector3.up * 10), new Vector3(0, -100, 0));
+            Debug.DrawRay(newPos + (Vector3.up * 10), new Vector3(0, -100, 0), Color.red, 100f);
+            if (Physics.Raycast(ray, out RaycastHit hit))
             {
-                if (id == 0) absoluteStartSpot = hit.point;
-                GameObject newTree = Instantiate(TreePrefab, hit.point, Quaternion.Euler(transform.rotation.eulerAngles + new Vector3(0, Random.Range(0f, 360f), 0)), TreeParent.transform);
-                newTree.GetComponent<Repopulate>().id = id + 1;
-                Instantiate(placeableModels[Random.Range(0, placeableModels.Count)], newTree.transform);
-                if (id == 0) { SFXManagerController.Instance.PlayOnObject("env_forest", newTree); Debug.Log("Playing Sound on Object: " + newTree.name); }
-                trees.Add(newTree);
-
-            }
-            else if (id < minForestSize)
-            {
-                if (trees.Count > 0)
-                    placeTree(trees[trees.Count - 1].transform.position + random, id - 1);
+                if (!hit.collider.CompareTag("tree") && hit.point.y < heightLimit && hit.point.y > minHeight)
+                {
+                    GameObject newTree = Instantiate(TreePrefab, hit.point, Quaternion.Euler(transform.rotation.eulerAngles + new Vector3(0, Random.Range(0f, 360f), 0)), c.chunk.transform);
+                    Instantiate(placeableModels[Random.Range(0, placeableModels.Count)], newTree.transform);
+                    trees.Add(newTree);
+                }
             }
 
         }
-        if (id < minForestSize)
-        {
-            placeTree(startSpot + random, id + 1);
-            yield break;
-        }
-        if (Random.value <= successProcent)
-        {
-            placeTree(startSpot + random, id + 1);
-            placeTree(startSpot + random, id + 1);
-        }
+
+
     }
 
 
 
 
-    public IEnumerator PlaceTree(Vector3 startSpot, int id)
+    
+}
+
+
+
+
+public static class PoissonDiscSampling
+{
+
+    public static List<Vector2> GeneratePoints(float radius, Vector2 sampleRegionSize, int numSamplesBeforeRejection = 30, int maxNumOfPoints = 300)
     {
-        yield return new WaitForSeconds(0.05f);
-        if (maxPlacedTrees <= trees.Count) yield break;
+        float cellSize = radius / Mathf.Sqrt(2);
 
-        if (id > maxForestSize) yield break;
-        Vector2 r = Vector2.zero;
-        if (trees.Count < 1) r = Random.insideUnitCircle.normalized * Random.Range(1f, 15f);
-        else r = ((absoluteStartSpot - trees[trees.Count - 1].transform.position).normalized + Random.insideUnitSphere) * Random.Range(1f, 15f) * id;
-        Vector3 random = new Vector3(r.x, 0, r.y);
+        int[,] grid = new int[Mathf.CeilToInt(sampleRegionSize.x / cellSize), Mathf.CeilToInt(sampleRegionSize.y / cellSize)];
+        List<Vector2> points = new List<Vector2>();
+        List<Vector2> spawnPoints = new List<Vector2>();
 
-        Ray ray = new Ray(startSpot + (Vector3.up * 10), new Vector3(0, -1, 0));
-
-        if (Physics.Raycast(ray, out RaycastHit hit))
+        spawnPoints.Add(sampleRegionSize / 2);
+        while (spawnPoints.Count > 0)
         {
-            if (!hit.collider.CompareTag("tree") && hit.point.y < heightLimit && hit.point.y > minHeight && !hit.collider.CompareTag("enviroment"))
+            if (points.Count > maxNumOfPoints) return points;
+            int spawnIndex = Random.Range(0, spawnPoints.Count);
+            Vector2 spawnCentre = spawnPoints[spawnIndex];
+            bool candidateAccepted = false;
+            for (int i = 0; i < numSamplesBeforeRejection; i++)
             {
-                if (id == 0) absoluteStartSpot = hit.point;
-                GameObject newTree = Instantiate(TreePrefab, hit.point, Quaternion.Euler(transform.rotation.eulerAngles + new Vector3(0, Random.Range(0f, 360f), 0)), TreeParent.transform);
-                newTree.GetComponent<Repopulate>().id = id + 1;
-                Instantiate(placeableModels[Random.Range(0, placeableModels.Count)], newTree.transform);
-                trees.Add(newTree);
+                float angle = Random.value * Mathf.PI * 2;
+                Vector2 dir = new Vector2(Mathf.Sin(angle), Mathf.Cos(angle));
+                Vector2 candidate = spawnCentre + dir * Random.Range(radius, 2 * radius);
+                if (IsValid(candidate, sampleRegionSize, cellSize, radius, points, grid))
+                {
+                    points.Add(candidate);
+                    spawnPoints.Add(candidate);
+                    grid[(int)(candidate.x / cellSize), (int)(candidate.y / cellSize)] = points.Count;
+                    candidateAccepted = true;
+                    break;
+                }
             }
-            else if (id < minForestSize)
+            if (!candidateAccepted)
             {
-                if (trees.Count > 0)
-                    placeTree(trees[trees.Count - 1].transform.position + random, id - 1);
+                spawnPoints.RemoveAt(spawnIndex);
             }
+
         }
-        if (id < minForestSize)
+
+        return points;
+    }
+
+    static bool IsValid(Vector2 candidate, Vector2 sampleRegionSize, float cellSize, float radius, List<Vector2> points, int[,] grid)
+    {
+        if (candidate.x >= 0 && candidate.x < sampleRegionSize.x && candidate.y >= 0 && candidate.y < sampleRegionSize.y)
         {
-            placeTree(startSpot + random, id + 1);
+            int cellX = (int)(candidate.x / cellSize);
+            int cellY = (int)(candidate.y / cellSize);
+            int searchStartX = Mathf.Max(0, cellX - 2);
+            int searchEndX = Mathf.Min(cellX + 2, grid.GetLength(0) - 1);
+            int searchStartY = Mathf.Max(0, cellY - 2);
+            int searchEndY = Mathf.Min(cellY + 2, grid.GetLength(1) - 1);
+
+            for (int x = searchStartX; x <= searchEndX; x++)
+            {
+                for (int y = searchStartY; y <= searchEndY; y++)
+                {
+                    int pointIndex = grid[x, y] - 1;
+                    if (pointIndex != -1)
+                    {
+                        float sqrDst = (candidate - points[pointIndex]).sqrMagnitude;
+                        if (sqrDst < radius * radius)
+                        {
+                            return false;
+                        }
+                    }
+                }
+            }
+            return true;
         }
-        if (Random.value <= successProcent)
-        {
-            placeTree(startSpot + random, id + 1);
-            placeTree(startSpot + random, id + 1);
-        }
+        return false;
     }
 }

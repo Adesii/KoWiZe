@@ -99,6 +99,5 @@ public class AORNetworkRoomPlayer : NetworkRoomPlayer
 
         return texture;
     }
-
     #endregion
 }

@@ -87,4 +87,13 @@ public class SteamLobby : MonoBehaviour
 
         newGameButton.enabled = false;
     }
+
+    public void OpenFriendsList()
+    {
+        SteamFriends.ActivateGameOverlay("Friends");
+    }
+    public void OpenInviteScreen()
+    {
+        SteamFriends.ActivateGameOverlayInviteDialog(LobbyId);
+    }
 }

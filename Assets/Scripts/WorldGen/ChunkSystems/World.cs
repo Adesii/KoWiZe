@@ -134,6 +134,7 @@ public class World : MonoBehaviour
 
     private void Start()
     {
+        LODRadius = SettingsManager.settings["Model"]["MMS_LODDistance"].IntValue + 1;
         GenerateChunks();
         StartCoroutine(liveEdit());
         StartCoroutine(updateLOD());
@@ -203,7 +204,7 @@ public class World : MonoBehaviour
             yield return new WaitForSeconds(updateRate);
         }
     }
-    private void GenerateChunks()
+    public void GenerateChunks()
     {
         for (int x = 0; x < typeOfWorld.sizeX; x++)
         {
