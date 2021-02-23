@@ -48,7 +48,6 @@ public class AORTechTreeMenuManager : MonoBehaviour
                 var line = gg.GetComponent<LineGraphic>();
                 line.corners = new List<LineGraphic.dependedGraph>();
                 line.color = n.inactive;
-                nodes.owner = gg;
                 foreach (var depends in nodes.dependsIDs)
                 {
                     nodeLinks.TryGetValue(depends.techName, out AORTechTreeItem val);

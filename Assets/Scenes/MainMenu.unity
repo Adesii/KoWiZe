@@ -553,17 +553,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4e29b1a8efbd4b44bb3f3716e73f07ff, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &970590215 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 1284488865463646112, guid: d254002e027ed45429df1b46ce795959, type: 3}
-  m_PrefabInstance: {fileID: 1284488864435433513}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c7424c1070fad4ba2a7a96b02fbeb4bb, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &1012811961
 GameObject:
   m_ObjectHideFlags: 0
@@ -1614,10 +1603,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 691477621, guid: d254002e027ed45429df1b46ce795959, type: 3}
-      propertyPath: m_Enabled
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 691477623, guid: d254002e027ed45429df1b46ce795959, type: 3}
       propertyPath: lobbyMenu
       value: 
@@ -1630,10 +1615,6 @@ PrefabInstance:
       propertyPath: newGameButton
       value: 
       objectReference: {fileID: 954826628}
-    - target: {fileID: 1284488865463646112, guid: d254002e027ed45429df1b46ce795959, type: 3}
-      propertyPath: m_Enabled
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 1284488865463646113, guid: d254002e027ed45429df1b46ce795959, type: 3}
       propertyPath: m_Name
       value: networkManager
@@ -1680,14 +1661,6 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1284488865463646114, guid: d254002e027ed45429df1b46ce795959, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1284488865463646115, guid: d254002e027ed45429df1b46ce795959, type: 3}
-      propertyPath: transport
-      value: 
-      objectReference: {fileID: 970590215}
-    - target: {fileID: 1284488865463646115, guid: d254002e027ed45429df1b46ce795959, type: 3}
-      propertyPath: showDebugMessages
       value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []

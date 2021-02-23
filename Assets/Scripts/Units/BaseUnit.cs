@@ -32,6 +32,7 @@ public abstract class AORQueableItem
     [Newtonsoft.Json.JsonIgnore]
     public Sprite UnitIcon;
     [HideInInspector]
+    [Newtonsoft.Json.JsonIgnore]
     public citySystem ownerCity;
     public string Unit_name = "base";
     public float build_time = 10f;

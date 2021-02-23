@@ -4,6 +4,7 @@ using UnityEngine;
 using Mirror;
 using Steamworks;
 using UnityEngine.UI;
+using Mirror.FizzySteam;
 
 public class SteamLobby : MonoBehaviour
 {
@@ -22,6 +23,7 @@ public class SteamLobby : MonoBehaviour
 
     private void Start()
     {
+        SteamUtils.BOverlayNeedsPresent();
         networkManager = GetComponent<NetworkManager>();
 
         if (!SteamManager.Initialized) { return; }

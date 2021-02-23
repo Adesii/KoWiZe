@@ -3,8 +3,9 @@ guid: 39a644647cce08d4b9376b46fe39c082
 MonoImporter:
   externalObjects: {}
   serializedVersion: 2
-  defaultReferences: []
-  executionOrder: 8
+  defaultReferences:
+  - holder: {fileID: 11400000, guid: 3a33c81084137734686d2edb99176732, type: 2}
+  executionOrder: 1120
   icon: {instanceID: 0}
   userData: 
   assetBundleName: 

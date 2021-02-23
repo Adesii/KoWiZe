@@ -7,6 +7,7 @@ using System.IO;
 using System.Collections.Generic;
 
 [CustomEditor(typeof(TechTreeManager))]
+[CanEditMultipleObjects]
 public class AORTechTreeEditor : Editor
 {
     public static string TechTreePath { get => (Application.persistentDataPath + "/tech"); }

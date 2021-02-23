@@ -142,7 +142,7 @@ public class citySystem : Selectable
         }
     }
 
-    private void ShowResources()
+    public void ShowResources()
     {
         int index = 0;
         foreach (var item in vsfL)
@@ -166,12 +166,19 @@ public class citySystem : Selectable
         ResourceBuilding.Add(building);
 
         vsfL.Add(Instantiate(arrowPrefab, transform).GetComponent<VisualEffect>());
-        vsfL[vsfL.Count - 1].Stop();
-        if (isSelected)
+        if (!isSelected)
         {
-            ShowResources();
-        }
+            vsfL[vsfL.Count - 1].Stop();
 
+        }
+        return true;
+    }
+    public bool RemoveResourceBuilding(ResourceBuildings building)
+    {
+        var ind = ResourceBuilding.IndexOf(building);
+        Destroy(vsfL[ind].gameObject);
+        vsfL.RemoveAt(ind);
+        ResourceBuilding.Remove(building);
         return true;
     }
 

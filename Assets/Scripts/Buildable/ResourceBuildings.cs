@@ -20,7 +20,9 @@ public class ResourceBuildings : BuildableObject
 
     internal override void NewParent(NetworkIdentity oldP, NetworkIdentity newP)
     {
-        base.NewParent(oldP,newP);
+        base.NewParent(oldP, newP);
+        if (oldP != null)
+            oldP.GetComponent<citySystem>().RemoveResourceBuilding(this);
         Debug.Log($"Hook Called on {netIdentity.name}");
         resourceCity = newP.GetComponent<citySystem>();
         init();
@@ -52,7 +54,7 @@ public class ResourceBuildings : BuildableObject
     private void onResource()
     {
         if (resource != null)
-            resource.AddResource(GameController.Instance.localSettings.GainAmount.Find((e)=>e.Resource==resource.ResourceType).amount);
+            resource.AddResource(GameController.Instance.localSettings.GainAmount.Find((e) => e.Resource == resource.ResourceType).amount);
     }
 
     public override void wantsTobeBuild()
@@ -64,8 +66,6 @@ public class ResourceBuildings : BuildableObject
         base.HasBeenBuild();
         init();
         GameController.Instance.onResourceTick += onResource;
-
-        resourceCity.AddResourceBuilding(this);
-
+        resourceCity.ShowResources();
     }
 }

@@ -6,27 +6,23 @@ using UnityEditor;
 [CreateAssetMenu(fileName = "UnitManager", menuName = "KoWiZe Custom Assets/Singletons/UnitManager")]
 [ExecuteAlways]
 [System.Serializable]
-public class UnitManagerSingleton : Singleton<UnitManagerSingleton>
+public class UnitManagerSingleton : LazySingleton<UnitManagerSingleton>
 {
     public RangedUnit[] rangedUnits;
     public MeleeUnit[] meleeUnits;
     public SiegeUnit[] siegeUnits;
 
 
-    public Dictionary<string, BaseUnit[]> AllUnits
+    public Dictionary<string, BaseUnit[]> AllUnits;
+    protected override void Initialize()
     {
-        get => new Dictionary<string, BaseUnit[]>
+        base.Initialize();
+        AllUnits = new Dictionary<string, BaseUnit[]>
             {
                 { "Ranged Units", rangedUnits },
                 { "Melee Units", meleeUnits },
                 { "Siege Units", siegeUnits }
             };
-
-    }
-    protected override void Initialize()
-    {
-        base.Initialize();
-
         var b = new Dictionary<string, BaseUnit>();
 
         foreach (var item in AllUnits)
@@ -39,5 +35,5 @@ public class UnitManagerSingleton : Singleton<UnitManagerSingleton>
         }
         AllBaseUnits = b;
     }
-    public Dictionary<string, BaseUnit> AllBaseUnits;
+    public Dictionary<string, BaseUnit> AllBaseUnits = new Dictionary<string, BaseUnit>();
 }

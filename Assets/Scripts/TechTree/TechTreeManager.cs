@@ -9,7 +9,8 @@ using System.IO;
 using Newtonsoft.Json;
 
 [CreateAssetMenu(fileName = "TechTreeManager", menuName = "KoWiZe Custom Assets/Singletons/TechTreeManager")]
-public class TechTreeManager : Singleton<TechTreeManager>
+[Serializable]
+public class TechTreeManager : LazySingleton<TechTreeManager>
 {
     public bool SaveData;
     [SerializeField]
@@ -23,19 +24,29 @@ public class TechTreeManager : Singleton<TechTreeManager>
 
     public List<TechTree> saveToChangeTechs;
 
-    public static string TechTreePath { get => (Application.persistentDataPath + "/tech"); }
-    public static string TechTreeFilePath { get => (TechTreePath + "/TechTreeData.tech"); }
+    public static string TechTreePath { get => Path.Combine(Application.persistentDataPath + "/tech"); }
+    public static string TechTreeFilePath { get => Path.Combine(TechTreePath + "/TechTreeData.tec"); }
 
     public static bool CreateNewInstance = true;
+    protected override void Deinitialize()
+    {
+        base.Deinitialize();
+        saveToChangeTechs = new List<TechTree>();
+        CreateNewInstance = true;
+    }
     protected override void Initialize()
     {
-        base.Initialize();
+        if (File.Exists(TechTreeFilePath))
+            saveToChangeTechs = JsonConvert.DeserializeObject<List<TechTree>>(File.ReadAllText(TechTreeFilePath));
+        else
+        {
+            var st = JsonConvert.SerializeObject(Techs);
+            if (!Directory.Exists(TechTreePath))
+                Directory.CreateDirectory(TechTreePath);
 
-        CreateNewInstance = false;
-
-        holder.Tree = Techs;
-        var b = Instantiate(holder);
-        saveToChangeTechs = b.Tree;
+            File.WriteAllText(TechTreeFilePath, st);
+            saveToChangeTechs = JsonConvert.DeserializeObject<List<TechTree>>(st);
+        }
         TechNodeDict = new Dictionary<string, TechNode>();
         foreach (var item in saveToChangeTechs)
         {
@@ -48,6 +59,7 @@ public class TechTreeManager : Singleton<TechTreeManager>
                     {
                         foreach (var unitsIDs in node.UnitIDS)
                         {
+
                             if (UnitManagerSingleton.Instance.AllBaseUnits.TryGetValue(unitsIDs, out BaseUnit unit))
                                 GameController.Instance.localSettings.LocalPlayerUnlockedUnits.Add(unit);
                         }
@@ -57,15 +69,7 @@ public class TechTreeManager : Singleton<TechTreeManager>
                 }
             }
         }
-
     }
-    protected override void Deinitialize()
-    {
-        base.Deinitialize();
-        saveToChangeTechs = new List<TechTree>();
-        CreateNewInstance = true;
-    }
-
     public void unlockedTech(TechNode tech)
     {
         foreach (var item in TechNodeDict)
@@ -97,8 +101,6 @@ public class TechTreeManager : Singleton<TechTreeManager>
 [System.Serializable]
 public class TechNode
 {
-
-    public GameObject owner;
     public string TechName = "Nothing";
     [Multiline]
     public string TechDescription = "base";
