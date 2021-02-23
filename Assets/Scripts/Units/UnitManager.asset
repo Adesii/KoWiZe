@@ -15,7 +15,7 @@ MonoBehaviour:
   rangedUnits:
   - UnitIcon: {fileID: 0}
     ownerCity: {fileID: 0}
-    Unit_name: Archer
+    Unit_name: Unit_namearcher
     build_time: 10
     QueueType: 1
     subtype: 0
@@ -26,33 +26,79 @@ MonoBehaviour:
     costs:
     - Resource: 0
       Cost: 10
-    - Resource: 1
-      Cost: 25
+    - Resource: 2
+      Cost: 15
     building: 1
+    Categorie: Ranged Units
     UnitRange: 100
-    description: "Basic Ranged Unit shooting arrows at his opponents.\r"
+    description: Unit_descriptionarcher
     unitStrenghts: []
   - UnitIcon: {fileID: 0}
     ownerCity: {fileID: 0}
-    Unit_name: Sniper
-    build_time: 9999
+    Unit_name: Unit_nameskirmisher
+    build_time: 10
     QueueType: -1
     subtype: 0
-    hp: 8000
-    armor: 200
-    attack: 300
-    speed: 5
+    hp: 60
+    armor: 2
+    attack: 14
+    speed: 100
     costs:
     - Resource: 3
-      Cost: 10000
-    building: 3
-    UnitRange: 10000
-    description: BOOM HEADSHOT!!! also known as Caitlynn
+      Cost: 10
+    - Resource: 0
+      Cost: 15
+    building: 0
+    Categorie: Ranged Units
+    UnitRange: 20
+    description: Unit_descriptionskirmisher
+    unitStrenghts: []
+  - UnitIcon: {fileID: 0}
+    ownerCity: {fileID: 0}
+    Unit_name: Unit_namecrossbowmen
+    build_time: 20
+    QueueType: -1
+    subtype: 0
+    hp: 120
+    armor: 3
+    attack: 15
+    speed: 100
+    costs:
+    - Resource: 3
+      Cost: 15
+    - Resource: 2
+      Cost: 15
+    - Resource: 0
+      Cost: 10
+    building: 1
+    Categorie: Ranged Units
+    UnitRange: 100
+    description: Unit_namecrossbowmen
+    unitStrenghts: []
+  - UnitIcon: {fileID: 0}
+    ownerCity: {fileID: 0}
+    Unit_name: Unit_namecavalryarcher
+    build_time: 25
+    QueueType: -1
+    subtype: 1
+    hp: 130
+    armor: 2
+    attack: 14
+    speed: 100
+    costs:
+    - Resource: 3
+      Cost: 25
+    - Resource: 0
+      Cost: 15
+    building: 2
+    Categorie: Ranged Units
+    UnitRange: 100
+    description: Unit_namecavalryarcher
     unitStrenghts: []
   meleeUnits:
   - UnitIcon: {fileID: 0}
     ownerCity: {fileID: 0}
-    Unit_name: Speermen
+    Unit_name: Unit_namespeermen
     build_time: 10
     QueueType: 1
     subtype: 0
@@ -62,29 +108,110 @@ MonoBehaviour:
     speed: 90
     costs:
     - Resource: 0
-      Cost: 500
-    - Resource: 2
-      Cost: 5000
+      Cost: 10
+    - Resource: 3
+      Cost: 10
     building: 0
+    Categorie: Melee Units
     UnitRange: 1
-    description: "Basic Infantry armed with a speer and shield perfect to counter
-      Cavalry.\r"
+    description: Unit_descriptionspeermen
+    unitStrenghts: []
+  - UnitIcon: {fileID: 0}
+    ownerCity: {fileID: 0}
+    Unit_name: Unit_nameswordmen
+    build_time: 18
+    QueueType: 1
+    subtype: 0
+    hp: 120
+    armor: 6
+    attack: 6
+    speed: 90
+    costs:
+    - Resource: 3
+      Cost: 15
+    - Resource: 2
+      Cost: 6
+    building: 0
+    Categorie: Melee Units
+    UnitRange: 1
+    description: Unit_descriptionswordmen
+    unitStrenghts: []
+  - UnitIcon: {fileID: 0}
+    ownerCity: {fileID: 0}
+    Unit_name: Unit_nameheavycavalry
+    build_time: 30
+    QueueType: 1
+    subtype: 1
+    hp: 150
+    armor: 6
+    attack: 8
+    speed: 120
+    costs:
+    - Resource: 3
+      Cost: 20
+    - Resource: 2
+      Cost: 12
+    building: 2
+    Categorie: Melee Units
+    UnitRange: 1
+    description: Unit_descriptionheavycavalry
+    unitStrenghts: []
+  - UnitIcon: {fileID: 0}
+    ownerCity: {fileID: 0}
+    Unit_name: Unit_namelightcavalry
+    build_time: 10
+    QueueType: 1
+    subtype: 1
+    hp: 150
+    armor: 4
+    attack: 8
+    speed: 120
+    costs:
+    - Resource: 0
+      Cost: 10
+    - Resource: 3
+      Cost: 20
+    building: 2
+    Categorie: Melee Units
+    UnitRange: 1
+    description: Unit_descriptionlightcavalry
     unitStrenghts: []
   siegeUnits:
   - UnitIcon: {fileID: 0}
     ownerCity: {fileID: 0}
-    Unit_name: Rheinhard
-    build_time: 25
+    Unit_name: Unit_namebatteringram
+    build_time: 40
     QueueType: 1
     subtype: 0
     hp: 2520
     armor: 500
-    attack: 5
+    attack: 1
     speed: 3
+    costs:
+    - Resource: 0
+      Cost: 500
+    - Resource: 2
+      Cost: 8
+    building: 3
+    Categorie: Siege Units
+    UnitRange: 1
+    description: Unit_descriptionbatteringram
+    unitStrenghts: []
+  - UnitIcon: {fileID: 0}
+    ownerCity: {fileID: 0}
+    Unit_name: Unit_nameonager
+    build_time: 50
+    QueueType: 1
+    subtype: 0
+    hp: 250
+    armor: 2
+    attack: 20
+    speed: 6
     costs:
     - Resource: 0
       Cost: 1000
     building: 3
-    UnitRange: 1
-    description: Rheinhard is here
+    Categorie: Siege Units
+    UnitRange: 300
+    description: Unit_descriptiononager
     unitStrenghts: []

@@ -24,6 +24,8 @@ public class AORTechTreeMenuManager : MonoBehaviour
     public void OpenTechTree()
     {
         TechTreeViewer.SetActive(true);
+        if (!initialized) init();
+
     }
     public void closeTechTree()
     {
@@ -31,7 +33,6 @@ public class AORTechTreeMenuManager : MonoBehaviour
     }
     private void Update()
     {
-        if (!initialized) init();
     }
     public void init()
     {

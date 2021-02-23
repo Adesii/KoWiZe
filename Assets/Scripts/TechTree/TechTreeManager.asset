@@ -20,10 +20,11 @@ MonoBehaviour:
       techNodes:
       - owner: {fileID: 0}
         TechName: Tech_Starting
-        TechDescription: base
+        TechDescription: Tech_startingdescription
         dependsIDs: []
         UnitIDS:
-        - Sniper
+        - Unit_nameskirmisher
+        - Unit_namespeermen
         m_isAvailable: 1
         m_unlocked: 1
         onUnlocked:
@@ -32,25 +33,26 @@ MonoBehaviour:
     - LayerName: secondLayer
       techNodes:
       - owner: {fileID: 0}
-        TechName: DifferentPath
-        TechDescription: base
+        TechName: Tech_Ranged1
+        TechDescription: Tech_descriptionranged1
         dependsIDs:
         - isUnlocked: 0
           techName: Tech_Starting
         UnitIDS:
-        - Archer
+        - Unit_namearcher
         m_isAvailable: 0
         m_unlocked: 0
         onUnlocked:
           m_PersistentCalls:
             m_Calls: []
       - owner: {fileID: 0}
-        TechName: Tech_FirstSteps
-        TechDescription: base
+        TechName: Tech_Melee1
+        TechDescription: Tech_descriptionmelee1
         dependsIDs:
         - isUnlocked: 0
           techName: Tech_Starting
-        UnitIDS: []
+        UnitIDS:
+        - Unit_nameswordmen
         m_isAvailable: 0
         m_unlocked: 0
         onUnlocked:
@@ -59,55 +61,62 @@ MonoBehaviour:
     - LayerName: thirdLayer
       techNodes:
       - owner: {fileID: 0}
-        TechName: Tech_LastFrontier
-        TechDescription: This is very coool
+        TechName: Tech_Cavalry
+        TechDescription: Tech_descriptioncavalry
         dependsIDs:
         - isUnlocked: 0
-          techName: Tech_FirstSteps
+          techName: Tech_Ranged1
         - isUnlocked: 0
-          techName: DifferentPath
-        UnitIDS: []
+          techName: Tech_Melee1
+        UnitIDS:
+        - Unit_namelightcavalry
+        - Unit_namecavalryarcher
         m_isAvailable: 0
         m_unlocked: 0
         onUnlocked:
           m_PersistentCalls:
             m_Calls: []
-    - LayerName: TheIndependent
+    - LayerName: fourthLayer
       techNodes:
       - owner: {fileID: 0}
-        TechName: Tech_YouThough
-        TechDescription: This is very coool
+        TechName: Tech_Ranged2
+        TechDescription: Tech_descriptionranged2
         dependsIDs:
         - isUnlocked: 0
-          techName: Tech_LastFrontier
-        UnitIDS: []
-        m_isAvailable: 0
-        m_unlocked: 0
-        onUnlocked:
-          m_PersistentCalls:
-            m_Calls: []
-      - owner: {fileID: 0}
-        TechName: Tech_YouNot
-        TechDescription: This is very coool
-        dependsIDs:
-        - isUnlocked: 0
-          techName: Tech_LastFrontier
-        UnitIDS: []
-        m_isAvailable: 0
-        m_unlocked: 0
-        onUnlocked:
-          m_PersistentCalls:
-            m_Calls: []
-      - owner: {fileID: 0}
-        TechName: Tech_Youyeah
-        TechDescription: This is very coool
-        dependsIDs:
-        - isUnlocked: 0
-          techName: Tech_LastFrontier
-        - isUnlocked: 0
-          techName: Tech_FirstSteps
+          techName: Tech_Cavalry
         UnitIDS:
-        - Speermen
+        - Unit_namecrossbowmen
+        m_isAvailable: 0
+        m_unlocked: 0
+        onUnlocked:
+          m_PersistentCalls:
+            m_Calls: []
+      - owner: {fileID: 0}
+        TechName: Tech_Cavalry2
+        TechDescription: Tech_descriptioncavalry2
+        dependsIDs:
+        - isUnlocked: 0
+          techName: Tech_Cavalry
+        UnitIDS:
+        - Unit_nameheavycavalry
+        m_isAvailable: 0
+        m_unlocked: 0
+        onUnlocked:
+          m_PersistentCalls:
+            m_Calls: []
+    - LayerName: fifthlayer
+      techNodes:
+      - owner: {fileID: 0}
+        TechName: Tech_Siege
+        TechDescription: Tech_descriptionsiege
+        dependsIDs:
+        - isUnlocked: 0
+          techName: Tech_Cavalry2
+        - isUnlocked: 0
+          techName: Tech_Ranged2
+        UnitIDS:
+        - Unit_namebatteringram
+        - Unit_nameonager
         m_isAvailable: 0
         m_unlocked: 0
         onUnlocked:

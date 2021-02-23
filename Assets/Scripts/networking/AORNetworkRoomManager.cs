@@ -3,6 +3,7 @@ using Mirror;
 using System.Linq;
 using Steamworks;
 using System.Threading.Tasks;
+using FMODUnity;
 
 /*
 	Documentation: https://mirror-networking.com/docs/Components/NetworkRoomManager.html
@@ -63,11 +64,13 @@ public class AORNetworkRoomManager : NetworkRoomManager
 
     public override void ServerChangeScene(string newSceneName)
     {
+        RuntimeManager.StudioSystem.setParameterByName("GlobalState", 0f);
         if (GameController.UIInstance.menuUI.BlackScreen != null)
         {
             GameController.UIInstance.menuUI.BlackScreen.SetActive(true);
         }
         GameController.UIInstance.NewGame(()=>base.ServerChangeScene(newSceneName));
+        
     }
     public override void OnClientSceneChanged(NetworkConnection conn)
     {

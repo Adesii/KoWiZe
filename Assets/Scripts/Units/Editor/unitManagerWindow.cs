@@ -66,7 +66,7 @@ public class unitManagerWindow : Editor
 
     public void SaveUnits()
     {
-        File.WriteAllText(SaveFile, JsonConvert.SerializeObject(serializedObject.targetObject));
+        File.WriteAllText(SaveFile, JsonConvert.SerializeObject(serializedObject.targetObject,new JsonSerializerSettings {ReferenceLoopHandling = ReferenceLoopHandling.Ignore}));
     }
 }
 #endif
