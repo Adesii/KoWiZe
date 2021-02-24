@@ -1690,7 +1690,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 691477621, guid: d254002e027ed45429df1b46ce795959, type: 3}
       propertyPath: m_Enabled
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 691477623, guid: d254002e027ed45429df1b46ce795959, type: 3}
       propertyPath: lobbyMenu

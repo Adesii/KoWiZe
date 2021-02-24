@@ -112,7 +112,7 @@ public abstract class BaseUnit : AORQueableItem,IUnit
             { "Unit_MovementSpeed", speed },
             {"Unit_BuildTime",build_time },
             {"Unit_Range",UnitRange },
-            {"Unit_Strenghts",unitStrenghts }
+            //{"Unit_Strenghts",unitStrenghts }
 
         };
     }
