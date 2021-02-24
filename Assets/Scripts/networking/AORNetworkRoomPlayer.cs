@@ -3,6 +3,7 @@ using Mirror;
 using UnityEngine.UI;
 using TMPro;
 using Steamworks;
+using FMODUnity;
 
 /*
 	Documentation: https://mirror-networking.com/docs/Components/NetworkRoomPlayer.html
@@ -100,4 +101,14 @@ public class AORNetworkRoomPlayer : NetworkRoomPlayer
         return texture;
     }
     #endregion
+    [ClientRpc]
+    public void RpcChangeView()
+    {
+        RuntimeManager.StudioSystem.setParameterByName("GlobalState", 0f);
+        if (GameController.UIInstance.menuUI.BlackScreen != null)
+        {
+            GameController.UIInstance.menuUI.BlackScreen.SetActive(true);
+        }
+        GameController.UIInstance.NewGame(()=> { });
+    }
 }
