@@ -4,6 +4,7 @@ using UnityEngine.EventSystems;
 using static ResourceClass;
 using Mirror;
 using UnityEngine.VFX;
+using System.Linq;
 
 public class citySystem : Selectable
 {
@@ -74,6 +75,15 @@ public class citySystem : Selectable
 
         Creator = new AORBuildCreator();
         Creator.Finished += onFinishedCallback;
+
+        var f = GameController.Instance.localSettings.GainAmount.FindIndex((e) => e.Resource == ResourceTypes.Science);
+
+        GameController.Instance.localSettings.GainAmount[f] = new LocalSettings.GainPair
+        {
+            amount = 5 + 5 * Mathf.Log(GameController.Instance.citySettings.perPlayerSettings[GameController.Instance.localPlayerID].playerCities.Count + (transform.position.y / 16f), 1.5f),
+            Resource = ResourceTypes.Science
+        };
+
     }
 
     private void onFinishedCallback(AORQueableItem item)
@@ -185,7 +195,7 @@ public class citySystem : Selectable
     internal override void NewOwner(NetworkIdentity oldO, NetworkIdentity newO)
     {
         base.NewOwner(oldO, newO);
-        if(oldO != null)
+        if (oldO != null)
         {
             var pps = GameController.CitySettings.perPlayerSettings[GameController.GetPlayerIndexbyNetID(oldO.netId)];
             if (pps.playerCities.Contains(this))

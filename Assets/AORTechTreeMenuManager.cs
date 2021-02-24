@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System.Linq;
 
 public class AORTechTreeMenuManager : MonoBehaviour
 {
@@ -17,7 +18,7 @@ public class AORTechTreeMenuManager : MonoBehaviour
 
 
     private List<GameObject> techColumns = new List<GameObject>();
-    private Dictionary<string, AORTechTreeItem> nodeLinks = new Dictionary<string, AORTechTreeItem>();
+    public Dictionary<string, AORTechTreeItem> nodeLinks = new Dictionary<string, AORTechTreeItem>();
     private List<TechLayer> localLayers;
 
     public bool initialized = false;
@@ -34,6 +35,17 @@ public class AORTechTreeMenuManager : MonoBehaviour
     private void Update()
     {
     }
+
+    public void startResearch(TechNode own)
+    {
+        nodeLinks.All((e) =>
+        {
+            if (!e.Value.ownNode.TechName.Equals(own.TechName)&& e.Value.currResearching)
+                e.Value.currResearching = false;
+            return true;
+        });
+    }
+
     public void init()
     {
         localLayers = TechTreeManager.Instance.saveToChangeTechs[0].techLayers;
@@ -48,6 +60,7 @@ public class AORTechTreeMenuManager : MonoBehaviour
                 var line = gg.GetComponent<LineGraphic>();
                 line.corners = new List<LineGraphic.dependedGraph>();
                 line.color = n.inactive;
+                n.ownManager = this;
                 foreach (var depends in nodes.dependsIDs)
                 {
                     nodeLinks.TryGetValue(depends.techName, out AORTechTreeItem val);

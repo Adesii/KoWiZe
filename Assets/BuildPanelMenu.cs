@@ -81,7 +81,9 @@ public class BuildPanelMenu : MonoBehaviour
             {
 
                 var v = Instantiate(CategoriesPrefab, ScrollContentWindow.transform).GetComponent<AORCategorySorter>();
-                v.CategoryName.text = item.Categorie;
+                v.CategoryName.text = localization.GetLocalisedValue(item.Categorie);
+                if (string.IsNullOrWhiteSpace(v.CategoryName.text))
+                    v.CategoryName.text = item.Categorie;
                 v.p = this;
                 v.AddUnit(item);
                 CreatedCategories.Add(item.Categorie, v);

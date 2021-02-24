@@ -132,7 +132,7 @@ public class TreePlacement : MonoBehaviour
             //Debug.DrawRay(s + ChunkMiddle + new Vector3(item.x, 0, item.y), Vector3.up, Color.green, 10f);
             var newPos = (new Vector3(Mathf.Lerp(0, World.chunkSize, item.x / World.chunkSize), 0, Mathf.Lerp(0, World.chunkSize, item.y / World.chunkSize)) + ChunkMiddle);
             Ray ray = new Ray(newPos + (Vector3.up * 10), new Vector3(0, -100, 0));
-            Debug.DrawRay(newPos + (Vector3.up * 10), new Vector3(0, -100, 0), Color.red, 100f);
+            //Debug.DrawRay(newPos + (Vector3.up * 10), new Vector3(0, -100, 0), Color.red, 100f);
             if (Physics.Raycast(ray, out RaycastHit hit))
             {
                 if (!hit.collider.CompareTag("tree") && hit.point.y < heightLimit && hit.point.y > minHeight)

@@ -139,6 +139,8 @@ public class TechNode
             if (value && TechTreeManager.Instance != null) { TechTreeManager.Instance.unlockedTech(this); onUnlocked?.Invoke(this); };
         }
     }
+
+    public float TechnologyCost = 100f;
     [Serializable]
     public struct Dependencies
     {

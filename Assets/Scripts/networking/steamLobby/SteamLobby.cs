@@ -53,6 +53,7 @@ public class SteamLobby : MonoBehaviour
     {
         if (callback.m_eResult != EResult.k_EResultOK)
         {
+            Debug.Log("Failed to initilize Lobby");
             newGameButton.enabled = true;
             lobbyMenu.SetActive(false);
             return;

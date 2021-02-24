@@ -50,7 +50,9 @@ public class SettingsManager : MonoBehaviour
     {
 
         if (!Directory.Exists(CfgPath)) Directory.CreateDirectory(CfgPath);
-        if (!File.Exists(CfgPath + "/game.cfg")) return;
+        //Debug.Log(Resources.Load<TextAsset>("game"));
+        if (!File.Exists(CfgPath + "/game.cfg")) settings = Configuration.LoadFromString(Resources.Load<TextAsset>("game").text);
+        else
         settings = Configuration.LoadFromFile(CfgPath + "/game.cfg");
         print($"Loaded Settings From Path {CfgPath}");
     }

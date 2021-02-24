@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 1055211775759148344}
   - component: {fileID: 8344311197529947981}
   - component: {fileID: 3452400715705105218}
+  - component: {fileID: 491359294767182467}
   m_Layer: 5
   m_Name: Unit_DescriptionText
   m_TagString: Untagged
@@ -148,6 +149,19 @@ MonoBehaviour:
   m_hasFontAssetChanged: 0
   m_baseMaterial: {fileID: 0}
   m_maskOffset: {x: 0, y: 0, z: 0, w: 0}
+--- !u!114 &491359294767182467
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 76484025914636902}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0d2a846f91b7b0547b76fc444619f5d4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  unlocalizedString: 
 --- !u!1 &248500576239805106
 GameObject:
   m_ObjectHideFlags: 0
@@ -811,6 +825,7 @@ MonoBehaviour:
   UnitInfo: {fileID: 3452400715705105218}
   UnitStrenghts: {fileID: 3079852107055483532}
   UnitAttrPrefab: {fileID: 3238470625178229991, guid: 1b6152ea46e108948af3d7b8d47d439f, type: 3}
+  panel: {fileID: 0}
 --- !u!1 &4174380882493234836
 GameObject:
   m_ObjectHideFlags: 0
@@ -994,6 +1009,7 @@ GameObject:
   - component: {fileID: 7672323681726242858}
   - component: {fileID: 178341165963568396}
   - component: {fileID: 5784000752386806104}
+  - component: {fileID: 7042846070092297116}
   m_Layer: 5
   m_Name: Unit_Name
   m_TagString: Untagged
@@ -1117,6 +1133,19 @@ MonoBehaviour:
   m_hasFontAssetChanged: 0
   m_baseMaterial: {fileID: 0}
   m_maskOffset: {x: 0, y: 0, z: 0, w: 0}
+--- !u!114 &7042846070092297116
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4378537777850748669}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0d2a846f91b7b0547b76fc444619f5d4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  unlocalizedString: 
 --- !u!1 &5503822850697147531
 GameObject:
   m_ObjectHideFlags: 0
@@ -1312,8 +1341,8 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 4000252977286916936}
   m_HandleRect: {fileID: 2058864080395213064}
   m_Direction: 2
-  m_Value: 1
-  m_Size: 0.0586544
+  m_Value: 1.0000001
+  m_Size: 0.058654405
   m_NumberOfSteps: 0
   m_OnValueChanged:
     m_PersistentCalls:
@@ -1900,7 +1929,7 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1806675701044566428}
   m_HandleRect: {fileID: 2648953111086077634}
   m_Direction: 2
-  m_Value: 1
+  m_Value: 0
   m_Size: 1
   m_NumberOfSteps: 0
   m_OnValueChanged:
