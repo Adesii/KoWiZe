@@ -80,8 +80,8 @@ public class AORNetworkRoomManager : NetworkRoomManager
             GamePlayer = gamePlayer.GetComponent<NetworkIdentity>(),
             RoomPlayer = roomPlayer.GetComponent<NetworkIdentity>()
         });
-        var playerCPIndexX = Mathf.Lerp(2, World.main.typeOfWorld.sizeX - 2, (conn.connectionId + 1 % numPlayers));
-        var playerCPIndexZ = Mathf.Lerp(2, World.main.typeOfWorld.sizeZ - 2, (conn.connectionId + 1 / numPlayers));
+        var playerCPIndexX = Mathf.Lerp(2, World.main.typeOfWorld.sizeX - 2, ((conn.connectionId + 1) % numPlayers));
+        var playerCPIndexZ = Mathf.Lerp(2, World.main.typeOfWorld.sizeZ - 2, ((conn.connectionId + 1) / numPlayers));
         var pos = new Vector3((playerCPIndexX * World.chunkSize) - ((World.main.typeOfWorld.sizeX * World.chunkSize) / 2f), 0, (playerCPIndexZ * World.chunkSize) - ((World.main.typeOfWorld.sizeZ * World.chunkSize) / 2f));
         gamePlayer.transform.position = pos;
         return base.OnRoomServerSceneLoadedForPlayer(conn, roomPlayer, gamePlayer);
