@@ -25,7 +25,7 @@ public class ResourceBuildings : BuildableObject
             oldP.GetComponent<citySystem>().RemoveResourceBuilding(this);
         Debug.Log($"Hook Called on {netIdentity.name}");
         resourceCity = newP.GetComponent<citySystem>();
-        init();
+        CmdInitOnAll();
         resourceCity.AddResourceBuilding(this);
     }
     private void Update()
@@ -35,7 +35,13 @@ public class ResourceBuildings : BuildableObject
             transform.LookAt(resourceCity.transform);
         }
     }
-    public void init()
+    [Command]
+    public void CmdInitOnAll()
+    {
+        Rpcinit();
+    }
+    [ClientRpc]
+    public void Rpcinit()
     {
         resource = resourceCity.GetResource(type);
         for (int i = 0; i < buildings.Count; i++)
@@ -64,7 +70,7 @@ public class ResourceBuildings : BuildableObject
     public override void HasBeenBuild()
     {
         base.HasBeenBuild();
-        init();
+        CmdInitOnAll();
         GameController.Instance.onResourceTick += onResource;
         resourceCity.ShowResources();
     }
