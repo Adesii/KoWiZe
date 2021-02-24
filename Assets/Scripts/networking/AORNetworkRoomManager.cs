@@ -61,20 +61,14 @@ public class AORNetworkRoomManager : NetworkRoomManager
 
         playerInfoDisplay.SetSteamId(steamId.m_SteamID);
     }
-
-    public override void ServerChangeScene(string newSceneName)
+    public override void OnClientSceneChanged(NetworkConnection conn)
     {
         RuntimeManager.StudioSystem.setParameterByName("GlobalState", 0f);
         if (GameController.UIInstance.menuUI.BlackScreen != null)
         {
             GameController.UIInstance.menuUI.BlackScreen.SetActive(true);
         }
-        GameController.UIInstance.NewGame(()=>base.ServerChangeScene(newSceneName));
-        
-    }
-    public override void OnClientSceneChanged(NetworkConnection conn)
-    {
-        base.OnClientSceneChanged(conn);
+        GameController.UIInstance.NewGame(() => base.OnClientSceneChanged(conn));
     }
     public override bool OnRoomServerSceneLoadedForPlayer(NetworkConnection conn, GameObject roomPlayer, GameObject gamePlayer)
     {
