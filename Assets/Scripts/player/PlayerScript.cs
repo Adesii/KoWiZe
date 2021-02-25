@@ -265,6 +265,7 @@ public class PlayerScript : NetworkBehaviour
             {
                 if (info.collider.gameObject.TryGetComponent(out citySystem hitcity))
                 {
+                    if (hitcity.playerOwner == this.netIdentity) return;
                     List<string> inv = new List<string>();
                     float speed = float.MaxValue;
                     foreach (BaseUnit item in ownCity.GetComponent<citySystem>().UnitInventory)

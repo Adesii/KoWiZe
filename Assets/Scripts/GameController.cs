@@ -32,7 +32,7 @@ public partial class GameController : Singleton<GameController>
     public LocalSettings localSettings = new LocalSettings();
 
     public static SyncableStorage SyncableStorageInstance;
-    
+
     public static GameObject TreePrefab { get => Instance.treeSettings.treePrefab; set => Instance.treeSettings.treePrefab = value; }
     public static List<GameObject> PlaceableModels { get => Instance.treeSettings.placeableModels; set => Instance.treeSettings.placeableModels = value; }
     public static int MaxPlacedTrees { get => Instance.treeSettings.maxPlacedTrees; set => Instance.treeSettings.maxPlacedTrees = value; }
@@ -72,17 +72,17 @@ public partial class GameController : Singleton<GameController>
         {
             UIInstance = Instantiate(UI_Prefab).GetComponentInChildren<UIEventManagerAndNotifier>();
         }
-        if(GameObject.FindGameObjectWithTag("GlobalVolume") == null)
+        if (GameObject.FindGameObjectWithTag("GlobalVolume") == null)
         {
             DontDestroyOnLoad(Instantiate(CustomPass));
         }
-        if(manager == null)
+        if (manager == null)
         {
             manager = FindObjectOfType<AORNetworkRoomManager>();
         }
-            
+
     }
-    
+
 
     public static void setWorldSeed(string newSeeed)
     {
@@ -139,21 +139,22 @@ public partial class GameController : Singleton<GameController>
         [Range(0, 1)]
         public float successProcent = 0.50f;
     }
-    
 
-    
+
+
     [ClientRpc]
-    public static void AddCityToPlayers(NetworkIdentity city,uint OwnerID)
+    public static void AddCityToPlayers(NetworkIdentity city, uint OwnerID)
     {
         Instance.citySettings.perPlayerSettings[GetPlayerIndexbyNetID(OwnerID)].playerCities.Add(city.GetComponent<citySystem>());
     }
 
     public static void EnterAttackMode()
     {
-        Instance.localSettings.localPlayer.EnterAttackMode();
+        if (UIInstance.strategyModeUI.BuildPanelScript.CityInfoPanel.ownCity.UnitInventory.Count > 0)
+            Instance.localSettings.localPlayer.EnterAttackMode();
     }
-    
-    
+
+
     public static void CmdcityBuildmode()
     {
         Instance.localSettings.localPlayer.CmdenterCityBuildMode();
@@ -167,7 +168,7 @@ public partial class GameController : Singleton<GameController>
         var playerCam = player.GetComponent<PlayerScript>();
         foreach (var item in Instance.citySettings.perPlayerSettings)
         {
-            if (item.playerScript != null &&(item.playerScript.netId == playerCam.netId)) return;
+            if (item.playerScript != null && (item.playerScript.netId == playerCam.netId)) return;
         }
         if (playerCam.isLocalPlayer) Instance.localPlayerID = Instance.citySettings.perPlayerSettings.Count;
         CitySetting.perPlayerCitySettings set = new CitySetting.perPlayerCitySettings
@@ -184,7 +185,7 @@ public partial class GameController : Singleton<GameController>
     {
         return Instance.citySettings.icons[(int)resource];
     }
-    public static citySystem TryGetCityFromIDs(uint playerNetID,int cityID)
+    public static citySystem TryGetCityFromIDs(uint playerNetID, int cityID)
     {
         foreach (var item in Instance.citySettings.perPlayerSettings[GetPlayerIndexbyNetID(playerNetID)].playerCities)
         {
@@ -205,7 +206,7 @@ public partial class GameController : Singleton<GameController>
         Debug.Log(CurrLangIndex);
         SettingsManager.SaveSettings();
 
-        CurrentLanguage =(Languages) CurrLangIndex;
+        CurrentLanguage = (Languages)CurrLangIndex;
         changedLanguage();
     }
 }
