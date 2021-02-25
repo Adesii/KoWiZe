@@ -86,6 +86,7 @@ public class AORNetworkRoomManager : NetworkRoomManager
         gamePlayer.transform.position = pos;
         return base.OnRoomServerSceneLoadedForPlayer(conn, roomPlayer, gamePlayer);
     }
+    
     public void ChangePlayerReadyState()
     {
         foreach (var item in roomSlots)

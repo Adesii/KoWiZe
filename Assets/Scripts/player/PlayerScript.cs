@@ -87,6 +87,8 @@ public class PlayerScript : NetworkBehaviour
         zoomLevel = defaultZoomLevel;
         //changeFOV(FOV);
         LocalPlayer();
+
+        CmdPlaceFirstCity(transform.position);
     }
 
     private void LocalPlayer()
@@ -275,9 +277,20 @@ public class PlayerScript : NetworkBehaviour
             if (Input.GetMouseButtonDown(0))
             {
                 var bb = building.GetComponent<BuildableObject>();
-                bb.HasBeenBuild();
-                bb.playerOwner = netIdentity;
-
+                if (bb.HasBeenBuild())
+                {
+                    bb.playerOwner = netIdentity;
+                    building = null;
+                }
+                else
+                {
+                    SFXManagerController.Instance.Play("sfx_Error");
+                }
+                
+            }
+            if (Input.GetMouseButtonDown(1))
+            {
+                Destroy(building);
                 building = null;
             }
 
@@ -355,7 +368,22 @@ public class PlayerScript : NetworkBehaviour
         css.playerOwner = conn.identity;
         TargetBuildMode(conn, go.GetComponent<NetworkIdentity>());
     }
+    [Command]
+    public void CmdPlaceFirstCity(Vector3 pos, NetworkConnectionToClient conn = null)
+    {
+        GameController Instance = GameController.Instance;
 
+        GameObject go = Instantiate(Instance.citySettings.cityPrefab);
+        NetworkServer.Spawn(go, conn);
+        citySystem css = go.GetComponent<citySystem>();
+        css.playerOwner = conn.identity;
+        go.transform.position = pos;
+        if(Physics.Raycast(pos+(Vector3.up*100), -Vector3.up,out RaycastHit info))
+        {
+            go.transform.position = info.point;
+        }
+        css.HasBeenBuild();
+    }
 
     #endregion
 

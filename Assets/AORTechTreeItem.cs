@@ -58,8 +58,10 @@ public class AORTechTreeItem : MonoBehaviour, IPointerClickHandler
 
     private void technologyResearch()
     {
-        if (!currResearching) return;
         var n = GameController.Instance.localSettings.GainAmount.Find((e) => e.Resource == ResourceClass.ResourceTypes.Science).amount;
+        ownManager.RechearchPerSecond.text = $"{Mathf.CeilToInt(n)} = {localization.GetLocalisedValue("RR_Science")} / {GameController.Instance.resourceTickRate} 's";
+
+        if (!currResearching) return;
         if (currProgress + n >= ownNode.TechnologyCost)
         {
             currProgress = ownNode.TechnologyCost;

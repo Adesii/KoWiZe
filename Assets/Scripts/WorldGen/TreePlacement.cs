@@ -142,8 +142,9 @@ public class TreePlacement : MonoBehaviour
                     trees.Add(newTree);
                 }
             }
-
         }
+        if (trees.Count != 0)
+            SFXManagerController.Instance.PlayOnObject("env_forest", trees[0]);
 
 
     }
@@ -151,7 +152,7 @@ public class TreePlacement : MonoBehaviour
 
 
 
-    
+
 }
 
 

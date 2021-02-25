@@ -13,6 +13,8 @@ public partial class GameController
         public GameObject cityPrefab;
         public GameObject ResourcePrefab;
 
+        public float minDistanceApart = 100f;
+
         [Serializable]
         public class perPlayerCitySettings
         {

@@ -67,11 +67,13 @@ public class ResourceBuildings : BuildableObject
     {
         base.wantsTobeBuild();
     }
-    public override void HasBeenBuild()
+    public override bool HasBeenBuild()
     {
-        base.HasBeenBuild();
+        if (!base.HasBeenBuild()) return false;
         CmdInitOnAll();
         GameController.Instance.onResourceTick += onResource;
         resourceCity.ShowResources();
+
+        return true;
     }
 }

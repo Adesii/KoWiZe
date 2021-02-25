@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using System.Linq;
+using TMPro;
 
 public class AORTechTreeMenuManager : MonoBehaviour
 {
@@ -16,6 +17,7 @@ public class AORTechTreeMenuManager : MonoBehaviour
     [SerializeField]
     private GameObject ItemPrefab;
 
+    public TextMeshProUGUI RechearchPerSecond;
 
     private List<GameObject> techColumns = new List<GameObject>();
     public Dictionary<string, AORTechTreeItem> nodeLinks = new Dictionary<string, AORTechTreeItem>();

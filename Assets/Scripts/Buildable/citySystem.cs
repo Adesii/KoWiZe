@@ -62,9 +62,9 @@ public class citySystem : Selectable
         }
         return null;
     }
-    public override void HasBeenBuild()
+    public override bool HasBeenBuild()
     {
-        base.HasBeenBuild();
+        if (!base.HasBeenBuild()) return false;
         name = "City: " + getCityName();
         isSelected = false;
         isBuilding = false;
@@ -83,9 +83,21 @@ public class citySystem : Selectable
             amount = 5 + 5 * Mathf.Log(GameController.Instance.citySettings.perPlayerSettings[GameController.Instance.localPlayerID].playerCities.Count + (transform.position.y / 16f), 1.5f),
             Resource = ResourceTypes.Science
         };
-
+        return true;
     }
 
+    public override bool isValid()
+    {
+        foreach (var item in GameController.Instance.citySettings.perPlayerSettings[GameController.Instance.localPlayerID].playerCities)
+        {
+            if (item != this && Vector3.Distance(item.transform.position, transform.position) <= GameController.Instance.citySettings.minDistanceApart)
+            {
+                
+                return false;
+            }
+        }
+        return true;
+    }
     private void onFinishedCallback(AORQueableItem item)
     {
         Debug.Log("Finished");

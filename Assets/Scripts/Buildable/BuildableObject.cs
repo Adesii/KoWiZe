@@ -16,8 +16,9 @@ public abstract class BuildableObject : NetworkBehaviour
     public GameObject built;
     [SyncVar(hook = nameof(NewParent))]
     public NetworkIdentity parent;
-    public virtual void HasBeenBuild()
+    public virtual bool HasBeenBuild()
     {
+        if (!isValid()) return false;
         Debug.Log("built Completed");
         if (currentlyBuilding != null)
             currentlyBuilding.SetActive(false);
@@ -26,6 +27,8 @@ public abstract class BuildableObject : NetworkBehaviour
         isBuilding = false;
         //add other stuff that should happen when built
         gameObject.GetComponent<Collider>().enabled = true;
+
+        return true;
     }
     internal virtual void NewOwner(NetworkIdentity oldO,NetworkIdentity newO)
     {
@@ -44,5 +47,10 @@ public abstract class BuildableObject : NetworkBehaviour
         if (currentlyBuilding != null)
             currentlyBuilding.SetActive(true);
         //effectsForBuildingMode
+    }
+
+    public virtual bool isValid()
+    {
+        return true;
     }
 }
