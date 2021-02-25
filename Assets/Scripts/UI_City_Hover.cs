@@ -46,6 +46,7 @@ public class UI_City_Hover : MonoBehaviour
         foreach (var item in HoverList)
         {
             //if (!item.Value.gameObject.activeInHierarchy) continue;
+            if (item.Key == null) continue;
             if (cam == null) cam = GameController.Instance.localSettings.LocalCamera;
             if (!(item.Value.transform as RectTransform).IsVisibleFrom())
             {

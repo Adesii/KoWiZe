@@ -16,6 +16,7 @@ public abstract class Selectable : BuildableObject, IPointerEnterHandler, IPoint
     public virtual void unSelect()
     {
         isSelected = false;
+        if (vsF == null) return;
         vsF.Stop();
         vsF.playRate *= 2;
         SelectionPrefab.transform.DOBlendableLocalRotateBy(unselectPunchRotation,1f,RotateMode.FastBeyond360);

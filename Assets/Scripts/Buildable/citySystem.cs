@@ -112,7 +112,7 @@ public class citySystem : Selectable
         }
         return true;
     }
-    private void onFinishedCallback(AORQueableItem item)
+    public void onFinishedCallback(AORQueableItem item)
     {
         Debug.Log("Finished");
         if (BaseUnit.isUnit(item))
@@ -120,6 +120,22 @@ public class citySystem : Selectable
             UnitInventory.Add(item);
             setNameList(item.Unit_name);
         }
+    }
+    public void RemoveUnit(BaseUnit unit)
+    {
+        UnitInventory.Remove(unit);
+        unitInvertoryNameList.Remove(unit.Unit_name);
+    }
+    private void OnDestroy()
+    {
+        GameController.Instance.onResourceTick -= PassiveGain;
+        Creator.TimerActive = false;
+        UI_City_Hover._Instance.HoverList.Remove(this);
+        foreach (var item in ResourceBuilding)
+        {
+            Destroy(item.gameObject);
+        }
+        Destroy(gm.gameObject);
     }
 
     [Command]

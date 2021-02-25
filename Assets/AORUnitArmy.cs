@@ -2,6 +2,7 @@ using FMODUnity;
 using Mirror;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 public class AORUnitArmy : NetworkBehaviour
@@ -67,13 +68,41 @@ public class AORUnitArmy : NetworkBehaviour
         if (cityLifePool <= armyLifePool)
         {
             Debug.Log("Attacker Won");
+
+            ArmyunitList = ArmyunitList.OrderBy((e) => Random.value).ToList();
+
+            var half = ArmyunitList.GetRange(0, Mathf.FloorToInt(ArmyunitList.Count / 2));
+            citySystem cs = order.owncity.GetComponent<citySystem>();
+            citySystem cse = order.enemycity.GetComponent<citySystem>();
+
+            foreach (var item in half)
+            {
+                cs.onFinishedCallback(item);
+                
+            }
+            foreach (var item in cs.res)
+            {
+                item.Value.AddResource(cse.res[item.Key].currentAmount / 3f);
+            }
+            Destroy(order.enemycity.gameObject);
+            Destroy(gameObject);
         }
         else
         {
             Debug.Log("Defense Won");
+
+            CityunitList = CityunitList.OrderBy((e) => Random.value).ToList();
+
+            var half = CityunitList.GetRange(0, Mathf.FloorToInt(CityunitList.Count / 2));
+            citySystem cs = order.enemycity.GetComponent<citySystem>();
+            foreach (var item in half)
+            {
+                cs.RemoveUnit(item);
+            }
+
+            Destroy(gameObject);
         }
-        Debug.Log(armyLifePool);
-        Debug.Log(cityLifePool);
+
 
     }
 
