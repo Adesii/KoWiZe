@@ -92,8 +92,6 @@ public class PlayerScript : NetworkBehaviour
         zoomLevel = defaultZoomLevel;
         //changeFOV(FOV);
         LocalPlayer();
-
-        CmdPlaceFirstCity(transform.position);
     }
 
     private void LocalPlayer()
