@@ -1,0 +1,20 @@
+{e01c12ac-8f66-410b-a1ec-c0797f017ad8} bank:/Effects
+{d5a47b88-45b3-4620-92c2-c660a6947fa0} bank:/Enviroment
+{a4caa452-ce22-4066-98c3-d5ab3ca3ea28} bank:/Main
+{7558be8a-2d8e-4490-b290-5e44d9501a8a} bank:/Master
+{ed459e5e-5cf5-08d2-34d9-d4ba28a31c12} bank:/Master.strings
+{6b242017-5810-4c3a-a446-d78988a6acef} bank:/Menu
+{408b9b37-a41a-45c6-af87-1e0c57b8473a} bus:/
+{033ac900-520f-4c4b-9700-deb16b8f4a0d} bus:/Master
+{64e49b52-247d-45ff-8aa5-6a4c2a39aa1a} bus:/Master/Enviroment
+{59561d89-0c97-464e-844e-4d555b3a4310} bus:/Master/Music
+{6fe6a7da-6192-4a81-a8bd-165025f48c49} bus:/Master/Sound effects
+{a7e3f811-688d-486f-8023-9dcb4c48fd0d} bus:/Reverb
+{f7d72eae-13f3-46c4-87f2-7f73c178eccf} event:/Music
+{62036125-6820-48d9-b029-85d26448f295} event:/SoundEffects/Enviroment/ForestEnviroment
+{94520b34-aba8-48cf-887f-f6223961ea94} event:/SoundEffects/sfx/error
+{3d8a388b-d000-48ba-91d8-bcfba58a4df9} parameter:/GlobalState
+{bd13f292-42f8-4bad-9282-56f345f6e4a6} parameter:/Sound Settings/Effects Volume
+{54e0d155-4371-464f-bc7b-77ad5bce7c23} parameter:/Sound Settings/Enviroment Volume
+{9e9dab7e-08d0-4967-9d32-e38f64ba3ce5} parameter:/Sound Settings/Music Volume
+{db4e921f-93f0-4bf9-b607-11778d0768ef} parameter:/Switch

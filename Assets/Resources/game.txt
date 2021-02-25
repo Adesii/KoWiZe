@@ -12,7 +12,7 @@ MMS_LODQuality=1
 MMS_Lang=0
 
 [Audio]
-AS_Music=50
+AS_Music=30
 AS_Master=38
 AS_Enviroment=50
 AS_SoundEffects=49

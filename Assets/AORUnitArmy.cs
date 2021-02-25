@@ -1,3 +1,4 @@
+using FMODUnity;
 using Mirror;
 using System.Collections;
 using System.Collections.Generic;
@@ -16,7 +17,13 @@ public class AORUnitArmy : NetworkBehaviour
     public void move()
     {
         transform.position = Vector3.MoveTowards(transform.transform.position, order.enemycity.transform.position, Time.deltaTime * order.movespeed);
+        if (Vector3.Distance(transform.position, order.enemycity.transform.position) < 10f)
+        {
+            startMove = false;
+
+        }
     }
+
     public void Attack()
     {
         startMove = true;

@@ -128,6 +128,15 @@ public class citySystem : Selectable
     {
         unitInvertoryNameList.Add(name);
     }
+    public void ResetInventory()
+    {
+        UnitInventory.Clear();
+    }
+    [Command]
+    public void ResetNameList()
+    {
+        unitInvertoryNameList.Clear();
+    }
 
     private string getCityName()
     {

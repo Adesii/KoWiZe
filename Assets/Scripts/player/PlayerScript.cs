@@ -5,6 +5,7 @@ using Mirror;
 using Cinemachine;
 using static ResourceClass;
 using System.Linq;
+using FMODUnity;
 
 public class PlayerScript : NetworkBehaviour
 {
@@ -274,6 +275,7 @@ public class PlayerScript : NetworkBehaviour
                             speed = item.speed;
                         }
                     }
+                    ownCity.GetComponent<citySystem>().ResetInventory();
                     CmdAttackCity(new AttackOrder
                     {
                         owncity = ownCity,
@@ -281,6 +283,8 @@ public class PlayerScript : NetworkBehaviour
                         movespeed= speed,
                         unitList = inv
                     });
+
+                    isAttacking = false;
                 }
             }
         }
@@ -300,6 +304,13 @@ public class PlayerScript : NetworkBehaviour
         a.transform.position = attack.owncity.transform.position;
         a.order = attack;
         a.Attack();
+        RpcChangeMusicState(1f);
+
+    }
+    [ClientRpc]
+    private void RpcChangeMusicState(float val)
+    {
+        RuntimeManager.StudioSystem.setParameterByName("GlobalState", val);
     }
 
     private void changeFOV(float FOVNumber)
