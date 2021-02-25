@@ -11,7 +11,7 @@ public class UnitManagerSingleton : LazySingleton<UnitManagerSingleton>
     public RangedUnit[] rangedUnits;
     public MeleeUnit[] meleeUnits;
     public SiegeUnit[] siegeUnits;
-
+    public GameObject UnitArmyPrefab;
 
     public Dictionary<string, BaseUnit[]> AllUnits;
     protected override void Initialize()

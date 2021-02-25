@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 
 public class BuildPanelMenu : MonoBehaviour
@@ -15,6 +16,7 @@ public class BuildPanelMenu : MonoBehaviour
     public AORUnitDisplayViewer viewer;
 
     public AORUnitRecruitmentMasterPanel arourmp;
+    public Action<citySystem> CityChange;
 
     public delegate void OnVariableChangeDelegate(BaseUnit newSelectedUnit);
     public static event OnVariableChangeDelegate OnSelectionChange;
@@ -108,6 +110,8 @@ public class BuildPanelMenu : MonoBehaviour
         {
             arg2.Creator.LeftForCurrentItem += timerCallback;
             arg2.Creator.Finished += ItemFinishedCallback;
+
+            CityChange?.Invoke(arg2);
         }
 
     }

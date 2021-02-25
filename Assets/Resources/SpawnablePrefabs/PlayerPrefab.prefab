@@ -70,10 +70,11 @@ MonoBehaviour:
   defaultZoomLevel: 30
   zoomLevel: 30
   zoomSens: 50
-  maxZoom: 26599
-  minZoom: 0.1
+  maxZoom: 250
+  minZoom: 0.5
   RotateSens: 60
   FOV: 70
+  CurrentSelectedListTop: {fileID: 0}
   Currently_Selected: []
   building: {fileID: 0}
 --- !u!1 &571037038971714797

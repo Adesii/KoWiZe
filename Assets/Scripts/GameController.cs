@@ -148,6 +148,10 @@ public partial class GameController : Singleton<GameController>
         Instance.citySettings.perPlayerSettings[GetPlayerIndexbyNetID(OwnerID)].playerCities.Add(city.GetComponent<citySystem>());
     }
 
+    public static void EnterAttackMode()
+    {
+        Instance.localSettings.localPlayer.EnterAttackMode();
+    }
     
     
     public static void CmdcityBuildmode()

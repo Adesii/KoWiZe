@@ -52,7 +52,7 @@ public class CityInfoPanel : MonoBehaviour
                 foreach (var item in Iconresources)
                 {
                     item.Resourceclass = ownCity.GetResource(item.ResourceType);
-                    item.ResourceCount.text = localization.GetLocalisedValue("RR_" + item.ResourceType.ToString()) + ":\n " + item.Resourceclass.currentAmount + "/" + item.Resourceclass.maxCapacity;
+                    item.ResourceCount.text = localization.GetLocalisedValue("RR_" + item.ResourceType.ToString()) + ":\n " +Mathf.FloorToInt(item.Resourceclass.currentAmount) + "/" + item.Resourceclass.maxCapacity;
                 }
             }
             else

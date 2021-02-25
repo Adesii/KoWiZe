@@ -4,6 +4,7 @@ using UnityEngine.EventSystems;
 using Mirror;
 using Cinemachine;
 using static ResourceClass;
+using System.Linq;
 
 public class PlayerScript : NetworkBehaviour
 {
@@ -36,6 +37,9 @@ public class PlayerScript : NetworkBehaviour
 
     Vector3 dragStartPosition;
     Vector3 dragCurrentPosition;
+
+    bool isAttacking = false;
+    private NetworkIdentity ownCity;
 
 
 
@@ -107,6 +111,7 @@ public class PlayerScript : NetworkBehaviour
         zoomCamera();
         panView();
         heightAdjust();
+        Attacking();
     }
     private void heightAdjust()
     {
@@ -193,10 +198,6 @@ public class PlayerScript : NetworkBehaviour
     }
     private void panView()
     {
-
-
-
-
         if (Input.GetMouseButtonDown(2))
         {
             Plane plane = new Plane(Vector3.up, Vector3.zero);
@@ -246,6 +247,60 @@ public class PlayerScript : NetworkBehaviour
         }
 
     }
+    public void EnterAttackMode()
+    {
+        isAttacking = true;
+        Debug.Log("started Attack");
+    }
+
+    public void Attacking()
+    {
+        if (!isAttacking) return;
+        if (ownCity == null)
+            ownCity = GameController.UIInstance.strategyModeUI.BuildPanelScript.CityInfoPanel.ownCity.GetComponent<NetworkIdentity>();
+        if (Input.GetMouseButtonDown(0)&&Physics.Raycast(childCamera.ScreenPointToRay(Input.mousePosition), out RaycastHit info))
+        {
+            if (info.collider.CompareTag("Selectable"))
+            {
+                if (info.collider.gameObject.TryGetComponent(out citySystem hitcity))
+                {
+                    List<string> inv = new List<string>();
+                    float speed = float.MaxValue;
+                    foreach (BaseUnit item in ownCity.GetComponent<citySystem>().UnitInventory)
+                    {
+                        inv.Add(item.Unit_name);
+                        if (item.speed < speed)
+                        {
+                            speed = item.speed;
+                        }
+                    }
+                    CmdAttackCity(new AttackOrder
+                    {
+                        owncity = ownCity,
+                        enemycity=hitcity.GetComponent<NetworkIdentity>(),
+                        movespeed= speed,
+                        unitList = inv
+                    });
+                }
+            }
+        }
+    }
+    [System.Serializable]
+    public struct AttackOrder
+    {
+        public List<string> unitList;
+        public NetworkIdentity owncity;
+        public NetworkIdentity enemycity;
+        public float movespeed;
+    }
+    [Command]
+    private void CmdAttackCity(AttackOrder attack)
+    {
+        var a=Instantiate(UnitManagerSingleton.Instance.UnitArmyPrefab).GetComponent<AORUnitArmy>();
+        a.transform.position = attack.owncity.transform.position;
+        a.order = attack;
+        a.Attack();
+    }
 
     private void changeFOV(float FOVNumber)
     {
@@ -286,7 +341,7 @@ public class PlayerScript : NetworkBehaviour
                 {
                     SFXManagerController.Instance.Play("sfx_Error");
                 }
-                
+
             }
             if (Input.GetMouseButtonDown(1))
             {
@@ -310,7 +365,6 @@ public class PlayerScript : NetworkBehaviour
                     {
                         item.unSelect();
                     }
-
                 }
             }
         }
@@ -378,7 +432,7 @@ public class PlayerScript : NetworkBehaviour
         citySystem css = go.GetComponent<citySystem>();
         css.playerOwner = conn.identity;
         go.transform.position = pos;
-        if(Physics.Raycast(pos+(Vector3.up*100), -Vector3.up,out RaycastHit info))
+        if (Physics.Raycast(pos + (Vector3.up * 100), -Vector3.up, out RaycastHit info))
         {
             go.transform.position = info.point;
         }

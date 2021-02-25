@@ -14,11 +14,12 @@ public class citySystem : Selectable
 
     public int cityTier = 0;
     public int maxAmountOfBuildings = 10;
+    public int maxUnitCount = 15;
     public List<GameObject> buildings;
 
     public float cityPopulation;
     public List<float> cityPopulationLimitPerTier;
-    private List<ResourceBuildings> ResourceBuilding = new List<ResourceBuildings>();
+    public List<ResourceBuildings> ResourceBuilding = new List<ResourceBuildings>();
 
     public BuildPanelMenu buildPanel;
 
@@ -30,8 +31,10 @@ public class citySystem : Selectable
     public Gradient colorGradient;
     public AORBuildCreator Creator;
 
+    
     public List<AORQueableItem> UnitInventory = new List<AORQueableItem>();
-
+    [SyncVar]
+    public List<string> unitInvertoryNameList = new List<string>();
 
     [SerializeField]
     ResResClassDictionary resource = new ResResClassDictionary();
@@ -83,16 +86,27 @@ public class citySystem : Selectable
             amount = 5 + 5 * Mathf.Log(GameController.Instance.citySettings.perPlayerSettings[GameController.Instance.localPlayerID].playerCities.Count + (transform.position.y / 16f), 1.5f),
             Resource = ResourceTypes.Science
         };
+        GameController.Instance.onResourceTick += PassiveGain;
         return true;
+    }
+
+    private void PassiveGain()
+    {
+        foreach (var item in res)
+        {
+            if (item.Key == ResourceTypes.Wood || item.Key == ResourceTypes.Stone|| item.Key == ResourceTypes.Food)
+                item.Value.AddResource(1f);
+        }
     }
 
     public override bool isValid()
     {
         foreach (var item in GameController.Instance.citySettings.perPlayerSettings[GameController.Instance.localPlayerID].playerCities)
         {
-            if (item != this && Vector3.Distance(item.transform.position, transform.position) <= GameController.Instance.citySettings.minDistanceApart)
+            var n = Vector3.Distance(item.transform.position, transform.position);
+            if (item != this && (n <= GameController.Instance.citySettings.minDistanceApart || n >= GameController.Instance.citySettings.maxDIstanceApart))
             {
-                
+
                 return false;
             }
         }
@@ -104,7 +118,15 @@ public class citySystem : Selectable
         if (BaseUnit.isUnit(item))
         {
             UnitInventory.Add(item);
+            setNameList(item.Unit_name);
+            unitInvertoryNameList.Add(item.Unit_name);
         }
+    }
+
+    [Command]
+    private void setNameList(string name)
+    {
+        unitInvertoryNameList.Add(name);
     }
 
     private string getCityName()
@@ -180,10 +202,6 @@ public class citySystem : Selectable
     }
     public bool AddResourceBuilding(ResourceBuildings building)
     {
-        if (ResourceBuilding.Count >= maxAmountOfBuildings)
-        {
-            return false;
-        }
         building.OwnerCityID = cityID;
         ResourceBuilding.Add(building);
 

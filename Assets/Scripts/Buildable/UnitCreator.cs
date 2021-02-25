@@ -10,19 +10,21 @@ public class AORBuildCreator
 
     public Action<float> LeftForCurrentItem;
     public Action<AORQueableItem> Finished;
+    public Action<AORQueableItem> QueuedNewItem;
 
     public Queue<AORQueableItem> itemQueue = new Queue<AORQueableItem>();
     public bool TimerActive = false;
 
-    private float currBuildTime = 0;
-    private float totalBuildTime;
-    private AORQueableItem currentlyBuilding;
+    public float currBuildTime = 0;
+    public float totalBuildTime;
+    public AORQueableItem currentlyBuilding;
     public void QueueNewItem(AORQueableItem item)
     {
 
         if (!TimerActive) { TimerActive = true; itemQueue.Enqueue(item); ; Timer(); }
         else
             itemQueue.Enqueue(item);
+        QueuedNewItem.Invoke(item);
     }
 
     private async void Timer()

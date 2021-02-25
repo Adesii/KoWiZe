@@ -16,6 +16,8 @@ public class ResourceBuildings : BuildableObject
 
     public ResourceClass resource;
 
+    public List<ResourceClass> costs;
+
     public float amount = 10f;
 
     internal override void NewParent(NetworkIdentity oldP, NetworkIdentity newP)

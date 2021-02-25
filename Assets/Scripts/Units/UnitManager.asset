@@ -215,3 +215,4 @@ MonoBehaviour:
     UnitRange: 300
     description: Unit_descriptiononager
     unitStrenghts: []
+  UnitArmyPrefab: {fileID: 3212916801345055418, guid: 02286c0ca2692014bb13dd5a5c167475, type: 3}

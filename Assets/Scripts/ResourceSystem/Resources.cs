@@ -43,7 +43,11 @@ public class ResourceClass
             return true;
         }
         else
+        {
+            SFXManagerController.Instance.Play("sfx_Error");
             return false;
+
+        }
     }
 
     public void AddToLimit(float amount)

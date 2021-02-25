@@ -33,13 +33,17 @@ public class AORUnitRecruitmentMasterPanel : MonoBehaviour
     public void ProduceUnit()
     {
         currUnit.QueueType = 1;
-        if(currUnit.costs.All((e) => panel.CityInfoPanel.ownCity.res[e.Resource].canRemoveResource(e.Cost)))
+        if(currUnit.costs.All((e) => panel.CityInfoPanel.ownCity.res[e.Resource].canRemoveResource(e.Cost)) && (panel.CityInfoPanel.ownCity.UnitInventory.Count+panel.CityInfoPanel.ownCity.Creator.itemQueue.Count) < panel.CityInfoPanel.ownCity.maxUnitCount)
         {
             foreach (var item in currUnit.costs)
             {
                 panel.CityInfoPanel.ownCity.res[item.Resource].RemoveResource(item.Cost);
             }
             panel.QueueNewItem(currUnit);
+        }
+        else
+        {
+            SFXManagerController.Instance.Play("sfx_error");
         }
 
     }

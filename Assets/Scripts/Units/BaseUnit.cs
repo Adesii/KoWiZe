@@ -1,3 +1,4 @@
+using Mirror;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -82,7 +83,7 @@ public abstract class BaseUnit : AORQueableItem,IUnit
         public float Cost;
         public override string ToString()
         {
-            return $"{Resource} = {Cost}";
+            return $"{localization.GetLocalisedValue("RR_"+Resource.ToString())} = {Cost}";
         }
     }
     
