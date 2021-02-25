@@ -446,7 +446,7 @@ public class PlayerScript : NetworkBehaviour
         NetworkServer.Spawn(go, conn);
         citySystem css = go.GetComponent<citySystem>();
         css.playerOwner = conn.identity;
-        go.transform.position = pos;
+        go.transform.position = conn.identity.transform.position;
         if (Physics.Raycast(pos + (Vector3.up * 100), -Vector3.up, out RaycastHit info))
         {
             go.transform.position = info.point;
