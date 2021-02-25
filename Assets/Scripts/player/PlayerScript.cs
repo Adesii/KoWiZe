@@ -298,12 +298,14 @@ public class PlayerScript : NetworkBehaviour
         public float movespeed;
     }
     [Command]
-    private void CmdAttackCity(AttackOrder attack)
+    private void CmdAttackCity(AttackOrder attack, NetworkConnectionToClient conn = null)
     {
-        var a=Instantiate(UnitManagerSingleton.Instance.UnitArmyPrefab).GetComponent<AORUnitArmy>();
-        a.transform.position = attack.owncity.transform.position;
-        a.order = attack;
-        a.Attack();
+        var a=Instantiate(UnitManagerSingleton.Instance.UnitArmyPrefab);
+        NetworkServer.Spawn(a, conn);
+        var ar = a.GetComponent<AORUnitArmy>();
+        ar.transform.position = attack.owncity.transform.position;
+        ar.order = attack;
+        ar.Attack();
         RpcChangeMusicState(1f);
 
     }

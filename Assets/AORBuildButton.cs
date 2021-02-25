@@ -51,7 +51,7 @@ public class AORBuildButton : MonoBehaviour
                     newCosts[i] = new BaseUnit.Costs
                     {
                         Resource = item.Resource,
-                        Cost = item.Cost + 5 * currAmount
+                        Cost = Mathf.Clamp(item.Cost + 5 * currAmount, 0f, 100f)
                     };
                 }
                 break;
@@ -62,7 +62,7 @@ public class AORBuildButton : MonoBehaviour
                     newCosts[i] = new BaseUnit.Costs
                     {
                         Resource = item.Resource,
-                        Cost = item.Cost + 10 * GameController.Instance.citySettings.perPlayerSettings[GameController.Instance.localPlayerID].playerCities.Count
+                        Cost = Mathf.Clamp(item.Cost + 10 * GameController.Instance.citySettings.perPlayerSettings[GameController.Instance.localPlayerID].playerCities.Count, 0f, 100f)
                     };
                 }
                 break;

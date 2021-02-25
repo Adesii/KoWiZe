@@ -43,7 +43,7 @@ public class AORUnitRecruitmentMasterPanel : MonoBehaviour
         }
         else
         {
-            SFXManagerController.Instance.Play("sfx_error");
+            SFXManagerController.Instance.Play("sfx_Error");
         }
 
     }
@@ -55,7 +55,10 @@ public class AORUnitRecruitmentMasterPanel : MonoBehaviour
         //if (unit.UnitIcon != null)
         //    UnitPicture.sprite = unit.UnitIcon.sprite;
         UnitName.text = unit.Unit_name;
+        UnitName.GetComponent<TextLocalisationUI>().newUnlocalisationChange();
         UnitInfo.text = unit.description;
+        UnitInfo.GetComponent<TextLocalisationUI>().newUnlocalisationChange();
+
 
         foreach (Transform child in UnitStrenghts.transform)
         {

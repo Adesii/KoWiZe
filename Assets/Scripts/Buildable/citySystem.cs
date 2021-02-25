@@ -119,7 +119,6 @@ public class citySystem : Selectable
         {
             UnitInventory.Add(item);
             setNameList(item.Unit_name);
-            unitInvertoryNameList.Add(item.Unit_name);
         }
     }
 
