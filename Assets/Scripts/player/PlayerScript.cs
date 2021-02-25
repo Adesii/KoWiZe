@@ -442,7 +442,7 @@ public class PlayerScript : NetworkBehaviour
         GameController Instance = GameController.Instance;
 
         GameObject go = Instantiate(Instance.citySettings.cityPrefab);
-        go.transform.localScale = new Vector3(2, 2, 2);
+        go.transform.localScale = new Vector3(5, 5, 5);
         NetworkServer.Spawn(go, conn);
         citySystem css = go.GetComponent<citySystem>();
         css.playerOwner = conn.identity;
