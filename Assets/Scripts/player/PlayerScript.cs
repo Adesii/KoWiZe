@@ -42,6 +42,9 @@ public class PlayerScript : NetworkBehaviour
     bool isAttacking = false;
     private NetworkIdentity ownCity;
 
+    [SyncVar]
+    public NetworkIdentity MainCity;
+
 
 
     [Header("Current Selection Settings")]
@@ -82,7 +85,6 @@ public class PlayerScript : NetworkBehaviour
     {
         base.OnStartClient();
         GameController.addPlayer(netIdentity);
-        CmdPlaceFirstCity(transform.position);
         if (!hasAuthority) return;
         if (!isLocalPlayer) { return; }
         if (World.main != null)
@@ -99,6 +101,7 @@ public class PlayerScript : NetworkBehaviour
     {
         GameController.Instance.localSettings.localPlayer = this;
         GameController.Instance.localSettings.LocalCamera = Camera.main;
+        
 
         FindObjectOfType<cloudmanager>().init(transform);
     }
@@ -112,6 +115,8 @@ public class PlayerScript : NetworkBehaviour
         panView();
         heightAdjust();
         Attacking();
+        if(MainCity == null)
+            CmdPlaceFirstCity(transform.position);
     }
     private void heightAdjust()
     {
@@ -439,13 +444,13 @@ public class PlayerScript : NetworkBehaviour
     public void CmdPlaceFirstCity(Vector3 pos, NetworkConnectionToClient conn = null)
     {
         GameController Instance = GameController.Instance;
-
         GameObject go = Instantiate(Instance.citySettings.cityPrefab);
         go.transform.localScale = new Vector3(5, 5, 5);
         NetworkServer.Spawn(go, conn);
+        MainCity = go.GetComponent<NetworkIdentity>();
         citySystem css = go.GetComponent<citySystem>();
         css.playerOwner = conn.identity;
-        go.transform.position = conn.identity.transform.position;
+        go.transform.position = pos;
         if (Physics.Raycast(pos + (Vector3.up * 100), -Vector3.up, out RaycastHit info))
         {
             go.transform.position = info.point;
