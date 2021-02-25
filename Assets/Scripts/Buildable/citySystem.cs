@@ -31,7 +31,7 @@ public class citySystem : Selectable
     public Gradient colorGradient;
     public AORBuildCreator Creator;
 
-    
+
     public List<AORQueableItem> UnitInventory = new List<AORQueableItem>();
     [SyncVar]
     public List<string> unitInvertoryNameList = new List<string>();
@@ -94,7 +94,7 @@ public class citySystem : Selectable
     {
         foreach (var item in res)
         {
-            if (item.Key == ResourceTypes.Wood || item.Key == ResourceTypes.Stone|| item.Key == ResourceTypes.Food)
+            if (item.Key == ResourceTypes.Wood || item.Key == ResourceTypes.Stone || item.Key == ResourceTypes.Food)
                 item.Value.AddResource(1f);
         }
     }
@@ -135,7 +135,8 @@ public class citySystem : Selectable
         {
             Destroy(item.gameObject);
         }
-        Destroy(gm.gameObject);
+        if (gm.gameObject != null)
+            Destroy(gm.gameObject);
     }
 
     [Command]

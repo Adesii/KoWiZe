@@ -82,6 +82,7 @@ public class PlayerScript : NetworkBehaviour
     {
         base.OnStartClient();
         GameController.addPlayer(netIdentity);
+        CmdPlaceFirstCity(transform.position);
         if (!hasAuthority) return;
         if (!isLocalPlayer) { return; }
         if (World.main != null)

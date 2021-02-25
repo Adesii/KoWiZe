@@ -71,7 +71,6 @@ public class AORNetworkRoomManager : NetworkRoomManager
         }
         GameController.UIInstance.NewGame(() => base.ServerChangeScene(newSceneName));
     }
-
     public override bool OnRoomServerSceneLoadedForPlayer(NetworkConnection conn, GameObject roomPlayer, GameObject gamePlayer)
     {
 
@@ -84,7 +83,6 @@ public class AORNetworkRoomManager : NetworkRoomManager
         var playerCPIndexZ = Mathf.Lerp(2, World.main.typeOfWorld.sizeZ - 2, ((conn.connectionId + 1) / numPlayers));
         var pos = new Vector3((playerCPIndexX * World.chunkSize) - ((World.main.typeOfWorld.sizeX * World.chunkSize) / 2f), 0, (playerCPIndexZ * World.chunkSize) - ((World.main.typeOfWorld.sizeZ * World.chunkSize) / 2f));
         gamePlayer.transform.position = pos;
-        gamePlayer.GetComponent<PlayerScript>().CmdPlaceFirstCity(pos);
 
         return base.OnRoomServerSceneLoadedForPlayer(conn, roomPlayer, gamePlayer);
     }
