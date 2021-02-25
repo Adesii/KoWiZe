@@ -16,10 +16,14 @@ MonoBehaviour:
     m_keys:
     - env_forest
     - bgm_menu
+    - sfx_Error
     m_values:
     - ID: event:/SoundEffects/Enviroment/ForestEnviroment
       Volume: 0
       pitch: 0
     - ID: event:/Music
+      Volume: 0
+      pitch: 0
+    - ID: event:/SoundEffects/sfx/error
       Volume: 0
       pitch: 0
